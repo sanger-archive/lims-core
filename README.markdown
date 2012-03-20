@@ -31,6 +31,12 @@ be found under the `doc/` directory or using a `yard server`
 
 Developers Guide
 ================
+Gem requirements
+----------------
+Ideally each should be loadable on its own. This mean that every file should
+require everything it needs. The exception is for gems re-opening ruby basic
+classes as facet do. The common requirements are grouped in the `lib/common.rb`
+file.
 Documentation Guide
 -------------------
 
