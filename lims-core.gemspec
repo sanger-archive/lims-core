@@ -23,9 +23,14 @@ Gem::Specification.new do |s|
   # s.add_development_dependency "rspec"
   # s.add_runtime_dependency "rest-client"
   s.add_dependency('facets', '2.9.3')
+  s.add_dependency('virtus', '0.2.0')
+  s.add_dependency('aequitas')
+  s.add_dependency('sequel')
+  s.add_dependency('active_support')
 
   #development
   s.add_development_dependency('rspec', '~> 2.8.0')
   s.add_development_dependency('yard', '>= 0.7.0')
   s.add_development_dependency('yard-rspec', '0.0.1')
+  s.add_development_dependency('sqlite3')
 end
