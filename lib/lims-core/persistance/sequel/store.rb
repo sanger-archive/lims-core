@@ -2,7 +2,6 @@
 
 require 'lims/core/persistance/store'
 require 'lims/core/persistance/sequel/session'
-require 'sequel'
 
 module Lims::Core
   module Persistance
