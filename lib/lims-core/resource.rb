@@ -10,11 +10,13 @@ module Lims::Core
 
         def self.is_array_of(child_klass, options = {},  &initializer)
             define_method :initialize do |*args, &block|
-              @content = initializer ? initializer[self, child_klass] : []
               super(*args, &block)
+              @content = initializer ? initializer[self, child_klass] : []
             end
 
           class_eval do
+
+            include Enumerable
 
             # Add content to compare
             # @param other to compare with
