@@ -27,6 +27,19 @@ shared_context "prepare tables" do
       Integer :position
       Integer :aliquot_id
     end
+
+    db.create_table :plates do
+      primary_key :id
+      Integer :row_number
+      Integer :column_number
+    end
+
+    db.create_table :wells do
+      primary_key :id
+      Integer :plate_id
+      Integer :position
+      Integer :aliquot_id
+    end
   end
 end
 
