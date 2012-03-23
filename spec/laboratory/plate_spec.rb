@@ -4,6 +4,7 @@ require 'laboratory/located_examples'
 require 'laboratory/container_examples'
 require 'laboratory/labellable_examples'
 
+require 'laboratory/receptacle_examples'
 # Model requirements
 require 'lims/core/laboratory/plate'
 

@@ -2,8 +2,10 @@
 
 require 'sequel'
 require 'lims/core/persistance/session'
+# @todo find a way to do this automatically
 require 'lims/core/persistance/sequel/flowcell'
 require 'lims/core/persistance/sequel/aliquot'
+require 'lims/core/persistance/sequel/plate'
 
 module Lims::Core
   module Persistance
