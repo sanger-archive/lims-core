@@ -1,10 +1,20 @@
 require 'actions/spec_helper'
 
 shared_examples "an action" do
-  it "requires a user"
-  it "requires a title"
+  context "to be valid" do
+    its(:user) { should_not be_nil }
+    its(:application) { should_not be_nil }
+    its(:application) { should_not be_empty }
+    its(:store) { should_not be_nil }
 
-  # @todo  move in Action::Base spec
-  it "must save modified objects"
-  it "must create a session with user an title"
+    it { should respond_to(:call) }
+    it { should respond_to(:revert) }
+
+    xit { subject.valid?.should be_true }
+  end
+
+  context "well implemented" do
+    its(:name) { should_not be_nil }
+    its(:name) { should_not be_empty }
+  end
 end

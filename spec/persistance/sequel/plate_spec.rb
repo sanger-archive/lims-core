@@ -51,7 +51,6 @@ module Lims::Core
           end
         end
         store.with_session do |session|
-          debugger
           new_plate  = session.plate[last_plate_id(session)]
           plate.should eq(session.plate[last_plate_id(session)])
         end
