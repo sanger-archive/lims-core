@@ -1,16 +1,16 @@
 # Spec requirements
-require 'persistance/sequel/spec_helper'
+require 'persistence/sequel/spec_helper'
 
 require 'laboratory/plate_shared'
-require 'persistance/sequel/store_shared'
+require 'persistence/sequel/store_shared'
 
 # Model requirements
-require 'lims/core/persistance/sequel/store'
+require 'lims/core/persistence/sequel/store'
 require 'lims/core/laboratory/plate'
 
 require 'logger'
 DB = Sequel.sqlite '', :logger => Logger.new($stdout) 
-PS=Lims::Core::Persistance::Sequel
+PS=Lims::Core::Persistence::Sequel
 module Lims::Core
   
   describe "Sequel#Plate " do

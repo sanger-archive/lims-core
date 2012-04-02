@@ -5,8 +5,8 @@ require 'forwardable'
 
 
 module Lims::Core
-    module  Persistance
-      # A session is in charge of restoring and saving object throug the persistance layer.
+    module  Persistence
+      # A session is in charge of restoring and saving object throug the persistence layer.
       # A Session can not normally be created by the end user. It has to be in a Store::with_session
       # block, which acts has a transaction and save/update everything at the end of it.
       # It should also provides an identity map.

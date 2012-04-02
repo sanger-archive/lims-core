@@ -5,7 +5,7 @@ require  'virtus'
 module Lims::Core
   module Actions
     # This mixin add the Action behavior to a class.
-    # An action can be called and reverted (if possible) within a {Persistance::Session session}.
+    # An action can be called and reverted (if possible) within a {Persistence::Session session}.
     # For this, the action must implements the {call_in_session} and {revert_in_session}.
     # Those methods are private and take a session as a parameter.
     # The public equivalent (call/revert) will create a session (using the store) and call the corresponding methods.

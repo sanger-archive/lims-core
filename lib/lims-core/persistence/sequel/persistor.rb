@@ -1,10 +1,10 @@
 # vi: ts=2:sts=2:et:sw=2 spell:spelllang=en
 
-require 'lims/core/persistance/identity_map'
+require 'lims/core/persistence/identity_map'
 
 
 module Lims::Core
-  module Persistance
+  module Persistence
     module Sequel
       # Mixin giving persistor (load/save) behavior.
       # The base class, needs to implements a `self.model`
@@ -34,7 +34,7 @@ module Lims::Core
           super(*args, &block)
         end
 
-        # Associate class (without persistance).
+        # Associate class (without persistence).
         # @return [Class]
         def model
           self.class::Model
