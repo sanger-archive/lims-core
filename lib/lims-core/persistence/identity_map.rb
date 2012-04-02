@@ -3,7 +3,7 @@
 require 'common'
 
 module Lims::Core
-  module Persistance
+  module Persistence
     # Mixing giving  an identity map behavior
     # ie a map (both way) between id and object
     module IdentityMap

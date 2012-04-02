@@ -5,15 +5,15 @@ require 'actions/action_examples'
 #Model requirements
 require 'lims/core/actions/create_plate'
 
-require 'lims/core/persistance/store'
+require 'lims/core/persistence/store'
 
 module Lims::Core
   module Actions
     describe CreatePlate do
       context "with a valid store" do
         # @todo special test session class ?
-        before { Persistance::Session.any_instance.stub(:save)   }
-        let (:store) { Persistance::Store.new }
+        before { Persistence::Session.any_instance.stub(:save)   }
+        let (:store) { Persistence::Store.new }
         let(:user) { mock(:user) }
         let(:application) { "Test create plate" }
 

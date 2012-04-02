@@ -1,17 +1,17 @@
 # vi: ts=2:sts=2:et:sw=2 spell:spelllang=en
 
-require 'lims/core/persistance/flowcell'
-require 'lims/core/persistance/sequel/persistor'
+require 'lims/core/persistence/flowcell'
+require 'lims/core/persistence/sequel/persistor'
 
 module Lims::Core
-  module Persistance
+  module Persistence
     module Sequel
       # Not a flowcell but a flowcell persistor.
-      class Flowcell < Persistance::Flowcell
+      class Flowcell < Persistence::Flowcell
         include Sequel::Persistor
 
       # Not a lane but a lane {Persistor}.
-        class Lane < Persistance::Flowcell::Lane
+        class Lane < Persistence::Flowcell::Lane
           include Sequel::Persistor
           def self.table_name
             :lanes

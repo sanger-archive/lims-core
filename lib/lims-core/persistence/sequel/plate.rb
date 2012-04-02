@@ -1,17 +1,17 @@
 # vi: ts=2:sts=2:et:sw=2 spell:spelllang=en
 
-require 'lims/core/persistance/plate'
-require 'lims/core/persistance/sequel/persistor'
+require 'lims/core/persistence/plate'
+require 'lims/core/persistence/sequel/persistor'
 
 module Lims::Core
-  module Persistance
+  module Persistence
     module Sequel
       # Not a plate but a plate persistor.
-      class Plate < Persistance::Plate
+      class Plate < Persistence::Plate
         include Sequel::Persistor
 
       # Not a well but a well {Persistor}.
-        class Well < Persistance::Plate::Well
+        class Well < Persistence::Plate::Well
           include Sequel::Persistor
           def self.table_name
             :wells
