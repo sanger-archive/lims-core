@@ -4,7 +4,7 @@
 require 'lims/core/laboratory/flowcell'
 
 module Lims::Core
-  module Persistance
+  module Persistence
     # @abstract
     # Base for all Flowcell persistor.
     # Real implementation classes (e.g. Sequel::Flowcell) should

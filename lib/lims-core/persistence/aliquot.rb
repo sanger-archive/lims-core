@@ -4,7 +4,7 @@
 require 'lims/core/laboratory/aliquot'
 
 module Lims::Core
-  module Persistance
+  module Persistence
     # @abstract
     # Base for all Aliquot persistor.
     # Real implementation classes (e.g. Sequel::Aliquot) should

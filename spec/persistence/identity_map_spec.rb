@@ -1,13 +1,13 @@
 # Spec requirements
-require 'persistance/spec_helper'
+require 'persistence/spec_helper'
 
 # Model requirements
-require 'lims/core/persistance/identity_map'
+require 'lims/core/persistence/identity_map'
 
 
 
 
-module Lims::Core::Persistance
+module Lims::Core::Persistence
   class IdentityMapClass
     include IdentityMap
   end

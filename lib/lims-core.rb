@@ -4,7 +4,7 @@ require "lims-core/version"
 require 'lims/core/actions'
 require 'lims/core/laboratory'
 require 'lims/core/organization'
-require 'lims/core/persistance'
+require 'lims/core/persistence'
 
 # LIMS stands for Laboratory Information Management System.
 # A namespace.
@@ -12,7 +12,7 @@ module Lims
   # The Core of the {Lims LIM S}ystem.
   # Includes the basic classes corresponding to the :  
   # 1. domain(s)
-  # 2. Persistance Layer
+  # 2. Persistence Layer
   # 3. Business Logic layer (extension ?)
   #
   # The Core is split in the following submodule/namespace :
@@ -26,7 +26,7 @@ module Lims
   # 10. {Actions}
   #     High level {Actions::Action actions} that can be performed on things (mostly laboratory).
   #   
-  # 12. {Persistance}
+  # 12. {Persistence}
   #
   #
   # This partition is more for clarity/documentation purposes and it's not meant to be really tight. 

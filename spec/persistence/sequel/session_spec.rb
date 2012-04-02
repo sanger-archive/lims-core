@@ -1,12 +1,12 @@
 # Spec requirements
-require 'persistance/sequel/spec_helper'
+require 'persistence/sequel/spec_helper'
 
 # Model requirements
-require 'lims/core/persistance/sequel/store'
-require 'lims/core/persistance/sequel/session'
+require 'lims/core/persistence/sequel/store'
+require 'lims/core/persistence/sequel/session'
 
 
-module Lims::Core::Persistance
+module Lims::Core::Persistence
   module Sequel
     describe Session do
       context "with sqlite underlying" do

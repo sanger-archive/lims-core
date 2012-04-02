@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.email       = ["mb14@sanger.ac.uk"]
   s.homepage    = ""
   s.summary     = %q{Core of new LIMS system}
-  s.description = %q{Provide the core classes and persistance needed to build an API used by the pipelines applications.}
+  s.description = %q{Provide the core classes and persistence needed to build an API used by the pipelines applications.}
   s.description = %q{provides all the necessary to interact with the core database}
 
   s.rubyforge_project = "lims-core"

@@ -1,11 +1,11 @@
 # vi: ts=2:sts=2:et:sw=2 spell:spelllang=en
 
 
-require 'lims/core/persistance/session'
+require 'lims/core/persistence/session'
 require 'common'
 
 module Lims::Core
-    module  Persistance
+    module  Persistence
       # A store represents a persistant datastore, where object can be saved and restored.
       # A connection to a database, for example.
       class Store
