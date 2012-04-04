@@ -16,15 +16,19 @@ module Lims::Core
         klass.class_eval do
           include Resource
 
-          is_array_of(Aliquot){ |l,t| Array.new }
+          is_array_of(Aliquot) { |l,t| Array.new }
 
-          def add(aliquots)
-            #todo merge identical aliquots
-            content.concat(aliquots)
-          end
-
+          # Add something to the receptacle.
+          # Could be one or many {Aliquot aliquots}
+          # @param [Aliquot, Array<Aliquot>]
           def <<(e)
-            tap { content << e }
+            tap do
+              if e.respond_to?(:to_a)
+                  content.concat(e.to_a)
+              else
+                  content << e
+              end
+            end
           end
 
           # returns the total quantity of liquid present in the receptacle.

@@ -108,7 +108,7 @@ module Lims::Core
           # naive version , update everything.
           # Probably quicker than trying to guess what has changed
           id.tap do
-            dataset.update(object.attributes.merge(primary_key => id))
+            dataset[primary_key => id].update(object.attributes)
             update_children(id, object)
           end
         end
