@@ -1,6 +1,7 @@
 require 'common'
 
 require  'virtus'
+require 'facets/ostruct'
 
 module Lims::Core
   module Actions
@@ -18,7 +19,19 @@ module Lims::Core
           attribute :store, String, :required => true
           attribute :user, String, :required => true
           attribute :application, String, :required => true
-          attribute :name, String, :required => true, :writer => :private
+          include AfterEval # hack so initialize would be called properly
+        end
+      end
+
+      module AfterEval
+        # Initialize a new actions
+        # 'Common' parameters are set as argument
+        # whereas specific ones are set on a dummy object via the block.
+        # The block is executed within a session allowing to find object form id, etc.
+
+        def initialize(*args, &initializer)
+          @initializer = initializer
+          super(*args)
         end
 
         # Execute the action.
@@ -37,7 +50,17 @@ module Lims::Core
         end
 
         def with_session(*args, &block)
-          @store.with_session(*args, &block)
+          @store.with_session(*args) do |session|
+            # initialize action
+            if @initializer
+              params = OpenStruct.new
+              @initializer[params, session]
+              set_attributes(params)
+              @initializer = nil
+            end
+
+            block.call(session)
+          end
         end
 
         # This is the main method of an action,

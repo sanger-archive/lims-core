@@ -14,7 +14,7 @@ module Lims::Core
       class Session
         extend Forwardable
         # param [Store] store the underlying store.
-        def initialize(store)
+        def initialize(store, *params)
           @store = store
           @objects = Set.new
           @in_session = false
@@ -73,6 +73,10 @@ module Lims::Core
         # MUST be called by persistors creating Resources.
         def on_object_load(object)
           self << object
+        end
+
+        def id_for(object)
+          persistor_for(object).id_for(object)
         end
 
         private

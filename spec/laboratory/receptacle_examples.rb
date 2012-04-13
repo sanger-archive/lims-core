@@ -6,7 +6,7 @@ Lab=Lims::Core::Laboratory
 shared_examples "add contents" do
   it "can have a chemical content added to it" do
     expect {
-      subject.add([mock(:aliquot), mock(:aliquot)])
+      subject << [mock(:aliquot), mock(:aliquot)]
     }.to change{subject.size}.by(2)
   end
 
