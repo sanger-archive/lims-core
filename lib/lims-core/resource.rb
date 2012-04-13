@@ -32,7 +32,7 @@ module Lims::Core
             end
 
             def_delegators :@content, :each, :size , :each_with_index, :map, :zip, :clear, :empty?, :to_s \
-              , :include?
+              , :include?, :to_a
 
             # Delegate [] to the underlying array.
             # This is needed because Virtus redefine [] as well 

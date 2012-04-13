@@ -18,7 +18,10 @@ module Lims::Core
         let(:application) { "Test create plate" }
 
         let(:dimensions) {{ :row_number => 8, :column_number => 12 }}
-        subject { CreatePlate.new(dimensions.merge({:store => store, :user => user, :application => application})) }
+        subject do CreatePlate.new(:store => store, :user => user, :application => application)  do |a,s|
+          a.ostruct_update(dimensions)
+        end
+        end
         it_behaves_like "an action"
         it "create a plate when called" do
           subject.call().should be_a Laboratory::Plate

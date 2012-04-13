@@ -12,7 +12,7 @@ module Lims::Core
         attribute :"#{w}_number",  Fixnum, :required => true, :gte => 0, :writer => :private
       end
 
-      def initialize(*args, &block)
+      def xinitialize(*args, &block)
         @name = "Create Plate"
           # readonly attributes are normaly not allowed in constructor
           # by Virtus. We need to call set_attributes explicitely

@@ -14,7 +14,5 @@ shared_examples "an action" do
   end
 
   context "well implemented" do
-    its(:name) { should_not be_nil }
-    its(:name) { should_not be_empty }
   end
 end
