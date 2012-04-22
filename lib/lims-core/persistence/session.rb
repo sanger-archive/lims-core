@@ -3,7 +3,6 @@
 require 'common'
 require 'forwardable'
 
-
 module Lims::Core
     module  Persistence
       # A session is in charge of restoring and saving object throug the persistence layer.
@@ -65,7 +64,11 @@ module Lims::Core
         end
 
         def method_missing(name, *args, &block)
-          persistor_for(name) || super(name, *args, &block)
+          begin
+            persistor_for(name)
+          rescue NameError
+            super(name, *args, &block)         
+          end 
         end
 
         # Called by Persistor to inform the session
@@ -75,8 +78,21 @@ module Lims::Core
           self << object
         end
 
+        # Returns the id of an object if exists.
+        # @param [Resource, Id] object or id.
+        # @return [Id, nil]
         def id_for(object)
-          persistor_for(object).id_for(object)
+          case object
+          when Resource then persistor_for(object).id_for(object)
+          else object # the object should be already an id
+          end
+        end
+
+        # Returns the id of an object and save it if necessary
+        # @param [Resource, Id] object or id.
+        # @return [Id]
+        def id_for!(object)
+          id_for(object) || save(object)
         end
 
         private
@@ -94,12 +110,11 @@ module Lims::Core
         # @return [Persistor, nil]
         def persistor_for(object)
           name = persistor_name_for(object)
-          @persistor_map[name]  ||= \
-            begin
-              @store.base_module.constant(name).new( self)
-            rescue NameError
-              nil
-            end
+          @persistor_map[name]  ||= begin 
+                                      persistor_class = @store.base_module.constant(name)
+                                      raise NameError, "Persistor #{name} not defined for #{@store.base_module.name}" unless persistor_class &&  persistor_class.ancestors.include?(Persistor)
+                                      persistor_class.new(self)
+                                    end
         end
 
         # Compute the class name of the persistor corresponding to the argument

@@ -17,14 +17,10 @@ module Lims::Core
             :lanes
           end
 
-          def save(lane, flowcell_id, position)
-            #todo bulk save if needed
-            lane.each do |aliquot|
-              aliquot_id = @session.save(aliquot)
-              dataset.insert(:flowcell_id => flowcell_id,
-                             :position => position,
-                             :aliquot_id  => aliquot_id)
-            end
+          def save_raw_association(flowcell_id, aliquot_id, position)
+            dataset.insert(:flowcell_id => flowcell_id,
+                           :position => position,
+                           :aliquot_id  => aliquot_id)
           end
 
           # Do a bulk load of aliquot and pass each of a block
