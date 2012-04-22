@@ -1,8 +1,8 @@
 # vi: ts=2:sts=2:et:sw=2 spell:spelllang=en
-
-
-require 'lims/core/persistence/session'
 require 'common'
+
+require 'lims/core/persistence'
+require 'lims/core/persistence/session'
 
 module Lims::Core
     module  Persistence
