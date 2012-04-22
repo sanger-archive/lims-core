@@ -17,17 +17,13 @@ module Lims::Core
             :wells
           end
 
-          def save(well, plate_id, position)
-            #todo bulk save if needed
-            well.each do |aliquot|
-              aliquot_id = @session.save(aliquot)
+          def save_raw_association(plate_id, aliquot_id, position)
               dataset.insert(:plate_id => plate_id,
                              :position => position,
                              :aliquot_id  => aliquot_id)
-            end
           end
 
-          # Do a bulk load of aliquot and pass each of a block
+          # Do a bulk load of aliquot and pass each to a block
           # @param plate_id the id of the plate to load.
           # @yield_param [Integer] position
           # @yield_param [Aliquot] aliquot
@@ -45,27 +41,12 @@ module Lims::Core
           :plates
         end
 
-        # Save all children of the given plate
-        # @param [Fixnum] id the id in the database
-        # @param [Laboratory::Plate] plate
-        # @return [Boolean]
-        def save_children(id, plate)
-          # we use values here, so position is a number
-          plate.values.each_with_index do |well, position|
-            @session.save(well, id, position)
-          end
-        end
-
         # Delete all children of the given plate
         # But don't destroy the 'external' elements (example aliquots)
         # @param [Fixnum] id the id in the database
         # @param [Laboratory::Plate] plate
         def delete_children(id, plate)
           Well::dataset(@session).filter(:plate_id => id).delete
-        end
-
-        def well
-          @session.send("Plate::Well")
         end
 
         # Load all children of the given plate
