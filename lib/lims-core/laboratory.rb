@@ -5,7 +5,7 @@ require 'lims/core/laboratory/flowcell.rb'
 
 require 'lims/core/laboratory/aliquot'
 require 'lims/core/laboratory/sample'
-require 'lims/core/laboratory/tag'
+require 'lims/core/laboratory/oligo'
 
 module Lims::Core
   # Things used/found in the lab. Includes pure laboratory (inert things as {Plate plates}, {Tube tubes})

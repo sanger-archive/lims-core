@@ -3,7 +3,7 @@ require 'common'
 
 
 require 'lims/core/laboratory/sample'
-require 'lims/core/laboratory/tag'
+require 'lims/core/laboratory/oligo'
 require 'lims/core/resource'
 
 module Lims::Core
@@ -19,14 +19,14 @@ module Lims::Core
     # - "mixing" sample and tag in a tube without any processing will probably results
     # in a receptacle containing two aliquots, one representing the tag and the other
     # one the sample.
-    # - "tagging" a sample with a tag will result in a receptacle containing one aliquot
-    #   representing the tagged sample (the tag and the sample are bound together).
+    # - "tagging" a sample with a oligo will result in a receptacle containing one aliquot
+    #   representing the tagged sample (the oligo and the sample are bound together).
     # At the moment, rather than allowing an aliquot to have many constituents (in a free form way),
     # an aliquot can be formed of at least a {Laboratory::Sample sample}, a {Laboratory::Tag tag} and  or a {Laboratory::BaitLibrary bait library}.
     class Aliquot
       include Resource
       attribute :sample, Sample
-      attribute :tag, Tag
+      attribute :tag, Oligo
       # @todo add a unit to quantity
       attribute :quantity, Numeric, :required=> true, :gte => 0
 
