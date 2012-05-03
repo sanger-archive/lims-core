@@ -44,6 +44,7 @@ module Lims::Core
             super(source_id, target)
           end
         end
+
         def save_raw_association(source_id, target_id, *params)
         end
       end

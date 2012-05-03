@@ -74,10 +74,24 @@ module Lims::Core
       # @return [Resource] the model object.
       # @raises error if object doesn't exists.
       def load_single_model(id)
-        object_for(id) || load_raw_object(id).tap do |m|
+        get_or_create_single_model(id) { load_raw_object(id) }
+      end
+
+      def get_or_create_single_model(id, &raw_creator)
+        object_for(id) || raw_creator.call().tap do |m|
           map_id_object(id, m)
           load_children(id, m)
           @session.on_object_load(m)
+        end
+      end
+
+      protected :get_or_create_single_model
+
+      def load_associated_elements()
+      end
+
+      def load_aggregated_elements(id, &block)
+        load_raw_associations(id).each do |element_id|
         end
       end
 
@@ -120,7 +134,6 @@ module Lims::Core
         # Probably quicker than trying to guess what has changed
         id.tap do
           update_raw(object, id, *params)
-          dataset[primary_key => id].update(object.attributes)
           update_children(id, object)
         end
       end
@@ -141,14 +154,12 @@ module Lims::Core
       end
 
       def delete_children(id, object)
-        raise NotImplementedError
       end
 
       # Loads children from the database and set the to model object.
       # @param id primary key of the model object in the database.
       # @param m  instance of model to load
       def load_children(id, m)
-        raise NotImplementedError
       end
     end
   end

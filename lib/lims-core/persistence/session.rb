@@ -57,7 +57,7 @@ module Lims::Core
         # @return [Boolean]
         def save(object, *options)
           raise RuntimeError, "Can't save object inside a session. Please considere the << methods." unless @save_in_progress
-          return if @saved.include?(object)
+          return id_for(object) if @saved.include?(object)
           @saved << object
 
           persistor_for(object).save(object, *options)

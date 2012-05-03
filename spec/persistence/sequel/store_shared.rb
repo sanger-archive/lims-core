@@ -40,6 +40,24 @@ shared_context "prepare tables" do
       Integer :position
       Integer :aliquot_id
     end
+
+    db.create_table :oligos do
+      primary_key :id
+      String :sequence
+    end
+
+    db.create_table :tag_groups do
+      primary_key :id
+      String :name
+    end
+
+    db.create_table :tag_group_associations do
+      primary_key :id
+      Integer :tag_group_id
+      Integer :position
+      Integer :oligo_id
+    end
+    
   end
 end
 
