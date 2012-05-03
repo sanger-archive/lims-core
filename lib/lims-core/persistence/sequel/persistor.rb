@@ -1,6 +1,7 @@
 # vi: ts=2:sts=2:et:sw=2 spell:spelllang=en
 
 require 'lims/core/persistence/identity_map'
+require 'active_support/inflector'
 
 
 module Lims::Core
@@ -13,7 +14,7 @@ module Lims::Core
           klass.class_eval do
             # @return [String] the name of SQL table.
             def self.table_name
-              raise NotImplementedError
+              @table_name ||= name.split('::').last.pluralize.snakecase.to_sym
             end
             # The Sequel::Dataset.
             # Corresponds to table.

@@ -32,10 +32,8 @@ module Lims::Core::Laboratory
     end
 
     it "raise an exception if well doesn't exit" do
-      $stop = 1
       expect { subject[:A13] }.to raise_error(Plate::IndexOutOfRangeError)
       expect { subject[:I1] }.to raise_error(Plate::IndexOutOfRangeError)
-      $stop  = 0
     end
 
     it "has a key for each wells" do

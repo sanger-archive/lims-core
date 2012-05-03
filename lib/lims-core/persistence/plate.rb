@@ -2,7 +2,7 @@
 
 
 require 'lims/core/persistence/persistor'
-require 'lims/core/laboratory/flowcell'
+require 'lims/core/laboratory/plate'
 
 module Lims::Core
   module Persistence
