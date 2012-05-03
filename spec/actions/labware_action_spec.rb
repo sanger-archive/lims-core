@@ -4,47 +4,56 @@ require 'actions/action_examples'
 
 module Lims::Core::Action
   describe "Plate::Stamping" do
-    it_behaves_like "an action"
-    context "from a plate to another plate" do
-      context "to another plate" do
-        it "transfers all the wells to the other plate"
-      end
+    pending "Not Implemented" do
+      it_behaves_like "an action"
+      context "from a plate to another plate" do
+        context "to another plate" do
+          it "transfers all the wells to the other plate"
+        end
 
-      context "to many plates" do
-        it "fails"
-      end
-    end 
+        context "to many plates" do
+          it "fails"
+        end
+      end 
+    end
   end
 
   describe "Plate::Pooling" do
-    it_behaves_like "an action"
-    context "from a plate to another plate" do
-      it "transfers wells to other plate grouped by pool"
+    pending "Not implemented" do
+      it_behaves_like "an action"
+      context "from a plate to another plate" do
+        it "transfers wells to other plate grouped by pool"
+      end
     end
   end
 
   describe "Plate::Rotating" do
-    it_behaves_like "an action"
-    context "from a plate to another plate" do
-      context "if possible" do
-        it "transfers the well in transposed way" 
+    pending "Not implemented" do
+      it_behaves_like "an action"
+      context "from a plate to another plate" do
+        context "if possible" do
+          it "transfers the well in transposed way" 
+        end
+        context "if not possible" do
+          it "fails"
+        end
       end
-      context "if not possible" do
-        it "fails"
+      pending "Not implemented" do
+      end
+
+      describe "Plate::Cherrypicking" do
+        pending "Not implemented" do
+          context "from many plates to one plate" do
+            it "transfers some wells to the destination plate"
+          end 
+        end
+      end
+
+      describe "Plate::Tagging" do
+      end
+
+      describe "plate to tubes" do
       end
     end
   end
-
-  describe "Plate::Cherrypicking" do
-    context "from many plates to one plate" do
-      it "transfers some wells to the destination plate"
-    end 
-  end
-
-  describe "Plate::Tagging" do
-  end
-
-  describe "plate to tubes" do
-  end
 end
-
