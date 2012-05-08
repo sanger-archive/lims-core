@@ -33,13 +33,14 @@ module Lims::Core
       # @return [Object,nil] nil if  object not found.
       def [](id)
         case id
-        when Fixnum then load_single_model(id)
+        when Fixnum then get_or_create_single_model(id)
         end
       end
 
       # save an object and return is id or nil if failure
       # @return [Fixnum, nil]
       def save(object, *params)
+        return nil if object.nil?
         id_for(object) { |id| update(object, id, *params) } ||
           map_id_object(save_new(object, *params) , object)
       end
@@ -71,16 +72,24 @@ module Lims::Core
 
       # Load a model object (and its children) from its database id.
       # @param [Id] id in the database
+      # @param [Hash] raw_attributes attributes to build the object
       # @return [Resource] the model object.
       # @raises error if object doesn't exists.
-      def load_single_model(id)
-        get_or_create_single_model(id) { load_raw_object(id) }
-      end
-
-      def get_or_create_single_model(id, &raw_creator)
-        object_for(id) || raw_creator.call().tap do |m|
-          map_id_object(id, m)
+      def load_single_model(id, raw_attributes=nil)
+        raw_attributes ||= load_raw_attributes(id)
+        model.new(filter_attributes_on_load(raw_attributes)).tap do |m|
           load_children(id, m)
+        end
+      end
+      private :load_single_model
+
+      # create or get an object if already in cache
+      # The raw_attributes is there for convenience  to
+      # create the object with parameters is they have already been loaded
+      # (bulk load for example).
+      def get_or_create_single_model(id, raw_attributes=nil)
+        object_for(id) || load_single_model(id, raw_attributes).tap do |m|
+          map_id_object(id, m)
           @session.on_object_load(m)
         end
       end
@@ -161,6 +170,15 @@ module Lims::Core
       # @param m  instance of model to load
       def load_children(id, m)
       end
+
+        def filter_attributes_on_load(attributes)
+          attributes
+        end
+
+        def filter_attributes_on_save(attributes)
+          attributes
+        end
+
     end
   end
 end

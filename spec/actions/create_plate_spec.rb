@@ -24,7 +24,10 @@ module Lims::Core
         end
         it_behaves_like "an action"
         it "create a plate when called" do
-          subject.call().should be_a Laboratory::Plate
+          plate = subject.call()
+          plate.should be_a Laboratory::Plate
+          plate.row_number.should == dimensions[:row_number]
+          plate.column_number.should == dimensions[:column_number]
         end
       end
     end

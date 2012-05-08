@@ -31,6 +31,10 @@ module Lims::Core::Laboratory
 
       end
 
+      it "should be compared to its sequence" do
+        subject.should == sequence_1
+      end
+
       its(:size) { should == sequence_1.size }
     end
 
