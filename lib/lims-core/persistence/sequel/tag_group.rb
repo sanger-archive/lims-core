@@ -38,7 +38,7 @@ module Lims::Core
                position = att.delete(:position)
                oligo_id = att.delete(:oligo_id)
                att.delete(:group_id)
-               oligo = @session.oligo.get_or_create_single_model(oligo_id) { Oligo::Model.new(att) }
+               oligo = @session.oligo.get_or_create_single_model(oligo_id, att)
                block.call(oligo, position) if block
              end
            end

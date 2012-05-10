@@ -12,6 +12,25 @@ module Lims::Core
         def self.table_name
           :aliquots
         end
+
+        def filter_attributes_on_save(attributes)
+          attributes.mash do |k,v|
+            case k
+            when :tag then [:tag_id, @session.id_for!(v)]
+            else [k, v]
+            end
+          end
+        end
+
+        def filter_attributes_on_load(attributes)
+          attributes.mash do |k,v|
+            case k
+            when :tag_id then [:tag, @session.oligo[v]]
+            else [k, v]
+            end
+          end
+        end
+
       end
     end
   end

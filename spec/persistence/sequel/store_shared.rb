@@ -10,10 +10,9 @@ shared_context "prepare tables" do
     db.create_table :aliquots do
       primary_key :id
       String :sample
-      String :tag
+      Integer :tag_id
       Integer :quantity
       String :type
-      #Integer :lane_id # naive
     end
 
     db.create_table :flowcells do

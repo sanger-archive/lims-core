@@ -31,7 +31,7 @@ module Lims::Core
             Well::dataset(@session).join(Aliquot::dataset(@session), :id => :aliquot_id).filter(:plate_id => plate_id).each do |att|
               position = att.delete(:position)
               att.delete(:id)
-              aliquot  = @session.aliquot.get_or_create_single_model(att[:aliquot_id]) { Aliquot::Model.new(att) }
+              aliquot  = @session.aliquot.get_or_create_single_model(att[:aliquot_id], att)
               yield(position, aliquot)
             end
           end

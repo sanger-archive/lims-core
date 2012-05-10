@@ -12,6 +12,6 @@ module Lims::Core
     # include the suitable persistor.
     class Aliquot < Persistor
       Model = Laboratory::Aliquot
-      end
+    end
   end
 end

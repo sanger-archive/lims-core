@@ -92,6 +92,7 @@ module Lims::Core
         # @param [Resource, Id] object or id.
         # @return [Id]
         def id_for!(object)
+          return nil unless object
           id_for(object) || save(object)
         end
 
