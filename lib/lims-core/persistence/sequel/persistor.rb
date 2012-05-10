@@ -47,17 +47,16 @@ module Lims::Core
           :id
         end
 
-        def load_raw_object(id)
-          model.new(dataset[primary_key => id ])
+        def load_raw_attributes(id, raw_attributes=nil)
+          dataset[primary_key => id ]
         end
-
 
         # Save a raw object, i.e. the object
         # attributes excluding any associations.
         # @param [Resource] object the object 
         # @return [Fixnum, nil] the Id if save successful
         def save_raw(object, *params)
-          dataset.insert(object.attributes)
+          dataset.insert(filter_attributes_on_save(object.attributes))
         end
 
         # Upate a raw object, i.e. the object attributes

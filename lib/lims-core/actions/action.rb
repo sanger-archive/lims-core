@@ -19,6 +19,7 @@ module Lims::Core
           attribute :store, String, :required => true
           attribute :user, String, :required => true
           attribute :application, String, :required => true
+          attribute :result, Object
           include AfterEval # hack so initialize would be called properly
         end
       end
@@ -37,8 +38,17 @@ module Lims::Core
         # Execute the action.
         # This is a wrapper around _call_in_session,
         # and it shouldn't be overriden.
-        def call()
-          with_session { |s| _call_in_session(s) }
+        # A block can be passed to  be evaluated with the session after the save session been saved.
+        # This is usefull to get ids of saved object.
+        # @return the value return by the block
+        # @yield_param [Action] a self
+        # @yield_param [Session]  session the current session.
+        def call(&after_save)
+          after_save ||= lambda { |a,s| a.result }
+          with_session do |s| 
+            self.result = _call_in_session(s)
+            lambda { after_save[self, s] }
+          end.call
         end
 
         # Execute the opposite of the action if possible.

@@ -24,7 +24,11 @@ module Lims::Core
       end
 
       def ==(other)
-        sequence== other.sequence
+        case other
+          when String  then  sequence == other
+          when Oligo then sequence == other.sequence
+          else false
+          end
       end
 
 
