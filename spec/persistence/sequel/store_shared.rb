@@ -57,6 +57,15 @@ shared_context "prepare tables" do
       Integer :oligo_id
     end
     
+    db.create_table :tubes do
+      primary_key :id
+    end
+
+    db.create_table :tube_aliquots do
+      primary_key :id
+      Integer :tube_id
+      Integer :aliquot_id
+    end
   end
 end
 
