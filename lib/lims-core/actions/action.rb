@@ -13,6 +13,7 @@ module Lims::Core
 
     module Action
       UnrevertableAction = Class.new(StandardError)
+      InvalidParameters = Class.new(RuntimeError)
       def self.included(klass)
         klass.class_eval do
           include Virtus
@@ -69,6 +70,7 @@ module Lims::Core
               @initializer = nil
             end
 
+            _validate_parameters()
             block.call(session)
           end
         end
@@ -83,6 +85,11 @@ module Lims::Core
         # if possible.
         def _revert_in_session(session)
           raise UnrevertableAction(self)
+        end
+
+        # To be overriden
+        # @raise  [InvalidParameters] if needed
+        def _validate_parameters()
         end
         private :_call_in_session, :_revert_in_session
       end
