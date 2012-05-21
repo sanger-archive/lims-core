@@ -47,6 +47,11 @@ module Lims::Core
           after_save ||= lambda { |a,s| a.result }
           with_session do |s| 
             self.result = _call_in_session(s)
+
+            _objects_to_save.each do |a| 
+              s << a 
+            end
+
             lambda { after_save[self, s] }
           end.call
         end
@@ -84,7 +89,15 @@ module Lims::Core
         def _revert_in_session(session)
           raise UnrevertableAction(self)
         end
-        private :_call_in_session, :_revert_in_session
+
+        # List of objects to save (add to the session).
+        # By default get all attributes and the resulth.
+        # Override if need (to add a created resource for example).
+        # @return a list of object to save
+        def _objects_to_save
+          [result, *attributes.map { |a| a[1] }].select { |o| o.is_a?(Resource) }
+        end
+        private :_call_in_session, :_revert_in_session, :_objects_to_save
       end
     end
   end

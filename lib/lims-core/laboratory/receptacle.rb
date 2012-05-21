@@ -22,6 +22,7 @@ module Lims::Core
           # Could be one or many {Aliquot aliquots}
           # @param [Aliquot, Array<Aliquot>]
           def <<(e)
+            debugger if $stop
             tap do
               if e.respond_to?(:to_a)
                   content.concat(e.to_a)
