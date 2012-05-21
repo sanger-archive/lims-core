@@ -6,6 +6,16 @@ require 'spec_helper'
 require 'lims/core/laboratory/tube'
 require 'facets/array'
 
+L=Lims::Core::Laboratory
+def new_sample(i=1)
+  ["Sample", i].compact.conjoin(" ", "/")
+end
+
+def new_aliquot(i=1)
+  sample = L::Sample
+  L::Aliquot.new(:sample => new_sample(i))
+end
+
 module Lims::Core
   module Laboratory
     shared_context "tube factory" do
@@ -20,16 +30,6 @@ module Lims::Core
       def new_empty_tube
         Tube.new
       end
-
-      def new_sample(i=1)
-        ["Sample", i].compact.conjoin(" ", "/")
-      end
-
-      def new_aliquot(i=nil)
-        sample = Sample
-        Aliquot.new(:sample => new_sample(i))
-      end
-
     end
   end
 end
