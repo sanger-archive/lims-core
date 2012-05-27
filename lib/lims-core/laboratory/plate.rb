@@ -110,9 +110,15 @@ module Lims::Core
       # @return [String] ex "A1"
       # @todo memoize if needed
       def index_to_well_name(index)
+
         row = index / column_number
         column = index % column_number
 
+        indexes_to_well_name(row, column)
+
+      end
+
+      def indexes_to_well_name(row, column)
         "#{(row+?A.ord).chr}#{column+1}"
       end
     end
