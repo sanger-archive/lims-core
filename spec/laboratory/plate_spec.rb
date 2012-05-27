@@ -91,6 +91,38 @@ module Lims::Core::Laboratory
       it_behaves_like "a container", Plate::Well
       it_behaves_like "a hash"
       it_behaves_like "labellable"
+
+      context "#pools" do
+        it "each well belongs to only one pool" do
+          pools = subject.pools
+          pools.should_not be_empty
+
+          # wells appears only once
+          pooled_wells = pools.values.flatten(1)
+          pooled_wells.size.should == pooled_wells.uniq.size
+        end
+
+        it "each well belong to at least one pool" do
+          pooled_wells = Set.new(subject.pools.values.flatten(1))
+
+          subject.each_with_index do |well, name|
+            next if well.empty?
+            pooled_wells.should include(name)
+          end
+
+        end
+
+        context "#stub" do
+          it "are arranged by column" do
+            pools = subject.pools
+
+            pools.size.should == subject.column_number
+            pools.keys.should == [1, 2, 3, 4, 5, 6, 7 ,8, 9 , 10, 11, 12]
+            pools[1].should == %w(A1 B1 C1 D1 E1 F1 G1 H1)
+          end
+        end
+      end
+
     end
   end
   describe Plate::Well  do
