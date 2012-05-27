@@ -121,6 +121,19 @@ module Lims::Core
       def indexes_to_well_name(row, column)
         "#{(row+?A.ord).chr}#{column+1}"
       end
+
+      # This should be set by the user.
+      # We mock it to give pools by column
+      # @return [Hash<String, Array<String>] pools pool name => list of wells name
+      def pools
+        # 
+
+        1.upto(column_number).mash do |c|
+          [c, 1.upto(row_number).map { |r| indexes_to_well_name(r-1,c-1) } ]
+        end
+
+
+      end
     end
   end
 end
