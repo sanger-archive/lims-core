@@ -29,7 +29,7 @@ module Lims::Core
           end
 
           it "saves the created tube" do
-            Persistence::Session.any_instance.should_receive(:save).with("papoo")
+            Persistence::Session.any_instance.should_receive(:save)
             subject.call
           end
         end
