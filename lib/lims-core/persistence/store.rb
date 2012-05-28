@@ -48,6 +48,12 @@ module Lims::Core
         def create_session(*params)
           base_module::Session.new(self, *params)
         end
+
+        # Execute given block within a transaction
+        # If it make sense.
+        def transaction
+          yield
+        end
       end
     end
 end

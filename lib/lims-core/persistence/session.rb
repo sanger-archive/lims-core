@@ -99,11 +99,13 @@ module Lims::Core
         private
         # save all objects which needs to be
         def save_all()
-          @save_in_progress = true # allows saving
-          @objects.each do |object|
-            save(object)
+          @store.transaction do
+            @save_in_progress = true # allows saving
+            @objects.each do |object|
+              save(object)
+            end
+            @save_in_progress = false
           end
-          @save_in_progress = false
         end
 
         # Get the persistor corresponding to the object class
