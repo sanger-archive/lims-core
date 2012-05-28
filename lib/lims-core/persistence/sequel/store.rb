@@ -19,6 +19,13 @@ module Lims::Core
           @database = database
           super(*args)
         end
+
+        # Execute given block within a transaction
+        def transaction
+          database.transaction do
+            super
+          end
+        end
       end
     end
     finalize_submodule(Sequel)
