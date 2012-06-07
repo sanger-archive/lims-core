@@ -54,6 +54,7 @@ GEM
     guard-yard (1.0.2)
       guard (>= 0.2.2)
       yard (>= 0.7.0)
+    redcarpet (2.1.1)
     rspec (2.8.0)
       rspec-core (~> 2.8.0)
       rspec-expectations (~> 2.8.0)
@@ -75,9 +76,8 @@ GEM
     thor (0.14.6)
     virtus (0.2.0)
     yard (0.7.5)
-    yard-rspec (0.0.1)
-      rspec (~> 2.0)
-      yard (>= 0.6.3)
+    yard-rspec (0.1)
+      yard
 
 PLATFORMS
   ruby
@@ -93,9 +93,10 @@ DEPENDENCIES
   guard-yard
   lims-core!
   linecache19!
+  redcarpet
   rspec (~> 2.8.0)
   ruby-debug-base19!
   ruby-debug19
   sqlite3
   yard (>= 0.7.0)
-  yard-rspec (= 0.0.1)
+  yard-rspec (= 0.1)
