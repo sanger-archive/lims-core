@@ -1,0 +1,7 @@
+development:
+  adapter: postgres
+  database: core
+
+test:
+  adapter: sqlite
+  database: test.db

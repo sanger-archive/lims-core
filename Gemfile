@@ -23,3 +23,9 @@ group :guard do
   gem "guard-yard"
   gem "growl"
 end
+
+group :yard do
+  gem 'yard', '>= 0.7.0'
+  gem 'yard-rspec', '0.1'
+  gem 'redcarpet'
+end
