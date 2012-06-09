@@ -74,7 +74,7 @@ module Lims::Core
       # @param [Id] id in the database
       # @param [Hash] raw_attributes attributes to build the object
       # @return [Resource] the model object.
-      # @raises error if object doesn't exists.
+      # @raise error if object doesn't exists.
       def load_single_model(id, raw_attributes=nil)
         raw_attributes ||= load_raw_attributes(id)
         model.new(filter_attributes_on_load(raw_attributes)).tap do |m|

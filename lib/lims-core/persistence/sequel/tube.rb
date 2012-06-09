@@ -15,8 +15,8 @@ module Lims::Core
 
           # Do a bulk load of aliquot and pass each to a block
           # @param tube_id the id of the tube to load.
-          # @yield_param [Integer] position
-          # @yield_param [Aliquot] aliquot
+          # @yieldparam [Integer] position
+          # @yieldparam [Aliquot] aliquot
           def load_aliquots(tube_id)
             dataset.join(Aliquot::dataset(@session), :id => :aliquot_id).filter(:tube_id => tube_id).each do |att|
               att.delete(:id)

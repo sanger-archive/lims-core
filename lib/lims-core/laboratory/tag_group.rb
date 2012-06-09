@@ -14,7 +14,7 @@ module Lims::Core
 
       #module AccessibleViaSuper
         # @param [String, Hash] name the name or a hash of attributes.
-        # @params [Oligo, Array<Oligo>] oligos to add to the tag group.
+        # @param [Oligo, Array<Oligo>] oligos to add to the tag group.
       def initialize(name, *oligos, &block)
         args = {}
         case name
