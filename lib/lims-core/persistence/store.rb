@@ -23,7 +23,7 @@ module Lims::Core
         #
         # session will return a Sequel::Session instead of a ::Session.
         #
-        # @returns [Module]
+        # @return [Module]
         def self.base_module
           @base_module ||= begin
                             base_name = name.sub(/::\w+$/, '')

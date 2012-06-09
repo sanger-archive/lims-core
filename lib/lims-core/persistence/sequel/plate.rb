@@ -25,8 +25,8 @@ module Lims::Core
 
           # Do a bulk load of aliquot and pass each to a block
           # @param plate_id the id of the plate to load.
-          # @yield_param [Integer] position
-          # @yield_param [Aliquot] aliquot
+          # @yieldparam [Integer] position
+          # @yieldparam [Aliquot] aliquot
           def load_aliquots(plate_id)
             Well::dataset(@session).join(Aliquot::dataset(@session), :id => :aliquot_id).filter(:plate_id => plate_id).each do |att|
               position = att.delete(:position)
