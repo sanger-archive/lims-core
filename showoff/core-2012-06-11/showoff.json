@@ -1,0 +1,4 @@
+{ "name": "New core"
+,"sections": [ {"section":"one"} ]
+,"templates": { "default" : "tp1.tpl" }
+}

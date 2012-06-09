@@ -29,3 +29,7 @@ group :yard do
   gem 'yard-rspec', '0.1'
   gem 'redcarpet'
 end
+
+group :showoff do
+  gem 'showoff'
+end
