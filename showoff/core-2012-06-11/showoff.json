@@ -1,0 +1,10 @@
+{ "name": "New core"
+	,
+	"author" : "Maxime Bourget"
+	, "description" : "Prestentation of the new core"
+	, "sections": [
+		{ "section" : "main" }, 
+		{ "section" : "core" }
+	]
+	, "templates": { "default" : "tp1.tpl" }
+}
