@@ -31,8 +31,8 @@ module Lims::Core
 
            # Load each oligos and pass them to the block
            # @param [Id] group_id id of the Tag group
-           # @yield_param [Oligo] oligo Object created or loaded
-           # @yield_param [Fixnum] position the index of Oligo in the TagGroup.
+           # @yieldparam [Oligo] oligo Object created or loaded
+           # @yieldparam [Fixnum] position the index of Oligo in the TagGroup.
            def load_oligos(group_id, &block)
              dataset.join(Oligo::dataset(@session), :id => :oligo_id).filter(:tag_group_id => group_id).order(:position).each do |att|
                position = att.delete(:position)

@@ -7,7 +7,7 @@ module Lims::Core
   module Actions
     # This mixin add the Action behavior to a class.
     # An action can be called and reverted (if possible) within a {Persistence::Session session}.
-    # For this, the action must implements the {call_in_session} and {revert_in_session}.
+    # For this, the action must implements the {_call_in_session} and {_revert_in_session}.
     # Those methods are private and take a session as a parameter.
     # The public equivalent (call/revert) will create a session (using the store) and call the corresponding methods.
 
@@ -41,8 +41,8 @@ module Lims::Core
         # A block can be passed to  be evaluated with the session after the save session been saved.
         # This is usefull to get ids of saved object.
         # @return the value return by the block
-        # @yield_param [Action] a self
-        # @yield_param [Session]  session the current session.
+        # @yieldparam [Action] a self
+        # @yieldparam [Session]  session the current session.
         def call(&after_save)
           after_save ||= lambda { |a,s| a.result }
           with_session do |s| 
