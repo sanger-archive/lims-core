@@ -24,7 +24,7 @@
 	* <span class="red">`Aequitas`</span>- validation library
 * `Sequel` '*The database toolkit for ruby*'
 
-.notes they boths provide a full active record like 
+.notes they both provide a full active record like 
 
 !SLIDE code  transition=scrollLeft smaller subsection
 #  Foundation
@@ -117,18 +117,18 @@
 * Everything is automatically wrapped in a transaction.
 * saves can be bulk (not implemented)
 * eager loading (not implemented) can be set at session, or application level
-* Session information (user, date, client) can be auditted in a `session` table
+* Session information (user, date, client) can be audited in a `session` table
 
 !SLIDE small transition=scrollUp subsection
 # Session #
 ## Purpose ##
-### Sessions have been designed to make some stuff hard for the developper as:
+### Sessions have been designed to make some stuff hard for the developer as:
 
 * Load and save object(s) in different sessions.
 * Save an object in the middle of an *action* (method, function, ...).
 * User can't create a Session without a store
 
-### If you find yourself struggling trying to do something above, you **probably **shoudn't be doing it.
+### If you find yourself struggling trying to do something above, you **probably **shouldn't be doing it.
 
 
 
@@ -193,7 +193,7 @@
 !SLIDE small subsection transition=scrollUp
 # Session
 ## Post save block
-### Objects are saved at the end of a `with_session` block, but ids of new objects are only avavailable after the block, when the session doesn't exist anymore.
+### Objects are saved at the end of a `with_session` block, but ids of new objects are only available after the block, when the session doesn't exist anymore.
 
 	@@@ ruby
 	store.with_session do |s|
@@ -216,7 +216,7 @@
 
 	{:new_plate => session.id_for(new_plate}.to_json
 
-### Would probably work, but splits the block in 2 different places. Probably one of thoses things session has been to designed to make hard. 
+### Would probably work, but splits the block in 2 different places. Probably one of those things session has been to designed to make hard. 
 
 
 !SLIDE smaller subsection transition=shuffle 
