@@ -1,21 +1,23 @@
-!SLIDE small
-# `lims::core` #
-A set of dependent components
+!SLIDE smaller transition=scrollLeft
+# `lims::core` 
+### A set of dependent components
 
 * API : `Actions`
 * Persistence : `Session`
 * Domain: `Laboratoy`, `LabProcess`, `Organization`
 
-API => Persistence => Domains.
-!SLIDE small
-# Principles
+### API => Persistence => Domains.
+!SLIDE small transition=scrollUp subsection
+# Lims::core
+## Principles
 * Models exists without the notion of persistence
 * Everything created within a `Session` is saved (at the end)
 * Everything manipulating objects is done through *external* `Actions`.
 
-!SLIDE smaller
-# Foundation #
-The lims::core is based on two gems
+!SLIDE small transition=scrollUp subsection
+# Lims::core
+## Foundation #
+### The lims::core is based on two gems :
 
 * `Datamapper2` 
 	* `Virtus` - model definition
@@ -24,8 +26,9 @@ The lims::core is based on two gems
 
 .notes they boths provide a full active record like 
 
-!SLIDE code
-# Virtus, Aequitas #
+!SLIDE code  transition=scrollLeft smaller subsection
+#  Foundation
+## Virtus, Aequitas
 
 	@@@ ruby
 	class Sample
@@ -37,19 +40,22 @@ The lims::core is based on two gems
 	s = Sample.new
 	s.valid? #=> false
 
-!SLIDE code
-# Sequel #
+!SLIDE code   transition=scrollUp smaller subsection
+# Foundation
+## Sequel #
 
 	@@@ ruby
-	samples DB[:samples] #=> proxy
+	samples = DB[:samples] #=> proxy
 
 	samples.first #=> { :id  =>  1, :name => 'my sample' }
 
-	samples_with_aliquots = samples.join(:aliquots, :sample_id => :id) => #proxy
-	samples_with_aliquots.first 
-		#=> { :sample_id => 1, :name => 'my sample', :id => 3)
+	with_aliquots = samples.join(:aliquots, :sample_id => :id)
+	#=> proxy
 
-!SLIDE smaller  
+	samples_with_aliquots.first 
+	#=> { :sample_id => 1, :name => 'my sample', :id => 3)
+
+!SLIDE smaller  transition=scrollRight subsection
 # Persistence-less model
 ## Plate declaration
 
@@ -58,7 +64,8 @@ The lims::core is based on two gems
 	  include Resource
 	      # declare row_number and column_number
 	      %w(row column).each do |w|
-		attribute :"#{w}_number",  Fixnum, :required => true, :gte => 0, :writer => :private
+		attribute :"#{w}_number",  Fixnum, :required => true,
+			:gte => 0, :writer => :private
 	      end
 		
 		class Well
@@ -70,10 +77,10 @@ The lims::core is based on two gems
 		(p.row_number*p.column_number).times.map { t.new }
 	      end
 	end
-Plate is like an Array
+### Plate is like an Array
 
-!SLIDE code smaller fullpage
-# Persistence-less model - Bare model
+!SLIDE code smaller transition=scrollUp subsection	
+# Persistence-less model
 ## Plate spec
 
 	@@@ ruby
@@ -90,10 +97,10 @@ Plate is like an Array
 	    end
 	end
 
-Well is like an array too.
+### Well is like an array too.
 
 
-!SLIDE small
+!SLIDE small transition=scrollLeft
 # Session
 
 * A session is in charge of restoring and saving objects through the persistence layer.
@@ -102,7 +109,7 @@ Well is like an array too.
 * <span class="red">It's the only way to save an object</span>
 * It provides an **IdentityMap**.
 
-!SLIDE small
+!SLIDE small transition=scrollUp subsection
 # Session 
 ## Benefits #
 
@@ -112,40 +119,43 @@ Well is like an array too.
 * eager loading (not implemented) can be set at session, or application level
 * Session information (user, date, client) can be auditted in a `session` table
 
-!SLIDE small
+!SLIDE small transition=scrollUp subsection
 # Session #
 ## Purpose ##
-Sessions have been designed to make some stuff hard for the developper as:
+### Sessions have been designed to make some stuff hard for the developper as:
 
 * Load and save object(s) in different sessions.
 * Save an object in the middle of an *action* (method, function, ...).
 * User can't create a Session without a store
 
-If you find yourself struggling trying to do something above, you **probably **shoudn't be doing it.
+### If you find yourself struggling trying to do something above, you **probably **shoudn't be doing it.
 
 
 
-!SLIDE code
+!SLIDE smaller subsection transition=scrollLeft
 # Session #
+## Example
 
 	@@@ ruby
 	source_id = ...
-	store.with_session(params) do |s| # Session can't be created on its own
-		# load a plate, aut
+	# Session can't be created on its own
+	store.with_session(params) do |s|
+		# load a plate
 		source_plate = s.plate[source_id]
 
 		# create a new plate and add it to the session
 		s << target_plate= L::Plate.new(plate.attributes)
 
 		# transfer from one well to the another well
-		@ modifies BOTH plate
+		# modifies BOTH plate
 		target_plate[:A1] << source_plate[:C3].take(0.5)
 			
 	end # save source and target
 
 
-!SLIDE small
-# Session API
+!SLIDE small subsection transition=scrollUp
+# Session
+## API
 
 * session needs to be created from a store :  
   `store.with_session { |s| .... }`
@@ -156,10 +166,11 @@ If you find yourself struggling trying to do something above, you **probably **s
 * get the id of an object  :  
  `session.id_for_object(plate)`
 
-!SLIDE small
-# Object no managed are not saved
+!SLIDE small subsection transition=scrollUp
+# Session
+## Objects no managed are not saved
 
-The following code save only one plate.
+### The following code save only one plate.
 
 	@@@ ruby
 	store.with_session do |s|
@@ -167,8 +178,11 @@ The following code save only one plate.
 		s << plate2=new_plate
 	end 
 
-!SLIDE small
-# Object loaded are automatically managed
+### `plate2`.
+
+!SLIDE small subsection transition=scrollUp
+# Session
+## Object loaded are automatically managed
 
 	@@@ ruby
 	store.with_session do |s|
@@ -176,9 +190,10 @@ The following code save only one plate.
 		s << plate # unnecessary
 	end
 
-!SLIDE small
-# Post save block
-Objects are saved at the end of a `with_session` block, but ids of new object are only avavailable after the block, when the session doesn't exist anymore
+!SLIDE small subsection transition=scrollUp
+# Session
+## Post save block
+### Objects are saved at the end of a `with_session` block, but ids of new objects are only avavailable after the block, when the session doesn't exist anymore.
 
 	@@@ ruby
 	store.with_session do |s|
@@ -187,10 +202,11 @@ Objects are saved at the end of a `with_session` block, but ids of new object ar
 	end
 
 
-Doesn't work
+### Doesn't work.
 
-!SLIDE small
-# returning the session ...
+!SLIDE small subsection transition=shuffle 
+# Session / Post save block
+## returning the session ...
 
 	@@@ ruby
 	session, new_plate = store.with_session do |s|
@@ -200,11 +216,12 @@ Doesn't work
 
 	{:new_plate => session.id_for(new_plate}.to_json
 
-Would probably work, but splits the block in 2 different places. Probably one of the thing that's session has been to designed to make hard. 
+### Would probably work, but splits the block in 2 different places. Probably one of thoses things session has been to designed to make hard. 
 
 
-!SLIDE small
-# Using a lambda
+!SLIDE smaller subsection transition=shuffle 
+# Session / Post save block
+## Using a lambda
 
 	@@@ ruby
 	store.with_session  do |s|
@@ -212,6 +229,4 @@ Would probably work, but splits the block in 2 different places. Probably one of
 		lambda { {:new_plate => .id_for(new_plate)}.to_json }
 	end.call
 
-Better, all the code is inside one block and the `lambda` is saying 'I am a future statement'.
-
-Note the `call` at the end.
+### Better, all the code is inside one block and the `lambda` is saying 'I am a future statement'. Note the `call` at the end.
