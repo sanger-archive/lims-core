@@ -215,29 +215,3 @@ Would probably work, but splits the block in 2 different places. Probably one of
 Better, all the code is inside one block and the `lambda` is saying 'I am a future statement'.
 
 Note the `call` at the end.
-!SLIDE small
-
-
-# Different type of stores
-
-
-* show lambda tip
-
-
-* example of use of a logger-session
-
-
-** Project structure
-** How persistence work
-
-with Persistor and Sequel::Persistor (even with subgeneration)
-
-
-# concept of actions
-
-
-# why sequel # why virtus
-* hel
-	+ 1
-	+ 2
-* lo
