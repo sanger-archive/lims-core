@@ -3,10 +3,10 @@
 Maxime Bourget - Monday 2012/06/11
 !SLIDE subsection transition=scrollLeft
 # Overview
-* what it is and why.
+* What it is and why.
 * How it works/design.
 * What's done
-* to do
+* To do
 
 !SLIDE transition=scrollUp  small subsection
 # New LIMS Core
@@ -15,7 +15,7 @@ Maxime Bourget - Monday 2012/06/11
 * Contains the business logic, domain specific.
 * Interface for different persistence layers.
 * Organized in component.
-* no web/GUI *knowledge*.
+* No web/GUI *knowledge*.
 
 ### Needs to be embedded in a server/application.
 
@@ -25,12 +25,12 @@ Maxime Bourget - Monday 2012/06/11
 ## Lessons learned from Sequencescape
 ### Persistence mixed with the domain implementation, adds *noise* to the code :
 
-* domain code *aware* of persistence (`reload`, no identity map).
-* domain tests have to take persistence into account (`save`, `reload`).
-* object model to close from database model.
-* no identity map.
-* tests slow.
-* hard to maintain.
+* Domain code *aware* of persistence (`reload`, no identity map).
+* Domain tests have to take persistence into account (`save`, `reload`).
+* Object model to close from database model.
+* No identity map.
+* Tests slow.
+* Hard to maintain.
 
 .notes ActiveRecord is magic, but hard to customize and optimize.
 
@@ -38,10 +38,10 @@ Maxime Bourget - Monday 2012/06/11
 # New LIMS Core
 ## Goal
 ### Decouple domain model from persistence layer.
-* code easier to split into component.
-* domains of *responsibilities* clearer.
-* less side effect.
-* test suites small and faster.
+* Code easier to split into component.
+* Domains of *responsibilities* clearer.
+* Less side effect.
+* Test suites small and faster.
 ### ...     How do we do it ?
 
 
@@ -49,5 +49,5 @@ Maxime Bourget - Monday 2012/06/11
 # New LIMS server internal architecture
 
 *  `lims::api`  Sinatra application
-* core extensions (clients specific) (optional)
+* Core extensions (clients specific) (optional)
 * `lims:core` gem domain  model + persistence.

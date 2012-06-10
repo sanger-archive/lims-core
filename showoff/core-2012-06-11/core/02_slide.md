@@ -85,22 +85,22 @@
 
 !SLIDE small transition=scrollLeft
 # To do
-* manage `dirty` attributes
-* integration with API server
-* add samples
-* add study, projects
-* submission, orders
+* Manage `dirty` attributes
+* Integration with API server
+* Add samples
+* Add study, projects
+* Submission, orders
 
 !SLIDE small transition=scrollUp subsection
 # To do
 ## wish list
 
-* audit session
-* eager loading
-* bulk saving
+* Audit session
+* Eager loading
+* Bulk saving
 
 !SLIDE transition=shuffle
 # The End
-Any Question ?
+Any Questions ?
 
 

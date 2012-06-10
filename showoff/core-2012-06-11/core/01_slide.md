@@ -115,8 +115,8 @@
 
 * Persistence operations not mixed with business logic code.
 * Everything is automatically wrapped in a transaction.
-* saves can be bulk (not implemented)
-* eager loading (not implemented) can be set at session, or application level
+* Saves can be bulk (not implemented)
+* Eager loading (not implemented) can be set at session, or application level
 * Session information (user, date, client) can be audited in a `session` table
 
 !SLIDE small transition=scrollUp subsection
@@ -157,20 +157,20 @@
 # Session
 ## API
 
-* session needs to be created from a store :  
+* Session needs to be created from a store :  
   `store.with_session { |s| .... }`
-* tells a session to manage an object :  
+* Tells a session to manage an object :  
   ` session << object_to_manage`
-* load a object :  
+* Load a object :  
   `session.plate[plate_id]`
-* get the id of an object  :  
+* Get the id of an object  :  
  `session.id_for_object(plate)`
 
 !SLIDE small subsection transition=scrollUp
 # Session
 ## Objects no managed are not saved
 
-### The following code save only one plate.
+### The following code saves only one plate.
 
 	@@@ ruby
 	store.with_session do |s|
