@@ -82,7 +82,36 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>vi: ts=2:sts=2:et:sw=2 spell:spelllang=en</p>
+<p>The Core of the <span class='object_link'><a href="../Lims.html" title="Lims (module)">LIM S</a></span>ystem. Includes the basic classes corresponding
+to the :</p>
+<ol><li>
+<p>domain(s)</p>
+</li><li>
+<p>Persistence Layer</p>
+</li><li>
+<p>Business Logic layer (extension ?)</p>
+</li></ol>
+
+<p>The Core is split in the following submodule/namespace :</p>
+<ol><li>
+<p><span class='object_link'><a href="Core/Laboratory.html" title="Lims::Core::Laboratory (module)">Laboratory</a></span> : Things used/found in the lab. Includes pure laboratory
+(inert things as <span class='object_link'><a href="Core/Laboratory/Plate.html" title="Lims::Core::Laboratory::Plate (class)">plates</a></span>, <span class='object_link'><a href="Core/Laboratory/Tube.html" title="Lims::Core::Laboratory::Tube (class)">tubes</a></span>) and
+chemical one (as <span class='object_link'><a href="Core/Laboratory/Aliquot.html" title="Lims::Core::Laboratory::Aliquot (class)">aliquots</a></span>, <span class='object_link'><a href="Core/Laboratory/Sample.html" title="Lims::Core::Laboratory::Sample (class)">samples</a></span>).</p>
+</li><li>
+<p>LabProcess Related to the work people/robot do in the laboratories.</p>
+</li><li>
+<p><span class='object_link'><a href="Core/Organization.html" title="Lims::Core::Organization (module)">Organization</a></span> Related to users, data release (<span class='object_link'><a href="Core/Organization/Study.html" title="Lims::Core::Organization::Study (class)">studies</a></span>) and ordering (<span class='object_link'><a href="Core/Organization/Order.html" title="Lims::Core::Organization::Order (class)">orders</a></span>) and funding
+(<span class='object_link'><a href="Core/Organization/Project.html" title="Lims::Core::Organization::Project (class)">projects</a></span>) etc.</p>
+</li><li>
+<p><span class='object_link'><a href="Core/Actions.html" title="Lims::Core::Actions (module)">Actions</a></span> High level <span class='object_link'><a href="Core/Actions/Action.html" title="Lims::Core::Actions::Action (module)">actions</a></span> that can be performed on
+things (mostly laboratory).</p>
+</li><li>
+<p><span class='object_link'><a href="Core/Persistence.html" title="Lims::Core::Persistence (module)">Persistence</a></span></p>
+</li></ol>
+
+<p>This partition is more for clarity/documentation purposes and it's not
+meant to be really tight.  However it's more likely than the submodules
+dependency will be a tree than a graph, (but it's not a necessity).</p>
 
 
   </div>
@@ -239,7 +268,7 @@
 </div>
     
     <div id="footer">
-  Generated on Sat Jun  9 10:07:21 2012 by 
+  Generated on Sun Jun 10 10:30:30 2012 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.5 (ruby-1.9.3).
 </div>
