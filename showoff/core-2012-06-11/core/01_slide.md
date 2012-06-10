@@ -14,50 +14,49 @@ API => Persistence => Domains.
 * Everything manipulating objects is done through *external* `Actions`.
 
 !SLIDE smaller
-# Base gems #
+# Foundation #
 The lims::core is based on two gems
 
 * `Datamapper2` 
 	* `Virtus` - model definition
-	* <red>`Aequitas`</red>- validation library
+	* <span class="red">`Aequitas`</span>- validation library
 * `Sequel` '*The database toolkit for ruby*'
 
 .notes they boths provide a full active record like 
 
 !SLIDE code
-# Virtus #
-
-   @@@ ruby
-   class Sample
-     include Virtus
-     include Aequitas
-     attribute :name, String, :required => true
-   end
-
-!SLIDE smaller
-
-* rows are returned as hash.
+# Virtus, Aequitas #
 
 	@@@ ruby
-	DB[:samples].first
-	#=> { :id  =>  1, :name => 'my sample' }
+	class Sample
+	  include Virtus
+	  include Aequitas
+	  attribute :name, String, :required => true
+	end
 
-* lazy evaluation (proxy) ...
+	s = Sample.new
+	s.valid? #=> false
+
+!SLIDE code
+# Sequel #
 
 	@@@ ruby
-	sample_proxy = DB[:samples]
+	samples DB[:samples] #=> proxy
 
-*  and relational algebra
-	sample_proxy.join(:aliquots, :sample_id => :id)
+	samples.first #=> { :id  =>  1, :name => 'my sample' }
 
+	samples_with_aliquots = samples.join(:aliquots, :sample_id => :id) => #proxy
+	samples_with_aliquots.first 
+		#=> { :sample_id => 1, :name => 'my sample', :id => 3)
 
 !SLIDE smaller  
-# Persistence-less model - Bare model
+# Persistence-less model
 ## Plate declaration
 
 	@@@ ruby
 	class Plate
 	  include Resource
+	      # declare row_number and column_number
 	      %w(row column).each do |w|
 		attribute :"#{w}_number",  Fixnum, :required => true, :gte => 0, :writer => :private
 	      end
@@ -96,9 +95,46 @@ Well is like an array too.
 
 !SLIDE small
 # Session
-Everything within a session is saved.
-everything is saved only once
-save can be bulk etc
+
+* A session is in charge of restoring and saving objects through the persistence layer.
+* Every modifications within a session **block** is saved.
+* Everything is saved only once.
+* <span class="red">It's the only way to save an object</span>
+* It provides an **IdentityMap**.
+
+!SLIDE small
+# Session 
+## Benefits #
+
+* Persistence operations not mixed with business logic code.
+* Everything is automatically wrapped in a transaction.
+* saves can be bulk (not implemented)
+* eager loading (not implemented) can be set at session, or application level
+* Session information (user, date, client) can be auditted in a `session` table
+
+!SLIDE small
+# Session #
+Sessions have been designed to make some stuff hard for the developper as:
+
+* Load and save object(s) in different sessions.
+* Save an object in the middle of an *action* (method, function, ...).
+
+If you find yourself struggling trying to do something above, you **probably **shoudn't be doing it.
+
+
+!SLIDE small
+# Session API #
+
+* It groups and save all object modifactions within a block in one transaction
+* Session information (user, time) are also associated to the modifications of those objects.
+       A Session can not normally be created by the end user. It has to be in a Store::with_session
+       block, which acts has a transaction and save/update everything at the end of it.
+       It should also provides an identity map.
+       Session information (user, time) are also associated to the modifications of those objects.
+* Everything within a session is saved.
+* everything is saved only once
+* it's the only way to save an object
+* save can be bulk etc
 
 identitmapy
 

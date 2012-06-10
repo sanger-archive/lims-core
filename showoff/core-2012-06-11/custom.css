@@ -12,3 +12,5 @@ h1, h2 {
   bottom: 120px;
   content: url(jay_small.png);
 }
+
+.red { color: #f33;}

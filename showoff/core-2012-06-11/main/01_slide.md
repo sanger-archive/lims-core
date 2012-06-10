@@ -22,7 +22,8 @@ Persistence mixed with the domain implementation, adding *noise* in the code :
 
 * domain code *aware* of persistence (`reload`, no identity map).
 * domain tests have to take persistence into account (`save`, `reload`).
-* object model to close from database model
+* object model to close from database model.
+* no identity map.
 * tests slow.
 * hard to maintain.
 
