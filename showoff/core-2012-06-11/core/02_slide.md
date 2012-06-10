@@ -1,89 +1,106 @@
-!SLIDE small
+!SLIDE small transition=scrollLeft
 # Actions #
-An action is a *reversible* functor:
-* has parameters
-* can be called
-* can be reversed (if possible)
+## A  *reversible* functor:
 
-corresponding to an API call.
+* Has parameters.
+* Can be called.
+* Can be reversed (when possible).
 
-!SLIDE small
+### corresponding to an API call.
+
+!SLIDE small transition=scrollUp subsection
 # Actions #
-* persistence aware
-* called as-is by the API server.
-* can be pipeline specific.
-* executed within a `Session`
-* and a context (user, application).
+* Persistence aware
+* Called as-is by the API server.
+* Can be pipeline specific.
+* Executed within a `Session` and
+* ... a context (user, application).
 
 
-!SLIDE small
-# How to call an action
+!SLIDE small transition=scrollUp subsection
+# Actions
+## How to call an action
 
-* pass context parameters (store, user, application)
-* pass parameters block initializer
-* call it
+1. Pass context parameters (store, user, application),
+2. pass a parameters initializer block,
+3. call it.
 
-!SLIDE small
-# Example     
+!SLIDE smaller subsection transition=scrollLeft
+# Actions / call
+## Example     
 	@@@ ruby
 	target_id = ...
 	source_id = ...
-            action = PlateTransfer.new(:store => store, :user => user, :application => application) do |action, session|
+    action = PlateTransfer.new(:store => store,
+							 :user => user,
+							 :application => application
+						 )  do |action, session|
 	      # session needed
-              action.target = session.plate[target_id]
-              action.source = session.plate[source_id]
+		  action.target = session.plate[target_id]
+		  action.source = session.plate[source_id]
 
-              action.transfer_map = { :C3 => :B1 }
-            end 
+		  action.transfer_map = { :C3 => :B1 }
+	end 
 
 	action.call
 	
 
-!SLIDE small
-# Action design
 
-* declare parameters (attributes)
-* implement `_call_in_session` to modify/create the model
-* attributes and results are automatically managed
+!SLIDE small transition=scrollRight subsection
+# Actions
+## Design
 
-!SLIDE small
-# PlateTransfer Action
+* Declare parameters (attributes).
+* Implement `_call_in_session` to modify/create the model.
+* Attributes and results are automatically managed.
+
+!SLIDE smaller transition=scrollUp subsection
+# Actions / Design
+## PlateTransfer Action
 	@@@ ruby
     class PlateTransfer
       include Action
 
-      attribute :source, Laboratory::Plate, :required => true, :writer => :private
-      attribute :target, Laboratory::Plate, :required => true, :writer => :private
-      attribute :transfer_map, Hash, :required => true, :writer => :private
+      attribute :source, Laboratory::Plate, :required => true
+      attribute :target, Laboratory::Plate, :required => true
+      attribute :transfer_map, Hash, :required => true
 
-      # transfer the content of  from source to target according to map
+      # Transfers the content of  from source to target
+      # according to a transef map.
       def _call_in_session(session)
-	  transfer_map.each do |from ,to|
-	    target[to] << source[from].take
+	    transfer_map.each do |from ,to|
+	      target[to] << source[from].take
+	    end
 	  end
-      end
     end
 
-
-
-
-
  
-!SLIDE small
+!SLIDE small transition=scrollRight
 # Done
 
-* laboratory classes needed for pulldown
-* persistence on Laborotory
-* SQL store and basic Persistors
-* transfer action
+* Laboratory classes needed for pulldown.
+* Persistence on Laborotory.
+* SQL store and basic Persistors.
+* Transfer action.
 
-!SLIDE small
+!SLIDE small transition=scrollLeft
 # To do
 * manage `dirty` attributes
 * integration with API server
 * add samples
 * add study, projects
 * submission, orders
+
+!SLIDE small transition=scrollUp subsection
+# To do
+## wish list
+
 * audit session
 * eager loading
 * bulk saving
+
+!SLIDE transition=shuffle
+# The End
+Any Question ?
+
+
