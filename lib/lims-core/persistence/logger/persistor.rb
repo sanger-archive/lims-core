@@ -1,5 +1,6 @@
 # vi: ts=2:sts=2:et:sw=2 spell:spelllang=en
 
+
 module Lims::Core
   module Persistence
     module Logger
