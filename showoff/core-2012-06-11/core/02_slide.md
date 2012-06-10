@@ -4,7 +4,7 @@
 
 * Has parameters.
 * Can be called.
-* Can be reversed (when possible).
+* Can be reverted (when possible).
 
 ### corresponding to an API call.
 
@@ -79,17 +79,17 @@
 # Done
 
 * Laboratory classes needed for pulldown.
-* Persistence on Laborotory.
+* Persistence on Laboratory.
 * SQL store and basic Persistors.
-* Transfer action.
+* Transfer, Create Plate, Tube, and Tag  action.
 
 !SLIDE small transition=scrollLeft
 # To do
 * Manage `dirty` attributes
 * Integration with API server
 * Add samples
-* Add study, projects
-* Submission, orders
+* Add studies, projects
+* Submissions, orders
 
 !SLIDE small transition=scrollUp subsection
 # To do

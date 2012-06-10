@@ -12,9 +12,9 @@ Maxime Bourget - Monday 2012/06/11
 # New LIMS Core
 ##  Set of gems, core of the new LIMS.  
 
-* Contains the business logic, domain specific.
+* Contains the business model, domain specific code.
 * Interface for different persistence layers.
-* Organized in component.
+* Organized in components.
 * No web/GUI *knowledge*.
 
 ### Needs to be embedded in a server/application.
@@ -27,7 +27,7 @@ Maxime Bourget - Monday 2012/06/11
 
 * Domain code *aware* of persistence (`reload`, no identity map).
 * Domain tests have to take persistence into account (`save`, `reload`).
-* Object model to close from database model.
+* Object model too close from database model.
 * No identity map.
 * Tests slow.
 * Hard to maintain.

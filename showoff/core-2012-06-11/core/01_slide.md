@@ -40,6 +40,10 @@
 	s = Sample.new
 	s.valid? #=> false
 
+	s = Sample.new(:name => "my sample")
+	s.name #=> "my sample"
+	s.attributes #=> { :name => "my sample" }
+
 !SLIDE code   transition=scrollUp smaller subsection
 # Foundation
 ## Sequel #
@@ -150,7 +154,7 @@
 		# modifies BOTH plate
 		target_plate[:A1] << source_plate[:C3].take(0.5)
 			
-	end # save source and target
+	end # saves source and target
 
 
 !SLIDE small subsection transition=scrollUp
@@ -164,7 +168,7 @@
 * Load a object :  
   `session.plate[plate_id]`
 * Get the id of an object  :  
- `session.id_for_object(plate)`
+ `session.id_for(plate)`
 
 !SLIDE small subsection transition=scrollUp
 # Session
