@@ -12,7 +12,7 @@ Maxime Bourget - Monday 2012/06/11
 # New LIMS Core
 ##  Set of gems, core of the new LIMS.  
 
-* Contains the business model, domain specific code.
+* Contains the  domain model.
 * Interface for different persistence layers.
 * Organized in components.
 * No web/GUI *knowledge*.

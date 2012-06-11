@@ -43,13 +43,16 @@
 	end 
 
 	action.call
+
+### This also separates parameter decoding from implementation, allowing
+parameters validation.
 	
 
 
 !SLIDE small transition=scrollRight subsection
 # Actions
 ## Design
-
+* Include `Action`.
 * Declare parameters (attributes).
 * Implement `_call_in_session` to modify/create the model.
 * Attributes and results are automatically managed.
@@ -98,6 +101,7 @@
 * Audit session
 * Eager loading
 * Bulk saving
+* Manage automatically relationship throug attributes.
 
 !SLIDE transition=shuffle
 # The End

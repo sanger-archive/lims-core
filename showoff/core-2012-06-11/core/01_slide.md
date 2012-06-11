@@ -17,12 +17,13 @@
 !SLIDE small transition=scrollUp subsection
 # Lims::core
 ## Foundation #
-### The lims::core is based on two gems :
+### The lims::core is based on 3 gems :
 
+* `Facets` ruby extensions.
 * `Datamapper2` 
 	* `Virtus` - model definition
 	* <span class="red">`Aequitas`</span>- validation library
-* `Sequel` '*The database toolkit for ruby*'
+* `Sequel` '*The database toolkit for ruby*'.
 
 .notes they both provide a full active record like 
 
@@ -107,7 +108,7 @@
 !SLIDE small transition=scrollLeft
 # Session
 
-* A session is in charge of restoring and saving objects through the persistence layer.
+* A session is in charge of restoring and saving objects to a `Store`.
 * Every modifications within a session **block** is saved.
 * Everything is saved only once.
 * <span class="red">It's the only way to save an object</span>
@@ -117,7 +118,7 @@
 # Session 
 ## Benefits #
 
-* Persistence operations not mixed with business logic code.
+* Persistence operations not mixed with domain model.
 * Everything is automatically wrapped in a transaction.
 * Saves can be bulk (not implemented)
 * Eager loading (not implemented) can be set at session, or application level
@@ -151,7 +152,7 @@
 		s << target_plate= L::Plate.new(plate.attributes)
 
 		# transfer from one well to the another well
-		# modifies BOTH plate
+		# modifies BOTH plates
 		target_plate[:A1] << source_plate[:C3].take(0.5)
 			
 	end # saves source and target
@@ -191,7 +192,7 @@
 	@@@ ruby
 	store.with_session do |s|
 		plate = s.plate[plate_id]
-		s << plate # unnecessary
+		# s << plate  - unnecessary
 	end
 
 !SLIDE small subsection transition=scrollUp
@@ -215,7 +216,7 @@
 	@@@ ruby
 	session, new_plate = store.with_session do |s|
 		s << new_plate = Plate.new(params)
-		s, new_plate
+		[ s, new_plate ]
 	end
 
 	{:new_plate => session.id_for(new_plate}.to_json
