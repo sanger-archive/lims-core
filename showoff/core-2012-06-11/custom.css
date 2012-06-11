@@ -1,0 +1,44 @@
+.content {
+  color: black;
+  font-family: helvetica, arial;
+}
+
+h1, h2 {
+  color: rgb(79, 180, 226);
+  font-family: Georgia;
+	margin : 1em;
+}
+
+h3 {
+	font-size : 2.5 em;
+	text-align : left;
+	margin-left : 1em;
+}
+
+.subsection h1 {
+	color : white;
+	background :  rgb(79, 180, 226);
+	font-size : 3em;
+	text-align : right;
+
+}
+
+h2 {
+	#background : #ccc;
+	text-align : left;
+	margin-left : 1em;
+}
+.content::after {
+  position: absolute;
+  right: 120px;
+  bottom: 120px;
+  content: url(jay_small.png);
+}
+
+.red { color: #f33;}
+
+pre.sh_sourceCode {
+	background-color : #eee;
+	#border-radius : 0.5em;
+	box-shadow: -10px 10px 5px #888;
+}
