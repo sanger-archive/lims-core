@@ -12,3 +12,6 @@ doc:
 migrate_test:
 	bundle exec sequel -m db/migrations -e test config/database.yml
 
+show:
+	bundle exec showoff serve showoff/core-2012-06-11
+
