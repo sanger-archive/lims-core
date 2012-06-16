@@ -1,4 +1,4 @@
-iabbr req require 'lims/core/labware
+iabbr req require 'lims/core/
 iabbr mlims module Lims::Core  module Labware    # @todo doc  endend
 set path=lib/**,spec/**,showoff/core-2012-06-11/**,,*,**,$GEM_HOME/gems
 let g:ruby_path=&path

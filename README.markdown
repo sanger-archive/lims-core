@@ -37,6 +37,13 @@ Ideally each should be loadable on its own. This mean that every file should
 require everything it needs. The exception is for gems re-opening ruby basic
 classes as facet do. The common requirements are grouped in the `lib/common.rb`
 file.
+
+For the user convenience, requiring a directory should requires everything
+underneath. However, requiring `lims-core` will require `Persistence`, but not 
+the subdirectories of it (specific to each different stores like `Sequel`, or
+`Logger`). This to not force to install all the dependencies specific to each
+store.
+
 Documentation Guide
 -------------------
 

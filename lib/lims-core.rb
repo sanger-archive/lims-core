@@ -4,7 +4,10 @@ require "lims-core/version"
 require 'lims/core/actions'
 require 'lims/core/laboratory'
 require 'lims/core/organization'
-require 'lims/core/persistence'
+ require 'lims/core/persistence'
+# Persistence submodules need to be required manually. This is to avoid
+# having to require and install all the store dependency (mysql, postgres) etc ...
+
 
 # LIMS stands for Laboratory Information Management System.
 # A namespace.
