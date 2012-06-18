@@ -3,6 +3,8 @@
 require 'lims/core/persistence'
 require 'lims/core/persistence/sequel/session'
 
+require 'sequel'
+
 module Lims::Core
   module Persistence
     module Sequel

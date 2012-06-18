@@ -1,4 +1,4 @@
-require 'lims/core/laboratory/container'
+require 'lims/core/laboratory/receptacle'
 require 'lims/core/resource'
 
 module Lims::Core
