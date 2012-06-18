@@ -49,3 +49,4 @@ module Lims::Core
 end
 
 require 'lims/core/persistence/store'
+require_all 'persistence/*.rb'
