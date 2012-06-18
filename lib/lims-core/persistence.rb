@@ -1,4 +1,5 @@
 #vi: ts=2 sw=2 et
+require 'common'
 require 'facets/string'
 
 
@@ -47,4 +48,4 @@ module Lims::Core
   end
 end
 
-require_all('persistence/*.rb')
+require 'lims/core/persistence/store'

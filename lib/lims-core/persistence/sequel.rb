@@ -1,7 +1,7 @@
 # vi: ts=2:sts=2:et:sw=2 spell:spelllang=en
 # please keep 2 empty lines to avoid to comment to be
 # seen as Persistence doc.
-
+require 'common'
 
 module Lims::Core::Persistence
   # Persistence module using the {http://sequel.rubyforge.org/ sequel} gem.
@@ -9,3 +9,6 @@ module Lims::Core::Persistence
   module Sequel
   end
 end
+
+# require everything
+require 'lims-core/persistence/sequel/store'
