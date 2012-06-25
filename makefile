@@ -7,6 +7,9 @@
 test:
 	bundle exec rspec
 
+focus:
+	bundle exec rspec -tfocus
+
 
 # generate yard doc
 doc:

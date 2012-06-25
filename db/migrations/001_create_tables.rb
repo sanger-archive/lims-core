@@ -59,5 +59,13 @@ Sequel.migration do
       Integer :tube_id
       Integer :aliquot_id
     end
+
+    create_table :uuid_resources do
+      primary_key :id
+      Bignum :uuid
+      String :model_class
+      Integer :key
+
+    end
   end
 end

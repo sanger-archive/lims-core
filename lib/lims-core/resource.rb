@@ -14,6 +14,7 @@ module Lims::Core
 
     module AccessibleViaSuper
       def initialize(*args, &block)
+        puts "ININI", args.inspect
         # readonly attributes are normaly not allowed in constructor
         # by Virtus. We need to call set_attributes explicitely
         options = args.extract_options!
@@ -22,7 +23,9 @@ module Lims::Core
         initializables = self.class.attributes.select {|a| a.options[:initializable] == true  }
         initial_options  = options.subset(initializables.map(&:name))
         set_attributes(initial_options)
-        super(*args, options - initial_options, &block)
+        super(*args, options - initial_options, &block).tap {
+        puts "FIN", args.inspect
+        }
       end
     end
     # Compare 2 resources.
