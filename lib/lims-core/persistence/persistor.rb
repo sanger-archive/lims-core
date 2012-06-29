@@ -27,13 +27,19 @@ module Lims::Core
         self.class::Model
       end
 
-      # Load a model by id 
+      # Load a model by different criteria. Could be either :
+      # - an Id
+      # - a Hash 
+      # - a list of Ids
+      # This method will return either a single object or a list of object,
+      # depending of the parameter.
       # Note that loaded object are automatically _added_ to the session.
-      # @param [Fixnum] id the id in the database
+      # @param [Fixnum, Hash] id the id in the database
       # @return [Object,nil] nil if  object not found.
       def [](id)
         case id
         when Fixnum then get_or_create_single_model(id)
+        when Hash then find_by(filter_attributes_on_save(id), :single => true)
         end
       end
 
@@ -77,7 +83,7 @@ module Lims::Core
       # @raise error if object doesn't exists.
       def load_single_model(id, raw_attributes=nil)
         raw_attributes ||= load_raw_attributes(id)
-        model.new(filter_attributes_on_load(raw_attributes)).tap do |m|
+        model.new(filter_attributes_on_load(raw_attributes) || {}).tap do |m|
           load_children(id, m)
         end
       end
@@ -93,8 +99,44 @@ module Lims::Core
           @session.on_object_load(m)
         end
       end
-
       protected :get_or_create_single_model
+
+      # create or get a list of objects.
+      # Only load the ones which aren't in cache
+      # @param [Array<Id>] ids list of ids to get
+      # @param [Array<Hash>] list of raw_attributes (@see get_or_create_single_model)
+      # @return [Array<Resource>]
+      # @todo bulk load if needed
+      def get_or_create_multi_model(ids, raw_attributes_list=[])
+        ids.zip(raw_attributes_list).map { |i, r| get_or_create_single_model(i, r) }
+      end
+      protected :get_or_create_multi_model
+
+      # Create or get one or object matching the criteria
+      # @param [Hash] criteria, map of (attributes, value) to match
+      # @param [Boolean] single wether to check for uniquess or not
+      # @return [Object,nil,Array<Object>] an Object or and Array depending of single.
+      #
+      def find_by(criteria, single=false)
+        ids = ids_for(criteria)
+
+        if single
+          raise RuntimeError, "More than one object match the criteria" if ids.size > 1
+          raise RuntimeError, "No object match the criteria" if ids.size < 1
+          get_or_create_single_model(ids.first)
+        else
+          get_or_create_multi_model(ids)
+        end
+      end
+      protected :find_by
+
+      # compute a list of ids matching the criteria
+      # @param [Hash] criteria list of attribute/value pais
+      # @return [Array<Id>] 
+      def ids_for(criteria)
+        raise NotImplementedError
+      end
+
 
       def load_associated_elements()
       end
@@ -171,13 +213,13 @@ module Lims::Core
       def load_children(id, m)
       end
 
-        def filter_attributes_on_load(attributes)
-          attributes
-        end
+      def filter_attributes_on_load(attributes)
+        attributes
+      end
 
-        def filter_attributes_on_save(attributes)
-          attributes
-        end
+      def filter_attributes_on_save(attributes)
+        attributes
+      end
 
     end
   end

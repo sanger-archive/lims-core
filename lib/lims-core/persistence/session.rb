@@ -96,6 +96,14 @@ module Lims::Core
           id_for(object) || save(object)
         end
 
+        # Check if the session 'mananage' already this object.
+        # .i.e if it's been loaded or meant to be saved
+        # @param [Resource] object
+        # @return [Boolean]
+        def managed?(object)
+          @objects.include?(object)
+        end
+
         private
         # save all objects which needs to be
         def save_all()
@@ -127,9 +135,11 @@ module Lims::Core
           case object
           when String then object
           when Symbol then object.to_s
-          else object.class.name.sub(/^Lims::Core::\w+::/, '')
+          when Class then object.name.sub(/^Lims::Core::\w+::/, '')
+          else persistor_name_for(object.class)
           end.upper_camelcase
         end
+
       end
     end
 end

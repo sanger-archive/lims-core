@@ -51,6 +51,10 @@ module Lims::Core
           dataset[primary_key => id ]
         end
 
+        def ids_for(criteria)
+          dataset.select(primary_key)[criteria] || []
+        end
+
         # Save a raw object, i.e. the object
         # attributes excluding any associations.
         # @param [Resource] object the object 
