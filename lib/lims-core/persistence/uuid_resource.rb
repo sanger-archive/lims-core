@@ -13,7 +13,7 @@ module Lims::Core
         attributes.mash do |k,v|
           case k
           when :model_class then   [ k, @session.model_name_for(v) ]
-          when :uuid then [ k, Uuids::UuidResource.string_to_bignum(v) ]
+          when :uuid then [ k, Uuids::UuidResource.pack(v) ]
           else [k, v]
           end
         end
@@ -23,7 +23,7 @@ module Lims::Core
         attributes.mash do |k,v|
           case k
           when :model_class then [ k, @session.class_for(v) ]
-          when :uuid then [ k, Uuids::UuidResource.bignum_to_string(v) ]
+          when :uuid then [ k, Uuids::UuidResource.unpack(v) ]
           else [k, v]
           end
         end

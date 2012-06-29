@@ -62,7 +62,7 @@ Sequel.migration do
 
     create_table :uuid_resources do
       primary_key :id
-      Bignum :uuid
+      String :uuid, :fixed => true, :size => 16
       String :model_class
       Integer :key
 

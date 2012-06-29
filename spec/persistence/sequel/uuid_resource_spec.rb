@@ -16,6 +16,8 @@ module Lims::Core
       let(:db) { DB }
       let(:store) { Sequel::Store.new(db) }
       before (:each) { prepare_table(db) }
+      before  { Uuids::UuidResource.stub(:pack) { |s| s }  }
+      before  { Uuids::UuidResource.stub(:unpack) { |s| s }  }
       context "#saving" do
         before (:each) {
           db[:uuid_resources].delete
