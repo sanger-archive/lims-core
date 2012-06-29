@@ -22,7 +22,8 @@ module Lims::Core
         initializables = self.class.attributes.select {|a| a.options[:initializable] == true  }
         initial_options  = options.subset(initializables.map(&:name))
         set_attributes(initial_options)
-        super(*args, options - initial_options, &block)
+        super(*args, options - initial_options, &block).tap {
+        }
       end
     end
     # Compare 2 resources.
