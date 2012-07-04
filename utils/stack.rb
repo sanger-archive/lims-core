@@ -36,7 +36,7 @@
 
       test  "using prepared statement" do
         U.prepare(:insert, :p, :uuid => :$n)
-        DB.call(:p, :n => uuid)
+        DB.call(:p, "n" => uuid)
       end
       puts
       puts
