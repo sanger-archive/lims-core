@@ -1,7 +1,7 @@
 # Yes we could have use rake, but rake is so slow and verbose ...
 # Look at this as a collection of shell commands.
 
-.PHONY: migrate_test test doc clean clean_tree
+.PHONY: migrate_test test doc clean clean_tree profile
 
 # launch rspec
 test:
@@ -10,6 +10,8 @@ test:
 focus:
 	bundle exec rspec -tfocus
 
+profile:
+	bundle exec rspec -p
 
 # generate yard doc
 doc:
@@ -22,6 +24,10 @@ migrate_test:
 # Start server for core presentation
 show:
 	bundle exec showoff serve showoff/core-2012-06-11
+
+# console
+console:
+	bundle exec sequel -e test config/database.yml
         
 
 # generate constants tree of a starting required file
