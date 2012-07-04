@@ -22,6 +22,10 @@ migrate_test:
 # Start server for core presentation
 show:
 	bundle exec showoff serve showoff/core-2012-06-11
+
+# console
+console:
+	bundle exec sequel -e test config/database.yml
         
 
 # generate constants tree of a starting required file
