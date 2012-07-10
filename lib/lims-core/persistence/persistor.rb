@@ -51,6 +51,15 @@ module Lims::Core
           map_id_object(save_new(object, *params) , object)
       end
 
+      # deletes an object and returns its id or nil if failure
+      # @return [Fixnum, nil]
+      def delete(object, *params)
+        return nil if object.nil?
+        id_for(object) do |id|
+          delete_raw(object, id, *params)
+          delete_children(id, object)
+        end
+      end
       # save an association
       # Association doesn't have necessarily and id
       # therefore we don't use the indentity map.
@@ -187,6 +196,10 @@ module Lims::Core
           update_raw(object, id, *params)
           update_children(id, object)
         end
+      end
+
+      def delete_raw(object, id)
+        raise NotImplementedError
       end
 
       # save children of a newly created object.

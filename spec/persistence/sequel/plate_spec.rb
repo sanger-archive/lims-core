@@ -68,7 +68,7 @@ module Lims::Core
     context "already created plate" do
       let(:aliquot) { new_aliquot }
       before (:each) do
-        store.with_session { |session| session << new_empty_plate.tap {|_| _[0] << aliquot} }
+        store.with_session { |session| session << new_empty_plate().tap {|_| _[0] << aliquot} }
       end
       let(:plate_id) { store.with_session { |session| @plate_id = last_plate_id(session) } }
 
@@ -106,7 +106,31 @@ module Lims::Core
           end
         end
       end
+      context "should be deletable" do
+        before {
+          # add some aliquot to the wells
+          store.with_session do |session|
+            plate = session.plate[plate_id]
+            1.upto(10) { |i|  3.times { plate[i] <<  new_aliquot } }
+          end
+        }
+
+        def delete_plate
+          store.with_session do |session|
+            plate = session.plate[plate_id]
+            session.delete(plate)
+          end
+        end
+
+        it "deletes the plate row" do
+          expect { delete_plate }.to change { db[:plates].count}.by(-1)
+        end
+
+        it "deletes the well rows" do
+          expect { delete_plate }.to change { db[:wells].count}.by(-31)
+        end
+      end
     end
-  end
+    end
   end
 end
