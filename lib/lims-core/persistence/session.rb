@@ -11,11 +11,15 @@ module Lims::Core
       # It should also provides an identity map.
       # Session information (user, time) are also associated to the modifications of those objects.
       class Session
+
+        UnmanagedObjectError = Class.new(RuntimeError)
+
         extend Forwardable
         # param [Store] store the underlying store.
         def initialize(store, *params)
           @store = store
           @objects = Set.new
+          @to_delete = Set.new
           @in_session = false
           @saved = Set.new
           @persistor_map = {}
@@ -56,7 +60,7 @@ module Lims::Core
         # need it to save their children. To solve this, we raise an exception if it's inside a sess
         # @return [Boolean]
         def save(object, *options)
-          raise RuntimeError, "Can't save object inside a session. Please considere the << methods." unless @save_in_progress
+          raise RuntimeError, "Can't save object inside a session. Please considere the << method." unless @save_in_progress
           return id_for(object) if @saved.include?(object)
           @saved << object
 
@@ -104,16 +108,39 @@ module Lims::Core
           @objects.include?(object)
         end
 
+        # Mark an object as to be deleted.
+        # The corresponding object will be deleted at the end of the session.
+        # For most object you don't need to load it to delete it
+        # but some needs (to delete the appropriate children).
+        # The real delete is made by calling the {delete_in_real} method.
+        def delete(object)
+          raise UnmanagedObjectError, "can't delete #{object.inspect}" unless managed?(object)
+          @to_delete << object
+        end
+
         private
         # save all objects which needs to be
         def save_all()
           @store.transaction do
             @save_in_progress = true # allows saving
             @objects.each do |object|
-              save(object)
+              if @to_delete.include?(object)
+                delete_in_real(object)
+              else
+                save(object)
+              end
             end
             @save_in_progress = false
           end
+        end
+
+        # Call to 
+        def delete_in_real(object, *options)
+          raise RuntimeError, "Can't delete an object inside a session. Please considere the 'delete' method instead." unless @save_in_progress
+          return id_for(object) if @saved.include?(object)
+          @saved << object
+
+          persistor_for(object).delete(object, *options)
         end
 
         # Get the persistor corresponding to the object class

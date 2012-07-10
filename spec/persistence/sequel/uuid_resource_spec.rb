@@ -67,7 +67,7 @@ module Lims::Core
             end
           end
 
-          context "already saved" , :focus => true do
+          context "already saved" do
             before(:each) { uuid }
             it "reloads the same object" do
               store.with_session do |session|

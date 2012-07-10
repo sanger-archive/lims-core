@@ -92,6 +92,12 @@ module Lims::Core
             dataset[primary_key => id].update(object.attributes)
           end
         end
+
+        def delete_raw(objec, id, *params)
+          id.tap do
+            dataset.filter(primary_key => id).delete
+          end
+        end
       end
     end
   end

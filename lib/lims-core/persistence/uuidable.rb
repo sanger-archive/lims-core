@@ -56,6 +56,13 @@ module Lims::Core
         uuid_for(object) || new_uuid_resource_for(object).uuid
       end
 
+      # Delete the underlying resource of a UuidResource
+      # @param [UuidResource] uuid_resource
+      # @return [Id, nil] 
+      def delete_resource(uuid_resource)
+        delete(object_for(uuid_resource))
+      end
+
 
       protected
       def for_uuid(uuid)
