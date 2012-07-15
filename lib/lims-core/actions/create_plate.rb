@@ -25,9 +25,9 @@ module Lims::Core
       end
 
       def _call_in_session(session)
-        Laboratory::Plate.new(:column_number => column_number, :row_number => row_number).tap do |plate|
-          session << plate
-        end
+        plate = Laboratory::Plate.new(:column_number => column_number, :row_number => row_number)
+        session << plate
+        { :plate => plate, :uuid => session.uuid_for!(plate) }
       end
     end
   end
