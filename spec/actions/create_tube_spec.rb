@@ -12,7 +12,7 @@ module Lims::Core
     describe CreateTube do
       context "with a valid store" do
         # @todo special test session class ?
-        before { Persistence::Session.any_instance.stub(:save)   }
+        include_context "create object"
         let (:store) { Persistence::Store.new }
         let(:user) { mock(:user) }
         let(:application) { "Test create tube" }
@@ -24,13 +24,11 @@ module Lims::Core
           end
           it_behaves_like "an action"
           it "create a tube when called" do
-            tube = subject.call()
-            tube.should be_a Laboratory::Tube
-          end
-
-          it "saves the created tube" do
             Persistence::Session.any_instance.should_receive(:save)
-            subject.call
+            result = subject.call
+            result.should be_a(Hash)
+            result[:tube].should be_a(Laboratory::Tube)
+            result[:uuid].should == uuid
           end
         end
       end

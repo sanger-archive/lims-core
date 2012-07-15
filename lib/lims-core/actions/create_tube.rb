@@ -18,7 +18,9 @@ module Lims::Core
       end
 
       def _call_in_session(session)
-        Laboratory::Tube.new()
+        tube=Laboratory::Tube.new()
+        session << tube
+        { :tube => tube, :uuid => session.uuid_for!(tube) }
       end
     end
   end
