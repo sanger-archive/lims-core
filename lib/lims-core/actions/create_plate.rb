@@ -31,4 +31,9 @@ module Lims::Core
       end
     end
   end
+  module Laboratory
+    class Plate
+      Create = Actions::CreatePlate
+    end
+  end
 end
