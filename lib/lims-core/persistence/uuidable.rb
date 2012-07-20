@@ -7,11 +7,12 @@ module Lims::Core
   module Persistence
     # Add uuid behavior (lookup and creation) to a Session
     module Uuidable
-      # lookup one or more objects  by uuid
-      # @param args 
+      # lookup one or more objects  by uuid or resource_uuid
+      # @param [String, Arrary<String>, UUidResource] args 
       # @return [Resource, nil, Array<Resource>]
       def [](args)
         case args
+        when Uuids::UuidResource then for_uuid_resource(args)
         when String then for_uuid(args)
         when Array then for_uuids(args)
         else
@@ -60,14 +61,23 @@ module Lims::Core
       # @param [UuidResource] uuid_resource
       # @return [Id, nil] 
       def delete_resource(uuid_resource)
-        delete(object_for(uuid_resource))
+        delete(for_uuid_resource(uuid_resource))
+        uuid_resource.key
       end
 
 
       protected
+      # find/load the object referenced by a uuid resource.
+      # Don't need to be called explicitely. use session[resource_uuid] instead
+      # @param [UuidResource] uuid_resource
+      # @return [Resource]
+      def for_uuid_resource(uuid_resource)
+          persistor_for(uuid_resource.model_class)[uuid_resource.key]
+      end
+
       def for_uuid(uuid)
         self.uuid_resource[:uuid => uuid].andtap do |r|
-          persistor_for(r.model_class)[r.key]
+          for_uuid_resource(r)
         end
       end
 
