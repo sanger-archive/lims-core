@@ -8,3 +8,5 @@ module Lims::Core
   module Actions
   end
 end
+
+require_all('actions/*')
