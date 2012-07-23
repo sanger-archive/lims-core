@@ -24,4 +24,9 @@ module Lims::Core
       end
     end
   end
+  module Laboratory
+    class Tube
+      Create=Actions::CreateTube
+    end
+  end
 end
