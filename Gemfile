@@ -5,9 +5,7 @@ source "http://rubygems.org"
 gemspec
 
 group :development do
-  gem "ruby-debug19"
-  gem 'linecache19', :git => 'git@github.com:mark-moseley/linecache.git' 
-  gem 'ruby-debug-base19', :git => 'git@github.com:mark-moseley/ruby-debug.git'
+  gem 'debugger'
 end
 
 group :autotest do
