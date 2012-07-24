@@ -1,8 +1,13 @@
 Sequel.migration do
   change do
+    create_table :samples do
+      primary_key :id
+      String :name
+    end
+
     create_table :aliquots do
       primary_key :id
-      String :sample
+      Integer :sample_id
       Integer :tag_id
       Integer :quantity
       String :type

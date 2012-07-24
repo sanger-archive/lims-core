@@ -79,6 +79,7 @@ module Lims::Core
           attributes = filter_attributes_on_save(object.attributes)
           statement_name = :"#{table_name}#save_raw"
           dataset.prepare(:insert, statement_name, attributes.keys.mash { |k| [k, :"$#{k}"] })
+          puts(statement_name, attributes)
           @session.database.call(statement_name, attributes)
         end
 

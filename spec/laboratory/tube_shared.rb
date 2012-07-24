@@ -8,11 +8,10 @@ require 'facets/array'
 
 L=Lims::Core::Laboratory
 def new_sample(i=1)
-  ["Sample", i].compact.conjoin(" ", "/")
+  L::Sample.new(:name => "Sample ##{i}")
 end
 
 def new_aliquot(i=1)
-  sample = L::Sample
   L::Aliquot.new(:sample => new_sample(i))
 end
 

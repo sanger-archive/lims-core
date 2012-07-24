@@ -24,7 +24,7 @@ module Lims::Core
       end
 
       def new_sample(i=1, j=1)
-        ["Sample", i, j].compact.conjoin(" ", "/")
+        Sample.new(["Sample", i, j].compact.conjoin(" ", "/"))
       end
 
       def new_aliquot(i=nil, j=nil)
