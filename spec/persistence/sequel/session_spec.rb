@@ -5,14 +5,13 @@ require 'persistence/sequel/spec_helper'
 require 'lims/core/persistence/sequel/store'
 require 'lims/core/persistence/sequel/session'
 
-PS=Lims::Core::Persistence::Sequel
 
 module Lims::Core::Persistence
   module Sequel
     describe Session do
       context "with sqlite underlying" do
         let(:db) { ::Sequel.sqlite('') }
-        let(:store) { PS::Store.new(db) }
+        let(:store) { Store.new(db) }
 
         context "#transaction" do
           let(:a) { "A" }

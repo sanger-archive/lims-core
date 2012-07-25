@@ -8,15 +8,12 @@ require 'laboratory/tube_shared'
 require 'lims/core/persistence/sequel/store'
 require 'lims/core/laboratory/tube'
 
-require 'logger'
-DB = Sequel.sqlite '', :logger => Logger.new($stdout) 
-PS=Lims::Core::Persistence::Sequel
 module Lims::Core
   describe Laboratory::Tube do
     include_context "prepare tables"
     include_context "tube factory"
     let(:db) { ::Sequel.sqlite('') }
-    let(:store) { PS::Store.new(db) }
+    let(:store) { Persistence::Sequel::Store.new(db) }
     before (:each) { prepare_table(db) }
 
     context "created and added to session" do

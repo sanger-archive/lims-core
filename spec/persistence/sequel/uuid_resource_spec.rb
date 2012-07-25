@@ -5,10 +5,6 @@ require 'persistence/sequel/store_shared'
 require 'lims/core/persistence/sequel/store'
 require 'lims/core/persistence/uuid_resource'
 
-require 'logger'
-DB = Sequel.sqlite ''#, :logger => Logger.new($stdout) 
-PS=Lims::Core::Persistence::Sequel
-
 module Lims::Core
   module Persistence
     describe Sequel::UuidResource do

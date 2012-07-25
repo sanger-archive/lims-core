@@ -12,8 +12,6 @@ require 'lims/core/actions/tag_wells'
 require 'lims/core/persistence/sequel/store'
 
 require 'logger'
-DB = Sequel.sqlite '', :logger => Logger.new($stdout)
-PS=Lims::Core::Persistence::Sequel
 
 module Lims::Core
   module Actions
@@ -24,7 +22,7 @@ module Lims::Core
       context "with a sequel store" do
         include_context "prepare tables"
         let(:db) { ::Sequel.sqlite('') }
-        let(:store) { PS::Store.new(db) }
+        let(:store) { Persistence::Sequel::Store.new(db) }
         before (:each) { prepare_table(db) }
 
         context "and everything already in the database" do

@@ -7,10 +7,8 @@ require 'persistence/sequel/store_shared'
 #Model requirements
 require 'lims/core/actions/plate_transfer'
 require 'lims/core/persistence/sequel/store'
-PS=Lims::Core::Persistence::Sequel
 require 'logger'
 DB = Sequel.sqlite '', :logger => Logger.new($stdout) 
-PS=Lims::Core::Persistence::Sequel
 
 module Lims::Core
   module Actions
@@ -42,16 +40,11 @@ module Lims::Core
           end
         end
       end
-      context "with a valid store" do
-        before { Persistence::Session.any_instance.stub(:save)   }
-        let (:store) { Persistence::Store.new }
 
-        # should_transfer
-      end
       context "with a sequel store" do
         include_context "prepare tables"
         let(:db) { ::Sequel.sqlite('') }
-        let(:store) { PS::Store.new(db) }
+        let(:store) { Persistence::Sequel::Store.new(db) }
         before (:each) { prepare_table(db) }
 
         # should_transfer
