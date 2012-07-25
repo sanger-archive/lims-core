@@ -50,6 +50,7 @@ end
 
 require 'lims/core/persistence/store'
 require 'lims/core/persistence/aliquot'
+require 'lims/core/persistence/sample'
 require 'lims/core/persistence/flowcell'
 require 'lims/core/persistence/oligo'
 require 'lims/core/persistence/persistor'
