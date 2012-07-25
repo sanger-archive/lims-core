@@ -7,12 +7,11 @@ require 'persistence/sequel/store_shared'
 require 'lims/core/persistence/sequel/store'
 require 'lims/core/laboratory/sample'
 
-require 'logger'
 module Lims::Core
 
   describe Persistence::Sample do
     include_context "prepare tables"
-    let(:db) { ::Sequel.sqlite('', :logger => Logger.new($stdout) ) }
+    let(:db) { ::Sequel.sqlite('') }
     let(:store) { Persistence::Sequel::Store.new(db) }
     before (:each) { prepare_table(db) }
 
@@ -33,10 +32,6 @@ module Lims::Core
       end.call 
 
       store.with_session do |session|
-        puts "================================================================="
-        puts db[:samples].all
-        p sample_id
-        puts "================================================================="
         session.sample[sample_id].name == sample.name
         session.sample[sample_id]== sample
       end

@@ -9,7 +9,6 @@ require 'lims/core/persistence/sequel/store'
 require 'lims/core/laboratory/plate'
 
 require 'logger'
-DB = Sequel.sqlite '', :logger => Logger.new($stdout) 
 PS=Lims::Core::Persistence::Sequel
 module Lims::Core
   
