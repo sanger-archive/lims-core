@@ -8,15 +8,12 @@ require 'persistence/sequel/store_shared'
 require 'lims/core/persistence/sequel/store'
 require 'lims/core/laboratory/flowcell'
 
-require 'logger'
-DB = Sequel.sqlite '', :logger => Logger.new($stdout) 
-PS=Lims::Core::Persistence::Sequel
 module Lims::Core
   
   describe "Sequel#Flowcell " do
     include_context "prepare tables"
     let(:db) { ::Sequel.sqlite('') }
-    let(:store) { PS::Store.new(db) }
+    let(:store) { Persistence::Sequel::Store.new(db) }
     before (:each) { prepare_table(db) }
 
     include_context "flowcell factory"
