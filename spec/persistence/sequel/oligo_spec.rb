@@ -7,15 +7,12 @@ require 'persistence/sequel/store_shared'
 require 'lims/core/persistence/sequel/store'
 require 'lims/core/laboratory/oligo'
 
-require 'logger'
-DB = Sequel.sqlite '', :logger => Logger.new($stdout) 
-PS=Lims::Core::Persistence::Sequel
 module Lims::Core
 
-  describe PS::Oligo do
+  describe Persistence::Sequel::Oligo do
     include_context "prepare tables"
     let(:db) { ::Sequel.sqlite('') }
-    let(:store) { PS::Store.new(db) }
+    let(:store) { Persistence::Sequel::Store.new(db) }
     before (:each) { prepare_table(db) }
 
     let (:oligo) { Laboratory::Oligo.new ("AAA") }
