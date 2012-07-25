@@ -6,6 +6,11 @@ gemspec
 
 group :development do
   gem 'debugger'
+  gem 'debugger-completion'
+end
+
+group :pry do
+  gem 'debugger-pry', :require => 'debugger/pry'
 end
 
 group :autotest do
