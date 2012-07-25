@@ -14,7 +14,7 @@ module Lims::Core
         # @return  the Id if save successful
         def save_raw(object, *params)
           case object 
-            when Resource then @session.log("#{object.class.name}: #{object.attributes}")
+            when Resource then @session.log("#{object.class.name}: #{filter_attributes_on_save(object.attributes)}")
             else
             @session.log("#{object.inspect}")
             end

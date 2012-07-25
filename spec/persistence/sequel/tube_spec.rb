@@ -53,7 +53,7 @@ module Lims::Core
               tube<< aliquot
             end
           end
-          it "should be saved" do
+          it "should be saved", :focus => true do
             store.with_session do |session|
               tube = session.tube[tube_id]
               tube.should == [aliquot]

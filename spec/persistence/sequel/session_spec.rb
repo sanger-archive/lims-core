@@ -26,7 +26,6 @@ module Lims::Core::Persistence
               end
 
               Session.any_instance.stub(:save) do |arg|
-                debugger
                 case arg
                 when "A", "B"
                   db[:names].insert(:name => arg)

@@ -17,6 +17,7 @@ module Lims::Core
           attributes.mash do |k,v|
             case k
             when :tag then [:tag_id, @session.id_for!(v)]
+            when :sample then [:sample_id, @session.id_for!(v)]
             else [k, v]
             end
           end
@@ -26,6 +27,7 @@ module Lims::Core
           attributes.mash do |k,v|
             case k
             when :tag_id then [:tag, @session.oligo[v]]
+            when :sample_id then [:sample, @session.sample[v]]
             else [k, v]
             end
           end
