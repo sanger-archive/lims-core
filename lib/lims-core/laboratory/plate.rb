@@ -119,6 +119,10 @@ module Lims::Core
       end
 
       def indexes_to_well_name(row, column)
+        self.class.indexes_to_well_name(row, column)
+      end
+
+      def self.indexes_to_well_name(row, column)
         "#{(row+?A.ord).chr}#{column+1}"
       end
 
