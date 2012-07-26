@@ -16,3 +16,8 @@ shared_examples "an action" do
   context "well implemented" do
   end
 end
+
+shared_context "for application" do |application_string|
+        let(:user) { mock(:user) }
+        let(:application) { application_string}
+end
