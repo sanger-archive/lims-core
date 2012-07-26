@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    lims-core (0.3.4)
+    lims-core (0.4.0)
       active_support
       aequitas
       facets (= 2.9.3)
