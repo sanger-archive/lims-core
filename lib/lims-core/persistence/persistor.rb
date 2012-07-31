@@ -131,7 +131,7 @@ module Lims::Core
 
         if single
           raise RuntimeError, "More than one object match the criteria" if ids.size > 1
-          raise RuntimeError, "No object match the criteria" if ids.size < 1
+          return nil if ids.size < 1
           get_or_create_single_model(ids.first)
         else
           get_or_create_multi_model(ids)
