@@ -40,7 +40,21 @@ module Lims::Core
         end
 
 
+        # Returns the number of object in the store
+        # @return [Fixnum]
+        def count
+          dataset.count
+        end
+
         private
+        # load a slice.
+        def for_each_in_slice(start, length)
+          dataset.order(primary_key).limit(length, start).each do |h|
+            key = h.delete(primary_key)
+            yield(key, h)
+          end
+        end
+
         # The primary key 
         # @return [Symbol]
         def primary_key()
