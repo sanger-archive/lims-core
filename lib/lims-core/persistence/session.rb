@@ -155,6 +155,7 @@ module Lims::Core
                                     end
         end
 
+        public :persistor_for
         # Compute the class name of the persistor corresponding to the argument
         # @param [Resource]
         # @return [String]

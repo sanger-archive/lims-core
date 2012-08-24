@@ -155,6 +155,36 @@ module Lims::Core
         end
       end
 
+      # @abstract
+      # Returns the number of object in the store
+      # @return [Fixnum]
+      def count
+        raise NotImplementedError
+      end
+      
+      # @abstract
+      # Load a slice. Doesn't return an object but a hash
+      # allowing to build it.
+      # @param [Fixnum] start (0 based)
+      # @param [Fixnum] length
+      # @yieldparam [Fixnum] key
+      # @yieldparam [Hash] attributes of the object
+      def for_each_in_slice(start, length)
+        raise NotImplementedError
+      end
+
+      # Get a slice of object by offset, length.
+      # +start+ here is an offset (starting at 0) not an Id.
+      # @param [Fixnum] start (0 based)
+      # @param [Fixnum] length
+      # @return [Enumerable<Hash>]
+      def slice(start, length)
+        Enumerator.new do |yielder|
+          for_each_in_slice(start, length) do |id, att|
+            yielder << get_or_create_single_model(id, att)
+          end
+        end
+      end
 
       private
       # The primary key 
