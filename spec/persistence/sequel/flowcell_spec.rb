@@ -7,6 +7,7 @@ require 'persistence/sequel/store_shared'
 # Model requirements
 require 'lims/core/persistence/sequel/store'
 require 'lims/core/laboratory/flowcell'
+require 'persistence/sequel/page_shared'
 
 module Lims::Core
   
@@ -97,5 +98,8 @@ module Lims::Core
         end
       end
     end
+
+    let(:constructor) { lambda { |*_| new_flowcell_with_samples } }
+    it_behaves_like "paginable", :flowcell
   end
 end
