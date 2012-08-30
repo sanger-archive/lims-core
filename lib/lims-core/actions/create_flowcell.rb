@@ -8,7 +8,7 @@ module Lims::Core
     class CreateFlowcell
       include Action
 
-      # @attribute [Hash<String, Array<Hash>>] lanes_description
+      # @attribute [Hash<Fixnum, Array<Hash>>] lanes_description
       # @example
       # { 1 => [{ :sample => s1, :quantity => 2}, {:sample => s2}] }
       attribute :lanes_description, Hash, :default => {}

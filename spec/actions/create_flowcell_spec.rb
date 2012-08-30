@@ -55,10 +55,10 @@ module Lims::Core
 
       let (:flowcell_checker) do
         lambda do |flowcell|
-          lanes_description.each do |lane_name, aliquots|
-            aliquots = flowcell[lane_name]
+          lanes_description.each do |lane_id, expected_aliquots|
+            aliquots = flowcell[lane_id]
             aliquots.size.should == 1
-            aliquots.first.sample.should == aliquots.first[:sample]
+            aliquots.first.sample.should == expected_aliquots.first[:sample]
           end
         end
       end
