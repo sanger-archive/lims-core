@@ -18,7 +18,7 @@ module Lims::Core
         session << flowcell
         lanes_description.each do |lane_id, aliquots|
           aliquots.each do |aliquot|
-            flowcell[lane_id] <<  Laboratory::Aliquot.new(aliquot)
+            flowcell[lane_id.to_i] <<  Laboratory::Aliquot.new(aliquot)
           end
         end
         { :flowcell => flowcell, :uuid => session.uuid_for!(flowcell) }

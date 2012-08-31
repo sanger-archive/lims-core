@@ -39,8 +39,8 @@ module Lims::Core
     shared_context "for flowcell with a map of samples" do
       let(:lanes_description) do
         {}.tap do |lane|
-          1.upto(8) do |lane_number|
-            lane[lane_number-1] = [{
+          0.upto(7) do |lane_number|
+            lane[lane_number] = [{
               :sample => new_sample(lane_number),
               :quantity => nil
             }]
