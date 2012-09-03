@@ -44,10 +44,10 @@ module Lims::Core
 
       let (:plate_checker) do
         lambda do |plate|
-          wells_description.each do |well_name, aliquots|
+          wells_description.each do |well_name, expected_aliquots|
             aliquots = plate[well_name]
             aliquots.size.should == 1
-            aliquots.first.sample.should == aliquots.first[:sample]
+            aliquots.first.sample.should == expected_aliquots.first[:sample]
           end
         end
       end
