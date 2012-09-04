@@ -6,7 +6,7 @@
 <title>
   Module: Lims::Core::Persistence
   
-    &mdash; Documentation by YARD 0.7.5
+    &mdash; Documentation by YARD 0.8.2.1
   
 </title>
 
@@ -15,9 +15,11 @@
   <link rel="stylesheet" href="../../css/common.css" type="text/css" media="screen" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
-  relpath = '../..';
-  if (relpath != '') relpath += '/';
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '../../';
+  framesUrl = "../../frames.html#!" + escape(window.location.href);
 </script>
+
 
   <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
 
@@ -26,36 +28,41 @@
 
   </head>
   <body>
-    <script type="text/javascript" charset="utf-8">
-      if (window.top.frames.main) document.body.className = 'frames';
-    </script>
-    
     <div id="header">
       <div id="menu">
   
-    <a href="../../_index.html">Index (P)</a> &raquo; 
+    <a href="../../_index.html">Index (P)</a> &raquo;
     <span class='title'><span class='object_link'><a href="../../Lims.html" title="Lims (module)">Lims</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Core.html" title="Lims::Core (module)">Core</a></span></span>
      &raquo; 
     <span class="title">Persistence</span>
   
-  
+
   <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
       <div id="search">
   
-    <a id="class_list_link" href="#">Class List</a>
+    <a class="full_list_link" id="class_list_link"
+        href="../../class_list.html">
+      Class List
+    </a>
   
-    <a id="method_list_link" href="#">Method List</a>
+    <a class="full_list_link" id="method_list_link"
+        href="../../method_list.html">
+      Method List
+    </a>
   
-    <a id="file_list_link" href="#">File List</a>
+    <a class="full_list_link" id="file_list_link"
+        href="../../file_list.html">
+      File List
+    </a>
   
 </div>
       <div class="clear"></div>
     </div>
-    
+
     <iframe id="search_frame"></iframe>
-    
+
     <div id="content"><h1>Module: Lims::Core::Persistence
   
   
@@ -73,7 +80,7 @@
   
     <dt class="r1 last">Defined in:</dt>
     <dd class="r1 last">lib/lims-core/persistence.rb<span class="defines">,<br />
-  lib/lims-core/persistence/tube.rb,<br /> lib/lims-core/persistence/plate.rb,<br /> lib/lims-core/persistence/oligo.rb,<br /> lib/lims-core/persistence/store.rb,<br /> lib/lims-core/persistence/sequel.rb,<br /> lib/lims-core/persistence/aliquot.rb,<br /> lib/lims-core/persistence/session.rb,<br /> spec/persistence/logger/plate_spec.rb,<br /> lib/lims-core/persistence/flowcell.rb,<br /> spec/persistence/logger/store_spec.rb,<br /> spec/persistence/sequel/store_spec.rb,<br /> spec/persistence/identity_map_spec.rb,<br /> lib/lims-core/persistence/tag_group.rb,<br /> lib/lims-core/persistence/persistor.rb,<br /> spec/persistence/sequel/session_spec.rb,<br /> lib/lims-core/persistence/sequel/tube.rb,<br /> lib/lims-core/persistence/sequel/store.rb,<br /> lib/lims-core/persistence/identity_map.rb,<br /> lib/lims-core/persistence/sequel/plate.rb,<br /> lib/lims-core/persistence/logger/store.rb,<br /> lib/lims-core/persistence/logger/session.rb,<br /> lib/lims-core/persistence/sequel/session.rb,<br /> lib/lims-core/persistence/sequel/aliquot.rb,<br /> lib/lims-core/persistence/sequel/flowcell.rb,<br /> lib/lims-core/persistence/logger/persistor.rb,<br /> lib/lims-core/persistence/sequel/tag_group.rb,<br /> lib/lims-core/persistence/sequel/persistor.rb</span>
+  lib/lims-core/persistence/tube.rb,<br /> lib/lims-core/persistence/store.rb,<br /> lib/lims-core/persistence/plate.rb,<br /> lib/lims-core/persistence/oligo.rb,<br /> lib/lims-core/persistence/sample.rb,<br /> lib/lims-core/persistence/sequel.rb,<br /> lib/lims-core/persistence/session.rb,<br /> lib/lims-core/persistence/aliquot.rb,<br /> lib/lims-core/persistence/uuidable.rb,<br /> spec/persistence/logger/plate_spec.rb,<br /> lib/lims-core/persistence/flowcell.rb,<br /> spec/persistence/logger/store_spec.rb,<br /> spec/persistence/sequel/store_spec.rb,<br /> spec/persistence/identity_map_spec.rb,<br /> lib/lims-core/persistence/tag_group.rb,<br /> lib/lims-core/persistence/persistor.rb,<br /> spec/persistence/sequel/session_spec.rb,<br /> lib/lims-core/persistence/sequel/tube.rb,<br /> lib/lims-core/persistence/sequel/plate.rb,<br /> lib/lims-core/persistence/identity_map.rb,<br /> lib/lims-core/persistence/logger/store.rb,<br /> lib/lims-core/persistence/sequel/store.rb,<br /> lib/lims-core/persistence/uuid_resource.rb,<br /> lib/lims-core/persistence/sequel/session.rb,<br /> lib/lims-core/persistence/sequel/aliquot.rb,<br /> lib/lims-core/persistence/logger/session.rb,<br /> lib/lims-core/persistence/sequel/flowcell.rb,<br /> spec/persistence/sequel/uuid_resource_spec.rb,<br /> lib/lims-core/persistence/sequel/persistor.rb,<br /> lib/lims-core/persistence/logger/persistor.rb,<br /> lib/lims-core/persistence/sequel/tag_group.rb</span>
 </dd>
   
 </dl>
@@ -94,13 +101,13 @@ persistence types. For example, see the <span class='object_link'><a href="Persi
 
 </div><h2>Defined Under Namespace</h2>
 <p class="children">
-   
+  
     
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Persistence/IdentityMap.html" title="Lims::Core::Persistence::IdentityMap (module)">IdentityMap</a></span>, <span class='object_link'><a href="Persistence/Logger.html" title="Lims::Core::Persistence::Logger (module)">Logger</a></span>, <span class='object_link'><a href="Persistence/Sequel.html" title="Lims::Core::Persistence::Sequel (module)">Sequel</a></span>
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Persistence/IdentityMap.html" title="Lims::Core::Persistence::IdentityMap (module)">IdentityMap</a></span>, <span class='object_link'><a href="Persistence/Logger.html" title="Lims::Core::Persistence::Logger (module)">Logger</a></span>, <span class='object_link'><a href="Persistence/Sequel.html" title="Lims::Core::Persistence::Sequel (module)">Sequel</a></span>, <span class='object_link'><a href="Persistence/Uuidable.html" title="Lims::Core::Persistence::Uuidable (module)">Uuidable</a></span>
     
-   
+  
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Persistence/Aliquot.html" title="Lims::Core::Persistence::Aliquot (class)">Aliquot</a></span>, <span class='object_link'><a href="Persistence/Flowcell.html" title="Lims::Core::Persistence::Flowcell (class)">Flowcell</a></span>, <span class='object_link'><a href="Persistence/IdentityMapClass.html" title="Lims::Core::Persistence::IdentityMapClass (class)">IdentityMapClass</a></span>, <span class='object_link'><a href="Persistence/Oligo.html" title="Lims::Core::Persistence::Oligo (class)">Oligo</a></span>, <span class='object_link'><a href="Persistence/Persistor.html" title="Lims::Core::Persistence::Persistor (class)">Persistor</a></span>, <span class='object_link'><a href="Persistence/Plate.html" title="Lims::Core::Persistence::Plate (class)">Plate</a></span>, <span class='object_link'><a href="Persistence/Session.html" title="Lims::Core::Persistence::Session (class)">Session</a></span>, <span class='object_link'><a href="Persistence/Store.html" title="Lims::Core::Persistence::Store (class)">Store</a></span>, <span class='object_link'><a href="Persistence/TagGroup.html" title="Lims::Core::Persistence::TagGroup (class)">TagGroup</a></span>, <span class='object_link'><a href="Persistence/Tube.html" title="Lims::Core::Persistence::Tube (class)">Tube</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Persistence/Aliquot.html" title="Lims::Core::Persistence::Aliquot (class)">Aliquot</a></span>, <span class='object_link'><a href="Persistence/Flowcell.html" title="Lims::Core::Persistence::Flowcell (class)">Flowcell</a></span>, <span class='object_link'><a href="Persistence/IdentityMapClass.html" title="Lims::Core::Persistence::IdentityMapClass (class)">IdentityMapClass</a></span>, <span class='object_link'><a href="Persistence/Oligo.html" title="Lims::Core::Persistence::Oligo (class)">Oligo</a></span>, <span class='object_link'><a href="Persistence/Persistor.html" title="Lims::Core::Persistence::Persistor (class)">Persistor</a></span>, <span class='object_link'><a href="Persistence/Plate.html" title="Lims::Core::Persistence::Plate (class)">Plate</a></span>, <span class='object_link'><a href="Persistence/Sample.html" title="Lims::Core::Persistence::Sample (class)">Sample</a></span>, <span class='object_link'><a href="Persistence/Session.html" title="Lims::Core::Persistence::Session (class)">Session</a></span>, <span class='object_link'><a href="Persistence/Store.html" title="Lims::Core::Persistence::Store (class)">Store</a></span>, <span class='object_link'><a href="Persistence/TagGroup.html" title="Lims::Core::Persistence::TagGroup (class)">TagGroup</a></span>, <span class='object_link'><a href="Persistence/Tube.html" title="Lims::Core::Persistence::Tube (class)">Tube</a></span>, <span class='object_link'><a href="Persistence/UuidResource.html" title="Lims::Core::Persistence::UuidResource (class)">UuidResource</a></span>
     
   
 </p>
@@ -145,6 +152,7 @@ persistence types. For example, see the <span class='object_link'><a href="Persi
   
   
   
+  
 
   
     <span class="summary_desc"><div class='inline'>
@@ -162,6 +170,7 @@ persistence types. For example, see the <span class='object_link'><a href="Persi
 
     
   </span>
+  
   
   
   
@@ -192,6 +201,7 @@ Persistence module but which  haven't been subclassed..</p>
   
   
   
+  
 
   
     <span class="summary_desc"><div class='inline'>
@@ -209,6 +219,7 @@ Persistence module but which  haven't been subclassed..</p>
 
     
   </span>
+  
   
   
   
@@ -236,6 +247,7 @@ Persistence module but which  haven't been subclassed..</p>
   
   
   
+  
 
   
     <span class="summary_desc"><div class='inline'></div></span>
@@ -250,16 +262,18 @@ Persistence module but which  haven't been subclassed..</p>
 
   <div id="class_method_details" class="method_details_list">
     <h2>Class Method Details</h2>
-    
+
     
       <div class="method_details first">
-  <p class="signature first" id="finalize_submodule-class_method">
+  <h3 class="signature first" id="finalize_submodule-class_method">
   
     + (<tt><span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>finalize_submodule</strong>(mod) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     
 <p>Creates all the missing for a submodule. Needs to be called  once for each
@@ -277,13 +291,13 @@ submodule</p>
       <pre class="lines">
 
 
-15
 16
 17
-18</pre>
+18
+19</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_finalize_submodule'>finalize_submodule</span><span class='lparen'>(</span><span class='id identifier rubyid_mod'>mod</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_require_all'>require_all</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_mod'>mod</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_pathize'>pathize</span><span class='period'>.</span><span class='id identifier rubyid_sub'>sub</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>lims/core/</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rbrace'>}</span><span class='tstring_content'>/*</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -295,13 +309,15 @@ submodule</p>
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="generate_missing_classes-class_method">
+  <h3 class="signature " id="generate_missing_classes-class_method">
   
     + (<tt><span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>generate_missing_classes</strong>(base, mod, persistor) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     
 <p>Generate all the 'missing' persistors (.i.e. those existing in the main
@@ -311,7 +327,7 @@ Persistence module but which  haven't been subclassed.</p>
   </div>
 </div>
 <div class="tags">
-  <h3>Parameters:</h3>
+  <p class="tag_title">Parameters:</p>
 <ul class="param">
   
     <li>
@@ -339,7 +355,6 @@ Persistence module but which  haven't been subclassed.</p>
       <pre class="lines">
 
 
-24
 25
 26
 27
@@ -347,10 +362,11 @@ Persistence module but which  haven't been subclassed.</p>
 29
 30
 31
-32</pre>
+32
+33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence.rb', line 25</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_generate_missing_classes'>generate_missing_classes</span><span class='lparen'>(</span><span class='id identifier rubyid_base'>base</span><span class='comma'>,</span> <span class='id identifier rubyid_mod'>mod</span><span class='comma'>,</span> <span class='id identifier rubyid_persistor'>persistor</span><span class='rparen'>)</span>
   <span class='lparen'>(</span><span class='id identifier rubyid_base'>base</span><span class='period'>.</span><span class='id identifier rubyid_constants'>constants</span><span class='lparen'>(</span><span class='kw'>false</span><span class='rparen'>)</span><span class='op'>-</span><span class='id identifier rubyid_mod'>mod</span><span class='period'>.</span><span class='id identifier rubyid_constants'>constants</span><span class='lparen'>(</span><span class='kw'>false</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_c'>c</span><span class='op'>|</span> <span class='id identifier rubyid_base'>base</span><span class='period'>.</span><span class='id identifier rubyid_const_get'>const_get</span><span class='lparen'>(</span><span class='id identifier rubyid_c'>c</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_klass'>klass</span><span class='op'>|</span>
@@ -367,13 +383,15 @@ Persistence module but which  haven't been subclassed.</p>
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="generate_persistor-class_method">
+  <h3 class="signature " id="generate_persistor-class_method">
   
     + (<tt><span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>generate_persistor</strong>(klass, mod, persistor) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     
 <p>Generate a persistor inheriting from  klass</p>
@@ -392,7 +410,6 @@ Persistence module but which  haven't been subclassed.</p>
       <pre class="lines">
 
 
-36
 37
 38
 39
@@ -402,10 +419,11 @@ Persistence module but which  haven't been subclassed.</p>
 43
 44
 45
-46</pre>
+46
+47</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence.rb', line 37</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_generate_persistor'>generate_persistor</span><span class='lparen'>(</span><span class='id identifier rubyid_klass'>klass</span><span class='comma'>,</span> <span class='id identifier rubyid_mod'>mod</span><span class='comma'>,</span> <span class='id identifier rubyid_persistor'>persistor</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_class_name'>class_name</span> <span class='op'>=</span> <span class='id identifier rubyid_klass'>klass</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>::</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span>
@@ -424,13 +442,15 @@ Persistence module but which  haven't been subclassed.</p>
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="initialized_with_a_logger-class_method">
+  <h3 class="signature " id="initialized_with_a_logger-class_method">
   
     + (<tt><span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>initialized_with_a_logger</strong>(method) 
   
 
   
-</p><table class="source_code">
+
+  
+</h3><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
@@ -470,13 +490,15 @@ Persistence module but which  haven't been subclassed.</p>
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="initialized_with_an_IO-class_method">
+  <h3 class="signature " id="initialized_with_an_IO-class_method">
   
     + (<tt><span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>initialized_with_an_IO</strong>(io) 
   
 
   
-</p><table class="source_code">
+
+  
+</h3><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
@@ -516,11 +538,11 @@ Persistence module but which  haven't been subclassed.</p>
   </div>
 
 </div>
-    
+
     <div id="footer">
-  Generated on Sun Jun 10 10:30:31 2012 by 
+  Generated on Tue Sep  4 21:39:06 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.7.5 (ruby-1.9.3).
+  0.8.2.1 (ruby-1.9.3).
 </div>
 
   </body>

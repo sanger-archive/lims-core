@@ -6,7 +6,7 @@
 <title>
   Class: Lims::Core::Persistence::Logger::Store
   
-    &mdash; Documentation by YARD 0.7.5
+    &mdash; Documentation by YARD 0.8.2.1
   
 </title>
 
@@ -15,9 +15,11 @@
   <link rel="stylesheet" href="../../../../css/common.css" type="text/css" media="screen" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
-  relpath = '../../../..';
-  if (relpath != '') relpath += '/';
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '../../../../';
+  framesUrl = "../../../../frames.html#!" + escape(window.location.href);
 </script>
+
 
   <script type="text/javascript" charset="utf-8" src="../../../../js/jquery.js"></script>
 
@@ -26,36 +28,41 @@
 
   </head>
   <body>
-    <script type="text/javascript" charset="utf-8">
-      if (window.top.frames.main) document.body.className = 'frames';
-    </script>
-    
     <div id="header">
       <div id="menu">
   
-    <a href="../../../../_index.html">Index (S)</a> &raquo; 
+    <a href="../../../../_index.html">Index (S)</a> &raquo;
     <span class='title'><span class='object_link'><a href="../../../../Lims.html" title="Lims (module)">Lims</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../../../Core.html" title="Lims::Core (module)">Core</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../../Persistence.html" title="Lims::Core::Persistence (module)">Persistence</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Logger.html" title="Lims::Core::Persistence::Logger (module)">Logger</a></span></span>
      &raquo; 
     <span class="title">Store</span>
   
-  
+
   <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
       <div id="search">
   
-    <a id="class_list_link" href="#">Class List</a>
+    <a class="full_list_link" id="class_list_link"
+        href="../../../../class_list.html">
+      Class List
+    </a>
   
-    <a id="method_list_link" href="#">Method List</a>
+    <a class="full_list_link" id="method_list_link"
+        href="../../../../method_list.html">
+      Method List
+    </a>
   
-    <a id="file_list_link" href="#">File List</a>
+    <a class="full_list_link" id="file_list_link"
+        href="../../../../file_list.html">
+      File List
+    </a>
   
 </div>
       <div class="clear"></div>
     </div>
-    
+
     <iframe id="search_frame"></iframe>
-    
+
     <div id="content"><h1>Class: Lims::Core::Persistence::Logger::Store
   
   
@@ -122,7 +129,10 @@
   </span>
   
   
-    <span class="note title readonly">readonly</span>
+  
+    
+      <span class="note title readonly">readonly</span>
+    
     
   
   
@@ -148,7 +158,10 @@
   </span>
   
   
-    <span class="note title readonly">readonly</span>
+  
+    
+      <span class="note title readonly">readonly</span>
+    
     
   
   
@@ -186,6 +199,7 @@
     
   </span>
   
+  
     <span class="note title constructor">constructor</span>
   
   
@@ -216,6 +230,7 @@
   
   
   
+  
 
   
     <span class="summary_desc"><div class='inline'></div></span>
@@ -234,19 +249,22 @@
   
   
   
+  
   <h3 class="inherited">Methods inherited from <span class='object_link'><a href="../Store.html" title="Lims::Core::Persistence::Store (class)">Store</a></span></h3>
   <p class="inherited"><span class='object_link'><a href="../Store.html#base_module-instance_method" title="Lims::Core::Persistence::Store#base_module (method)">#base_module</a></span>, <span class='object_link'><a href="../Store.html#base_module-class_method" title="Lims::Core::Persistence::Store.base_module (method)">base_module</a></span>, <span class='object_link'><a href="../Store.html#const_missing-class_method" title="Lims::Core::Persistence::Store.const_missing (method)">const_missing</a></span>, <span class='object_link'><a href="../Store.html#create_session-instance_method" title="Lims::Core::Persistence::Store#create_session (method)">#create_session</a></span>, <span class='object_link'><a href="../Store.html#transaction-instance_method" title="Lims::Core::Persistence::Store#transaction (method)">#transaction</a></span>, <span class='object_link'><a href="../Store.html#with_session-instance_method" title="Lims::Core::Persistence::Store#with_session (method)">#with_session</a></span></p>
 <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
   
     <div class="method_details first">
-  <p class="signature first" id="initialize-instance_method">
+  <h3 class="signature first" id="initialize-instance_method">
   
     - (<tt><span class='object_link'><a href="" title="Lims::Core::Persistence::Logger::Store (class)">Store</a></span></tt>) <strong>initialize</strong>(logger, method = :info, *args) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     
 <p>Create a store with an underlying logger. send information to the logger.</p>
@@ -255,7 +273,7 @@
   </div>
 </div>
 <div class="tags">
-  <h3>Parameters:</h3>
+  <p class="tag_title">Parameters:</p>
 <ul class="param">
   
     <li>
@@ -328,15 +346,16 @@
     
       
       <span id=""></span>
-      <span id="logger-instance_method"></span>
       <div class="method_details first">
-  <p class="signature first" id="logger-instance_method">
+  <h3 class="signature first" id="logger-instance_method">
   
     - (<tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>logger</strong>  <span class="extras">(readonly)</span>
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     
 <p>Returns the value of attribute logger</p>
@@ -370,15 +389,16 @@
     
       
       <span id=""></span>
-      <span id="method-instance_method"></span>
       <div class="method_details ">
-  <p class="signature " id="method-instance_method">
+  <h3 class="signature " id="method-instance_method">
   
     - (<tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>method</strong>  <span class="extras">(readonly)</span>
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     
 <p>Returns the value of attribute method</p>
@@ -415,16 +435,18 @@
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
-    
+
     
       <div class="method_details first">
-  <p class="signature first" id="log-instance_method">
+  <h3 class="signature first" id="log-instance_method">
   
     - (<tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>log</strong>(msg) 
   
 
   
-</p><table class="source_code">
+
+  
+</h3><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
@@ -448,11 +470,11 @@
   </div>
 
 </div>
-    
+
     <div id="footer">
-  Generated on Sun Jun 10 10:30:33 2012 by 
+  Generated on Tue Sep  4 21:39:09 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.7.5 (ruby-1.9.3).
+  0.8.2.1 (ruby-1.9.3).
 </div>
 
   </body>

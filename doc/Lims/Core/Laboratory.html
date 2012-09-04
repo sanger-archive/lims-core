@@ -6,7 +6,7 @@
 <title>
   Module: Lims::Core::Laboratory
   
-    &mdash; Documentation by YARD 0.7.5
+    &mdash; Documentation by YARD 0.8.2.1
   
 </title>
 
@@ -15,9 +15,11 @@
   <link rel="stylesheet" href="../../css/common.css" type="text/css" media="screen" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
-  relpath = '../..';
-  if (relpath != '') relpath += '/';
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '../../';
+  framesUrl = "../../frames.html#!" + escape(window.location.href);
 </script>
+
 
   <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
 
@@ -26,36 +28,41 @@
 
   </head>
   <body>
-    <script type="text/javascript" charset="utf-8">
-      if (window.top.frames.main) document.body.className = 'frames';
-    </script>
-    
     <div id="header">
       <div id="menu">
   
-    <a href="../../_index.html">Index (L)</a> &raquo; 
+    <a href="../../_index.html">Index (L)</a> &raquo;
     <span class='title'><span class='object_link'><a href="../../Lims.html" title="Lims (module)">Lims</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Core.html" title="Lims::Core (module)">Core</a></span></span>
      &raquo; 
     <span class="title">Laboratory</span>
   
-  
+
   <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
       <div id="search">
   
-    <a id="class_list_link" href="#">Class List</a>
+    <a class="full_list_link" id="class_list_link"
+        href="../../class_list.html">
+      Class List
+    </a>
   
-    <a id="method_list_link" href="#">Method List</a>
+    <a class="full_list_link" id="method_list_link"
+        href="../../method_list.html">
+      Method List
+    </a>
   
-    <a id="file_list_link" href="#">File List</a>
+    <a class="full_list_link" id="file_list_link"
+        href="../../file_list.html">
+      File List
+    </a>
   
 </div>
       <div class="clear"></div>
     </div>
-    
+
     <iframe id="search_frame"></iframe>
-    
+
     <div id="content"><h1>Module: Lims::Core::Laboratory
   
   
@@ -73,7 +80,7 @@
   
     <dt class="r1 last">Defined in:</dt>
     <dd class="r1 last">lib/lims-core/laboratory.rb<span class="defines">,<br />
-  spec/laboratory/tube_spec.rb,<br /> spec/laboratory/lane_spec.rb,<br /> spec/laboratory/plate_spec.rb,<br /> spec/laboratory/oligo_spec.rb,<br /> spec/laboratory/tube_shared.rb,<br /> spec/laboratory/sample_spec.rb,<br /> spec/laboratory/aliquot_spec.rb,<br /> spec/laboratory/plate_shared.rb,<br /> spec/laboratory/flowcell_spec.rb,<br /> lib/lims-core/laboratory/tube.rb,<br /> spec/laboratory/tag_group_spec.rb,<br /> lib/lims-core/laboratory/plate.rb,<br /> lib/lims-core/laboratory/oligo.rb,<br /> lib/lims-core/laboratory/sample.rb,<br /> spec/laboratory/flowcell_shared.rb,<br /> lib/lims-core/laboratory/aliquot.rb,<br /> lib/lims-core/laboratory/flowcell.rb,<br /> lib/lims-core/laboratory/tag_group.rb,<br /> lib/lims-core/laboratory/container.rb,<br /> lib/lims-core/laboratory/receptacle.rb,<br /> lib/lims-core/laboratory/labellable.rb</span>
+  spec/laboratory/tube_spec.rb,<br /> spec/laboratory/lane_spec.rb,<br /> spec/laboratory/oligo_spec.rb,<br /> spec/laboratory/plate_spec.rb,<br /> spec/laboratory/tube_shared.rb,<br /> spec/laboratory/sample_spec.rb,<br /> spec/laboratory/aliquot_spec.rb,<br /> spec/laboratory/plate_shared.rb,<br /> lib/lims-core/laboratory/tube.rb,<br /> spec/laboratory/flowcell_spec.rb,<br /> lib/lims-core/laboratory/plate.rb,<br /> spec/laboratory/tag_group_spec.rb,<br /> lib/lims-core/laboratory/oligo.rb,<br /> spec/laboratory/flowcell_shared.rb,<br /> lib/lims-core/laboratory/sample.rb,<br /> lib/lims-core/laboratory/aliquot.rb,<br /> lib/lims-core/laboratory/flowcell.rb,<br /> lib/lims-core/actions/create_tube.rb,<br /> lib/lims-core/actions/create_plate.rb,<br /> lib/lims-core/laboratory/tag_group.rb,<br /> lib/lims-core/laboratory/container.rb,<br /> lib/lims-core/laboratory/receptacle.rb,<br /> lib/lims-core/laboratory/labellable.rb,<br /> lib/lims-core/actions/create_flowcell.rb</span>
 </dd>
   
 </dl>
@@ -94,11 +101,11 @@
 
 </div><h2>Defined Under Namespace</h2>
 <p class="children">
-   
+  
     
       <strong class="modules">Modules:</strong> <span class='object_link'><a href="Laboratory/Container.html" title="Lims::Core::Laboratory::Container (module)">Container</a></span>, <span class='object_link'><a href="Laboratory/Labellable.html" title="Lims::Core::Laboratory::Labellable (module)">Labellable</a></span>, <span class='object_link'><a href="Laboratory/Receptacle.html" title="Lims::Core::Laboratory::Receptacle (module)">Receptacle</a></span>
     
-   
+  
     
       <strong class="classes">Classes:</strong> <span class='object_link'><a href="Laboratory/Aliquot.html" title="Lims::Core::Laboratory::Aliquot (class)">Aliquot</a></span>, <span class='object_link'><a href="Laboratory/Flowcell.html" title="Lims::Core::Laboratory::Flowcell (class)">Flowcell</a></span>, <span class='object_link'><a href="Laboratory/Oligo.html" title="Lims::Core::Laboratory::Oligo (class)">Oligo</a></span>, <span class='object_link'><a href="Laboratory/Plate.html" title="Lims::Core::Laboratory::Plate (class)">Plate</a></span>, <span class='object_link'><a href="Laboratory/Sample.html" title="Lims::Core::Laboratory::Sample (class)">Sample</a></span>, <span class='object_link'><a href="Laboratory/TagGroup.html" title="Lims::Core::Laboratory::TagGroup (class)">TagGroup</a></span>, <span class='object_link'><a href="Laboratory/Tube.html" title="Lims::Core::Laboratory::Tube (class)">Tube</a></span>
     
@@ -114,11 +121,11 @@
 
 
 </div>
-    
+
     <div id="footer">
-  Generated on Sun Jun 10 10:30:31 2012 by 
+  Generated on Tue Sep  4 21:39:05 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.7.5 (ruby-1.9.3).
+  0.8.2.1 (ruby-1.9.3).
 </div>
 
   </body>
