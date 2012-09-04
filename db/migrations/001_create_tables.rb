@@ -15,6 +15,7 @@ Sequel.migration do
 
     create_table :flowcells do
       primary_key :id
+      Integer :number_of_lanes
     end
 
     create_table :lanes do

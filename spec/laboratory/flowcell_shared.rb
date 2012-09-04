@@ -10,7 +10,7 @@ module Lims::Core
   module Laboratory
     shared_context "flowcell factory" do
       def new_flowcell_with_samples(sample_nb=5)
-        Flowcell.new.tap do |flowcell|
+        Flowcell.new(:number_of_lanes => number_of_lanes).tap do |flowcell|
           flowcell.each_with_index do |lane, i|
             1.upto(sample_nb) do |j|
               lane <<  new_aliquot(i,j)
@@ -20,7 +20,7 @@ module Lims::Core
       end
 
       def new_empty_flowcell
-        Flowcell.new
+        Flowcell.new(:number_of_lanes => number_of_lanes)
       end
 
       def new_sample(i=1, j=1)
