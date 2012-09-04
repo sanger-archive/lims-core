@@ -40,7 +40,7 @@ module Lims::Core
       let(:lanes_description) do
         {}.tap do |lane|
           1.upto(8) do |lane_number|
-            lane[lane_number-1] = [{
+            lane[lane_number.to_s] = [{
               :sample => new_sample(lane_number),
               :quantity => nil
             }]
@@ -55,8 +55,8 @@ module Lims::Core
 
       let (:flowcell_checker) do
         lambda do |flowcell|
-          lanes_description.each do |lane_id, expected_aliquots|
-            aliquots = flowcell[lane_id]
+          lanes_description.each do |lane_name, expected_aliquots|
+            aliquots = flowcell[lane_name.to_i-1]
             aliquots.size.should == 1
             aliquots.first.sample.should == expected_aliquots.first[:sample]
           end
