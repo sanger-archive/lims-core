@@ -10,8 +10,7 @@ require 'laboratory/receptacle_examples'
 require 'lims/core/laboratory/flowcell'
 
 module Lims::Core::Laboratory
-  shared_context "contains lanes" do |number_of_lanes|
-    subject {described_class.new(:number_of_lanes => number_of_lanes)}
+  shared_examples "contains lanes" do
     its(:size) { should eq(number_of_lanes) } 
     it_behaves_like "a container", Flowcell::Lane
 
@@ -28,14 +27,20 @@ module Lims::Core::Laboratory
   end
 
   describe Flowcell  do
-    it_behaves_like "located" 
-    it_behaves_like "labellable"
-    context "MiSeq" do
-      include_context( "contains lanes", 1)
+    subject {described_class.new(:number_of_lanes => number_of_lanes)}
+    
+    context "of type MiSeq" do
+      let (:number_of_lanes) { 1 }
+      it_behaves_like "located" 
+      it_behaves_like "contains lanes"
+      it_behaves_like "labellable"
     end
 
-    context "HiSeq" do
-      include_context("contains lanes", 8)
+    context "of type HiSeq" do
+      let (:number_of_lanes) { 8 }
+      it_behaves_like "located" 
+      it_behaves_like "contains lanes"
+      it_behaves_like "labellable"
     end
   end
   
