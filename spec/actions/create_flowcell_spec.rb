@@ -13,7 +13,7 @@ module Lims::Core
     shared_context "for empty flowcell" do
       subject do
         CreateFlowcell.new(:store => store, :user => user, :application => application) do |action,session|
-          action.ostruct_update(number_of_lanes)
+          action.ostruct_update(number_of_lanes_hash)
         end
       end
 
@@ -32,7 +32,7 @@ module Lims::Core
         result.should be_a Hash
 
         flowcell = result[:flowcell]
-        flowcell.number_of_lanes.should == number_of_lanes[:number_of_lanes]
+        flowcell.number_of_lanes.should == number_of_lanes_hash[:number_of_lanes]
         flowcell_checker[flowcell]
 
         result[:uuid].should == uuid
@@ -42,7 +42,7 @@ module Lims::Core
     shared_context "for flowcell with a map of samples" do
       let(:lanes_description) do
         {}.tap do |lane|
-          1.upto(number_of_lanes[:number_of_lanes]) do |lane_number|
+          1.upto(number_of_lanes_hash[:number_of_lanes]) do |lane_number|
             lane[lane_number.to_s] = [{
               :sample => new_sample(lane_number),
               :quantity => nil
@@ -52,7 +52,7 @@ module Lims::Core
       end
       subject do
         CreateFlowcell.new(:store => store, :user => user, :application => application)  do |action,session|
-          action.ostruct_update(number_of_lanes)
+          action.ostruct_update(number_of_lanes_hash)
           action.lanes_description = lanes_description
         end
       end
@@ -69,7 +69,7 @@ module Lims::Core
     end
 
     shared_context "has number of lane" do |nb_of_lanes|
-      let(:number_of_lanes) { { :number_of_lanes => nb_of_lanes } }
+      let(:number_of_lanes_hash) { { :number_of_lanes => nb_of_lanes } }
     end
     
     shared_context "miseq flowcell" do
