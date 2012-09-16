@@ -8,10 +8,6 @@ module Lims::Core
     class CreateTube
       include Action
 
-      %w(row column).each do |w|
-        attribute :"#{w}_number",  Fixnum, :required => true, :gte => 0, :writer => :private
-      end
-
       def initialize(*args, &block)
         @name = "Create Tube"
         super(*args, &block)
