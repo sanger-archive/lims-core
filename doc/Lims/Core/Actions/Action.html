@@ -196,7 +196,8 @@ the corresponding methods.</p>
 22
 23
 24
-25</pre>
+25
+26</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/actions/action.rb', line 16</span>
@@ -204,6 +205,7 @@ the corresponding methods.</p>
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_included'>included</span><span class='lparen'>(</span><span class='id identifier rubyid_klass'>klass</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_klass'>klass</span><span class='period'>.</span><span class='id identifier rubyid_class_eval'>class_eval</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_include'>include</span> <span class='const'>Virtus</span>
+    <span class='id identifier rubyid_include'>include</span> <span class='const'>Aequitas</span>
     <span class='id identifier rubyid_attribute'>attribute</span> <span class='symbol'>:store</span><span class='comma'>,</span> <span class='const'>String</span><span class='comma'>,</span> <span class='symbol'>:required</span> <span class='op'>=&gt;</span> <span class='kw'>true</span>
     <span class='id identifier rubyid_attribute'>attribute</span> <span class='symbol'>:user</span><span class='comma'>,</span> <span class='const'>String</span><span class='comma'>,</span> <span class='symbol'>:required</span> <span class='op'>=&gt;</span> <span class='kw'>true</span>
     <span class='id identifier rubyid_attribute'>attribute</span> <span class='symbol'>:application</span><span class='comma'>,</span> <span class='const'>String</span><span class='comma'>,</span> <span class='symbol'>:required</span> <span class='op'>=&gt;</span> <span class='kw'>true</span>
@@ -221,7 +223,7 @@ the corresponding methods.</p>
 </div>
 
     <div id="footer">
-  Generated on Tue Sep  4 21:39:06 2012 by
+  Generated on Mon Sep 17 14:52:17 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.2.1 (ruby-1.9.3).
 </div>
