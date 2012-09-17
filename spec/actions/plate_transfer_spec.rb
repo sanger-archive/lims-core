@@ -41,12 +41,26 @@ module Lims::Core
         end
       end
 
+
       context "with a sequel store" do
         include_context "prepare tables"
         let(:db) { ::Sequel.sqlite('') }
         let(:store) { Persistence::Sequel::Store.new(db) }
         before (:each) { prepare_table(db) }
 
+        context "with invalid paramters" do
+          context "when called" do
+          subject do
+            described_class.new(:store => store, :user => user, :application => application)
+          end
+            before(:each)  {
+              subject.call
+            }
+
+            its(:result) { should == nil }
+            its(:errors) { should_not be_empty }
+          end
+        end
         # should_transfer
 
         context "with plates ids" do

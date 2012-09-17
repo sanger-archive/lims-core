@@ -16,11 +16,13 @@ module Lims::Core
       attribute :target, Laboratory::Plate, :required => true, :writer => :private
       attribute :transfer_map, Hash, :required => true, :writer => :private
 
+
       # transfer the content of  from source to target according to map
       def _call_in_session(session)
           transfer_map.each do |from ,to|
             target[to] << source[from].take
           end
+          target
       end
     end
   end

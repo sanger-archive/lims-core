@@ -16,6 +16,7 @@ module Lims::Core
       def self.included(klass)
         klass.class_eval do
           include Virtus
+          include Aequitas
           attribute :store, String, :required => true
           attribute :user, String, :required => true
           attribute :application, String, :required => true
@@ -40,6 +41,7 @@ module Lims::Core
         # and it shouldn't be overriden.
         # A block can be passed to  be evaluated with the session after the save session been saved.
         # This is usefull to get ids of saved object.
+        # False will be returned if the action failed (or parameters are invalid)
         # @return the value return by the block
         # @yieldparam [Action] a self
         # @yieldparam [Session]  session the current session.
@@ -53,7 +55,7 @@ module Lims::Core
             end
 
             lambda { after_save[self, s] }
-          end.call
+          end.andtap { |block| block.call }
         end
 
         # Execute the opposite of the action if possible.
@@ -64,6 +66,9 @@ module Lims::Core
           with_session { |s| _revert_in_session(s) }
         end
 
+        # Execute the given block within a new session.
+        # Validates the action and fill #errors if needed
+        # @return [Object, False]
         def with_session(*args, &block)
           @store.with_session(*args) do |session|
             # initialize action
@@ -74,7 +79,7 @@ module Lims::Core
               @initializer = nil
             end
 
-            block.call(session)
+            block.call(session) if valid?
           end
         end
 
