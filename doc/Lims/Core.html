@@ -144,7 +144,7 @@ dependency will be a tree than a graph, (but it's not a necessity).</p>
         <dt id="VERSION-constant" class="">VERSION =
           
         </dt>
-        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0.6.2</span><span class='tstring_end'>&quot;</span></span></pre></dd>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0.8.0</span><span class='tstring_end'>&quot;</span></span></pre></dd>
       
     </dl>
   
@@ -231,12 +231,12 @@ dependency will be a tree than a graph, (but it's not a necessity).</p>
       <pre class="lines">
 
 
-22
-23
-24</pre>
+100
+101
+102</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'spec/persistence/sequel/flowcell_spec.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'spec/persistence/sequel/flowcell_spec.rb', line 100</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_last_flowcell_id'>last_flowcell_id</span><span class='lparen'>(</span><span class='id identifier rubyid_session'>session</span><span class='rparen'>)</span>
       <span class='id identifier rubyid_session'>session</span><span class='period'>.</span><span class='id identifier rubyid_flowcell'>flowcell</span><span class='period'>.</span><span class='id identifier rubyid_dataset'>dataset</span><span class='period'>.</span><span class='id identifier rubyid_order_by'>order_by</span><span class='lparen'>(</span><span class='symbol'>:id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span>
@@ -280,11 +280,6 @@ dependency will be a tree than a graph, (but it's not a necessity).</p>
 
 </div>
 
-    <div id="footer">
-  Generated on Tue Sep  4 21:39:05 2012 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.2.1 (ruby-1.9.3).
-</div>
-
+    
   </body>
 </html>

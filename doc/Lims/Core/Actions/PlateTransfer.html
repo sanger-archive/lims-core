@@ -211,19 +211,21 @@ attributes.</p>
       <pre class="lines">
 
 
-20
 21
 22
 23
-24</pre>
+24
+25
+26</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/actions/plate_transfer.rb', line 20</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/actions/plate_transfer.rb', line 21</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid__call_in_session'>_call_in_session</span><span class='lparen'>(</span><span class='id identifier rubyid_session'>session</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_transfer_map'>transfer_map</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_from'>from</span> <span class='comma'>,</span><span class='id identifier rubyid_to'>to</span><span class='op'>|</span>
       <span class='id identifier rubyid_target'>target</span><span class='lbracket'>[</span><span class='id identifier rubyid_to'>to</span><span class='rbracket'>]</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_source'>source</span><span class='lbracket'>[</span><span class='id identifier rubyid_from'>from</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_take'>take</span>
     <span class='kw'>end</span>
+    <span class='id identifier rubyid_target'>target</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -234,11 +236,6 @@ attributes.</p>
 
 </div>
 
-    <div id="footer">
-  Generated on Tue Sep  4 21:39:08 2012 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.2.1 (ruby-1.9.3).
-</div>
-
+    
   </body>
 </html>

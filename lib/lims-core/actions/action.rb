@@ -36,7 +36,7 @@ module Lims::Core
           super(*args)
         end
 
-        # Execute the action.
+        # Executes the action.
         # This is a wrapper around _call_in_session,
         # and it shouldn't be overriden.
         # A block can be passed to  be evaluated with the session after the save session been saved.
