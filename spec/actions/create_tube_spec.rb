@@ -19,7 +19,7 @@ module Lims::Core
 
         context "create an empty tube" do
 
-          subject do CreateTube.new(:store => store, :user => user, :application => application)  do |a,s|
+          subject do CreateTube.new(:store => store, :user => user, :application => application, :aliquots=>[])  do |a,s|
           end
           end
           it_behaves_like "an action"
