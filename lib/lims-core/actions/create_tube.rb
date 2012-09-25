@@ -13,6 +13,7 @@ module Lims::Core
       def initialize(*args, &block)
         @name = "Create Tube"
         super(*args, &block)
+        @aliquots ||= []
       end
 
       def _call_in_session(session)
