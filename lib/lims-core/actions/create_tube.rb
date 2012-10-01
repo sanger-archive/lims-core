@@ -8,6 +8,8 @@ module Lims::Core
     class CreateTube
       include Action
 
+      attribute :aliquots, Array, :default => []
+
       def initialize(*args, &block)
         @name = "Create Tube"
         super(*args, &block)
@@ -16,6 +18,9 @@ module Lims::Core
       def _call_in_session(session)
         tube=Laboratory::Tube.new()
         session << tube
+        aliquots.each do |aliquot|
+          tube << Laboratory::Aliquot.new(aliquot)
+        end
         { :tube => tube, :uuid => session.uuid_for!(tube) }
       end
     end
