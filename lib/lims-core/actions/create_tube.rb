@@ -8,12 +8,11 @@ module Lims::Core
     class CreateTube
       include Action
 
-      attribute :aliquots, Array, :defaults => []
+      attribute :aliquots, Array, :default => []
 
       def initialize(*args, &block)
         @name = "Create Tube"
         super(*args, &block)
-        @aliquots ||= []
       end
 
       def _call_in_session(session)
