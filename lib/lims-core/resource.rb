@@ -6,6 +6,7 @@ module Lims::Core
     def self.included(klass)
       klass.class_eval do
         include Virtus
+        include Aequitas
         include AccessibleViaSuper
         extend Forwardable
         extend ClassMethod

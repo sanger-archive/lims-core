@@ -1,6 +1,7 @@
 # vi: ts=2:sts=2:et:sw=2 spell:spelllang=en 
 require 'common'
 require 'lims/core/resource'
+require 'lims-core/organization/user'
 
 module Lims::Core
   module Organization
@@ -18,6 +19,11 @@ module Lims::Core
     # Ultimately, someone wanted to sequence an existing library, can create an order with the same parameters, with the **library** given instead of the **sample**.
     class Order
       include Resource
+      attribute :user, User, :required => true
+      attribute :pipeline, String, :required => true
+      attribute :items, Hash, :required => true
+      attribute :state, String, :default => :pending
+      #substate ? pipeline need a different state ?
     end
   end
 end
