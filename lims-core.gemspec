@@ -28,6 +28,8 @@ Gem::Specification.new do |s|
   s.add_dependency('sequel')
   s.add_dependency('active_support')
   s.add_dependency('uuid')
+  s.add_dependency('state_machine')
+
 
   #development
   s.add_development_dependency('rspec', '~> 2.8.0')

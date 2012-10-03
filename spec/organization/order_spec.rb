@@ -65,8 +65,7 @@ module Lims
         let(:items) { {:source => mock(:source) } }
         let!(:creation_parameters) { { :user => user,
           :pipeline => pipeline,
-          :parameters => parameters,
-          :items => items} }
+          :parameters => parameters }}
 
         # todo validation depends of the state
         context "to be valid" do
@@ -79,9 +78,8 @@ module Lims
         it_has_a :creator
         it_has_a :pipeline
         it_has_a :parameters, Hash
-        it_has_a :items, Hash
         it_has_a :study
-        it_has_a :status, Symbol
+        it_has_a :status, String
         it_has_a :state, Hash
         it_has_a :cost_code, String
 
@@ -94,12 +92,8 @@ module Lims
           subject { Order.new (creation_parameters) }
           its(:valid?) { should be_true }
 
-          it "can have an item added to it" do
-            subject[:role] = item
-            subject[:role].should == item
-          end
 
-          its(:state) { should == :building }
+          its(:status_name) { should == :draft }
 
           context "#items" do
             let (:item) { mock(:item) }
@@ -113,10 +107,16 @@ module Lims
               subject[:unknown_role].should == nil
             end
 
+            it "accepts items at initialization" do
+              order = Order.new(creation_parameters.merge(:item => { role => item }))
+              order[role].should == item
+            end
+
             context "with items" do
               let (:item2) { mock(:item2) }
               let(:role2) { "role#2" }
-              before(:each) { subject.items = {role => item, role2 => item2 } }
+              let(:items) { { role => item, role2 => item2 } }
+              subject { Order.new(creation_parameters.merge(items)) }
               it "can iterate over all the items" do
                 roles = []
                 items = []
@@ -132,7 +132,7 @@ module Lims
 
           end
           context "building" do
-            its(:state) { should == :building }
+            its(:status) { should == "draft" }
             it "can be built" do
               subject.build.should == true
             end
@@ -152,7 +152,7 @@ module Lims
             end
             context "pending" do
 
-              its(:state) { should == "pending" }
+              its(:status_name) { should == "pending" }
 
               it"can be cancelled" do
                 subject.cancel.should == true
@@ -168,7 +168,7 @@ module Lims
 
               context "in progress" do
                 before(:each) { subject.start }
-                its(:state) { should == "in_progress" }
+                its(:status_name) { should == "in_progress" }
 
                 it"can be cancelled" do
                   subject.cancel.should == true

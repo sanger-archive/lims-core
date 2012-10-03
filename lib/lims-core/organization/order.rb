@@ -2,6 +2,9 @@
 require 'common'
 require 'lims/core/resource'
 require 'lims-core/organization/user'
+require 'lims-core/organization/study'
+
+require 'state_machine'
 
 module Lims::Core
   module Organization
@@ -28,3 +31,42 @@ module Lims::Core
   end
 end
  
+      #
+
+      # An order has a status, which is its progress from an end-user 
+      # point of view. This status is more meant to be used by 
+      # Order related applications (like ones dealing with creation
+      # or tracking) that the pipeline. Ideally the pipeline should
+      # be involved in the :in_progress state.
+      # The status will affect the behavior of validation and 
+      # certain methods.
+      state_machine :status, :initial  => :draft do
+        # This is the initial state. The order is not finalized yet
+        # can be modified, and should not be *visible* by the pipeline.
+        state :draft do
+        end
+
+        # The order has been *validated* by the user and it's ready 
+        # to pe processed.
+        state :pending do
+        end
+
+        # the order has been physically started, .i.e it's belong
+        # to a pipeline and some work is currently being done.
+        state :in_progress
+
+        # the order has been filful with success. It should not be
+        # modifiable without rewriting history.
+        state :completed
+
+        # For whatever reason, the order can not be completed.
+        # Shouldn't be modifiable.
+        state :failed
+
+        # The order has been cancelled by a user decision.
+        # Shouldn't be modifiable.
+        state :cancelled
+
+        event :start do
+        end
+      end
