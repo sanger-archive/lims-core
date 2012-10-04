@@ -22,6 +22,12 @@ share_examples_for "terminal state" do
   end
 end
 
+shared_examples_for "unmodifiable states" do
+  it_can_not_be_modified :creator
+  it_can_not_be_modified :study
+  it_can_not_be_modified :cost_code
+end
+
 module Lims
   module Core
     module Organization
@@ -54,7 +60,14 @@ module Lims
 
         def self.it_can_not_be_modified(attribute)
           it "can't assign #{attribute}" do
-            subject.should_not respond_to("#{attribute}=")
+            begin
+              subject.should_not respond_to("#{attribute}=")
+            rescue
+              # if responds to, try to call the 
+              expect {
+                subject.send("#{attribute}=", nil)
+              }.to raise_error(NoMethodError)
+            end
           end
         end
         #=== End of Macro ===
@@ -68,8 +81,8 @@ module Lims
         let!(:creation_parameters) { { :creator => creator,
           :pipeline => pipeline,
           :parameters => parameters,
-       :study => study, 
-       :cost_code => cost_code }}
+          :study => study, 
+          :cost_code => cost_code }}
 
         # todo validation depends of the state
         context "to be valid" do
@@ -77,6 +90,10 @@ module Lims
           it_needs_a :pipeline
           it_needs_a :study
           it_needs_a :cost_code
+
+          it "has private items" do
+            subject.should_not respond_to(:items)
+          end
         end
 
         it_has_a :creator
@@ -94,7 +111,7 @@ module Lims
           its(:valid?) { should be_true }
 
 
-          its(:status_name) { should == :draft }
+          its(:status) { should == "draft" }
 
           context "#items" do
             let (:item) { mock(:item) }
@@ -109,7 +126,7 @@ module Lims
             end
 
             it "accepts items at initialization" do
-              order = Order.new(creation_parameters.merge(:item => { role => item }))
+              order = Order.new(creation_parameters.merge(:items => { role => item }))
               order[role].should == item
             end
 
@@ -151,12 +168,14 @@ module Lims
             it "can't be finished" do
               subject.complete.should == false
             end
-            context "pending" do
-            it_can_not_be_modified :creator
-            it_can_not_be_modified :study
-            it_can_not_be_modified :status
 
-              its(:status_name) { should == "pending" }
+            context "-> pending" do
+              before(:each) { subject.build }
+              it_can_not_be_modified :creator
+              it_can_not_be_modified :study
+              it_can_not_be_modified :cost_code
+
+              its(:status) { should == "pending" }
 
               it"can be cancelled" do
                 subject.cancel.should == true
@@ -170,18 +189,16 @@ module Lims
                 subject.complete.should == false
               end
 
-              context "in progress" do
+              context "-> in progress" do
                 before(:each) { subject.start }
-                its(:status_name) { should == "in_progress" }
-            it_can_not_be_modified :creator
-            it_can_not_be_modified :study
-            it_can_not_be_modified :status
+                its(:status) { should == "in_progress" }
+                it_behaves_like "unmodifiable states"
 
                 it"can be cancelled" do
                   subject.cancel.should == true
                 end
 
-                context "cancelled" do
+                context "-> cancelled" do
                   before(:each) { subject.cancel }
                   it_behaves_like "terminal state"
                 end
@@ -193,18 +210,19 @@ module Lims
 
                 it "can be failed" do
                   subject.fail.should == true
-                  subject.state.should == "in_progress"
+                  subject.status.should == "failed"
                 end
-                context "failed" do
+
+                context "-> failed" do
                   before(:each) { subject.fail }
                   it_behaves_like "terminal state"
                 end
 
                 it "can be completed" do
                   subject.complete.should == true
-                  subject.state.should == "completed"
+                  subject.status.should == "completed"
                 end
-                context "completed" do
+                context "-> completed" do
                   before(:each) { subject.complete }
                   it_behaves_like "terminal state"
                 end
