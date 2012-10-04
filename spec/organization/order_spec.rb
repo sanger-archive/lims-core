@@ -52,24 +52,28 @@ module Lims
           end
         end
 
-        def self.it_can_not_change(attribute)
+        def self.it_can_not_be_modified(attribute)
           it "can't assign #{attribute}" do
             subject.should_not respond_to("#{attribute}=")
           end
         end
         #=== End of Macro ===
 
-        let(:user) { mock(:user) }
+        let(:creator) { mock(:creator) }
         let(:pipeline) { "pipeline 1" }
         let(:parameters) { { :read_lenght => 26 } }
+        let(:study) { mock(:study) }
+        let(:cost_code) { "cost code" }
         let(:items) { {:source => mock(:source) } }
-        let!(:creation_parameters) { { :user => user,
+        let!(:creation_parameters) { { :creator => creator,
           :pipeline => pipeline,
-          :parameters => parameters }}
+          :parameters => parameters,
+       :study => study, 
+       :cost_code => cost_code }}
 
         # todo validation depends of the state
         context "to be valid" do
-          it_needs_a :user
+          it_needs_a :creator
           it_needs_a :pipeline
           it_needs_a :study
           it_needs_a :cost_code
@@ -83,10 +87,7 @@ module Lims
         it_has_a :state, Hash
         it_has_a :cost_code, String
 
-        it_can_not_change :creator
-        it_can_not_change :study
-        it_can_not_change :items
-        it_can_not_change :status
+        it_can_not_be_modified :items
 
         context "valid" do
           subject { Order.new (creation_parameters) }
@@ -131,7 +132,7 @@ module Lims
             end
 
           end
-          context "building" do
+          context "draft" do
             its(:status) { should == "draft" }
             it "can be built" do
               subject.build.should == true
@@ -151,6 +152,9 @@ module Lims
               subject.complete.should == false
             end
             context "pending" do
+            it_can_not_be_modified :creator
+            it_can_not_be_modified :study
+            it_can_not_be_modified :status
 
               its(:status_name) { should == "pending" }
 
@@ -169,6 +173,9 @@ module Lims
               context "in progress" do
                 before(:each) { subject.start }
                 its(:status_name) { should == "in_progress" }
+            it_can_not_be_modified :creator
+            it_can_not_be_modified :study
+            it_can_not_be_modified :status
 
                 it"can be cancelled" do
                   subject.cancel.should == true

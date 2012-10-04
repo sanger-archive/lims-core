@@ -22,15 +22,13 @@ module Lims::Core
     # Ultimately, someone wanted to sequence an existing library, can create an order with the same parameters, with the **library** given instead of the **sample**.
     class Order
       include Resource
-      attribute :user, User, :required => true
+      attribute :creator, User, :required => true, :writer => :private, :initializable=>true
       attribute :pipeline, String, :required => true
-      attribute :items, Hash, :required => true
-      attribute :state, String, :default => :pending
+      attribute :parameters, Hash, :default => {}
+      attribute :state, Hash, :default => {}
+      attribute :study, Study, :required => true, :writer => :private, :initializable=>true
+      attribute :cost_code, String, :required => true, :writer  => :private, :initializable=>true
       #substate ? pipeline need a different state ?
-    end
-  end
-end
- 
       #
 
       # An order has a status, which is its progress from an end-user 
@@ -41,9 +39,21 @@ end
       # The status will affect the behavior of validation and 
       # certain methods.
       state_machine :status, :initial  => :draft do
-        # This is the initial state. The order is not finalized yet
-        # can be modified, and should not be *visible* by the pipeline.
+        # This is the initial state. The order is not finalized yet.
+        # It can be modified, and should not be *visible* by the pipeline.
         state :draft do
+          def creator=(creator)
+            @creator=creator
+          end
+
+          def study=(study)
+            @study=study
+          end
+
+          def cost_code=(cost_code)
+            @cost_code=cost_code
+          end
+
         end
 
         # The order has been *validated* by the user and it's ready 
@@ -55,7 +65,7 @@ end
         # to a pipeline and some work is currently being done.
         state :in_progress
 
-        # the order has been filful with success. It should not be
+        # the order has been fulfilled with success. It should not be
         # modifiable without rewriting history.
         state :completed
 
@@ -70,3 +80,7 @@ end
         event :start do
         end
       end
+    end
+  end
+end
+ 
