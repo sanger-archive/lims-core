@@ -14,6 +14,12 @@ guard 'rspec', :version => 2 do
 
 end
 
+guard 'yard' do
+  watch(%r{app/.+\.rb})
+  watch(%r{lib/.+\.rb})
+  watch(%r{ext/.+\.c})
+end
+
 notification :tmux,
 	:display_message => true,
 	:timeout => 5,
