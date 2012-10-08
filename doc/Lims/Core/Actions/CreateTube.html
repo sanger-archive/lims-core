@@ -218,13 +218,13 @@
       <pre class="lines">
 
 
-11
-12
 13
-14</pre>
+14
+15
+16</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/actions/create_tube.rb', line 11</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/actions/create_tube.rb', line 13</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='ivar'>@name</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Create Tube</span><span class='tstring_end'>&quot;</span></span>
@@ -257,18 +257,24 @@
       <pre class="lines">
 
 
-16
-17
 18
 19
-20</pre>
+20
+21
+22
+23
+24
+25</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/actions/create_tube.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/actions/create_tube.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid__call_in_session'>_call_in_session</span><span class='lparen'>(</span><span class='id identifier rubyid_session'>session</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_tube'>tube</span><span class='op'>=</span><span class='const'>Laboratory</span><span class='op'>::</span><span class='const'>Tube</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_session'>session</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_tube'>tube</span>
+  <span class='id identifier rubyid_aliquots'>aliquots</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_aliquot'>aliquot</span><span class='op'>|</span>
+    <span class='id identifier rubyid_tube'>tube</span> <span class='op'>&lt;&lt;</span> <span class='const'>Laboratory</span><span class='op'>::</span><span class='const'>Aliquot</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_aliquot'>aliquot</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
   <span class='lbrace'>{</span> <span class='symbol'>:tube</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_tube'>tube</span><span class='comma'>,</span> <span class='symbol'>:uuid</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_session'>session</span><span class='period'>.</span><span class='id identifier rubyid_uuid_for!'>uuid_for!</span><span class='lparen'>(</span><span class='id identifier rubyid_tube'>tube</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>

@@ -52,6 +52,9 @@ GEM
       guard (~> 1.1)
     guard-rspec (1.1.0)
       guard (>= 1.1)
+    guard-yard (2.0.0)
+      guard (>= 1.1.0)
+      yard (>= 0.7.0)
     json (1.7.3)
     listen (0.5.3)
     macaddr (1.6.1)
@@ -117,6 +120,7 @@ DEPENDENCIES
   guard (>= 1.3.0)
   guard-bundler
   guard-rspec
+  guard-yard
   lims-core!
   rb-fsevent (~> 0.9.1)
   redcarpet
