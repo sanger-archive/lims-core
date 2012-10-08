@@ -20,11 +20,12 @@ group :autotest do
 end
 
 group :guard do
-  gem "guard"
+  gem "guard", '>= 1.3.0'
   gem "guard-rspec"
   gem "guard-bundler"
-  gem "guard-yard"
-  gem "growl"
+#  gem "guard-yard"
+  gem "terminal-notifier-guard"
+  gem "rb-fsevent", '~> 0.9.1'
 end
 
 group :yard do
