@@ -80,7 +80,7 @@
   
     <dt class="r1 last">Defined in:</dt>
     <dd class="r1 last">lib/lims-core/persistence.rb<span class="defines">,<br />
-  lib/lims-core/persistence/tube.rb,<br /> lib/lims-core/persistence/store.rb,<br /> lib/lims-core/persistence/plate.rb,<br /> lib/lims-core/persistence/oligo.rb,<br /> lib/lims-core/persistence/sample.rb,<br /> lib/lims-core/persistence/sequel.rb,<br /> lib/lims-core/persistence/session.rb,<br /> lib/lims-core/persistence/aliquot.rb,<br /> lib/lims-core/persistence/uuidable.rb,<br /> spec/persistence/logger/plate_spec.rb,<br /> lib/lims-core/persistence/flowcell.rb,<br /> spec/persistence/logger/store_spec.rb,<br /> spec/persistence/sequel/store_spec.rb,<br /> spec/persistence/identity_map_spec.rb,<br /> lib/lims-core/persistence/tag_group.rb,<br /> lib/lims-core/persistence/persistor.rb,<br /> spec/persistence/sequel/session_spec.rb,<br /> lib/lims-core/persistence/sequel/tube.rb,<br /> lib/lims-core/persistence/sequel/plate.rb,<br /> lib/lims-core/persistence/identity_map.rb,<br /> lib/lims-core/persistence/logger/store.rb,<br /> lib/lims-core/persistence/sequel/store.rb,<br /> lib/lims-core/persistence/uuid_resource.rb,<br /> lib/lims-core/persistence/sequel/session.rb,<br /> lib/lims-core/persistence/sequel/aliquot.rb,<br /> lib/lims-core/persistence/logger/session.rb,<br /> lib/lims-core/persistence/sequel/flowcell.rb,<br /> spec/persistence/sequel/uuid_resource_spec.rb,<br /> lib/lims-core/persistence/sequel/persistor.rb,<br /> lib/lims-core/persistence/logger/persistor.rb,<br /> lib/lims-core/persistence/sequel/tag_group.rb</span>
+  lib/lims-core/persistence/tube.rb,<br /> lib/lims-core/persistence/oligo.rb,<br /> lib/lims-core/persistence/plate.rb,<br /> lib/lims-core/persistence/store.rb,<br /> lib/lims-core/persistence/sample.rb,<br /> lib/lims-core/persistence/sequel.rb,<br /> lib/lims-core/persistence/aliquot.rb,<br /> lib/lims-core/persistence/session.rb,<br /> lib/lims-core/persistence/flowcell.rb,<br /> lib/lims-core/persistence/uuidable.rb,<br /> lib/lims-core/persistence/persistor.rb,<br /> lib/lims-core/persistence/tag_group.rb,<br /> lib/lims-core/persistence/sequel/tube.rb,<br /> lib/lims-core/persistence/logger/store.rb,<br /> lib/lims-core/persistence/sequel/store.rb,<br /> lib/lims-core/persistence/sequel/plate.rb,<br /> lib/lims-core/persistence/identity_map.rb,<br /> lib/lims-core/persistence/uuid_resource.rb,<br /> lib/lims-core/persistence/sequel/session.rb,<br /> lib/lims-core/persistence/logger/session.rb,<br /> lib/lims-core/persistence/sequel/aliquot.rb,<br /> lib/lims-core/persistence/sequel/flowcell.rb,<br /> lib/lims-core/persistence/sequel/tag_group.rb,<br /> lib/lims-core/persistence/sequel/persistor.rb,<br /> lib/lims-core/persistence/logger/persistor.rb</span>
 </dd>
   
 </dl>
@@ -107,22 +107,10 @@ persistence types. For example, see the <span class='object_link'><a href="Persi
     
   
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Persistence/Aliquot.html" title="Lims::Core::Persistence::Aliquot (class)">Aliquot</a></span>, <span class='object_link'><a href="Persistence/Flowcell.html" title="Lims::Core::Persistence::Flowcell (class)">Flowcell</a></span>, <span class='object_link'><a href="Persistence/IdentityMapClass.html" title="Lims::Core::Persistence::IdentityMapClass (class)">IdentityMapClass</a></span>, <span class='object_link'><a href="Persistence/Oligo.html" title="Lims::Core::Persistence::Oligo (class)">Oligo</a></span>, <span class='object_link'><a href="Persistence/Persistor.html" title="Lims::Core::Persistence::Persistor (class)">Persistor</a></span>, <span class='object_link'><a href="Persistence/Plate.html" title="Lims::Core::Persistence::Plate (class)">Plate</a></span>, <span class='object_link'><a href="Persistence/Sample.html" title="Lims::Core::Persistence::Sample (class)">Sample</a></span>, <span class='object_link'><a href="Persistence/Session.html" title="Lims::Core::Persistence::Session (class)">Session</a></span>, <span class='object_link'><a href="Persistence/Store.html" title="Lims::Core::Persistence::Store (class)">Store</a></span>, <span class='object_link'><a href="Persistence/TagGroup.html" title="Lims::Core::Persistence::TagGroup (class)">TagGroup</a></span>, <span class='object_link'><a href="Persistence/Tube.html" title="Lims::Core::Persistence::Tube (class)">Tube</a></span>, <span class='object_link'><a href="Persistence/UuidResource.html" title="Lims::Core::Persistence::UuidResource (class)">UuidResource</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Persistence/Aliquot.html" title="Lims::Core::Persistence::Aliquot (class)">Aliquot</a></span>, <span class='object_link'><a href="Persistence/Flowcell.html" title="Lims::Core::Persistence::Flowcell (class)">Flowcell</a></span>, <span class='object_link'><a href="Persistence/Oligo.html" title="Lims::Core::Persistence::Oligo (class)">Oligo</a></span>, <span class='object_link'><a href="Persistence/Persistor.html" title="Lims::Core::Persistence::Persistor (class)">Persistor</a></span>, <span class='object_link'><a href="Persistence/Plate.html" title="Lims::Core::Persistence::Plate (class)">Plate</a></span>, <span class='object_link'><a href="Persistence/Sample.html" title="Lims::Core::Persistence::Sample (class)">Sample</a></span>, <span class='object_link'><a href="Persistence/Session.html" title="Lims::Core::Persistence::Session (class)">Session</a></span>, <span class='object_link'><a href="Persistence/Store.html" title="Lims::Core::Persistence::Store (class)">Store</a></span>, <span class='object_link'><a href="Persistence/TagGroup.html" title="Lims::Core::Persistence::TagGroup (class)">TagGroup</a></span>, <span class='object_link'><a href="Persistence/Tube.html" title="Lims::Core::Persistence::Tube (class)">Tube</a></span>, <span class='object_link'><a href="Persistence/UuidResource.html" title="Lims::Core::Persistence::UuidResource (class)">UuidResource</a></span>
     
   
 </p>
-
-  <h2>Constant Summary</h2>
-  
-    <dl class="constants">
-      
-        <dt id="P-constant" class="">P =
-          
-        </dt>
-        <dd><pre class="code"><span class='kw'>self</span></pre></dd>
-      
-    </dl>
-  
 
 
 
@@ -207,50 +195,6 @@ Persistence module but which  haven't been subclassed..</p>
     <span class="summary_desc"><div class='inline'>
 <p>Generate a persistor inheriting from  klass.</p>
 </div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#initialized_with_a_logger-class_method" title="initialized_with_a_logger (class method)">+ (Object) <strong>initialized_with_a_logger</strong>(method) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#initialized_with_an_IO-class_method" title="initialized_with_an_IO (class method)">+ (Object) <strong>initialized_with_an_IO</strong>(io) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -435,100 +379,6 @@ Persistence module but which  haven't been subclassed.</p>
 
   <span class='comment'># generate nested classes, ex Plate::Well
 </span>    <span class='id identifier rubyid_generate_missing_classes'>generate_missing_classes</span><span class='lparen'>(</span><span class='id identifier rubyid_klass'>klass</span><span class='comma'>,</span> <span class='id identifier rubyid_generated_class'>generated_class</span><span class='comma'>,</span> <span class='id identifier rubyid_persistor'>persistor</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="initialized_with_a_logger-class_method">
-  
-    + (<tt><span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>initialized_with_a_logger</strong>(method) 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'spec/persistence/logger/store_spec.rb', line 16</span>
-
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_initialized_with_a_logger'>initialized_with_a_logger</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_context'>context</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>initialized with a logger</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
-    <span class='id identifier rubyid_let'>let</span> <span class='lparen'>(</span><span class='symbol'>:logger</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>::</span><span class='const'>Logger</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='gvar'>$stdout</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
-    <span class='id identifier rubyid_subject'>subject</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_described_class'>described_class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_logger'>logger</span><span class='comma'>,</span> <span class='id identifier rubyid_method'>method</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
-    <span class='id identifier rubyid_it'>it</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>should log objects to stdout</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
-      <span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_should_receive'>should_receive</span><span class='lparen'>(</span><span class='symbol'>:send</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_with'>with</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>[&quot;A1&quot;, &quot;A2&quot;, &quot;B1&quot;, &quot;B2&quot;]</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
-      <span class='id identifier rubyid_subject'>subject</span><span class='period'>.</span><span class='id identifier rubyid_with_session'>with_session</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_session'>session</span><span class='op'>|</span>
-        <span class='id identifier rubyid_session'>session</span> <span class='op'>&lt;&lt;</span> <span class='qwords_beg'>%w(</span><span class='tstring_content'>A1</span><span class='words_sep'> </span><span class='tstring_content'>A2</span><span class='words_sep'> </span><span class='tstring_content'>B1</span><span class='words_sep'> </span><span class='tstring_content'>B2</span><span class='words_sep'>)</span>
-      <span class='kw'>end</span>
-    <span class='kw'>end</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="initialized_with_an_IO-class_method">
-  
-    + (<tt><span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>initialized_with_an_IO</strong>(io) 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'spec/persistence/logger/store_spec.rb', line 28</span>
-
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_initialized_with_an_IO'>initialized_with_an_IO</span><span class='lparen'>(</span><span class='id identifier rubyid_io'>io</span><span class='rparen'>)</span>
-<span class='id identifier rubyid_context'>context</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>initialized to stdout</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_subject'>subject</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_described_class'>described_class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_io'>io</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
-  <span class='id identifier rubyid_it'>it</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>should log objects to stdout</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
-    <span class='id identifier rubyid_io'>io</span><span class='period'>.</span><span class='id identifier rubyid_should_receive'>should_receive</span><span class='lparen'>(</span><span class='symbol'>:write</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_subject'>subject</span><span class='period'>.</span><span class='id identifier rubyid_with_session'>with_session</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_session'>session</span><span class='op'>|</span>
-      <span class='id identifier rubyid_session'>session</span> <span class='op'>&lt;&lt;</span> <span class='qwords_beg'>%w(</span><span class='tstring_content'>A1</span><span class='words_sep'> </span><span class='tstring_content'>A2</span><span class='words_sep'> </span><span class='tstring_content'>B1</span><span class='words_sep'> </span><span class='tstring_content'>B2</span><span class='words_sep'>)</span>
-    <span class='kw'>end</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
