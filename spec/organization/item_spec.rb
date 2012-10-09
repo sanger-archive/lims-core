@@ -48,7 +48,7 @@ module Lims
         #=== End of Macro ===
 	
 
-				it_has_a :state
+				it_has_a :status
 				it_has_a :iteration
 				it_has_a :uuid
 
@@ -58,13 +58,9 @@ module Lims
 
 				# state machine
 				context "pending" do
-					its(:iteration) { should be_empty }
+					its(:iteration) { should == 0 }
 					it "can be started" do
 						subject.start.should == true
-					end
-
-					context "in_progress" do
-						its(:iteration) { should == 1 }
 					end
 
 					context "source" do
@@ -84,7 +80,6 @@ module Lims
 					context "in progress" do
 						before(:each) { subject.start }
 						its(:status) { should == "in_progress" }
-						its(:done?) { should be_true }
 						its(:iteration) { should == 1 }
 
 						it "can fail" do

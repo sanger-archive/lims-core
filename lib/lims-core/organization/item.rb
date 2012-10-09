@@ -26,14 +26,15 @@ module Lims::Core
         iteration
       end
 
+      def iterate
+          @iteration+=1
+      end
       state_machine :status, :initial  => :pending do
         # This is the initial state. The item hasn't either been set as a source
         # or started. It can appear in the *inbox*.
         
-        after_transition  :on => :start do
-          debugger
-          @iteration+=1
-        end
+        after_transition  :on => :start, :do => :iterate
+
         state :pending do
         end
 
@@ -43,6 +44,9 @@ module Lims::Core
 
         # The item exists and is available for the next step of the order.
         state :done do
+          def uuid=(uuid)
+            raise NoMethodError
+          end
         end
 
         # The item creation has failed. It can be reset to pending
