@@ -63,7 +63,7 @@ module Lims::Core
         end
 
         event :complete do
-          transition :in_progress => :done
+          transition [:pending, :in_progress] => :done
         end
 
         event :cancel do
