@@ -43,3 +43,10 @@ clean_tree:
 	rm *.tree
 
 clean: clean_tree
+
+guard:
+	bundle exec guard
+
+guardt:
+	bundle exec guard start Guardfile.tmux
+
