@@ -102,6 +102,28 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#is_a_hash_of-instance_method" title="#is_a_hash_of (instance method)">- (Object) <strong>is_a_hash_of</strong>(key_class, value_class, &amp;initializer) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#is_array_of-instance_method" title="#is_array_of (instance method)">- (Object) <strong>is_array_of</strong>(child_klass, options = {}, &amp;initializer) </a>
     
 
@@ -131,7 +153,51 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="is_array_of-instance_method">
+  <h3 class="signature first" id="is_a_hash_of-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>is_a_hash_of</strong>(key_class, value_class, &amp;initializer) 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/resource.rb', line 55</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_is_a_hash_of'>is_a_hash_of</span><span class='lparen'>(</span><span class='id identifier rubyid_key_class'>key_class</span><span class='comma'>,</span> <span class='id identifier rubyid_value_class'>value_class</span><span class='comma'>,</span>  <span class='op'>&amp;</span><span class='id identifier rubyid_initializer'>initializer</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_define_method'>define_method</span> <span class='symbol'>:initialize_hash</span> <span class='kw'>do</span> <span class='op'>|</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='op'>|</span>
+    <span class='ivar'>@content</span> <span class='op'>=</span> <span class='id identifier rubyid_initializer'>initializer</span> <span class='op'>?</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lbracket'>[</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_key_class'>key_class</span><span class='comma'>,</span> <span class='id identifier rubyid_value_class'>value_class</span><span class='rbracket'>]</span> <span class='op'>:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_class_eval'>class_eval</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_include'>include</span> <span class='const'>Enumerable</span>
+    <span class='id identifier rubyid_include'>include</span> <span class='const'>IsHashOf</span>
+    <span class='id identifier rubyid_def_delegators'>def_delegators</span> <span class='symbol'>:@content</span><span class='comma'>,</span> <span class='symbol'>:each</span><span class='comma'>,</span> <span class='symbol'>:size</span> <span class='comma'>,</span> <span class='symbol'>:keys</span><span class='comma'>,</span> <span class='symbol'>:values</span><span class='comma'>,</span> <span class='symbol'>:map</span><span class='comma'>,</span> <span class='symbol'>:mashr</span> <span class='comma'>,</span> <span class='symbol'>:include?</span><span class='comma'>,</span> <span class='symbol'>:to_a</span> 
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="is_array_of-instance_method">
   
     - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>is_array_of</strong>(child_klass, options = {}, &amp;initializer) 
   
@@ -145,7 +211,6 @@
       <pre class="lines">
 
 
-40
 41
 42
 43
@@ -157,10 +222,11 @@
 49
 50
 51
-52</pre>
+52
+53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/resource.rb', line 40</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/resource.rb', line 41</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_is_array_of'>is_array_of</span><span class='lparen'>(</span><span class='id identifier rubyid_child_klass'>child_klass</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span>  <span class='op'>&amp;</span><span class='id identifier rubyid_initializer'>initializer</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_define_method'>define_method</span> <span class='symbol'>:initialize_array</span> <span class='kw'>do</span> <span class='op'>|</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='op'>|</span>

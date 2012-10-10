@@ -78,7 +78,7 @@
   
   
     <dt class="r1">Included in:</dt>
-    <dd class="r1"><span class='object_link'><a href="Laboratory/Aliquot.html" title="Lims::Core::Laboratory::Aliquot (class)">Laboratory::Aliquot</a></span>, <span class='object_link'><a href="Laboratory/Flowcell.html" title="Lims::Core::Laboratory::Flowcell (class)">Laboratory::Flowcell</a></span>, <span class='object_link'><a href="Laboratory/Oligo.html" title="Lims::Core::Laboratory::Oligo (class)">Laboratory::Oligo</a></span>, <span class='object_link'><a href="Laboratory/Plate.html" title="Lims::Core::Laboratory::Plate (class)">Laboratory::Plate</a></span>, <span class='object_link'><a href="Laboratory/Sample.html" title="Lims::Core::Laboratory::Sample (class)">Laboratory::Sample</a></span>, <span class='object_link'><a href="Laboratory/TagGroup.html" title="Lims::Core::Laboratory::TagGroup (class)">Laboratory::TagGroup</a></span>, <span class='object_link'><a href="Laboratory/Tube.html" title="Lims::Core::Laboratory::Tube (class)">Laboratory::Tube</a></span>, <span class='object_link'><a href="Organization/Order.html" title="Lims::Core::Organization::Order (class)">Organization::Order</a></span>, <span class='object_link'><a href="Organization/Project.html" title="Lims::Core::Organization::Project (class)">Organization::Project</a></span>, <span class='object_link'><a href="Organization/Study.html" title="Lims::Core::Organization::Study (class)">Organization::Study</a></span>, <span class='object_link'><a href="Uuids/UuidResource.html" title="Lims::Core::Uuids::UuidResource (class)">Uuids::UuidResource</a></span></dd>
+    <dd class="r1"><span class='object_link'><a href="Laboratory/Aliquot.html" title="Lims::Core::Laboratory::Aliquot (class)">Laboratory::Aliquot</a></span>, <span class='object_link'><a href="Laboratory/Flowcell.html" title="Lims::Core::Laboratory::Flowcell (class)">Laboratory::Flowcell</a></span>, <span class='object_link'><a href="Laboratory/Oligo.html" title="Lims::Core::Laboratory::Oligo (class)">Laboratory::Oligo</a></span>, <span class='object_link'><a href="Laboratory/Plate.html" title="Lims::Core::Laboratory::Plate (class)">Laboratory::Plate</a></span>, <span class='object_link'><a href="Laboratory/Sample.html" title="Lims::Core::Laboratory::Sample (class)">Laboratory::Sample</a></span>, <span class='object_link'><a href="Laboratory/TagGroup.html" title="Lims::Core::Laboratory::TagGroup (class)">Laboratory::TagGroup</a></span>, <span class='object_link'><a href="Laboratory/Tube.html" title="Lims::Core::Laboratory::Tube (class)">Laboratory::Tube</a></span>, <span class='object_link'><a href="Organization/Item.html" title="Lims::Core::Organization::Item (class)">Organization::Item</a></span>, <span class='object_link'><a href="Organization/Order.html" title="Lims::Core::Organization::Order (class)">Organization::Order</a></span>, <span class='object_link'><a href="Organization/Project.html" title="Lims::Core::Organization::Project (class)">Organization::Project</a></span>, <span class='object_link'><a href="Organization/Study.html" title="Lims::Core::Organization::Study (class)">Organization::Study</a></span>, <span class='object_link'><a href="Uuids/UuidResource.html" title="Lims::Core::Uuids::UuidResource (class)">Uuids::UuidResource</a></span></dd>
     
   
   
@@ -92,7 +92,7 @@
 <p class="children">
   
     
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Resource/AccessibleViaSuper.html" title="Lims::Core::Resource::AccessibleViaSuper (module)">AccessibleViaSuper</a></span>, <span class='object_link'><a href="Resource/ClassMethod.html" title="Lims::Core::Resource::ClassMethod (module)">ClassMethod</a></span>, <span class='object_link'><a href="Resource/IsArrayOf.html" title="Lims::Core::Resource::IsArrayOf (module)">IsArrayOf</a></span>
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Resource/AccessibleViaSuper.html" title="Lims::Core::Resource::AccessibleViaSuper (module)">AccessibleViaSuper</a></span>, <span class='object_link'><a href="Resource/ClassMethod.html" title="Lims::Core::Resource::ClassMethod (module)">ClassMethod</a></span>, <span class='object_link'><a href="Resource/IsArrayOf.html" title="Lims::Core::Resource::IsArrayOf (module)">IsArrayOf</a></span>, <span class='object_link'><a href="Resource/IsHashOf.html" title="Lims::Core::Resource::IsHashOf (module)">IsHashOf</a></span>
     
   
     
@@ -199,7 +199,8 @@
 10
 11
 12
-13</pre>
+13
+14</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/resource.rb', line 6</span>
@@ -207,6 +208,7 @@
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_included'>included</span><span class='lparen'>(</span><span class='id identifier rubyid_klass'>klass</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_klass'>klass</span><span class='period'>.</span><span class='id identifier rubyid_class_eval'>class_eval</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_include'>include</span> <span class='const'>Virtus</span>
+    <span class='id identifier rubyid_include'>include</span> <span class='const'>Aequitas</span>
     <span class='id identifier rubyid_include'>include</span> <span class='const'>AccessibleViaSuper</span>
     <span class='id identifier rubyid_extend'>extend</span> <span class='const'>Forwardable</span>
     <span class='id identifier rubyid_extend'>extend</span> <span class='const'>ClassMethod</span>
@@ -278,12 +280,12 @@ regardless they are the same ruby object or not.</p>
       <pre class="lines">
 
 
-34
 35
-36</pre>
+36
+37</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/resource.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/resource.rb', line 35</span>
 
 <span class='kw'>def</span> <span class='op'>==</span><span class='lparen'>(</span><span class='id identifier rubyid_other'>other</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_attributes'>attributes</span> <span class='op'>==</span> <span class='lparen'>(</span><span class='id identifier rubyid_other'>other</span><span class='period'>.</span><span class='id identifier rubyid_respond'>respond</span><span class='lparen'>(</span><span class='symbol'>:attributes</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='lbrace'>{</span><span class='rbrace'>}</span> <span class='rparen'>)</span>
