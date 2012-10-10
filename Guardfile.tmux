@@ -19,3 +19,10 @@ guard 'yard' do
   watch(%r{lib/.+\.rb})
   watch(%r{ext/.+\.c})
 end
+
+notification :tmux,
+	:display_message => true,
+	:timeout => 5,
+	:default_message_format => '%s >> %s',
+	:line_separator => ' > '
+
