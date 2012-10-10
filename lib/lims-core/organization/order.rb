@@ -3,6 +3,7 @@ require 'common'
 require 'lims/core/resource'
 require 'lims-core/organization/user'
 require 'lims-core/organization/study'
+require 'lims-core/organization/item'
 
 require 'state_machine'
 
@@ -123,7 +124,7 @@ module Lims::Core
         key_is_for_items?(key) ? items[key]=value : super(key, value)
       end
 
-      def_delegators :@content, :each, :size , :keys, :values, :map, :mashr , :include?, :to_a 
+      def_delegators :items, :each, :size , :keys, :values, :map, :mashr , :include?, :to_a 
 
       # Check if the argument is a key for items
       # or attributes
@@ -134,8 +135,27 @@ module Lims::Core
         when String, Symbol then !respond_to?(key)
         end || false
       end
-
       private :key_is_for_items?
+
+      # A source is an item required to complete the order.
+      # There is nothing to do for it, so it's already in a done state.
+      # As the source is meant to be used by the pipeline to fulfil the order
+      # it needs an underlying object.
+      # @param [String] role of the source
+      # @param [String] uuid of the underlying object
+      # @return [Item]
+      def add_source(role, uuid)
+        Item.new(:uuid => uuid).tap do |item|
+        item.complete
+        self[role] = item
+        end
+      end
+
+      # A target is an item produced by the order.
+      # It starts has pending and needs to be completed or failed.
+      def add_target(role)
+        self[role] = Item.new
+      end
     end
   end
 end

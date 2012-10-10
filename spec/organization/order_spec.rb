@@ -130,6 +130,23 @@ module Lims
               order[role].should == item
             end
 
+            it "can have a source added" do
+              subject.add_source(:source, source_uuid="source_id")
+              subject[:source].tap do |source|
+                source.done?.should == true
+                source.uuid.should == source_uuid
+                source.iteration.should == 0
+              end
+            end
+
+            it "can have a target added" do
+              subject.add_target(:target)
+              subject[:target].tap do |target|
+                target.pending?.should == true
+                target.iteration.should == 0
+              end
+            end
+
             context "with items" do
               let (:item2) { mock(:item2) }
               let(:role2) { "role#2" }
