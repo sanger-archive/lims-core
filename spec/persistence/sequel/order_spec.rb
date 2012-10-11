@@ -20,17 +20,16 @@ module Lims::Core
 
       context "an empty order" do
         it "can be saved" do
-          save(subject).should_not be_nill
+          save(subject).should_not be_nil
         end
 
         context "being saved" do
           it "modifies the orders table" do
             expect { save(subject) }.to change { db[:orders].count }.by(1)
           end
-
         end
-
       end
+
       context "an order with items" do
         let(:source) { Item.new }
         subject { Order.new(:items => { :source => source} ) }
@@ -76,8 +75,9 @@ module Lims::Core
 
           end
 
-          let(:state) { {:my_state => 34 } }
-          it "can it's state updated" do
+          let(:long_attribute) { (1..50).inject("") { |s,i|  s+"#{i}-abcdefghi" } }
+          let(:state) { {:my_state => 34, :state => :hidden, :long_attribute => long_attribute } }
+          it "can its state updated with a really long state" do
             load_order(order_id) do |order|
               order.state = state
             end
@@ -86,6 +86,17 @@ module Lims::Core
               order.state.should == state
             end
           end
+          let(:parameters) { {:read_length => 102, :hash => { :long_attribute => long_attribute}} }
+          it "can its parameters updated with a really long parameters" do
+            load_order(order_id) do |order|
+              order.parameters = parameters
+            end
+
+            load_order(order_id) do |order|
+              order.parameters.should == parameters
+            end
+          end
+
 
           context "with an intermediate item" do
             subject { Order.new.tap { |o| o.add_target(:intermediate_target) } }
@@ -115,13 +126,26 @@ module Lims::Core
             end
           end
 
-          it "can be failed" do
+          it "saves its status" do
             load_order(order_id) do |order|
               order.fail
             end
             load_order(order_id) do |order|
               order.failed?.should == true
             end
+          end
+        end
+      end
+
+      context "with a user" do
+        let(:user) { User.new(:name => "joe") }
+        subject { Order.new(:user => user) }
+
+        it "can be saved reloaded" do
+          order_id = save(subject)
+
+          load_order(order_id) do |order|
+            order.user.should == user
           end
         end
       end
