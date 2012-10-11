@@ -31,7 +31,7 @@ module Lims::Core
       end
 
       context "an order with items" do
-        let(:source) { Item.new }
+        let(:source) { Order::Item.new }
         subject { Order.new(:items => { :source => source} ) }
         it "modifies the items table" do
           expect { save(subject) }.to change { db[:items].count }.by(1)
@@ -58,7 +58,7 @@ module Lims::Core
               order.add_target(:intermediate_target)
             end
             load_order(order_id) do |order|
-              order[:intermediate_target].should be_an(Item)
+              order[:intermediate_target].should be_an(Order::Item)
               order[:intermediate_target].status.should == "pending"
             end
           end

@@ -91,7 +91,6 @@ module Lims::Core
           # So we might in the future either move it to a UuidResourcePersistor
           # or cached it by attributes
           # @todo benchmark against normal insert
-          debugger
           attributes = filter_attributes_on_save(object.attributes)
           statement_name = :"#{table_name}#save_raw"
           dataset.prepare(:insert, statement_name, attributes.keys.mash { |k| [k, :"$#{k}"] })

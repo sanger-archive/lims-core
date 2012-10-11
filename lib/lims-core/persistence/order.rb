@@ -1,4 +1,4 @@
-# rvi: ts=2:sts=2:et:sw=2 spell:spelllang=en
+# vi: ts=2:sts=2:et:sw=2 spell:spelllang=en
 
 require 'lims/core/persistence/persistor'
 require 'lims/core/organization/order'
@@ -20,18 +20,23 @@ module Lims::Core
       end
 
       # Loads all children of the given order
-      # Loaded object are automatically added to the session.
+
       # @param  id object identifier
       # @param [Organization::Order] order
       # @return [Organization::Order, nil] 
       #
       def load_children(id, order)
-        load_items(id) do |role, item|
+        item.loads(id) do |role, item|
           order[role] = aliquot
         end
       end
 
+      def item
+        @session.send("Order::Item")
+      end
+
       class Item < Persistor
+        Model == Organization::Order::Item
       end
     end
   end

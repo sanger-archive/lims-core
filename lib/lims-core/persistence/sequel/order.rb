@@ -36,6 +36,17 @@ module Lims::Core
             end
           end
         end
+
+        class Item < Persistence::Order::Item
+          include Sequel::Persistor
+          def loads(order_id)
+            dataset.filter(:order_id => order_id).each do |att|
+              role = att.delete(:role)
+              item = @session.order.item.get_or_create_single_model(att[:id], att)
+              yield(role, item)
+            end
+          end
+        end
       end
     end
   end
