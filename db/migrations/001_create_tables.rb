@@ -75,15 +75,14 @@ Sequel.migration do
 
     create_table :orders do
       primary_key :id
-      Integer :creator_id
-      #foreign_key :user_id, :users, :key => :id
+      foreign_key :creator_id, :users, :key => :id
       Integer :user_id
 
       String :pipeline
       String :parameters
       String :status
       Text :state
-      Integer :study_id
+      foreign_key :study_id, :studies, :key => :id
       String :cost_code
     end
 
@@ -94,6 +93,14 @@ Sequel.migration do
       String :uuid, :fixed => true, :size => 16
       String :status
       Integer :iteration, :default => 0
+    end
+
+    create_table :users do
+      primary_key :id
+    end
+
+    create_table :studies do
+      primary_key :id
     end
 
 
