@@ -58,6 +58,14 @@ module Lims
           end
         end
 
+        def self.it_can_assign(attribute)
+          it "can assign #{attribute}" do
+            value = mock(:attribute)
+            subject.send("#{attribute}=", value)
+            subject.send(attribute).should == value
+          end
+        end
+
         def self.it_can_not_be_modified(attribute)
           it "can't assign #{attribute}" do
             begin
@@ -65,7 +73,7 @@ module Lims
             rescue
               # if responds to, try to call the 
               expect {
-                subject.send("#{attribute}=", nil)
+                subject.send("#{attribute}=", mock(:attribute))
               }.to raise_error(NoMethodError)
             end
           end
@@ -184,6 +192,20 @@ module Lims
             end
             it "can't be finished" do
               subject.complete.should == false
+            end
+
+            it_can_assign :creator
+            it_can_assign :study
+            it_can_assign :cost_code
+
+            it "can have a creator set" do
+              creator = mock(:creator)
+              (subject.creator=creator).should == creator
+            end
+
+            it "can have a study set" do
+              study = mock(:study)
+              (subject.study=study).should == study
             end
 
             context "-> pending" do

@@ -32,20 +32,6 @@ module Lims::Core
       attribute :study, Study, :required => true, :writer => :private, :initializable=>true
       attribute :cost_code, String, :required => true, :writer  => :private, :initializable=>true
 
-      module NonDraft
-        def creator=(creator)
-          raise NoMethodError
-        end
-
-        def study=(study)
-          raise NoMethodError
-        end
-
-        def cost_code=(cost_code)
-          raise NoMethodError
-        end
-      end
-
       # An order has a status, which is its progress from an end-user 
       # point of view. This status is more meant to be used by 
       # Order related applications (like ones dealing with creation
@@ -62,32 +48,39 @@ module Lims::Core
         # The order has been *validated* by the user and it's ready 
         # to pe processed.
         state :pending do
-          include NonDraft
-
         end
 
+        state all - [:draft] do
+          def creator=(creator)
+            raise NoMethodError, "creator can't be assigned in #{status} mode"
+          end
+
+          def study=(study)
+            raise NoMethodError, "study can't be assigned in #{status} mode"
+          end
+
+          def cost_code=(cost_code)
+            raise NoMethodError, "cost code can't be assigned in #{status} mode"
+          end
+        end
         # the order has been physically started, .i.e it's belong
         # to a pipeline and some work is currently being done.
         state :in_progress do
-          include NonDraft 
         end
 
         # the order has been fulfilled with success. It should not be
         # modifiable without rewriting history.
         state :completed do
-          include NonDraft
         end
 
         # For whatever reason, the order can not be completed.
         # Shouldn't be modifiable.
         state :failed do
-          include NonDraft
         end
 
         # The order has been cancelled by a user decision.
         # Shouldn't be modifiable.
         state :cancelled do
-          include NonDraft
         end
 
         event :build do
@@ -146,8 +139,8 @@ module Lims::Core
       # @return [Item]
       def add_source(role, uuid)
         Item.new(:uuid => uuid).tap do |item|
-        item.complete
-        self[role] = item
+          item.complete
+          self[role] = item
         end
       end
 
