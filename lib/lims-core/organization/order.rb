@@ -3,7 +3,7 @@ require 'common'
 require 'lims/core/resource'
 require 'lims-core/organization/user'
 require 'lims-core/organization/study'
-require 'lims-core/organization/item'
+require 'lims-core/organization/order/item'
 
 require 'state_machine'
 
