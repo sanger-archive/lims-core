@@ -14,6 +14,7 @@ module Lims::Core
         end
 
         def filter_attributes_on_save(attributes)
+          debugger if attributes[:state].present?
           attributes.mash do |k,v|
             case k
               # get id of object
@@ -39,6 +40,11 @@ module Lims::Core
 
         class Item < Persistence::Order::Item
           include Sequel::Persistor
+
+          def self.table_name
+            :items
+          end
+
           def loads(order_id)
             dataset.filter(:order_id => order_id).each do |att|
               role = att.delete(:role)

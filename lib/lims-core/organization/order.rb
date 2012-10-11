@@ -23,10 +23,11 @@ module Lims::Core
     # Note, there is no relation at a core level between this sample and this library. The pipeline *knows* that this **sample** is linked to that **library**.
     # Ultimately, someone wanted to sequence an existing library, can create an order with the same parameters, with the **library** given instead of the **sample**.
     class Order
+
       include Resource
       attribute :creator, User, :required => true, :writer => :private, :initializable=>true
       attribute :pipeline, String, :required => true
-      attribute :items, Hash, :default => {}, :reader => :private, :writer => :private, :initializable => true
+      attribute :items, HashString, :default => {}, :reader => :private, :writer => :private, :initializable => true
       attribute :parameters, Hash, :default => {}
       attribute :state, Hash, :default => {}
       attribute :study, Study, :required => true, :writer => :private, :initializable=>true
@@ -102,19 +103,17 @@ module Lims::Core
         event :fail do
           transition :in_progress=> :failed
         end
-
-
       end
 
       # ========= Items ========
       # Redirect key to either items or attributes (default
       # Virtus behavior
       def [](key)
-        key_is_for_items?(key) ? items[key] : super(key)
+        key_is_for_items?(key) ? items[key.to_s] : super(key)
       end
 
       def []=(key, value)
-        key_is_for_items?(key) ? items[key]=value : super(key, value)
+        key_is_for_items?(key) ? items[key.to_s]=value : super(key, value)
       end
 
       def_delegators :items, :each, :size , :keys, :values, :map, :mashr , :include?, :to_a 

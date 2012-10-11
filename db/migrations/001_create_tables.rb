@@ -88,7 +88,8 @@ Sequel.migration do
 
     create_table :items do
       primary_key :id
-      foreign_key :order, :orders, :key => :id
+      foreign_key :order_id, :orders, :key => :id
+      String :role
       foreign_key :resource_id, :uuid_resources, :key => :id
       String :uuid, :fixed => true, :size => 16
       String :status

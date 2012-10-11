@@ -11,12 +11,11 @@ module Lims::Core
     describe Order  do
       include_context "sequel store"
 
-      def self.load_order(order_id)
-        store.with_session do |order|
-          yield( session.orders[order_id])
+      def load_order(order_id)
+        store.with_session do |session|
+          yield( session.order[order_id])
         end
       end
-
 
       context "an empty order" do
         it "can be saved" do
@@ -39,12 +38,12 @@ module Lims::Core
 
         context "saved" do
           let!(:order_id) { save(subject) }
-          let(:source2) { mock(:source2) }
+          let(:uuid_source2) { "uuid2" }
 
           it "can be reloaded" do
             store.with_session do |session|
 
-              loaded = session.orders[order_id]
+              loaded = session.order[order_id]
               # testing object is well loaded
               loaded.should == subject
 
@@ -66,11 +65,15 @@ module Lims::Core
 
           it "can have non-empty items added" do
             load_order(order_id) do |order|
-              order.add_source(:source2, source2)
+              order.add_source(:source2, uuid_source2)
             end
 
             load_order(order_id) do |order|
-              order[:source2].should == source2
+              order[:source2].tap do |item|
+                item.done?.should == true
+                item.status.should == "done"
+                item.uuid.should == uuid_source2
+              end
             end
 
           end
@@ -137,15 +140,21 @@ module Lims::Core
         end
       end
 
-      context "with a user" do
-        let(:user) { User.new(:name => "joe") }
-        subject { Order.new(:user => user) }
+      context "with a creator" do
+        let(:creator) { mock(:user) }
+        before(:each) do
+          Lims::Core::Persistence::Session.any_instance.tap do |session|
+            session.stub_chain(:user, :save) { 1 }
+            session.stub_chain(:user, :[]) { creator }
+          end
+        end
+        subject { Order.new(:creator => creator) }
 
         it "can be saved reloaded" do
           order_id = save(subject)
 
           load_order(order_id) do |order|
-            order.user.should == user
+            order.creator.should == creator
           end
         end
       end

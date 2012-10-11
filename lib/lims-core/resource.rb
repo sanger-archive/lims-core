@@ -94,5 +94,18 @@ module Lims::Core
         end
       end
     end 
+
+    class HashString < Virtus::Attribute::Object
+      primitive Hash
+      def coerce(hash)
+        hash.rekey  {|key| key.to_s }
+      end
+    end
+
+    # @todo override state_machine to automatically add
+    # attribute
+    class State < Virtus::Attribute::Object
+      primitive String
+    end
   end
 end

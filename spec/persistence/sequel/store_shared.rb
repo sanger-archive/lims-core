@@ -13,9 +13,12 @@ shared_context "prepare tables" do
   end
 end
 
+Loggers = []
+require 'logger'; Loggers << Logger.new($stdout)
+
 shared_context "sequel store" do
     include_context "prepare tables"
-    let(:db) { ::Sequel.sqlite('') }
+    let(:db) { ::Sequel.sqlite('', :loggers => Loggers) }
     let(:store) { Lims::Core::Persistence::Sequel::Store.new(db) }
     before (:each) { prepare_table(db) }
 

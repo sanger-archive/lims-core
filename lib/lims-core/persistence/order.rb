@@ -27,7 +27,7 @@ module Lims::Core
       #
       def load_children(id, order)
         item.loads(id) do |role, item|
-          order[role] = aliquot
+          order[role] = item
         end
       end
 
@@ -36,7 +36,12 @@ module Lims::Core
       end
 
       class Item < Persistor
-        Model == Organization::Order::Item
+        Model = Organization::Order::Item
+
+        def filter_attributes_on_save(attributes, order_id, role)
+          attributes.merge(:role => role.to_s, :order_id => order_id)
+        end
+
       end
     end
   end
