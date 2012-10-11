@@ -28,6 +28,8 @@ module Lims::Core
       attribute :creator, User, :required => true, :writer => :private, :initializable=>true
       attribute :pipeline, String, :required => true
       attribute :items, HashString, :default => {}, :reader => :private, :writer => :private, :initializable => true
+
+      attribute :status, State
       attribute :parameters, Hash, :default => {}
       attribute :state, Hash, :default => {}
       attribute :study, Study, :required => true, :writer => :private, :initializable=>true

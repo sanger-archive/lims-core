@@ -5,6 +5,7 @@ module Lims::Core
   module Organization
     # A user. Anybody that can log into to the system.
     class User
+      include Resource
     end
   end
 end

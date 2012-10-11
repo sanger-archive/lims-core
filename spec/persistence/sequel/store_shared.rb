@@ -14,7 +14,7 @@ shared_context "prepare tables" do
 end
 
 Loggers = []
-require 'logger'; Loggers << Logger.new($stdout)
+#require 'logger'; Loggers << Logger.new($stdout)
 
 shared_context "sequel store" do
     include_context "prepare tables"

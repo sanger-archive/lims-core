@@ -76,7 +76,6 @@ Sequel.migration do
     create_table :orders do
       primary_key :id
       foreign_key :creator_id, :users, :key => :id
-      Integer :user_id
 
       String :pipeline
       String :parameters

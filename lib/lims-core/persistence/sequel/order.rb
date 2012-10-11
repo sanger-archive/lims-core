@@ -13,13 +13,12 @@ module Lims::Core
           :orders
         end
 
-        def filter_attributes_on_save(attributes)
-          debugger if attributes[:state].present?
+        def filter_attributes_on_save(attributes, *params)
           attributes.mash do |k,v|
             case k
               # get id of object
-            when  :creator then [:creator_id, @session.id_for(v)]
-            when :study then [:study_id, @session.id_for(v)]
+            when  :creator then [:creator_id, @session.id_for!(v)]
+            when :study then [:study_id, @session.id_for!(v)]
               # serialize structured object
             when :parameters, :state then [k, Marshal.dump(v) ]
             else [k, v]

@@ -121,33 +121,27 @@ module Lims::Core
             end
             it "can have item's uuid updated" do
               load_order(order_id) do |order|
-                order[:intermediate_target].uuid =  uuid
+                order[:intermediate_target].uuid =  item_uuid
               end
               load_order(order_id) do |order|
-                order[:intermediate_target].uuid.should == uuid
+                order[:intermediate_target].uuid.should == item_uuid
               end
             end
           end
 
           it "saves its status" do
             load_order(order_id) do |order|
-              order.fail
+              order.cancel
             end
             load_order(order_id) do |order|
-              order.failed?.should == true
+              order.cancel?.should == true
             end
           end
         end
       end
 
-      context "with a creator" do
-        let(:creator) { mock(:user) }
-        before(:each) do
-          Lims::Core::Persistence::Session.any_instance.tap do |session|
-            session.stub_chain(:user, :save) { 1 }
-            session.stub_chain(:user, :[]) { creator }
-          end
-        end
+      context "with a creator", :focus => true do
+        let(:creator) { User.new }
         subject { Order.new(:creator => creator) }
 
         it "can be saved reloaded" do

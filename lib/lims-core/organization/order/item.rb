@@ -21,6 +21,7 @@ module Lims::Core
 
         attribute :iteration, Fixnum, :writer => :private, :default => 0
         attribute :uuid, String
+        attribute :status, State
 
         def initialize(*args)
           super(*args)
