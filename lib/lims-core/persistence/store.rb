@@ -6,7 +6,7 @@ require 'lims/core/persistence/session'
 
 module Lims::Core
     module  Persistence
-      # A store represents a persistant datastore, where object can be saved and restored.
+      # A store represents a persistent datastore, where object can be saved and restored.
       # A connection to a database, for example.
       class Store
         def self.const_missing(name)
