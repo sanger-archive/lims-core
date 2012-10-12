@@ -98,7 +98,9 @@
   
   
     <dt class="r1 last">Defined in:</dt>
-    <dd class="r1 last">lib/lims-core/organization/order.rb</dd>
+    <dd class="r1 last">lib/lims-core/organization/order.rb<span class="defines">,<br />
+  lib/lims-core/organization/order/item.rb</span>
+</dd>
   
 </dl>
 <div class="clear"></div>
@@ -137,9 +139,9 @@ the *<b>sample</b>*.</p>
 <p class="children">
   
     
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Order/NonDraft.html" title="Lims::Core::Organization::Order::NonDraft (module)">NonDraft</a></span>
-    
   
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Order/Item.html" title="Lims::Core::Organization::Order::Item (class)">Item</a></span>
     
   
 </p>
@@ -206,6 +208,54 @@ the *<b>sample</b>*.</p>
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#add_source-instance_method" title="#add_source (instance method)">- (Item) <strong>add_source</strong>(role, uuid) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>A source is an item required to complete the order.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#add_target-instance_method" title="#add_target (instance method)">- (Object) <strong>add_target</strong>(role) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>A target is an item produced by the order.</p>
+</div></span>
+  
+</li>
+
+      
     </ul>
   
 
@@ -254,15 +304,15 @@ the *<b>sample</b>*.</p>
       <pre class="lines">
 
 
-118
-119
-120</pre>
+113
+114
+115</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/organization/order.rb', line 118</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/organization/order.rb', line 113</span>
 
 <span class='kw'>def</span> <span class='op'>[]</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_key_is_for_items?'>key_is_for_items?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_items'>items</span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span> <span class='op'>:</span> <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_key_is_for_items?'>key_is_for_items?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_items'>items</span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rbracket'>]</span> <span class='op'>:</span> <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -284,15 +334,155 @@ the *<b>sample</b>*.</p>
       <pre class="lines">
 
 
-122
-123
-124</pre>
+117
+118
+119</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/organization/order.rb', line 122</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/organization/order.rb', line 117</span>
 
 <span class='kw'>def</span> <span class='op'>[]=</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_key_is_for_items?'>key_is_for_items?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_items'>items</span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span><span class='op'>=</span><span class='id identifier rubyid_value'>value</span> <span class='op'>:</span> <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_key_is_for_items?'>key_is_for_items?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_items'>items</span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rbracket'>]</span><span class='op'>=</span><span class='id identifier rubyid_value'>value</span> <span class='op'>:</span> <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="add_source-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Order/Item.html" title="Lims::Core::Organization::Order::Item (class)">Item</a></span></tt>) <strong>add_source</strong>(role, uuid) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>A source is an item required to complete the order. There is nothing to do
+for it, so it's already in a done state. As the source is meant to be used
+by the pipeline to fulfil the order it needs an underlying object.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>role</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>of the source</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>uuid</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>of the underlying object</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Order/Item.html" title="Lims::Core::Organization::Order::Item (class)">Item</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+141
+142
+143
+144
+145
+146</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/organization/order.rb', line 141</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_add_source'>add_source</span><span class='lparen'>(</span><span class='id identifier rubyid_role'>role</span><span class='comma'>,</span> <span class='id identifier rubyid_uuid'>uuid</span><span class='rparen'>)</span>
+  <span class='const'>Item</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:uuid</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_uuid'>uuid</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_tap'>tap</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_item'>item</span><span class='op'>|</span>
+    <span class='id identifier rubyid_item'>item</span><span class='period'>.</span><span class='id identifier rubyid_complete'>complete</span>
+    <span class='kw'>self</span><span class='lbracket'>[</span><span class='id identifier rubyid_role'>role</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_item'>item</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="add_target-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>add_target</strong>(role) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>A target is an item produced by the order. It starts has pending and needs
+to be completed or failed.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+150
+151
+152</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/organization/order.rb', line 150</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_add_target'>add_target</span><span class='lparen'>(</span><span class='id identifier rubyid_role'>role</span><span class='rparen'>)</span>
+  <span class='kw'>self</span><span class='lbracket'>[</span><span class='id identifier rubyid_role'>role</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>Item</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
