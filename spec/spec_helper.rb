@@ -1,3 +1,4 @@
-require 'lims-core'
+require 'lims-core/laboratory'
+require 'lims-core/organization'
 
 

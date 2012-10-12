@@ -1,12 +1,12 @@
 # vi: ts=2:sts=2:et:sw=2 spell:spelllang=en 
 require 'spec_helper'
 
-require 'lims-core/organization/item'
+require 'lims-core/organization/order/item'
 
 module Lims
   module Core
     module Organization
-      describe Item do
+      describe Order::Item do
         #== Macro ====
         def self.it_has_a(attribute, type=nil)
           it "responds to #{attribute}" do
@@ -22,7 +22,7 @@ module Lims
 
         def self.it_needs_a(attribute)
           context "is invalid" do
-            subject {  Order.new(creation_parameters.except(attribute)) }
+            subject {  described_class.new(creation_parameters.except(attribute)) }
             it { subject.valid?.should == false }
             context "after validation" do
               before { subject.validate }

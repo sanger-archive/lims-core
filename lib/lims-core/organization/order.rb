@@ -3,6 +3,7 @@ require 'common'
 require 'lims/core/resource'
 require 'lims-core/organization/user'
 require 'lims-core/organization/study'
+require 'lims-core/organization/order/item'
 
 require 'state_machine'
 
@@ -22,28 +23,17 @@ module Lims::Core
     # Note, there is no relation at a core level between this sample and this library. The pipeline *knows* that this **sample** is linked to that **library**.
     # Ultimately, someone wanted to sequence an existing library, can create an order with the same parameters, with the **library** given instead of the **sample**.
     class Order
+
       include Resource
       attribute :creator, User, :required => true, :writer => :private, :initializable=>true
       attribute :pipeline, String, :required => true
-      attribute :items, Hash, :default => {}, :reader => :private, :writer => :private, :initializable => true
+      attribute :items, HashString, :default => {}, :reader => :private, :writer => :private, :initializable => true
+
+      attribute :status, State
       attribute :parameters, Hash, :default => {}
       attribute :state, Hash, :default => {}
       attribute :study, Study, :required => true, :writer => :private, :initializable=>true
       attribute :cost_code, String, :required => true, :writer  => :private, :initializable=>true
-
-      module NonDraft
-        def creator=(creator)
-          raise NoMethodError
-        end
-
-        def study=(study)
-          raise NoMethodError
-        end
-
-        def cost_code=(cost_code)
-          raise NoMethodError
-        end
-      end
 
       # An order has a status, which is its progress from an end-user 
       # point of view. This status is more meant to be used by 
@@ -61,32 +51,39 @@ module Lims::Core
         # The order has been *validated* by the user and it's ready 
         # to pe processed.
         state :pending do
-          include NonDraft
-
         end
 
+        state all - [:draft] do
+          def creator=(creator)
+            raise NoMethodError, "creator can't be assigned in #{status} mode"
+          end
+
+          def study=(study)
+            raise NoMethodError, "study can't be assigned in #{status} mode"
+          end
+
+          def cost_code=(cost_code)
+            raise NoMethodError, "cost code can't be assigned in #{status} mode"
+          end
+        end
         # the order has been physically started, .i.e it's belong
         # to a pipeline and some work is currently being done.
         state :in_progress do
-          include NonDraft 
         end
 
         # the order has been fulfilled with success. It should not be
         # modifiable without rewriting history.
         state :completed do
-          include NonDraft
         end
 
         # For whatever reason, the order can not be completed.
         # Shouldn't be modifiable.
         state :failed do
-          include NonDraft
         end
 
         # The order has been cancelled by a user decision.
         # Shouldn't be modifiable.
         state :cancelled do
-          include NonDraft
         end
 
         event :build do
@@ -108,22 +105,20 @@ module Lims::Core
         event :fail do
           transition :in_progress=> :failed
         end
-
-
       end
 
       # ========= Items ========
       # Redirect key to either items or attributes (default
       # Virtus behavior
       def [](key)
-        key_is_for_items?(key) ? items[key] : super(key)
+        key_is_for_items?(key) ? items[key.to_s] : super(key)
       end
 
       def []=(key, value)
-        key_is_for_items?(key) ? items[key]=value : super(key, value)
+        key_is_for_items?(key) ? items[key.to_s]=value : super(key, value)
       end
 
-      def_delegators :@content, :each, :size , :keys, :values, :map, :mashr , :include?, :to_a 
+      def_delegators :items, :each, :size , :keys, :values, :map, :mashr , :include?, :to_a 
 
       # Check if the argument is a key for items
       # or attributes
@@ -134,8 +129,27 @@ module Lims::Core
         when String, Symbol then !respond_to?(key)
         end || false
       end
-
       private :key_is_for_items?
+
+      # A source is an item required to complete the order.
+      # There is nothing to do for it, so it's already in a done state.
+      # As the source is meant to be used by the pipeline to fulfil the order
+      # it needs an underlying object.
+      # @param [String] role of the source
+      # @param [String] uuid of the underlying object
+      # @return [Item]
+      def add_source(role, uuid)
+        Item.new(:uuid => uuid).tap do |item|
+          item.complete
+          self[role] = item
+        end
+      end
+
+      # A target is an item produced by the order.
+      # It starts has pending and needs to be completed or failed.
+      def add_target(role)
+        self[role] = Item.new
+      end
     end
   end
 end
