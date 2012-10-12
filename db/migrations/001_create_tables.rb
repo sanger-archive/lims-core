@@ -71,7 +71,38 @@ Sequel.migration do
       String :uuid, :fixed => true, :size => 16
       String :model_class
       Integer :key
-
     end
+
+    create_table :orders do
+      primary_key :id
+      foreign_key :creator_id, :users, :key => :id
+
+      String :pipeline
+      String :parameters
+      String :status
+      Text :state
+      foreign_key :study_id, :studies, :key => :id
+      String :cost_code
+    end
+
+    create_table :items do
+      primary_key :id
+      foreign_key :order_id, :orders, :key => :id
+      String :role
+      foreign_key :resource_id, :uuid_resources, :key => :id
+      String :uuid, :fixed => true, :size => 16
+      String :status
+      Integer :iteration, :default => 0
+    end
+
+    create_table :users do
+      primary_key :id
+    end
+
+    create_table :studies do
+      primary_key :id
+    end
+
+
   end
 end

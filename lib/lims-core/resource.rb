@@ -51,17 +51,6 @@ module Lims::Core
 
         end
       end
-
-      def is_a_hash_of(key_class, value_class,  &initializer)
-        define_method :initialize_hash do |*args|
-          @content = initializer ? initialize[self, key_class, value_class] : {}
-        end
-        class_eval do
-          include Enumerable
-          include IsHashOf
-          def_delegators :@content, :each, :size , :keys, :values, :map, :mashr , :include?, :to_a 
-        end
-      end
     end
 
 
@@ -105,55 +94,18 @@ module Lims::Core
         end
       end
     end 
-    module IsHashOf
 
-      def initialize(*args, &block)
-        super(*args, &block)
-        initialize_hash()
+    class HashString < Virtus::Attribute::Object
+      primitive Hash
+      def coerce(hash)
+        hash.rekey  {|key| key.to_s }
       end
+    end
 
-      # Add content to compare
-      # @param other to compare with
-      # @return [Boolean]
-      def ==(other)
-        super(other) && content == (other.respond(:content) || other)
-      end
-
-      # The underlying hash. Use to everything which is not directly delegated 
-      # @return [Hash]
-      def content
-        @content 
-      end
-
-      # Delegate [] to the underlying Hash.
-      # This is needed because Virtus redefine [] as well 
-      # @param [Fixnum, ... ] i index
-      # @return [Object]
-      def [](i)
-        case i
-        when String, Symbol
-          if respond_to?(i)
-            super(i) # attributes
-          else
-            @content[i]
-          end
-        else super(i)
-        end
-      end
-
-      def [](key, value)
-        debugger
-        case key
-        when String, Symbol
-          if respond_to?(key)
-            super(key, value)
-          else
-            @content[key]=value
-          end
-        else
-          super(key, value)
-        end
-      end
-    end 
+    # @todo override state_machine to automatically add
+    # attribute
+    class State < Virtus::Attribute::Object
+      primitive String
+    end
   end
 end

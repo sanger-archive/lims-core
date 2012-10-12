@@ -21,7 +21,7 @@ module Lims::Core
       let(:column_number) {12}
       context "with a sequel store" do
         include_context "prepare tables"
-        let(:db) { ::Sequel.sqlite('') }
+        let(:db) { ::Sequel.sqlite('', :loggers => [Logger.new($stdout)]) }
         let(:store) { Persistence::Sequel::Store.new(db) }
         before (:each) { prepare_table(db) }
 
@@ -29,7 +29,7 @@ module Lims::Core
           let(:plate_id) { save(new_plate_with_samples(1)) }
           let(:oligo_1_id) { save(Laboratory::Oligo.new("AAA")) }
           let(:oligo_2_id) { save(Laboratory::Oligo.new("TAG")) }
-          let(:well_to_tag_id_map) { { :C1 => oligo_1_id, :F7 => :oligo_2_id } }
+          let(:well_to_tag_id_map) { { :C1 => oligo_1_id, :F7 => oligo_2_id } }
 
           let(:user) { mock(:user) }
           let(:application) { "Test assign tag to well" }
@@ -43,11 +43,12 @@ module Lims::Core
             subject.call
             store.with_session do |session|
               plate = session.plate[plate_id]
-              oligo_1 = session.oligo[oligo_1]
-              oligo_2 = session.oligo[oligo_2]
+              oligo_1 = session.oligo[oligo_1_id]
+              oligo_2 = session.oligo[oligo_2_id]
 
               plate.each_with_index do  |well, name|
                 well.each do |aliquot|
+                  puts "well #{name}, tag #{aliquot.tag}"
                   aliquot.tag.should == case name
                                         when "C1" then oligo_1
                                         when "F7" then oligo_2

@@ -91,7 +91,7 @@ module Lims::Core
           # So we might in the future either move it to a UuidResourcePersistor
           # or cached it by attributes
           # @todo benchmark against normal insert
-          attributes = filter_attributes_on_save(object.attributes)
+          attributes = filter_attributes_on_save(object.attributes, *params)
           statement_name = :"#{table_name}#save_raw"
           dataset.prepare(:insert, statement_name, attributes.keys.mash { |k| [k, :"$#{k}"] })
           @session.database.call(statement_name, attributes)
@@ -104,7 +104,11 @@ module Lims::Core
         # @return [Fixnum, nil] the id 
         def update_raw(object, id, *params)
           id.tap do
-            dataset[primary_key => id].update(object.attributes)
+            attributes = filter_attributes_on_save(object.attributes, *params)
+            return true if attributes == {}
+            statement_name = :"#{table_name}#update_raw"
+            dataset.filter(primary_key => id).prepare(:update, statement_name, attributes.keys.mash { |k| [k, :"$#{k}"] })
+            @session.database.call(statement_name, attributes)
           end
         end
 

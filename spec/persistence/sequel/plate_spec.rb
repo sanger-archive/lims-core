@@ -6,18 +6,13 @@ require 'persistence/sequel/store_shared'
 require 'persistence/sequel/page_shared'
 
 # Model requirements
-require 'lims/core/persistence/sequel/store'
 require 'lims/core/laboratory/plate'
 
 require 'logger'
 module Lims::Core
 
   describe "Sequel#Plate " do
-    include_context "prepare tables"
-    let(:db) { ::Sequel.sqlite('') }
-    let(:store) { Persistence::Sequel::Store.new(db) }
-    before (:each) { prepare_table(db) }
-
+    include_context "sequel store"
     include_context "plate factory"
 
     def last_plate_id(session)
