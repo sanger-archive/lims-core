@@ -20,8 +20,8 @@ module Lims::Core
         # @todo special test session class ?
 
         context "setup to transfert between valid plates" do
-          let(:row_number) { 8 }
-          let(:column_number) { 12 }
+          let(:number_of_rows) { 8 }
+          let(:number_of_columns) { 12 }
           let(:source) { new_plate_with_samples }
           let(:target) { new_empty_plate }
           subject do
@@ -64,8 +64,8 @@ module Lims::Core
         # should_transfer
 
         context "with plates ids" do
-          let(:row_number) { 8 }
-          let(:column_number) { 12 }
+          let(:number_of_rows) { 8 }
+          let(:number_of_columns) { 12 }
           let(:source_id) do 
             store.with_session  do |s|
               s << plate=new_plate_with_samples

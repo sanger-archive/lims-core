@@ -10,7 +10,7 @@ module Lims::Core
   module Laboratory
     shared_context "plate factory" do
       def new_plate_with_samples(sample_nb=5)
-        Plate.new(:row_number => row_number, :column_number => column_number).tap do |plate|
+        Plate.new(:number_of_rows => number_of_rows, :number_of_columns => number_of_columns).tap do |plate|
           plate.each_with_index do |well, i|
             1.upto(sample_nb) do |j|
               well <<  new_aliquot(i,j)
@@ -20,7 +20,7 @@ module Lims::Core
       end
 
       def new_empty_plate()
-        Plate.new(:row_number => row_number, :column_number => column_number) 
+        Plate.new(:number_of_rows => number_of_rows, :number_of_columns => number_of_columns)
       end
 
       def new_sample(i=1, j=1)

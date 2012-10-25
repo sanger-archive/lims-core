@@ -28,8 +28,8 @@ Sequel.migration do
 
     create_table :plates do
       primary_key :id
-      Integer :row_number
-      Integer :column_number
+      Integer :number_of_rows
+      Integer :number_of_columns
     end
 
     create_table :wells do

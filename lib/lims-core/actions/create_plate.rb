@@ -9,7 +9,7 @@ module Lims::Core
       include Action
 
       %w(row column).each do |w|
-        attribute :"#{w}_number",  Fixnum, :required => true, :gte => 0, :writer => :private
+        attribute :"number_of_#{w}s",  Fixnum, :required => true, :gte => 0, :writer => :private
       end
       # @attribute [Hash<String, Array<Hash>>] wells_description
       # @example
@@ -17,7 +17,7 @@ module Lims::Core
       attribute :wells_description, Hash, :default => {}
 
       def _call_in_session(session)
-        plate = Laboratory::Plate.new(:column_number => column_number, :row_number => row_number)
+        plate = Laboratory::Plate.new(:number_of_columns => number_of_columns, :number_of_rows => number_of_rows)
         session << plate
         wells_description.each do |well_name, aliquots|
           aliquots.each do |aliquot|
