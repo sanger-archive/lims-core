@@ -21,9 +21,9 @@ module Lims::Core
 
     context "8*12 Plate" do
       # Set default dimension to create a plate
-      let(:row_number) { 8 }
-      let(:column_number) { 12 }
-      let(:expected_plate_size) { row_number*column_number }
+      let(:number_of_rows) { 8 }
+      let(:number_of_columns) { 12 }
+      let(:expected_plate_size) { number_of_rows*number_of_columns }
 
       context "created and added to session" do
         it "modifies the plates table" do

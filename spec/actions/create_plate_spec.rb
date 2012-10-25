@@ -25,8 +25,8 @@ module Lims::Core
     shared_context "for plate with a map of samples" do
       let(:wells_description) do
         {}.tap do |h|
-          1.upto(row_number) do |row|
-            1.upto(column_number) do |column|
+          1.upto(number_of_rows) do |row|
+            1.upto(number_of_columns) do |column|
               h[Laboratory::Plate.indexes_to_well_name(row-1, column-1)] = [{
                 :sample => new_sample(row, column),
                 :quantity => nil
@@ -61,8 +61,8 @@ module Lims::Core
         result.should be_a Hash
 
         plate = result[:plate]
-        plate.row_number.should == dimensions[:row_number]
-        plate.column_number.should == dimensions[:column_number]
+        plate.number_of_rows.should == dimensions[:number_of_rows]
+        plate.number_of_columns.should == dimensions[:number_of_columns]
         plate_checker[plate]
 
         result[:uuid].should == uuid
@@ -70,9 +70,9 @@ module Lims::Core
     end
 
     shared_context "has plate dimension" do |row, col|
-      let(:row_number) { row }
-      let(:column_number) { col }
-      let(:dimensions) {{ :row_number => row, :column_number => col }}
+      let(:number_of_rows) { row }
+      let(:number_of_columns) { col }
+      let(:dimensions) {{ :number_of_rows => row, :number_of_columns => col }}
 
     end
 
