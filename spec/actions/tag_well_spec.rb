@@ -17,8 +17,8 @@ module Lims::Core
   module Actions
     describe TagWells do
       include_context "plate factory"
-      let(:row_number) {8}
-      let(:column_number) {12}
+      let(:number_of_rows) {8}
+      let(:number_of_columns) {12}
       context "with a sequel store" do
         include_context "prepare tables"
         let(:db) { ::Sequel.sqlite('', :loggers => [Logger.new($stdout)]) }
@@ -61,8 +61,8 @@ module Lims::Core
         end
 
         context "with an empty database" do
-      let(:row_number) {3}
-      let(:column_number) {1}
+      let(:number_of_rows) {3}
+      let(:number_of_columns) {1}
           let(:user) { mock(:user) }
           let(:application) { "Test assign tag to well" }
           subject { described_class.new(:store => store, :user => user, :application => application) do |a,s|

@@ -79,13 +79,13 @@ module Lims::Core::Laboratory
 
   describe Plate  do
     context "with 12x8 wells" do
-      let(:row_number) { 8 }
-      let(:column_number) { 12}
-      let(:size) { row_number*column_number }
-      subject { described_class.new(:column_number => column_number, :row_number =>row_number) }
+      let(:number_of_rows) { 8 }
+      let(:number_of_columns) { 12}
+      let(:size) { number_of_rows*number_of_columns }
+      subject { described_class.new(:number_of_columns => number_of_columns, :number_of_rows =>number_of_rows) }
 
-      its(:row_number) {should == row_number }
-      its(:column_number) { should == column_number }
+      its(:number_of_rows) {should == number_of_rows }
+      its(:number_of_columns) { should == number_of_columns }
       its(:size) { should eq(size) }
 
       it_behaves_like "a container", Plate::Well
@@ -116,7 +116,7 @@ module Lims::Core::Laboratory
           it "are arranged by column" do
             pools = subject.pools
 
-            pools.size.should == subject.column_number
+            pools.size.should == subject.number_of_columns
             pools.keys.should == [1, 2, 3, 4, 5, 6, 7 ,8, 9 , 10, 11, 12]
             pools[1].should == %w(A1 B1 C1 D1 E1 F1 G1 H1)
           end

@@ -13,7 +13,7 @@ module Lims::Core
     class Plate 
       include Resource
       %w(row column).each do |w|
-        attribute :"#{w}_number",  Fixnum, :required => true, :gte => 0, :writer => :private
+        attribute :"number_of_#{w}s", Fixnum, :required => true, :gte => 0, :writer => :private
       end
 
       # The well of a {Plate}. 
@@ -37,7 +37,7 @@ module Lims::Core
           options = args.extract_options!
           # we would use `options & [:row ... ]` if we could
           # but Sequel redefine Hash#& ...
-          dimensions = options.subset([:row_number ,:column_number])
+          dimensions = options.subset([:number_of_rows ,:number_of_columns])
           set_attributes(dimensions)
           super(*args, options - dimensions, &block)
         end
@@ -63,7 +63,7 @@ module Lims::Core
       include AccessibleViaSuper
 
       is_array_of Well do |p,t|
-        (p.row_number*p.column_number).times.map { t.new }
+        (p.number_of_rows*p.number_of_columns).times.map { t.new }
       end
 
       # Hash behavior
@@ -94,9 +94,9 @@ module Lims::Core
       # @param [Fixnum] col index of the column (starting at 0)
       # @return [Well]
       def get_well(row, col)
-        raise IndexOutOfRangeError unless (0...row_number).include?(row)
-        raise IndexOutOfRangeError unless (0...column_number).include?(col)
-        @content[row*column_number + col]
+        raise IndexOutOfRangeError unless (0...number_of_rows).include?(row)
+        raise IndexOutOfRangeError unless (0...number_of_columns).include?(col)
+        @content[row*number_of_columns + col]
       end
       private :get_well
 
@@ -111,8 +111,8 @@ module Lims::Core
       # @todo memoize if needed
       def index_to_well_name(index)
 
-        row = index / column_number
-        column = index % column_number
+        row = index / number_of_columns
+        column = index % number_of_columns
 
         indexes_to_well_name(row, column)
 
@@ -132,8 +132,8 @@ module Lims::Core
       def pools
         # 
 
-        1.upto(column_number).mash do |c|
-          [c, 1.upto(row_number).map { |r| indexes_to_well_name(r-1,c-1) } ]
+        1.upto(number_of_columns).mash do |c|
+          [c, 1.upto(number_of_rows).map { |r| indexes_to_well_name(r-1,c-1) } ]
         end
 
 

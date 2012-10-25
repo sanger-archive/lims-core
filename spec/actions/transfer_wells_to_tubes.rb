@@ -21,8 +21,8 @@ module Lims::Core
     describe TransferWellsToTubes do
       include_context "plate factory"
       include_context "tube factory"
-      let(:row_number) {8}
-      let(:column_number) {12}
+      let(:number_of_rows) {8}
+      let(:number_of_columns) {12}
       context "with a sequel store" do
         include_context "prepare tables"
         let(:db) { ::Sequel.sqlite('') }
@@ -73,8 +73,8 @@ module Lims::Core
         end
 
         context "with an empty database" do
-          let(:row_number) {3}
-          let(:column_number) {5}
+          let(:number_of_rows) {3}
+          let(:number_of_columns) {5}
           let(:user) { mock(:user) }
           let(:application) { "Test assign tag to well" }
           let(:tube) {  new_empty_tube }
