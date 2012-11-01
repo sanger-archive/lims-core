@@ -1,6 +1,7 @@
 # vi: ts=2:sts=2:et:sw=2 spell:spelllang=en
 
 require 'lims/core/persistence/identity_map'
+require 'lims/core/persistence/sequel/sequel_filters'
 require 'active_support/inflector'
 
 
@@ -10,6 +11,9 @@ module Lims::Core
       # Mixin giving extended the persistor classes with
       # the Sequel (load/save) behavior.
       module Persistor
+
+        include Filters
+
         def self.included(klass)
           klass.class_eval do
             # @return [String] the name of SQL table.

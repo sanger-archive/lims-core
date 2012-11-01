@@ -22,18 +22,7 @@ module Lims::Core
         end
 
         it "requires a model and a filter" do
-          described_class.new(create_parameters)
-          subject.valid?
-          puts subject.errors[:model].inspect
-          subject.valid?.should == true
-        end
-      end
-
-      context "valid" do
-        xit "returns a persistor" do
-          session = mock(:session)
-          #session.should_receive()
-          subject.persistor(session).should
+          described_class.new(create_parameters).valid?.should == true
         end
       end
     end
