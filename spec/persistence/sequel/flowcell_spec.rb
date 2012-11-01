@@ -3,11 +3,12 @@ require 'persistence/sequel/spec_helper'
 
 require 'laboratory/flowcell_shared'
 require 'persistence/sequel/store_shared'
+require 'persistence/sequel/page_shared'
+require 'persistence/sequel/multi_criteria_filter_shared'
 
 # Model requirements
 require 'lims/core/persistence/sequel/store'
 require 'lims/core/laboratory/flowcell'
-require 'persistence/sequel/page_shared'
 
 module Lims::Core
   
@@ -123,6 +124,7 @@ module Lims::Core
     
     let(:number_of_lanes) { hiseq_number_of_lanes }
     let(:constructor) { lambda { |*_| new_flowcell_with_samples } }
-    it_behaves_like "paginable", :flowcell
+    it_behaves_like "paginable resource", :flowcell
+    it_behaves_like "filtrable", :flowcell
   end
 end
