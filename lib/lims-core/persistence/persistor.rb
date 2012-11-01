@@ -1,7 +1,6 @@
 # vi: ts=2:sts=2:et:sw=2 spell:spelllang=en
 
 require 'lims/core/persistence/identity_map'
-require 'lims/core/persistence/filter_definition'
 
 
 module Lims::Core
@@ -16,7 +15,6 @@ module Lims::Core
     # specific to a session/thread.
     class Persistor
       include IdentityMap
-      include FilterDefinition
 
       def initialize (session, *args, &block)
         @session = session
@@ -262,7 +260,7 @@ module Lims::Core
       # This can be used to change the name of an attribute (its key)
       # or its value or both (example resource to resource_id)
       # This is the reverse of {filter_attributes_on_save}
-      # @param [Hash]
+      # @param [Hash] attributes
       # @return [Hash]
       def filter_attributes_on_load(attributes)
         attributes
@@ -271,7 +269,7 @@ module Lims::Core
       # Transform object attributes to store fields
       # This can be used to change the name of an attribute (its key)
       # or its value or both (example resource to resource_id)
-      # @param [Hash]
+      # @param [Hash] attributes
       # @return [Hash]
       def filter_attributes_on_save(attributes)
         attributes

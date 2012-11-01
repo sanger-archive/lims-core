@@ -128,6 +128,16 @@ module Lims::Core
 
       context do
         let(:constructor) { lambda { |*_| new_empty_plate } }
+        it_behaves_like "paginable resource", :plate
+      end
+
+      context "MultiCriteriaSearch", :focus => true do
+        require 'lims/core/persistence/multi_criteria_filter'
+        let(:constructor) { lambda { |*_| new_empty_plate } }
+        let(:filter) { Persistence::MultiCriteriaFilter.new(:id => [1,2,3,5]) }
+
+        let(:persistor) { store.with_session { |s| filter.call(s.plate) } }
+        let(:resource_number) { 4 }
         it_behaves_like "paginable", :plate
       end
     end

@@ -1,8 +1,14 @@
 # Spec requirements
 require 'persistence/sequel/spec_helper'
 
-shared_examples_for "paginable" do |persistor_name|
+
+shared_examples_for "paginable resource" do |persistor_name|
   let(:persistor) {  store.with_session { |session| session.send(persistor_name) } }
+    let(:resource_number) { 25 }
+  it_behaves_like "paginable"
+end
+
+shared_examples_for "paginable" do
   context "no resources" do
     context "#persistor" do
       subject { persistor }
@@ -34,7 +40,7 @@ shared_examples_for "paginable" do |persistor_name|
     }
     context "#persistor" do
       subject { persistor }
-      its(:count) { should == 25 }
+      its(:count) { debugger; should == resource_number }
     end
     context "#slice" do
       subject {

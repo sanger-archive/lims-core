@@ -1,6 +1,7 @@
 #vi: ts=2 sw=2 et
 require 'common'
 
+require 'lims-core/resource'
 require 'lims-core/persistence/filter'
 
 module Lims::Core
@@ -17,7 +18,7 @@ module Lims::Core
       # @session [Session]
       # @return [Persistor]
       def call(session)
-        filter[session.persistor_for(@model)]
+        filter.call(session.persistor_for(@model))
       end
     end
   end
