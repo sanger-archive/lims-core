@@ -2,8 +2,11 @@
 require 'persistence/sequel/spec_helper'
 
 require 'laboratory/plate_shared'
+require 'persistence/resource_shared'
 require 'persistence/sequel/store_shared'
 require 'persistence/sequel/page_shared'
+require 'persistence/sequel/multi_criteria_filter_shared'
+
 
 # Model requirements
 require 'lims/core/laboratory/plate'
@@ -25,38 +28,9 @@ module Lims::Core
       let(:number_of_columns) { 12 }
       let(:expected_plate_size) { number_of_rows*number_of_columns }
 
-      context "created and added to session" do
-        it "modifies the plates table" do
-          expect do
-            store.with_session { |s| s << new_plate_with_samples }
-          end.to change { db[:plates].count }.by(1)
-        end
-
-        it "modifies the wells table" do
-          expect do
-            store.with_session { |session| session << new_plate_with_samples(3) }
-          end.to change { db[:wells].count }.by(expected_plate_size*3)
-        end
-
-        it "should be reloadable" do
-          plate = store.with_session do |session|
-            new_plate_with_samples(3).tap do |f|
-              session << f
-            end
-          end
-          store.with_session do |session|
-            new_plate  = session.plate[last_plate_id(session)]
-            plate.should eq(session.plate[last_plate_id(session)])
-          end
-        end
-      end
-
-      context "created but not added to a session" do
-        it "should not be saved" do
-          expect do 
-            store.with_session { |_| new_plate_with_samples(3) }
-          end.to change{ db[:plates].count }.by(0)
-        end 
+      context do
+        subject { new_plate_with_samples(3) }
+        it_behaves_like "storable resource", :plate, {:plates => 1, :wells =>  8*12*3 }
       end
 
       context "already created plate" do
@@ -128,7 +102,8 @@ module Lims::Core
 
       context do
         let(:constructor) { lambda { |*_| new_empty_plate } }
-        it_behaves_like "paginable", :plate
+        it_behaves_like "paginable resource", :plate
+        it_behaves_like "filtrable", :plate
       end
     end
   end

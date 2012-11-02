@@ -2,48 +2,16 @@
 require 'persistence/sequel/spec_helper'
 
 require 'laboratory/flowcell_shared'
+require 'persistence/resource_shared'
 require 'persistence/sequel/store_shared'
+require 'persistence/sequel/page_shared'
+require 'persistence/sequel/multi_criteria_filter_shared'
 
 # Model requirements
 require 'lims/core/persistence/sequel/store'
 require 'lims/core/laboratory/flowcell'
-require 'persistence/sequel/page_shared'
 
 module Lims::Core
-  
-  shared_context "created and added to session" do
-    it "modifies the flowcells table" do
-      expect do
-        store.with_session { |s| s << new_flowcell_with_samples }
-      end.to change { db[:flowcells].count }.by(1)
-    end
-
-    it "modifies the lanes table" do
-      expect do
-        store.with_session { |session| session << new_flowcell_with_samples(3) }
-      end.to change { db[:lanes].count }.by(8*3)
-    end
-
-    it "should be reloadable" do
-      flowcell = store.with_session do |session|
-        new_flowcell_with_samples(3).tap do |f|
-          session << f
-        end
-      end
-      store.with_session do |session|
-        flowcell.should eq(session.flowcell[last_flowcell_id(session)])
-      end
-    end
-  end
-
-  shared_context "created but not added to a session" do
-    it "should not be saved" do
-      expect do 
-        store.with_session { |_| new_flowcell_with_samples(3) }
-      end.to change{ db[:flowcells].count }.by(0)
-    end 
-  end
-
   shared_context "already created flowcell" do
     let(:aliquot) { new_aliquot }
     before (:each) do
@@ -98,31 +66,34 @@ module Lims::Core
     include_context "flowcell factory"
 
     def last_flowcell_id(session)
-          session.flowcell.dataset.order_by(:id).last[:id]
+      session.flowcell.dataset.order_by(:id).last[:id]
     end
-    
+
     # execute tests with miseq flowcell
+    context "miseql"  do
     let(:number_of_lanes) { miseq_number_of_lanes }
-    context do
-      include_context "created and added to session"
+      subject { new_flowcell_with_samples(3) }
+      it_behaves_like "storable resource", :flowcell, {:flowcells => 1, :lanes => 1*3 }
 
-      include_context "created but not added to a session"
-
-      include_context "already created flowcell"
+      pending "only works for hiseq"  do
+        include_context "already created flowcell"
+      end
     end
 
     # execute tests with hiseq flowcell
+    context "hiseq"  do
     let(:number_of_lanes) { hiseq_number_of_lanes }
-    context do
-      include_context "created and added to session"
 
-      include_context "created but not added to a session"
-
+      subject { new_flowcell_with_samples(3) }
+      it_behaves_like "storable resource", :flowcell, {:flowcells => 1, :lanes => 8*3 }
       include_context "already created flowcell"
     end
-    
+
+    context do
     let(:number_of_lanes) { hiseq_number_of_lanes }
     let(:constructor) { lambda { |*_| new_flowcell_with_samples } }
-    it_behaves_like "paginable", :flowcell
+    it_behaves_like "paginable resource", :flowcell
+    it_behaves_like "filtrable", :flowcell
+    end
   end
 end

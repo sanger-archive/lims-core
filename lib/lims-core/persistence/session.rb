@@ -3,6 +3,8 @@
 require 'common'
 require 'forwardable'
 
+require 'lims/core/persistence/filter'
+
 module Lims::Core
     module  Persistence
       # A session is in charge of restoring and saving object throug the persistence layer.
