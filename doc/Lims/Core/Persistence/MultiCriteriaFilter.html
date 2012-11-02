@@ -231,13 +231,15 @@ the field Value : a value or a list of values to check real value against.</p>
 
 14
 15
-16</pre>
+16
+17</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/multi_criteria_filter.rb', line 14</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_criteria'>criteria</span><span class='rparen'>)</span>
-  <span class='ivar'>@criteria</span> <span class='op'>=</span> <span class='id identifier rubyid_criteria'>criteria</span>
+  <span class='id identifier rubyid_criteria'>criteria</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='symbol'>:criteria</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_criteria'>criteria</span><span class='rbrace'>}</span> <span class='kw'>unless</span> <span class='id identifier rubyid_criteria'>criteria</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='symbol'>:criteria</span><span class='rparen'>)</span>
+  <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_criteria'>criteria</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -266,12 +268,12 @@ the field Value : a value or a list of values to check real value against.</p>
       <pre class="lines">
 
 
-18
 19
-20</pre>
+20
+21</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/multi_criteria_filter.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/multi_criteria_filter.rb', line 19</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='id identifier rubyid_persistor'>persistor</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_persistor'>persistor</span><span class='period'>.</span><span class='id identifier rubyid_multi_criteria_filter'>multi_criteria_filter</span><span class='lparen'>(</span><span class='id identifier rubyid_criteria'>criteria</span><span class='rparen'>)</span>
