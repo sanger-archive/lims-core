@@ -103,6 +103,13 @@ Sequel.migration do
       primary_key :id
     end
 
+    create_table :searches do
+      primary_key :id
+      String :filter_type
+      String :model
+      Text :parameters
+    end
+
 
   end
 end

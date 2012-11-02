@@ -3,6 +3,7 @@ require 'common'
 
 require 'lims-core/resource'
 require 'lims-core/persistence/filter'
+require 'lims-core/persistence/persistor'
 
 module Lims::Core
   module Persistence
@@ -19,6 +20,13 @@ module Lims::Core
       # @return [Persistor]
       def call(session)
         filter.call(session.persistor_for(@model))
+      end
+
+      # Base persistor for Search object.
+      # It should be called Persistence::Search but, this is 
+      # already taken by the main Search class.
+      class Persistor < Persistence::Persistor
+        Model = Persistence::Search
       end
     end
   end
