@@ -1,8 +1,25 @@
 # Spec requirements
 require 'persistence/sequel/spec_helper'
+  require 'lims/core/persistence/multi_criteria_filter'
 
-shared_examples_for "paginable" do |persistor_name|
+
+shared_examples_for "paginable resource" do |persistor_name|
   let(:persistor) {  store.with_session { |session| session.send(persistor_name) } }
+  it_behaves_like "paginable"
+end
+
+shared_examples_for "MultiCriteriaSearch" do |persistor_name|
+  let(:constructor) { lambda { |*_| new_empty_plate } }
+  let(:ids) { [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,  15, 17] }
+  let(:filter) { Persistence::MultiCriteriaFilter.new(:id => ids) }
+
+  let(:persistor) { store.with_session { |s| filter.call(s.plate) } }
+  let(:override_resource_number) { ids.size }
+  it_behaves_like "paginable", persistor_name
+end
+
+shared_examples_for "paginable" do
+  let(:resource_number) { override_resource_number rescue 25 }
   context "no resources" do
     context "#persistor" do
       subject { persistor }
@@ -24,17 +41,17 @@ shared_examples_for "paginable" do |persistor_name|
     let!(:resources) {
       [].tap do |l|
       store.with_session do |session|
-      1.upto(25) do |i|
-        resource = constructor.call(i)
-        session << resource
-        l << resource
-      end
+        1.upto(25) do |i|
+          resource = constructor.call(i)
+          session << resource
+          l << resource
+        end
       end
       end
     }
     context "#persistor" do
       subject { persistor }
-      its(:count) { should == 25 }
+      its(:count) { should == resource_number }
     end
     context "#slice" do
       subject {
@@ -57,7 +74,7 @@ shared_examples_for "paginable" do |persistor_name|
         persistor.slice(0, 30)
       }
       it "returns the correct number of resource" do
-        subject.to_a.size.should== 25
+        subject.to_a.size.should== resource_number
       end
     end
 

@@ -1,6 +1,7 @@
 # vi: ts=2:sts=2:et:sw=2 spell:spelllang=en
 
 require 'lims/core/persistence/identity_map'
+require 'lims/core/persistence/sequel/filters'
 require 'active_support/inflector'
 
 
@@ -10,6 +11,9 @@ module Lims::Core
       # Mixin giving extended the persistor classes with
       # the Sequel (load/save) behavior.
       module Persistor
+
+        include Filters
+
         def self.included(klass)
           klass.class_eval do
             # @return [String] the name of SQL table.
@@ -26,6 +30,26 @@ module Lims::Core
           end
         end
 
+        def initialize(session_or_persistor, dataset=nil, *args, &block )
+          id_to_object, object_to_id = [nil, nil]
+          case session_or_persistor
+          when Sequel::Persistor
+            # We link the session and the identity map variables,
+            # so that object loaded via this persistor can be found (and their id)
+            # through the origial persistor.
+            # Hack to get those private variables.
+            session, identity_map_parameters  =  session_or_persistor.instance_eval do
+            [@session, [@id_to_object, @object_to_id]]
+            end
+            super(session, *args, &block)
+          @id_to_object , @object_to_id = identity_map_parameters
+          else Session
+            super(session_or_persistor, *args, &block)
+          end
+
+          @dataset = dataset || self.class.dataset(@session)
+        end
+
         # @return  [String] the name of the table
         def table_name
           self.class.table_name
@@ -36,7 +60,7 @@ module Lims::Core
         # Corresponds to a table.
         # @return [::Sequel::Dataset]
         def dataset
-          self.class.dataset(@session)
+          @dataset
         end
 
 
