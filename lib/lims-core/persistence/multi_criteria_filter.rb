@@ -12,7 +12,8 @@ module Lims::Core
       include Resource
       attribute :criteria, Hash, :required => true
       def initialize(criteria)
-        @criteria = criteria
+        criteria = { :criteria => criteria} unless criteria.include?(:criteria)
+        super(criteria)
       end
 
       def call(persistor)

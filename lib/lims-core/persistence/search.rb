@@ -2,8 +2,10 @@
 require 'common'
 
 require 'lims-core/resource'
-require 'lims-core/persistence/filter'
 require 'lims-core/persistence/persistor'
+
+# We need to load all the possible filter to be able load them by name.
+require_all('*filter')
 
 module Lims::Core
   module Persistence

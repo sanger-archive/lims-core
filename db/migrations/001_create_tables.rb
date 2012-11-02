@@ -107,7 +107,7 @@ Sequel.migration do
       primary_key :id
       String :filter_type
       String :model
-      Text :parameters
+      Text :filter_parameters
     end
 
 
