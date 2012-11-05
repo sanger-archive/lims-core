@@ -16,15 +16,13 @@ module Lims::Core
         end
 
         def filter_attributes_on_load(attributes)
-          debugger
           {
             :model => constant(attributes[:model]),
             :filter => Persistence.const_get(attributes[:filter_type]).new(Marshal.load(attributes[:filter_parameters]))
           }
         end
         def filter_attributes_on_save(attributes, *args)
-          debugger
-            filter = attributes[:filter]
+          filter = attributes[:filter]
           {
             :model => attributes[:model].name,
             :filter_type => filter.class.name.split('::').last,
