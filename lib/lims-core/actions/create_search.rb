@@ -24,7 +24,7 @@ module Lims::Core
       end
     end
   end
-  module Laboratory
+  module Persistence
     class Search
       Create = Actions::CreateSearch
     end
