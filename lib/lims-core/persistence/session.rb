@@ -146,9 +146,10 @@ module Lims::Core
         end
 
         # Get the persistor corresponding to the object class
-        # @param [Resource, String, Symbol] object
+        # @param [Resource, String, Symbol, Persistor] object
         # @return [Persistor, nil]
         def persistor_for(object)
+          return object if object.is_a?(Persistor)
           name = persistor_name_for(object)
           @persistor_map[name]  ||= begin 
                                       persistor_class = @store.base_module.constant(name)
