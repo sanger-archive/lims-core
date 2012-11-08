@@ -146,7 +146,7 @@ module Lims::Core
         end
 
         # Get the persistor corresponding to the object class
-        # @param [Resource] object
+        # @param [Resource, String, Symbol] object
         # @return [Persistor, nil]
         def persistor_for(object)
           name = persistor_name_for(object)
@@ -159,7 +159,7 @@ module Lims::Core
 
         public :persistor_for
         # Compute the class name of the persistor corresponding to the argument
-        # @param [Resource]
+        # @param [Resource, String, Symbol] object
         # @return [String]
         def  persistor_name_for(object)
           case object
