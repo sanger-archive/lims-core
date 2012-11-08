@@ -149,29 +149,32 @@ module Lims::Core
         # @param [Resource, String, Symbol, Persistor] object
         # @return [Persistor, nil]
         def persistor_for(object)
-          return object if object.is_a?(Persistor)
+          if object.is_a?(Persistor)
+            # @todo clean instance_eval hack by maybe add a Persistor#clone method, or something
+            return object.instance_eval {@session} == self ? object : object.class.new(self, object.dataset)
+          end
           name = persistor_name_for(object)
           @persistor_map[name]  ||= begin 
-                                      persistor_class = @store.base_module.constant(name)
-                                      raise NameError, "Persistor #{name} not defined for #{@store.base_module.name}" unless persistor_class &&  persistor_class.ancestors.include?(Persistor)
-                                      persistor_class.new(self)
-                                    end
+          persistor_class = @store.base_module.constant(name)
+          raise NameError, "Persistor #{name} not defined for #{@store.base_module.name}" unless persistor_class &&  persistor_class.ancestors.include?(Persistor)
+          persistor_class.new(self)
         end
-
-        public :persistor_for
-        # Compute the class name of the persistor corresponding to the argument
-        # @param [Resource, String, Symbol] object
-        # @return [String]
-        def  persistor_name_for(object)
-          case object
-          when String then object
-          when Symbol then object.to_s
-          when Class then object.name.sub(/^Lims::Core::\w+::/, '')
-          else persistor_name_for(object.class)
-          end.upper_camelcase
-        end
-
       end
+
+      public :persistor_for
+      # Compute the class name of the persistor corresponding to the argument
+      # @param [Resource, String, Symbol] object
+      # @return [String]
+      def  persistor_name_for(object)
+        case object
+        when String then object
+        when Symbol then object.to_s
+        when Class then object.name.sub(/^Lims::Core::\w+::/, '')
+        else persistor_name_for(object.class)
+        end.upper_camelcase
+      end
+
     end
+  end
 end
 
