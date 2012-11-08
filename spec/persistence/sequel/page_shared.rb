@@ -8,9 +8,6 @@ shared_examples_for "paginable resource" do |persistor_name|
   it_behaves_like "paginable"
 end
 
-shared_examples_for "MultiCriteriaSearch" do |persistor_name|
-end
-
 shared_examples_for "paginable" do
   let(:resource_number) { override_resource_number rescue 25 }
   context "no resources" do
@@ -51,7 +48,6 @@ shared_examples_for "paginable" do
         persistor.slice(0, 10)
       }
       it "returns the correct number of resource" do
-        debugger if $stop
         subject.to_a.size.should== 10
       end
 
