@@ -1,1 +1,1 @@
--p .yard_templates lib
+--private -p .yard_templates lib
