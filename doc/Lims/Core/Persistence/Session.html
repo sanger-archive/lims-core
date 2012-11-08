@@ -1102,7 +1102,7 @@ MUST be called by persistors creating Resources.</p>
         <span class='name'>object</span>
       
       
-        <span class='type'>(<tt><span class='object_link'><a href="../Resource.html" title="Lims::Core::Resource (module)">Resource</a></span></tt>, <tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="../Resource.html" title="Lims::Core::Resource (module)">Resource</a></span></tt>, <tt>String</tt>, <tt>Symbol</tt>, <tt><span class='object_link'><a href="Persistor.html" title="Lims::Core::Persistence::Persistor (class)">Persistor</a></span></tt>)</span>
       
       
       
@@ -1137,12 +1137,14 @@ MUST be called by persistors creating Resources.</p>
 155
 156
 157
-158</pre>
+158
+159</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 151</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_persistor_for'>persistor_for</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_object'>object</span> <span class='kw'>if</span> <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Persistor</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='id identifier rubyid_persistor_name_for'>persistor_name_for</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span>
   <span class='ivar'>@persistor_map</span><span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span>  <span class='op'>||=</span> <span class='kw'>begin</span> 
                               <span class='id identifier rubyid_persistor_class'>persistor_class</span> <span class='op'>=</span> <span class='ivar'>@store</span><span class='period'>.</span><span class='id identifier rubyid_base_module'>base_module</span><span class='period'>.</span><span class='id identifier rubyid_constant'>constant</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
@@ -1209,17 +1211,17 @@ MUST be called by persistors creating Resources.</p>
       <pre class="lines">
 
 
-164
 165
 166
 167
 168
 169
 170
-171</pre>
+171
+172</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 164</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 165</span>
 
 <span class='kw'>def</span>  <span class='id identifier rubyid_persistor_name_for'>persistor_name_for</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_object'>object</span>

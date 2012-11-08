@@ -9,13 +9,6 @@ shared_examples_for "paginable resource" do |persistor_name|
 end
 
 shared_examples_for "MultiCriteriaSearch" do |persistor_name|
-  let(:constructor) { lambda { |*_| new_empty_plate } }
-  let(:ids) { [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,  15, 17] }
-  let(:filter) { Persistence::MultiCriteriaFilter.new(:id => ids) }
-
-  let(:persistor) { store.with_session { |s| filter.call(s.plate) } }
-  let(:override_resource_number) { ids.size }
-  it_behaves_like "paginable", persistor_name
 end
 
 shared_examples_for "paginable" do
@@ -58,6 +51,7 @@ shared_examples_for "paginable" do
         persistor.slice(0, 10)
       }
       it "returns the correct number of resource" do
+        debugger if $stop
         subject.to_a.size.should== 10
       end
 
