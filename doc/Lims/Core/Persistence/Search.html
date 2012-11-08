@@ -98,7 +98,9 @@
   
   
     <dt class="r1 last">Defined in:</dt>
-    <dd class="r1 last">lib/lims-core/persistence/search.rb</dd>
+    <dd class="r1 last">lib/lims-core/persistence/search.rb<span class="defines">,<br />
+  lib/lims-core/actions/create_search.rb</span>
+</dd>
   
 </dl>
 <div class="clear"></div>
@@ -126,6 +128,18 @@ search is savable.</p>
     
   
 </p>
+
+  <h2>Constant Summary</h2>
+  
+    <dl class="constants">
+      
+        <dt id="Create-constant" class="">Create =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>Actions</span><span class='op'>::</span><span class='const'>CreateSearch</span></pre></dd>
+      
+    </dl>
+  
 
 
 
@@ -224,12 +238,12 @@ search is savable.</p>
       <pre class="lines">
 
 
-23
 24
-25</pre>
+25
+26</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/search.rb', line 23</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/search.rb', line 24</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='id identifier rubyid_session'>session</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_filter'>filter</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='id identifier rubyid_session'>session</span><span class='period'>.</span><span class='id identifier rubyid_persistor_for'>persistor_for</span><span class='lparen'>(</span><span class='ivar'>@model</span><span class='rparen'>)</span><span class='rparen'>)</span>
