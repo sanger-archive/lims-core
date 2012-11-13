@@ -9,12 +9,15 @@ module Lims::Core
     class CreateSearch
       include Action
 
+      attribute :description, String, :required => true
       attribute :model, String, :required => true
       attribute :criteria, Hash, :required => true
 
       def _call_in_session(session)
         filter = Persistence::MultiCriteriaFilter.new(:criteria => criteria)
-        search = Persistence::Search.new(:model => session.send(model).model, :filter => filter)
+        search = Persistence::Search.new(:description => description, 
+                                         :model => session.send(model).model, 
+                                         :filter => filter)
         if search.valid?
           session << search
           { :search => search, :uuid => session.uuid_for!(search) }
