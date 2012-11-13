@@ -36,8 +36,10 @@ module Lims::Core
           let(:model_name) { "plate" }
           let(:model) { Laboratory::Plate }
           let(:criteria) {{ :id => 1 }}
+          let(:description) { "search description" }
 
           subject {  CreateSearch.new(:store => store, :user => user, :application => application)  do |a,s|
+            a.description = description
             a.model = model_name
             a.criteria = criteria
           end

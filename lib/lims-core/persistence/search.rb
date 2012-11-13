@@ -15,6 +15,7 @@ module Lims::Core
     # A search is savable.
     class Search
       include Resource
+      attribute :description, String, :required => true, :initializable => true, :write => :private
       attribute :model, Class, :required => true, :initializable => true, :writer => :private
       attribute :filter, Filter, :required => true, :initializable => true, :writer => :private
 
