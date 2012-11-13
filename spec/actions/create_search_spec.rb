@@ -1,7 +1,6 @@
 # Spec requirements
 require 'actions/spec_helper'
 require 'actions/action_examples'
-require 'persistence/sequel/store_shared'
 
 #Model requirements
 require 'lims/core/actions/create_search'
@@ -27,48 +26,31 @@ module Lims::Core
 
     describe CreateSearch do
       context "valid calling context" do
-        include_context("for application",  "Test search creation")
 
-        context "valid" do
-          let(:store) { Persistence::Store.new() }
-          let(:model_name) { "plate" }
-          let(:model) { Laboratory::Plate }
-          let(:criteria) {{ :id => 1 }}
-          
-          subject {  CreateSearch.new(:store => store, :user => user, :application => application)  do |a,s|
-            a.model = model_name
-            a.criteria = criteria
+        before do
+          Lims::Core::Persistence::Session.any_instance.tap do |session|
+            session.stub(:search) {
+              mock(:search).tap do |s|
+                s.stub(:[]) 
+              end
+            }
           end
-          }
-          
-          it_behaves_like "creating a search"
         end
 
-        context "two identical searches" do 
-          include_context("for application", "Test search")
-          include_context "sequel store"
-          let(:model_name) { "plate" }
-          let(:criteria) {{ :id => 1 }}
+        include_context("for application",  "Test search creation")
+        let(:store) { Persistence::Store.new() }
+        let(:model_name) { "plate" }
+        let(:criteria) {{ :id => 1 }}
 
-          subject {
-            CreateSearch.new(:store => store, :user => user, :application => application) do |a,s|
-              a.model = model_name
-              a.criteria = criteria
-            end 
-          }
-         
-          it "must not store a search if one similar already exists in the database" do
-            expect do
-              subject.call
-              subject.call
-            end.to change { db[:searches].count }.by(1) 
-          end
-
-          it "should return an existing search from database if the search already exists" do
-            result = subject.call
-            result_new_search = subject.call
-            result.should == result_new_search 
-          end
+        subject {  CreateSearch.new(:store => store, :user => user, :application => application)  do |a,s|
+          a.model = model_name
+          a.criteria = criteria
+        end
+        }
+   
+        context "valid" do
+          let(:model) { Laboratory::Plate }
+          it_behaves_like "creating a search"
         end
 
         context "invalid" do
