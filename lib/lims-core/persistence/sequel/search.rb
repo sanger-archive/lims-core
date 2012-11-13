@@ -17,6 +17,7 @@ module Lims::Core
 
         def filter_attributes_on_load(attributes)
           {
+            :description => attributes[:description],
             :model => constant(attributes[:model]),
             :filter => Persistence.const_get(attributes[:filter_type]).new(Marshal.load(attributes[:filter_parameters]))
           }
@@ -24,6 +25,7 @@ module Lims::Core
         def filter_attributes_on_save(attributes, *args)
           filter = attributes[:filter]
           {
+            :description => attributes[:description],
             :model => attributes[:model].name,
             :filter_type => filter.class.name.split('::').last,
             :filter_parameters => Marshal.dump(filter.attributes)
