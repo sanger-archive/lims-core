@@ -18,8 +18,13 @@ module Lims::Core
         search = Persistence::Search.new(:description => description, 
                                          :model => session.send(model).model, 
                                          :filter => filter)
-        if search.valid?
-          session << search
+        if search.valid?   
+          stored_search = session.search[search.attributes]
+          if stored_search.nil?
+            session << search
+          else 
+            search = stored_search
+          end
           { :search => search, :uuid => session.uuid_for!(search) }
         else
           false

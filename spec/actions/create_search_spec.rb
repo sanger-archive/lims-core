@@ -23,7 +23,6 @@ module Lims::Core
         search.should be_a Persistence::Search
         search.model.should == model
         search.filter.criteria.should == criteria
-
       end
     end
 
@@ -31,6 +30,16 @@ module Lims::Core
       context "valid calling context" do
         let!(:store) { Persistence::Store.new() }
         include_context("for application",  "Test search creation")
+
+        before do
+          Lims::Core::Persistence::Session.any_instance.tap do |session|
+            session.stub(:search) {
+              mock(:search).tap do |s|
+              s.stub(:[]) 
+              end
+            }
+          end
+        end
 
         context "valid" do
           let(:model_name) { "plate" }
