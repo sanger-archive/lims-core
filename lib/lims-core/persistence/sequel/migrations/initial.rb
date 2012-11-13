@@ -109,6 +109,7 @@ module Lims::Core::Persistence::Sequel::Migrations
 
       create_table :searches do
         primary_key :id
+        String :description
         String :filter_type
         String :model
         Text :filter_parameters
