@@ -57,7 +57,7 @@ module Lims::Core
       end
 
       context "valid calling context" do
-        include_context("for application",  "Test plate creation")
+        include_context("for application",  "Test order creation")
         
         subject {
           CreateOrder.new(:store => store, :user => user, :application => application) do |a,s|
