@@ -11,7 +11,7 @@ module Lims::Core
 
       # Saves all children of the given order
       # @param id obect identifier
-      # @para [Organization::Order] order
+      # @param [Organization::Order] order
       # @return [Boolean]
       def save_children(id, order)
         order.each do |role, item|

@@ -114,7 +114,7 @@ module Lims::Core
         # The corresponding object will be deleted at the end of the session.
         # For most object you don't need to load it to delete it
         # but some needs (to delete the appropriate children).
-        # The real delete is made by calling the {delete_in_real} method.
+        # The real delete is made by calling the {#delete_in_real} method.
         def delete(object)
           raise UnmanagedObjectError, "can't delete #{object.inspect}" unless managed?(object)
           @to_delete << object

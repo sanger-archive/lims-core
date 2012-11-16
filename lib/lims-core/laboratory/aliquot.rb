@@ -22,7 +22,7 @@ module Lims::Core
     # - "tagging" a sample with a oligo will result in a receptacle containing one aliquot
     #   representing the tagged sample (the oligo and the sample are bound together).
     # At the moment, rather than allowing an aliquot to have many constituents (in a free form way),
-    # an aliquot can be formed of at least a {Laboratory::Sample sample}, a {Laboratory::Tag tag} and  or a {Laboratory::BaitLibrary bait library}.
+    # an aliquot can be formed of at least a {Laboratory::Sample sample}, a {Laboratory::Oligo tag} and  or a {Laboratory::BaitLibrary bait library}.
     class Aliquot
       include Resource
       attribute :sample, Sample

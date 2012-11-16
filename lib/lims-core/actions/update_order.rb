@@ -8,7 +8,14 @@ module Lims::Core
     class UpdateOrder
       include Action
 
-
+      #@ attribute :order
+      #  The order to update.
+      attribute :order, Organization::Order
+      # @attribute :items
+      #   a Hash of Items to *add* or *update*
+      #   key are the role name
+      #   value are either a uuid (String) or an event (Symbol) to send to the current item.
+      attribute :items, Hash 
       attribute :event, Symbol 
       def _call_in_session(session)
       end

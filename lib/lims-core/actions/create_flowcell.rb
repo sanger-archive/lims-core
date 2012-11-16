@@ -12,7 +12,7 @@ module Lims::Core
 
       # @attribute [Hash<String>, Array<Hash>>] lanes_description
       # @example
-      # { "1" => [{ :sample => s1, :quantity => 2}, {:sample => s2}] }
+      #   { "1" => [{ :sample => s1, :quantity => 2}, {:sample => s2}] }
       # # the keys are a String and start a 1 for the firt lane.
       attribute :lanes_description, Hash, :default => {}
 

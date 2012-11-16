@@ -16,12 +16,12 @@ module Lims::Core
         # Retrieves the effective module of a class
         # Useful to call "sibling" classes.
         # @example
-        # class Sequel::Store < Store
-        #   def session
-        #      base_module::Session
-        # end
+        #   class Sequel::Store < Store
+        #     def session
+        #        base_module::Session
+        #   end
         #
-        # session will return a Sequel::Session instead of a ::Session.
+        #   session will return a Sequel::Session instead of a ::Session.
         #
         # @return [Module]
         def self.base_module
