@@ -25,12 +25,14 @@ module Lims::Core
           order.should_not respond_to(:items)
 
           sources.each do |role, uuid| 
-            order[role].should == Organization::Order::Item.new(:uuid => uuid).tap { |item| item.complete }
+            order[role].should_not be_nil
+            order[role].uuid.should == uuid
             order[role].done?.should == true
           end 
 
           targets.each do |role, uuid|
-            order[role].should == Organization::Order::Item.new(:uuid => uuid)
+            order[role].should_not be_nil
+            order[role].uuid.should == uuid
             order[role].pending?.should == true
           end
         end
