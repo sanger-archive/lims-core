@@ -147,8 +147,8 @@ module Lims::Core
 
       # A target is an item produced by the order.
       # It starts has pending and needs to be completed or failed.
-      def add_target(role)
-        self[role] = Item.new
+      def add_target(role, uuid = nil)
+        self[role] = Item.new(:uuid => uuid)
       end
     end
   end

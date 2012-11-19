@@ -20,9 +20,17 @@ module Lims::Core
           order.creator.should == user
           order.pipeline.should == pipeline
           order.parameters.should == parameters
-          order.should_not respond_to(:items)
           order.study.should == study
           order.cost_code.should == cost_code 
+          order.should_not respond_to(:items)
+
+          sources.each do |role, uuid| 
+            order[role].should == Organization::Order::Item.new(:uuid => uuid).tap { |item| item.complete }
+          end 
+
+          targets.each do |role, _|
+            order[role].should == Organization::Order::Item.new
+          end
         end
       end
 

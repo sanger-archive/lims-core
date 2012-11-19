@@ -15,19 +15,15 @@ module Lims::Core
       attribute :cost_code, String, :required => true
 
       def _call_in_session(session)
-        order_items = {}
-        {:done => sources, :pending => targets}.each do |status, items|
-          items.each do |role, uuid|
-            order_items[role] = Organization::Order::Item.new({:uuid => uuid, :status => status.to_s})
-          end
-        end
-
         order = Organization::Order.new(:creator => user,
                                         :pipeline => pipeline,
                                         :parameters => parameters,
-                                        :items => order_items,
                                         :study => study,
                                         :cost_code => cost_code) 
+
+        sources.each { |role, uuid| order.add_source(role, uuid) }
+        targets.each { |role, _| order.add_target(role) }
+
         session << order
         { :order => order, :uuid => session.uuid_for!(order) }
       end
