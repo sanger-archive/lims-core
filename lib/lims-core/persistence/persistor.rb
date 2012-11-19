@@ -10,7 +10,7 @@ module Lims::Core
     # A persistor , is used to save and load it's cousin class.
     # The specific code of a persistor should be extended by writting
     # a persistor module in the sub-persistence module. This module will be 
-    # automatically included to generated class. See {Persistence::finalize_module}.
+    # automatically included to generated class. See {Persistence.finalize_submodule}.
     # Each instance can get an identity map, and or parameter
     # specific to a session/thread.
     class Persistor
@@ -259,7 +259,7 @@ module Lims::Core
       # Transform  store fields to object attributes
       # This can be used to change the name of an attribute (its key)
       # or its value or both (example resource to resource_id)
-      # This is the reverse of {filter_attributes_on_save}
+      # This is the reverse of {#filter_attributes_on_save}
       # @param [Hash] attributes
       # @return [Hash]
       def filter_attributes_on_load(attributes)

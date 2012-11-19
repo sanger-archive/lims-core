@@ -69,11 +69,12 @@ module Lims::Core
           end
 
           event :cancel do
-            transition [:pending, :in_progress, :failed] => :cancel
+            transition [:pending, :in_progress, :failed] => :cancelled
           end
 
           event :fail do
-            transition :in_progress=> :failed
+            # Transition from pending allowed to be able to 'create' failed item
+            transition [:pending, :in_progress]=> :failed
           end
 
           event :reset do

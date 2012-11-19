@@ -6,7 +6,7 @@
 <title>
   Class: Lims::Core::Persistence::Session
   
-    &mdash; Documentation by YARD 0.8.2.1
+    &mdash; Documentation by YARD 0.7.3
   
 </title>
 
@@ -15,11 +15,9 @@
   <link rel="stylesheet" href="../../../css/common.css" type="text/css" media="screen" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
-  hasFrames = window.top.frames.main ? true : false;
-  relpath = '../../../';
-  framesUrl = "../../../frames.html#!" + escape(window.location.href);
+  relpath = '../../..';
+  if (relpath != '') relpath += '/';
 </script>
-
 
   <script type="text/javascript" charset="utf-8" src="../../../js/jquery.js"></script>
 
@@ -28,41 +26,36 @@
 
   </head>
   <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
     <div id="header">
       <div id="menu">
   
-    <a href="../../../_index.html">Index (S)</a> &raquo;
+    <a href="../../../_index.html">Index (S)</a> &raquo; 
     <span class='title'><span class='object_link'><a href="../../../Lims.html" title="Lims (module)">Lims</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../../Core.html" title="Lims::Core (module)">Core</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Persistence.html" title="Lims::Core::Persistence (module)">Persistence</a></span></span>
      &raquo; 
     <span class="title">Session</span>
   
-
+  
   <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
       <div id="search">
   
-    <a class="full_list_link" id="class_list_link"
-        href="../../../class_list.html">
-      Class List
-    </a>
+    <a id="class_list_link" href="#">Class List</a>
   
-    <a class="full_list_link" id="method_list_link"
-        href="../../../method_list.html">
-      Method List
-    </a>
+    <a id="method_list_link" href="#">Method List</a>
   
-    <a class="full_list_link" id="file_list_link"
-        href="../../../file_list.html">
-      File List
-    </a>
+    <a id="file_list_link" href="#">File List</a>
   
 </div>
       <div class="clear"></div>
     </div>
-
+    
     <iframe id="search_frame"></iframe>
-
+    
     <div id="content"><h1>Class: Lims::Core::Persistence::Session
   
   
@@ -131,16 +124,16 @@ modifications of those objects.</p>
         <dt id="UnmanagedObjectError-constant" class="">UnmanagedObjectError =
           
         </dt>
-        <dd><pre class="code"><span class='const'>Class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>RuntimeError</span><span class='rparen'>)</span></pre></dd>
+        <dd><pre class="code"><span class='const'>Class</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='const'>RuntimeError</span><span class='rparen'>)</span></pre></dd>
       
     </dl>
   
 
 
+  
 
 
-
-
+  
 
   
     <h2>
@@ -158,7 +151,6 @@ modifications of those objects.</p>
 
     
   </span>
-  
   
   
   
@@ -188,7 +180,6 @@ modifications of those objects.</p>
   
   
   
-  
 
   
     <span class="summary_desc"><div class='inline'>
@@ -206,7 +197,6 @@ modifications of those objects.</p>
 
     
   </span>
-  
   
   
   <span class="note title private">private</span>
@@ -236,7 +226,6 @@ modifications of those objects.</p>
   
   
   
-  
 
   
     <span class="summary_desc"><div class='inline'>
@@ -260,7 +249,6 @@ modifications of those objects.</p>
   
   
   
-  
 
   
     <span class="summary_desc"><div class='inline'>
@@ -278,7 +266,6 @@ modifications of those objects.</p>
 
     
   </span>
-  
   
     <span class="note title constructor">constructor</span>
   
@@ -310,7 +297,6 @@ modifications of those objects.</p>
   
   
   
-  
 
   
     <span class="summary_desc"><div class='inline'>
@@ -334,7 +320,6 @@ modifications of those objects.</p>
   
   
   
-  
 
   
     <span class="summary_desc"><div class='inline'></div></span>
@@ -350,7 +335,6 @@ modifications of those objects.</p>
 
     
   </span>
-  
   
   
   
@@ -380,7 +364,6 @@ modifications of those objects.</p>
   
   
   
-  
 
   
     <span class="summary_desc"><div class='inline'>
@@ -398,7 +381,6 @@ modifications of those objects.</p>
 
     
   </span>
-  
   
   
   <span class="note title private">private</span>
@@ -428,7 +410,6 @@ modifications of those objects.</p>
   
   
   
-  
 
   
     <span class="summary_desc"><div class='inline'>
@@ -446,7 +427,6 @@ modifications of those objects.</p>
 
     
   </span>
-  
   
   
   <span class="note title private">private</span>
@@ -476,7 +456,6 @@ modifications of those objects.</p>
   
   
   
-  
 
   
     <span class="summary_desc"><div class='inline'>
@@ -494,15 +473,13 @@ modifications of those objects.</p>
   <h2>Constructor Details</h2>
   
     <div class="method_details first">
-  <h3 class="signature first" id="initialize-instance_method">
+  <p class="signature first" id="initialize-instance_method">
   
     - (<tt><span class='object_link'><a href="" title="Lims::Core::Persistence::Session (class)">Session</a></span></tt>) <strong>initialize</strong>(store, *params) 
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>param [Store] store the underlying store.</p>
@@ -531,12 +508,12 @@ modifications of those objects.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 21</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_store'>store</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
-  <span class='ivar'>@store</span> <span class='op'>=</span> <span class='id identifier rubyid_store'>store</span>
-  <span class='ivar'>@objects</span> <span class='op'>=</span> <span class='const'>Set</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
-  <span class='ivar'>@to_delete</span> <span class='op'>=</span> <span class='const'>Set</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+<span class='kw'>def</span> <span class='id initialize'>initialize</span><span class='lparen'>(</span><span class='id store'>store</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
+  <span class='ivar'>@store</span> <span class='op'>=</span> <span class='id store'>store</span>
+  <span class='ivar'>@objects</span> <span class='op'>=</span> <span class='const'>Set</span><span class='period'>.</span><span class='id new'>new</span>
+  <span class='ivar'>@to_delete</span> <span class='op'>=</span> <span class='const'>Set</span><span class='period'>.</span><span class='id new'>new</span>
   <span class='ivar'>@in_session</span> <span class='op'>=</span> <span class='kw'>false</span>
-  <span class='ivar'>@saved</span> <span class='op'>=</span> <span class='const'>Set</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+  <span class='ivar'>@saved</span> <span class='op'>=</span> <span class='const'>Set</span><span class='period'>.</span><span class='id new'>new</span>
   <span class='ivar'>@persistor_map</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -553,15 +530,13 @@ modifications of those objects.</p>
   </p>
   
     <div class="method_details first">
-  <h3 class="signature first" id="method_missing-instance_method">
+  <p class="signature first" id="method_missing-instance_method">
   
     - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>method_missing</strong>(name, *args, &amp;block) 
   
 
   
-
-  
-</h3><table class="source_code">
+</p><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
@@ -578,11 +553,11 @@ modifications of those objects.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 72</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_method_missing'>method_missing</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id method_missing'>method_missing</span><span class='lparen'>(</span><span class='id name'>name</span><span class='comma'>,</span> <span class='op'>*</span><span class='id args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id block'>block</span><span class='rparen'>)</span>
   <span class='kw'>begin</span>
-    <span class='id identifier rubyid_persistor_for'>persistor_for</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+    <span class='id persistor_for'>persistor_for</span><span class='lparen'>(</span><span class='id name'>name</span><span class='rparen'>)</span>
   <span class='kw'>rescue</span> <span class='const'>NameError</span>
-    <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>         
+    <span class='kw'>super</span><span class='lparen'>(</span><span class='id name'>name</span><span class='comma'>,</span> <span class='op'>*</span><span class='id args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id block'>block</span><span class='rparen'>)</span>         
   <span class='kw'>end</span> 
 <span class='kw'>end</span></pre>
     </td>
@@ -595,18 +570,16 @@ modifications of those objects.</p>
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
-
+    
     
       <div class="method_details first">
-  <h3 class="signature first" id="<<-instance_method">
+  <p class="signature first" id="<<-instance_method">
   
     - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>&lt;&lt;</strong>(object) 
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>Tell the session to be responsible of an object. The object will be saved
@@ -618,15 +591,15 @@ at the end of the session.</p>
 <div class="tags">
   
   <div class="examples">
-    <p class="tag_title">Examples:</p>
+    <h3>Examples:</h3>
     
-      
-      <pre class="example code"><span class='id identifier rubyid_store'>store</span><span class='period'>.</span><span class='id identifier rubyid_with_session'>with_session</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_session'>session</span><span class='op'>|</span>
-  <span class='id identifier rubyid_session'>session</span> <span class='op'>&lt;&lt;</span> <span class='const'>Plate</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+      <h4><div class='inline'></div></h4>
+      <pre class="example code"><span class='id store'>store</span><span class='period'>.</span><span class='id with_session'>with_session</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id session'>session</span><span class='op'>|</span>
+  <span class='id session'>session</span> <span class='op'>&lt;&lt;</span> <span class='const'>Plate</span><span class='period'>.</span><span class='id new'>new</span>
 <span class='kw'>end</span></pre>
     
   </div>
-<p class="tag_title">Parameters:</p>
+<h3>Parameters:</h3>
 <ul class="param">
   
     <li>
@@ -647,7 +620,7 @@ at the end of the session.</p>
   
 </ul>
 
-<p class="tag_title">Returns:</p>
+<h3>Returns:</h3>
 <ul class="return">
   
     <li>
@@ -679,8 +652,8 @@ at the end of the session.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 55</span>
 
-<span class='kw'>def</span> <span class='op'>&lt;&lt;</span> <span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span>
-  <span class='ivar'>@objects</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_object'>object</span>
+<span class='kw'>def</span> <span class='op'>&lt;&lt;</span> <span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
+  <span class='ivar'>@objects</span> <span class='op'>&lt;&lt;</span> <span class='id object'>object</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -688,28 +661,26 @@ at the end of the session.</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="delete-instance_method">
+  <p class="signature " id="delete-instance_method">
   
     - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>delete</strong>(object) 
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>Mark an object as to be deleted. The corresponding object will be deleted
 at the end of the session. For most object you don't need to load it to
 delete it but some needs (to delete the appropriate children). The real
-delete is made by calling the delete_in_real method.</p>
+delete is made by calling the <span class='object_link'><a href="#delete_in_real-instance_method" title="Lims::Core::Persistence::Session#delete_in_real (method)">#delete_in_real</a></span> method.</p>
 
 
   </div>
 </div>
 <div class="tags">
   
-<p class="tag_title">Raises:</p>
+<h3>Raises:</h3>
 <ul class="raise">
   
     <li>
@@ -737,9 +708,9 @@ delete is made by calling the delete_in_real method.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 118</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>UnmanagedObjectError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>can't delete </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_managed?'>managed?</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span>
-  <span class='ivar'>@to_delete</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_object'>object</span>
+<span class='kw'>def</span> <span class='id delete'>delete</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
+  <span class='id raise'>raise</span> <span class='const'>UnmanagedObjectError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>can't delete </span><span class='embexpr_beg'>#{</span><span class='id object'>object</span><span class='period'>.</span><span class='id inspect'>inspect</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id managed?'>managed?</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
+  <span class='ivar'>@to_delete</span> <span class='op'>&lt;&lt;</span> <span class='id object'>object</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -747,15 +718,13 @@ delete is made by calling the delete_in_real method.</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="delete_in_real-instance_method">
+  <p class="signature " id="delete_in_real-instance_method">
   
     - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>delete_in_real</strong>(object, *options)  <span class="extras">(private)</span>
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>Call to</p>
@@ -765,7 +734,7 @@ delete is made by calling the delete_in_real method.</p>
 </div>
 <div class="tags">
   
-<p class="tag_title">Raises:</p>
+<h3>Raises:</h3>
 <ul class="raise">
   
     <li>
@@ -796,12 +765,12 @@ delete is made by calling the delete_in_real method.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 140</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_delete_in_real'>delete_in_real</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>RuntimeError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Can't delete an object inside a session. Please considere the 'delete' method instead.</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='ivar'>@save_in_progress</span>
-  <span class='kw'>return</span> <span class='id identifier rubyid_id_for'>id_for</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='ivar'>@saved</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span>
-  <span class='ivar'>@saved</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_object'>object</span>
+<span class='kw'>def</span> <span class='id delete_in_real'>delete_in_real</span><span class='lparen'>(</span><span class='id object'>object</span><span class='comma'>,</span> <span class='op'>*</span><span class='id options'>options</span><span class='rparen'>)</span>
+  <span class='id raise'>raise</span> <span class='const'>RuntimeError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Can't delete an object inside a session. Please considere the 'delete' method instead.</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='ivar'>@save_in_progress</span>
+  <span class='kw'>return</span> <span class='id id_for'>id_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='ivar'>@saved</span><span class='period'>.</span><span class='id include?'>include?</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
+  <span class='ivar'>@saved</span> <span class='op'>&lt;&lt;</span> <span class='id object'>object</span>
 
-  <span class='id identifier rubyid_persistor_for'>persistor_for</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id persistor_for'>persistor_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span><span class='period'>.</span><span class='id delete'>delete</span><span class='lparen'>(</span><span class='id object'>object</span><span class='comma'>,</span> <span class='op'>*</span><span class='id options'>options</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -809,15 +778,13 @@ delete is made by calling the delete_in_real method.</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="id_for-instance_method">
+  <p class="signature " id="id_for-instance_method">
   
     - (<tt>Id</tt><sup>?</sup>) <strong>id_for</strong>(object) 
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>Returns the id of an object if exists.</p>
@@ -826,7 +793,7 @@ delete is made by calling the delete_in_real method.</p>
   </div>
 </div>
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
+  <h3>Parameters:</h3>
 <ul class="param">
   
     <li>
@@ -847,7 +814,7 @@ delete is made by calling the delete_in_real method.</p>
   
 </ul>
 
-<p class="tag_title">Returns:</p>
+<h3>Returns:</h3>
 <ul class="return">
   
     <li>
@@ -877,10 +844,10 @@ delete is made by calling the delete_in_real method.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 90</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_id_for'>id_for</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span>
-  <span class='kw'>case</span> <span class='id identifier rubyid_object'>object</span>
-  <span class='kw'>when</span> <span class='const'>Resource</span> <span class='kw'>then</span> <span class='id identifier rubyid_persistor_for'>persistor_for</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_id_for'>id_for</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span>
-  <span class='kw'>else</span> <span class='id identifier rubyid_object'>object</span> <span class='comment'># the object should be already an id
+<span class='kw'>def</span> <span class='id id_for'>id_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
+  <span class='kw'>case</span> <span class='id object'>object</span>
+  <span class='kw'>when</span> <span class='const'>Resource</span> <span class='kw'>then</span> <span class='id persistor_for'>persistor_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span><span class='period'>.</span><span class='id id_for'>id_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
+  <span class='kw'>else</span> <span class='id object'>object</span> <span class='comment'># the object should be already an id
 </span>  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -889,15 +856,13 @@ delete is made by calling the delete_in_real method.</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="id_for!-instance_method">
+  <p class="signature " id="id_for!-instance_method">
   
     - (<tt>Id</tt>) <strong>id_for!</strong>(object) 
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>Returns the id of an object and save it if necessary</p>
@@ -906,7 +871,7 @@ delete is made by calling the delete_in_real method.</p>
   </div>
 </div>
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
+  <h3>Parameters:</h3>
 <ul class="param">
   
     <li>
@@ -927,7 +892,7 @@ delete is made by calling the delete_in_real method.</p>
   
 </ul>
 
-<p class="tag_title">Returns:</p>
+<h3>Returns:</h3>
 <ul class="return">
   
     <li>
@@ -955,9 +920,9 @@ delete is made by calling the delete_in_real method.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 100</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_id_for!'>id_for!</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>unless</span> <span class='id identifier rubyid_object'>object</span>
-  <span class='id identifier rubyid_id_for'>id_for</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_save'>save</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id id_for!'>id_for!</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>unless</span> <span class='id object'>object</span>
+  <span class='id id_for'>id_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id save'>save</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -965,15 +930,13 @@ delete is made by calling the delete_in_real method.</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="managed?-instance_method">
+  <p class="signature " id="managed?-instance_method">
   
     - (<tt>Boolean</tt>) <strong>managed?</strong>(object) 
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>Check if the session 'mananage' already this object. .i.e if it's been
@@ -983,7 +946,7 @@ loaded or meant to be saved</p>
   </div>
 </div>
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
+  <h3>Parameters:</h3>
 <ul class="param">
   
     <li>
@@ -999,7 +962,7 @@ loaded or meant to be saved</p>
   
 </ul>
 
-<p class="tag_title">Returns:</p>
+<h3>Returns:</h3>
 <ul class="return">
   
     <li>
@@ -1026,8 +989,8 @@ loaded or meant to be saved</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 109</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_managed?'>managed?</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span>
-  <span class='ivar'>@objects</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id managed?'>managed?</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
+  <span class='ivar'>@objects</span><span class='period'>.</span><span class='id include?'>include?</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1035,15 +998,13 @@ loaded or meant to be saved</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="on_object_load-instance_method">
+  <p class="signature " id="on_object_load-instance_method">
   
     - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>on_object_load</strong>(object) 
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>Called by Persistor to inform the session about the loading of an object.
@@ -1068,8 +1029,8 @@ MUST be called by persistors creating Resources.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 83</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_on_object_load'>on_object_load</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span>
-  <span class='kw'>self</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_object'>object</span>
+<span class='kw'>def</span> <span class='id on_object_load'>on_object_load</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
+  <span class='kw'>self</span> <span class='op'>&lt;&lt;</span> <span class='id object'>object</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1077,15 +1038,13 @@ MUST be called by persistors creating Resources.</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="persistor_for-instance_method">
+  <p class="signature " id="persistor_for-instance_method">
   
     - (<tt><span class='object_link'><a href="Persistor.html" title="Lims::Core::Persistence::Persistor (class)">Persistor</a></span></tt><sup>?</sup>) <strong>persistor_for</strong>(object) 
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>Get the persistor corresponding to the object class</p>
@@ -1094,7 +1053,7 @@ MUST be called by persistors creating Resources.</p>
   </div>
 </div>
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
+  <h3>Parameters:</h3>
 <ul class="param">
   
     <li>
@@ -1110,7 +1069,7 @@ MUST be called by persistors creating Resources.</p>
   
 </ul>
 
-<p class="tag_title">Returns:</p>
+<h3>Returns:</h3>
 <ul class="return">
   
     <li>
@@ -1146,16 +1105,16 @@ MUST be called by persistors creating Resources.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 151</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_persistor_for'>persistor_for</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span>
-    <span class='kw'>if</span> <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Persistor</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id persistor_for'>persistor_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
+    <span class='kw'>if</span> <span class='id object'>object</span><span class='period'>.</span><span class='id is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Persistor</span><span class='rparen'>)</span>
       <span class='comment'># @todo clean instance_eval hack by maybe add a Persistor#clone method, or something
-</span>      <span class='kw'>return</span> <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_instance_eval'>instance_eval</span> <span class='lbrace'>{</span><span class='ivar'>@session</span><span class='rbrace'>}</span> <span class='op'>==</span> <span class='kw'>self</span> <span class='op'>?</span> <span class='id identifier rubyid_object'>object</span> <span class='op'>:</span> <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_dataset'>dataset</span><span class='rparen'>)</span>
+</span>      <span class='kw'>return</span> <span class='id object'>object</span><span class='period'>.</span><span class='id instance_eval'>instance_eval</span> <span class='lbrace'>{</span><span class='ivar'>@session</span><span class='rbrace'>}</span> <span class='op'>==</span> <span class='kw'>self</span> <span class='op'>?</span> <span class='id object'>object</span> <span class='op'>:</span> <span class='id object'>object</span><span class='period'>.</span><span class='id class'>class</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id object'>object</span><span class='period'>.</span><span class='id dataset'>dataset</span><span class='rparen'>)</span>
     <span class='kw'>end</span>
-    <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='id identifier rubyid_persistor_name_for'>persistor_name_for</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span>
-    <span class='ivar'>@persistor_map</span><span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span>  <span class='op'>||=</span> <span class='kw'>begin</span> 
-    <span class='id identifier rubyid_persistor_class'>persistor_class</span> <span class='op'>=</span> <span class='ivar'>@store</span><span class='period'>.</span><span class='id identifier rubyid_base_module'>base_module</span><span class='period'>.</span><span class='id identifier rubyid_constant'>constant</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>NameError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Persistor </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='rbrace'>}</span><span class='tstring_content'> not defined for </span><span class='embexpr_beg'>#{</span><span class='ivar'>@store</span><span class='period'>.</span><span class='id identifier rubyid_base_module'>base_module</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_persistor_class'>persistor_class</span> <span class='op'>&amp;&amp;</span>  <span class='id identifier rubyid_persistor_class'>persistor_class</span><span class='period'>.</span><span class='id identifier rubyid_ancestors'>ancestors</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='const'>Persistor</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_persistor_class'>persistor_class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
+    <span class='id name'>name</span> <span class='op'>=</span> <span class='id persistor_name_for'>persistor_name_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
+    <span class='ivar'>@persistor_map</span><span class='lbracket'>[</span><span class='id name'>name</span><span class='rbracket'>]</span>  <span class='op'>||=</span> <span class='kw'>begin</span> 
+    <span class='id persistor_class'>persistor_class</span> <span class='op'>=</span> <span class='ivar'>@store</span><span class='period'>.</span><span class='id base_module'>base_module</span><span class='period'>.</span><span class='id constant'>constant</span><span class='lparen'>(</span><span class='id name'>name</span><span class='rparen'>)</span>
+    <span class='id raise'>raise</span> <span class='const'>NameError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Persistor </span><span class='embexpr_beg'>#{</span><span class='id name'>name</span><span class='rbrace'>}</span><span class='tstring_content'> not defined for </span><span class='embexpr_beg'>#{</span><span class='ivar'>@store</span><span class='period'>.</span><span class='id base_module'>base_module</span><span class='period'>.</span><span class='id name'>name</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id persistor_class'>persistor_class</span> <span class='op'>&amp;&amp;</span>  <span class='id persistor_class'>persistor_class</span><span class='period'>.</span><span class='id ancestors'>ancestors</span><span class='period'>.</span><span class='id include?'>include?</span><span class='lparen'>(</span><span class='const'>Persistor</span><span class='rparen'>)</span>
+    <span class='id persistor_class'>persistor_class</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1164,15 +1123,13 @@ MUST be called by persistors creating Resources.</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="persistor_name_for-instance_method">
+  <p class="signature " id="persistor_name_for-instance_method">
   
     - (<tt>String</tt>) <strong>persistor_name_for</strong>(object)  <span class="extras">(private)</span>
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>Compute the class name of the persistor corresponding to the argument</p>
@@ -1181,7 +1138,7 @@ MUST be called by persistors creating Resources.</p>
   </div>
 </div>
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
+  <h3>Parameters:</h3>
 <ul class="param">
   
     <li>
@@ -1197,7 +1154,7 @@ MUST be called by persistors creating Resources.</p>
   
 </ul>
 
-<p class="tag_title">Returns:</p>
+<h3>Returns:</h3>
 <ul class="return">
   
     <li>
@@ -1229,13 +1186,13 @@ MUST be called by persistors creating Resources.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 168</span>
 
-<span class='kw'>def</span>  <span class='id identifier rubyid_persistor_name_for'>persistor_name_for</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span>
-  <span class='kw'>case</span> <span class='id identifier rubyid_object'>object</span>
-  <span class='kw'>when</span> <span class='const'>String</span> <span class='kw'>then</span> <span class='id identifier rubyid_object'>object</span>
-  <span class='kw'>when</span> <span class='const'>Symbol</span> <span class='kw'>then</span> <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
-  <span class='kw'>when</span> <span class='const'>Class</span> <span class='kw'>then</span> <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_sub'>sub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^Lims::Core::\w+::</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
-  <span class='kw'>else</span> <span class='id identifier rubyid_persistor_name_for'>persistor_name_for</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='rparen'>)</span>
-  <span class='kw'>end</span><span class='period'>.</span><span class='id identifier rubyid_upper_camelcase'>upper_camelcase</span>
+<span class='kw'>def</span>  <span class='id persistor_name_for'>persistor_name_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
+  <span class='kw'>case</span> <span class='id object'>object</span>
+  <span class='kw'>when</span> <span class='const'>String</span> <span class='kw'>then</span> <span class='id object'>object</span>
+  <span class='kw'>when</span> <span class='const'>Symbol</span> <span class='kw'>then</span> <span class='id object'>object</span><span class='period'>.</span><span class='id to_s'>to_s</span>
+  <span class='kw'>when</span> <span class='const'>Class</span> <span class='kw'>then</span> <span class='id object'>object</span><span class='period'>.</span><span class='id name'>name</span><span class='period'>.</span><span class='id sub'>sub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^Lims::Core::\w+::</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
+  <span class='kw'>else</span> <span class='id persistor_name_for'>persistor_name_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='period'>.</span><span class='id class'>class</span><span class='rparen'>)</span>
+  <span class='kw'>end</span><span class='period'>.</span><span class='id upper_camelcase'>upper_camelcase</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1243,15 +1200,13 @@ MUST be called by persistors creating Resources.</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="save-instance_method">
+  <p class="signature " id="save-instance_method">
   
     - (<tt>Boolean</tt>) <strong>save</strong>(object, *options) 
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>save the object in real. To mark an object as 'to save' use the `&lt;&lt;`
@@ -1264,7 +1219,7 @@ inside a sess</p>
 </div>
 <div class="tags">
   
-<p class="tag_title">Returns:</p>
+<h3>Returns:</h3>
 <ul class="return">
   
     <li>
@@ -1277,7 +1232,7 @@ inside a sess</p>
     </li>
   
 </ul>
-<p class="tag_title">Raises:</p>
+<h3>Raises:</h3>
 <ul class="raise">
   
     <li>
@@ -1308,12 +1263,12 @@ inside a sess</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 64</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_save'>save</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>RuntimeError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Can't save object inside a session. Please considere the &lt;&lt; method.</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='ivar'>@save_in_progress</span>
-  <span class='kw'>return</span> <span class='id identifier rubyid_id_for'>id_for</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='ivar'>@saved</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span>
-  <span class='ivar'>@saved</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_object'>object</span>
+<span class='kw'>def</span> <span class='id save'>save</span><span class='lparen'>(</span><span class='id object'>object</span><span class='comma'>,</span> <span class='op'>*</span><span class='id options'>options</span><span class='rparen'>)</span>
+  <span class='id raise'>raise</span> <span class='const'>RuntimeError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Can't save object inside a session. Please considere the &lt;&lt; method.</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='ivar'>@save_in_progress</span>
+  <span class='kw'>return</span> <span class='id id_for'>id_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='ivar'>@saved</span><span class='period'>.</span><span class='id include?'>include?</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
+  <span class='ivar'>@saved</span> <span class='op'>&lt;&lt;</span> <span class='id object'>object</span>
 
-  <span class='id identifier rubyid_persistor_for'>persistor_for</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_save'>save</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id persistor_for'>persistor_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span><span class='period'>.</span><span class='id save'>save</span><span class='lparen'>(</span><span class='id object'>object</span><span class='comma'>,</span> <span class='op'>*</span><span class='id options'>options</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1321,15 +1276,13 @@ inside a sess</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="save_all-instance_method">
+  <p class="signature " id="save_all-instance_method">
   
     - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>save_all</strong>  <span class="extras">(private)</span>
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>save all objects which needs to be</p>
@@ -1363,14 +1316,14 @@ inside a sess</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 125</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_save_all'>save_all</span><span class='lparen'>(</span><span class='rparen'>)</span>
-  <span class='ivar'>@store</span><span class='period'>.</span><span class='id identifier rubyid_transaction'>transaction</span> <span class='kw'>do</span>
+<span class='kw'>def</span> <span class='id save_all'>save_all</span><span class='lparen'>(</span><span class='rparen'>)</span>
+  <span class='ivar'>@store</span><span class='period'>.</span><span class='id transaction'>transaction</span> <span class='kw'>do</span>
     <span class='ivar'>@save_in_progress</span> <span class='op'>=</span> <span class='kw'>true</span> <span class='comment'># allows saving
-</span>    <span class='ivar'>@objects</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_object'>object</span><span class='op'>|</span>
-      <span class='kw'>if</span> <span class='ivar'>@to_delete</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span>
-        <span class='id identifier rubyid_delete_in_real'>delete_in_real</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span>
+</span>    <span class='ivar'>@objects</span><span class='period'>.</span><span class='id each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id object'>object</span><span class='op'>|</span>
+      <span class='kw'>if</span> <span class='ivar'>@to_delete</span><span class='period'>.</span><span class='id include?'>include?</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
+        <span class='id delete_in_real'>delete_in_real</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
       <span class='kw'>else</span>
-        <span class='id identifier rubyid_save'>save</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span>
+        <span class='id save'>save</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
       <span class='kw'>end</span>
     <span class='kw'>end</span>
     <span class='ivar'>@save_in_progress</span> <span class='op'>=</span> <span class='kw'>false</span>
@@ -1382,15 +1335,13 @@ inside a sess</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="with_session-instance_method">
+  <p class="signature " id="with_session-instance_method">
   
     - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>with_session</strong>(*params) {|session| ... }
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>Execute a block and save every 'marked' object in a transaction at the end.</p>
@@ -1400,7 +1351,7 @@ inside a sess</p>
 </div>
 <div class="tags">
   
-<p class="tag_title">Yield Parameters:</p>
+<h3>Yield Parameters:</h3>
 <ul class="yieldparam">
   
     <li>
@@ -1420,7 +1371,7 @@ inside a sess</p>
     </li>
   
 </ul>
-<p class="tag_title">Returns:</p>
+<h3>Returns:</h3>
 <ul class="return">
   
     <li>
@@ -1458,12 +1409,12 @@ inside a sess</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 36</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_with_session'>with_session</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_params'>params</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id with_session'>with_session</span><span class='lparen'>(</span><span class='op'>*</span><span class='id params'>params</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id block'>block</span><span class='rparen'>)</span>
   <span class='ivar'>@in_session</span> <span class='op'>=</span> <span class='kw'>true</span>
-  <span class='id identifier rubyid_to_return'>to_return</span> <span class='op'>=</span> <span class='id identifier rubyid_block'>block</span><span class='lbracket'>[</span><span class='kw'>self</span><span class='rbracket'>]</span>
+  <span class='id to_return'>to_return</span> <span class='op'>=</span> <span class='id block'>block</span><span class='lbracket'>[</span><span class='kw'>self</span><span class='rbracket'>]</span>
   <span class='ivar'>@in_session</span> <span class='op'>=</span> <span class='kw'>false</span>
-  <span class='id identifier rubyid_save_all'>save_all</span>
-  <span class='kw'>return</span> <span class='id identifier rubyid_to_return'>to_return</span>
+  <span class='id save_all'>save_all</span>
+  <span class='kw'>return</span> <span class='id to_return'>to_return</span>
 <span class='kw'>ensure</span>
   <span class='ivar'>@in_session</span> <span class='op'>=</span> <span class='kw'>false</span>
 <span class='kw'>end</span></pre>
@@ -1475,7 +1426,7 @@ inside a sess</p>
   </div>
 
 </div>
-
+    
     
   </body>
 </html>

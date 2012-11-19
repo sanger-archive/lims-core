@@ -7,6 +7,7 @@ gemspec
 group :development do
   gem 'debugger'
   gem 'debugger-completion'
+  gem 'rake'
 end
 
 group :pry do
@@ -29,9 +30,11 @@ group :guard do
 end
 
 group :yard do
-  gem 'yard', '>= 0.7.0'
+  gem 'yard', '= 0.7.3'
   gem 'yard-rspec', '0.1'
+  gem 'yard-state_machine'
   gem 'redcarpet'
+  gem 'ruby-graphviz'
 end
 
 group :showoff do

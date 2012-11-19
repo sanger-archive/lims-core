@@ -6,7 +6,7 @@
 <title>
   Module: Lims::Core::Persistence::Sequel::Persistor
   
-    &mdash; Documentation by YARD 0.8.2.1
+    &mdash; Documentation by YARD 0.7.3
   
 </title>
 
@@ -15,11 +15,9 @@
   <link rel="stylesheet" href="../../../../css/common.css" type="text/css" media="screen" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
-  hasFrames = window.top.frames.main ? true : false;
-  relpath = '../../../../';
-  framesUrl = "../../../../frames.html#!" + escape(window.location.href);
+  relpath = '../../../..';
+  if (relpath != '') relpath += '/';
 </script>
-
 
   <script type="text/javascript" charset="utf-8" src="../../../../js/jquery.js"></script>
 
@@ -28,41 +26,36 @@
 
   </head>
   <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
     <div id="header">
       <div id="menu">
   
-    <a href="../../../../_index.html">Index (P)</a> &raquo;
+    <a href="../../../../_index.html">Index (P)</a> &raquo; 
     <span class='title'><span class='object_link'><a href="../../../../Lims.html" title="Lims (module)">Lims</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../../../Core.html" title="Lims::Core (module)">Core</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../../Persistence.html" title="Lims::Core::Persistence (module)">Persistence</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Sequel.html" title="Lims::Core::Persistence::Sequel (module)">Sequel</a></span></span>
      &raquo; 
     <span class="title">Persistor</span>
   
-
+  
   <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
       <div id="search">
   
-    <a class="full_list_link" id="class_list_link"
-        href="../../../../class_list.html">
-      Class List
-    </a>
+    <a id="class_list_link" href="#">Class List</a>
   
-    <a class="full_list_link" id="method_list_link"
-        href="../../../../method_list.html">
-      Method List
-    </a>
+    <a id="method_list_link" href="#">Method List</a>
   
-    <a class="full_list_link" id="file_list_link"
-        href="../../../../file_list.html">
-      File List
-    </a>
+    <a id="file_list_link" href="#">File List</a>
   
 </div>
       <div class="clear"></div>
     </div>
-
+    
     <iframe id="search_frame"></iframe>
-
+    
     <div id="content"><h1>Module: Lims::Core::Persistence::Sequel::Persistor
   
   
@@ -106,10 +99,15 @@ behavior.</p>
 
 </div>
 
+  
+  
+  
+  
 
 
-
-
+  
+  
+  
 
   
     <h2>
@@ -127,7 +125,6 @@ behavior.</p>
 
     
   </span>
-  
   
   
   
@@ -164,7 +161,6 @@ behavior.</p>
   
   
   
-  
 
   
     <span class="summary_desc"><div class='inline'>
@@ -182,7 +178,6 @@ behavior.</p>
 
     
   </span>
-  
   
   
   
@@ -208,7 +203,6 @@ behavior.</p>
   </span>
   
   
-  
   <span class="note title private">private</span>
   
   
@@ -228,7 +222,6 @@ behavior.</p>
 
     
   </span>
-  
   
   
   <span class="note title private">private</span>
@@ -252,7 +245,6 @@ behavior.</p>
 
     
   </span>
-  
   
   
   <span class="note title private">private</span>
@@ -280,7 +272,6 @@ behavior.</p>
   
   
   
-  
 
   
     <span class="summary_desc"><div class='inline'>
@@ -298,7 +289,6 @@ behavior.</p>
 
     
   </span>
-  
   
   
   <span class="note title private">private</span>
@@ -322,7 +312,6 @@ behavior.</p>
   </span>
   
   
-  
   <span class="note title private">private</span>
   
   
@@ -344,7 +333,6 @@ behavior.</p>
 
     
   </span>
-  
   
   
   <span class="note title private">private</span>
@@ -374,7 +362,6 @@ behavior.</p>
   
   
   
-  
 
   
     <span class="summary_desc"><div class='inline'>
@@ -392,7 +379,6 @@ behavior.</p>
 
     
   </span>
-  
   
   
   <span class="note title private">private</span>
@@ -419,25 +405,22 @@ behavior.</p>
   
   
   
-  
   <h3 class="inherited">Methods included from <span class='object_link'><a href="Filters.html" title="Lims::Core::Persistence::Sequel::Filters (module)">Filters</a></span></h3>
   <p class="inherited"><span class='object_link'><a href="Filters.html#multi_criteria_filter-instance_method" title="Lims::Core::Persistence::Sequel::Filters#multi_criteria_filter (method)">#multi_criteria_filter</a></span></p>
 
 
   <div id="class_method_details" class="method_details_list">
     <h2>Class Method Details</h2>
-
+    
     
       <div class="method_details first">
-  <h3 class="signature first" id="included-class_method">
+  <p class="signature first" id="included-class_method">
   
     + (<tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>included</strong>(klass) 
   
 
   
-
-  
-</h3><table class="source_code">
+</p><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
@@ -462,18 +445,18 @@ behavior.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/persistor.rb', line 17</span>
 
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_included'>included</span><span class='lparen'>(</span><span class='id identifier rubyid_klass'>klass</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_klass'>klass</span><span class='period'>.</span><span class='id identifier rubyid_class_eval'>class_eval</span> <span class='kw'>do</span>
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id included'>included</span><span class='lparen'>(</span><span class='id klass'>klass</span><span class='rparen'>)</span>
+  <span class='id klass'>klass</span><span class='period'>.</span><span class='id class_eval'>class_eval</span> <span class='kw'>do</span>
     <span class='comment'># @return [String] the name of SQL table.
-</span>    <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_table_name'>table_name</span>
-      <span class='ivar'>@table_name</span> <span class='op'>||=</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>::</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span><span class='period'>.</span><span class='id identifier rubyid_pluralize'>pluralize</span><span class='period'>.</span><span class='id identifier rubyid_snakecase'>snakecase</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
+</span>    <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id table_name'>table_name</span>
+      <span class='ivar'>@table_name</span> <span class='op'>||=</span> <span class='id name'>name</span><span class='period'>.</span><span class='id split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>::</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id last'>last</span><span class='period'>.</span><span class='id pluralize'>pluralize</span><span class='period'>.</span><span class='id snakecase'>snakecase</span><span class='period'>.</span><span class='id to_sym'>to_sym</span>
     <span class='kw'>end</span>
     <span class='comment'># The Sequel::Dataset.
 </span>    <span class='comment'># Corresponds to table.
 </span>    <span class='comment'># @param [Sequel::Session] session 
 </span>    <span class='comment'># @return [::Sequel::Dataset]
-</span>    <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_dataset'>dataset</span><span class='lparen'>(</span><span class='id identifier rubyid_session'>session</span><span class='rparen'>)</span>
-      <span class='id identifier rubyid_session'>session</span><span class='period'>.</span><span class='id identifier rubyid_database'>database</span><span class='lbracket'>[</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_table_name'>table_name</span><span class='rbracket'>]</span>
+</span>    <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id dataset'>dataset</span><span class='lparen'>(</span><span class='id session'>session</span><span class='rparen'>)</span>
+      <span class='id session'>session</span><span class='period'>.</span><span class='id database'>database</span><span class='lbracket'>[</span><span class='kw'>self</span><span class='period'>.</span><span class='id table_name'>table_name</span><span class='rbracket'>]</span>
     <span class='kw'>end</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -486,18 +469,16 @@ behavior.</p>
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
-
+    
     
       <div class="method_details first">
-  <h3 class="signature first" id="count-instance_method">
+  <p class="signature first" id="count-instance_method">
   
     - (<tt>Fixnum</tt>) <strong>count</strong> 
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>Returns the number of object in the store</p>
@@ -507,7 +488,7 @@ behavior.</p>
 </div>
 <div class="tags">
   
-<p class="tag_title">Returns:</p>
+<h3>Returns:</h3>
 <ul class="return">
   
     <li>
@@ -534,8 +515,8 @@ behavior.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/persistor.rb', line 69</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_count'>count</span>
-  <span class='id identifier rubyid_dataset'>dataset</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span>
+<span class='kw'>def</span> <span class='id count'>count</span>
+  <span class='id dataset'>dataset</span><span class='period'>.</span><span class='id count'>count</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -543,15 +524,13 @@ behavior.</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="dataset-instance_method">
+  <p class="signature " id="dataset-instance_method">
   
     - (<tt>::Sequel::Dataset</tt>) <strong>dataset</strong> 
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>The Sequel::Dataset. Corresponds to a table.</p>
@@ -561,7 +540,7 @@ behavior.</p>
 </div>
 <div class="tags">
   
-<p class="tag_title">Returns:</p>
+<h3>Returns:</h3>
 <ul class="return">
   
     <li>
@@ -588,7 +567,7 @@ behavior.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/persistor.rb', line 62</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_dataset'>dataset</span>
+<span class='kw'>def</span> <span class='id dataset'>dataset</span>
   <span class='ivar'>@dataset</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -597,15 +576,13 @@ behavior.</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="delete_raw-instance_method">
+  <p class="signature " id="delete_raw-instance_method">
   
     - (<tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>delete_raw</strong>(objec, id, *params)  <span class="extras">(private)</span>
   
 
   
-
-  
-</h3><table class="source_code">
+</p><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
@@ -620,9 +597,9 @@ behavior.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/persistor.rb', line 139</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_delete_raw'>delete_raw</span><span class='lparen'>(</span><span class='id identifier rubyid_objec'>objec</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_id'>id</span><span class='period'>.</span><span class='id identifier rubyid_tap'>tap</span> <span class='kw'>do</span>
-    <span class='id identifier rubyid_dataset'>dataset</span><span class='period'>.</span><span class='id identifier rubyid_filter'>filter</span><span class='lparen'>(</span><span class='id identifier rubyid_primary_key'>primary_key</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span>
+<span class='kw'>def</span> <span class='id delete_raw'>delete_raw</span><span class='lparen'>(</span><span class='id objec'>objec</span><span class='comma'>,</span> <span class='id id'>id</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
+  <span class='id id'>id</span><span class='period'>.</span><span class='id tap'>tap</span> <span class='kw'>do</span>
+    <span class='id dataset'>dataset</span><span class='period'>.</span><span class='id filter'>filter</span><span class='lparen'>(</span><span class='id primary_key'>primary_key</span> <span class='op'>=&gt;</span> <span class='id id'>id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id delete'>delete</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -631,15 +608,13 @@ behavior.</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="for_each_in_slice-instance_method">
+  <p class="signature " id="for_each_in_slice-instance_method">
   
     - (<tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>for_each_in_slice</strong>(start, length)  <span class="extras">(private)</span>
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>load a slice.</p>
@@ -667,11 +642,11 @@ behavior.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/persistor.rb', line 75</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_for_each_in_slice'>for_each_in_slice</span><span class='lparen'>(</span><span class='id identifier rubyid_start'>start</span><span class='comma'>,</span> <span class='id identifier rubyid_length'>length</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_length'>length</span> <span class='op'>==</span> <span class='int'>0</span>
-  <span class='id identifier rubyid_dataset'>dataset</span><span class='period'>.</span><span class='id identifier rubyid_order'>order</span><span class='lparen'>(</span><span class='id identifier rubyid_primary_key'>primary_key</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_limit'>limit</span><span class='lparen'>(</span><span class='id identifier rubyid_length'>length</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_h'>h</span><span class='op'>|</span>
-    <span class='id identifier rubyid_key'>key</span> <span class='op'>=</span> <span class='id identifier rubyid_h'>h</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_primary_key'>primary_key</span><span class='rparen'>)</span>
-    <span class='kw'>yield</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_h'>h</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id for_each_in_slice'>for_each_in_slice</span><span class='lparen'>(</span><span class='id start'>start</span><span class='comma'>,</span> <span class='id length'>length</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id length'>length</span> <span class='op'>==</span> <span class='int'>0</span>
+  <span class='id dataset'>dataset</span><span class='period'>.</span><span class='id order'>order</span><span class='lparen'>(</span><span class='id primary_key'>primary_key</span><span class='rparen'>)</span><span class='period'>.</span><span class='id limit'>limit</span><span class='lparen'>(</span><span class='id length'>length</span><span class='comma'>,</span> <span class='id start'>start</span><span class='rparen'>)</span><span class='period'>.</span><span class='id each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id h'>h</span><span class='op'>|</span>
+    <span class='id key'>key</span> <span class='op'>=</span> <span class='id h'>h</span><span class='period'>.</span><span class='id delete'>delete</span><span class='lparen'>(</span><span class='id primary_key'>primary_key</span><span class='rparen'>)</span>
+    <span class='kw'>yield</span><span class='lparen'>(</span><span class='id key'>key</span><span class='comma'>,</span> <span class='id h'>h</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -680,15 +655,13 @@ behavior.</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="ids_for-instance_method">
+  <p class="signature " id="ids_for-instance_method">
   
     - (<tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>ids_for</strong>(criteria)  <span class="extras">(private)</span>
   
 
   
-
-  
-</h3><table class="source_code">
+</p><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
@@ -712,18 +685,18 @@ behavior.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/persistor.rb', line 93</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_ids_for'>ids_for</span><span class='lparen'>(</span><span class='id identifier rubyid_criteria'>criteria</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id ids_for'>ids_for</span><span class='lparen'>(</span><span class='id criteria'>criteria</span><span class='rparen'>)</span>
   <span class='comment'># Use prepared statement
 </span>  <span class='comment'># @todo cache prepared statement or move in UuidResourcePersistor
 </span>  <span class='comment'># OLD dataset.select(primary_key)[criteria] || []
 </span>  <span class='comment'>#
-</span>  <span class='id identifier rubyid_ds'>ds</span><span class='op'>=</span><span class='id identifier rubyid_dataset'>dataset</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span><span class='lparen'>(</span><span class='id identifier rubyid_primary_key'>primary_key</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_filter'>filter</span><span class='lparen'>(</span><span class='id identifier rubyid_criteria'>criteria</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span><span class='period'>.</span><span class='id identifier rubyid_mash'>mash</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_k'>k</span><span class='op'>|</span> <span class='lbracket'>[</span><span class='id identifier rubyid_k'>k</span><span class='comma'>,</span> <span class='symbol'>:$</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_k'>k</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_statement_name'>statement_name</span> <span class='op'>=</span> <span class='symbol'>:#{</span><span class='id identifier rubyid_table_name'>table_name</span><span class='rbrace'>}</span><span class='tstring_content'>#ids_for</span><span class='tstring_end'>&quot;</span></span>
-  <span class='id identifier rubyid_ds'>ds</span><span class='period'>.</span><span class='id identifier rubyid_prepare'>prepare</span><span class='lparen'>(</span><span class='symbol'>:select</span><span class='comma'>,</span> <span class='id identifier rubyid_statement_name'>statement_name</span><span class='rparen'>)</span>
+</span>  <span class='id ds'>ds</span><span class='op'>=</span><span class='id dataset'>dataset</span><span class='period'>.</span><span class='id select'>select</span><span class='lparen'>(</span><span class='id primary_key'>primary_key</span><span class='rparen'>)</span><span class='period'>.</span><span class='id filter'>filter</span><span class='lparen'>(</span><span class='id criteria'>criteria</span><span class='period'>.</span><span class='id keys'>keys</span><span class='period'>.</span><span class='id mash'>mash</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id k'>k</span><span class='op'>|</span> <span class='lbracket'>[</span><span class='id k'>k</span><span class='comma'>,</span> <span class='symbol'>:$</span><span class='embexpr_beg'>#{</span><span class='id k'>k</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id statement_name'>statement_name</span> <span class='op'>=</span> <span class='symbol'>:#{</span><span class='id table_name'>table_name</span><span class='rbrace'>}</span><span class='tstring_content'>#ids_for</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id ds'>ds</span><span class='period'>.</span><span class='id prepare'>prepare</span><span class='lparen'>(</span><span class='symbol'>:select</span><span class='comma'>,</span> <span class='id statement_name'>statement_name</span><span class='rparen'>)</span>
 
   <span class='comment'># for some reason, the prepared statement return an array of Hashes insteead
 </span>  <span class='comment'># of an array of ids, as data.select(primary_key) will do
-</span>  <span class='lparen'>(</span><span class='ivar'>@session</span><span class='period'>.</span><span class='id identifier rubyid_database'>database</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='id identifier rubyid_statement_name'>statement_name</span><span class='comma'>,</span> <span class='id identifier rubyid_criteria'>criteria</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_h'>h</span><span class='op'>|</span> <span class='id identifier rubyid_h'>h</span><span class='lbracket'>[</span><span class='id identifier rubyid_primary_key'>primary_key</span><span class='rbracket'>]</span> <span class='rbrace'>}</span>
+</span>  <span class='lparen'>(</span><span class='ivar'>@session</span><span class='period'>.</span><span class='id database'>database</span><span class='period'>.</span><span class='id call'>call</span><span class='lparen'>(</span><span class='id statement_name'>statement_name</span><span class='comma'>,</span> <span class='id criteria'>criteria</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id h'>h</span><span class='op'>|</span> <span class='id h'>h</span><span class='lbracket'>[</span><span class='id primary_key'>primary_key</span><span class='rbracket'>]</span> <span class='rbrace'>}</span>
 
 <span class='kw'>end</span></pre>
     </td>
@@ -732,15 +705,13 @@ behavior.</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="initialize-instance_method">
+  <p class="signature " id="initialize-instance_method">
   
     - (<tt><span class='object_link'><a href="" title="Lims::Core::Persistence::Sequel::Persistor (module)">Persistor</a></span></tt>) <strong>initialize</strong>(session_or_persistor, dataset = nil, *args, &amp;block) 
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>A new instance of Persistor</p>
@@ -780,24 +751,24 @@ behavior.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/persistor.rb', line 33</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_session_or_persistor'>session_or_persistor</span><span class='comma'>,</span> <span class='id identifier rubyid_dataset'>dataset</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span> <span class='rparen'>)</span>
-  <span class='id identifier rubyid_id_to_object'>id_to_object</span><span class='comma'>,</span> <span class='id identifier rubyid_object_to_id'>object_to_id</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='rbracket'>]</span>
-  <span class='kw'>case</span> <span class='id identifier rubyid_session_or_persistor'>session_or_persistor</span>
+<span class='kw'>def</span> <span class='id initialize'>initialize</span><span class='lparen'>(</span><span class='id session_or_persistor'>session_or_persistor</span><span class='comma'>,</span> <span class='id dataset'>dataset</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='op'>*</span><span class='id args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id block'>block</span> <span class='rparen'>)</span>
+  <span class='id id_to_object'>id_to_object</span><span class='comma'>,</span> <span class='id object_to_id'>object_to_id</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='rbracket'>]</span>
+  <span class='kw'>case</span> <span class='id session_or_persistor'>session_or_persistor</span>
   <span class='kw'>when</span> <span class='const'>Sequel</span><span class='op'>::</span><span class='const'>Persistor</span>
     <span class='comment'># We link the session and the identity map variables,
 </span>    <span class='comment'># so that object loaded via this persistor can be found (and their id)
 </span>    <span class='comment'># through the origial persistor.
 </span>    <span class='comment'># Hack to get those private variables.
-</span>    <span class='id identifier rubyid_session'>session</span><span class='comma'>,</span> <span class='id identifier rubyid_identity_map_parameters'>identity_map_parameters</span>  <span class='op'>=</span>  <span class='id identifier rubyid_session_or_persistor'>session_or_persistor</span><span class='period'>.</span><span class='id identifier rubyid_instance_eval'>instance_eval</span> <span class='kw'>do</span>
+</span>    <span class='id session'>session</span><span class='comma'>,</span> <span class='id identity_map_parameters'>identity_map_parameters</span>  <span class='op'>=</span>  <span class='id session_or_persistor'>session_or_persistor</span><span class='period'>.</span><span class='id instance_eval'>instance_eval</span> <span class='kw'>do</span>
       <span class='lbracket'>[</span><span class='ivar'>@session</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='ivar'>@id_to_object</span><span class='comma'>,</span> <span class='ivar'>@object_to_id</span><span class='rbracket'>]</span><span class='rbracket'>]</span>
     <span class='kw'>end</span>
-    <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_session'>session</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
-    <span class='ivar'>@id_to_object</span> <span class='comma'>,</span> <span class='ivar'>@object_to_id</span> <span class='op'>=</span> <span class='id identifier rubyid_identity_map_parameters'>identity_map_parameters</span>
+    <span class='kw'>super</span><span class='lparen'>(</span><span class='id session'>session</span><span class='comma'>,</span> <span class='op'>*</span><span class='id args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id block'>block</span><span class='rparen'>)</span>
+    <span class='ivar'>@id_to_object</span> <span class='comma'>,</span> <span class='ivar'>@object_to_id</span> <span class='op'>=</span> <span class='id identity_map_parameters'>identity_map_parameters</span>
   <span class='kw'>else</span> <span class='const'>Session</span>
-    <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_session_or_persistor'>session_or_persistor</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+    <span class='kw'>super</span><span class='lparen'>(</span><span class='id session_or_persistor'>session_or_persistor</span><span class='comma'>,</span> <span class='op'>*</span><span class='id args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id block'>block</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 
-  <span class='ivar'>@dataset</span> <span class='op'>=</span> <span class='id identifier rubyid_dataset'>dataset</span> <span class='op'>||</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_dataset'>dataset</span><span class='lparen'>(</span><span class='ivar'>@session</span><span class='rparen'>)</span>
+  <span class='ivar'>@dataset</span> <span class='op'>=</span> <span class='id dataset'>dataset</span> <span class='op'>||</span> <span class='kw'>self</span><span class='period'>.</span><span class='id class'>class</span><span class='period'>.</span><span class='id dataset'>dataset</span><span class='lparen'>(</span><span class='ivar'>@session</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -805,15 +776,13 @@ behavior.</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="load_raw_attributes-instance_method">
+  <p class="signature " id="load_raw_attributes-instance_method">
   
     - (<tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>load_raw_attributes</strong>(id, raw_attributes = nil)  <span class="extras">(private)</span>
   
 
   
-
-  
-</h3><table class="source_code">
+</p><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
@@ -826,8 +795,8 @@ behavior.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/persistor.rb', line 89</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_load_raw_attributes'>load_raw_attributes</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_raw_attributes'>raw_attributes</span><span class='op'>=</span><span class='kw'>nil</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_dataset'>dataset</span><span class='lbracket'>[</span><span class='id identifier rubyid_primary_key'>primary_key</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_id'>id</span> <span class='rbracket'>]</span>
+<span class='kw'>def</span> <span class='id load_raw_attributes'>load_raw_attributes</span><span class='lparen'>(</span><span class='id id'>id</span><span class='comma'>,</span> <span class='id raw_attributes'>raw_attributes</span><span class='op'>=</span><span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id dataset'>dataset</span><span class='lbracket'>[</span><span class='id primary_key'>primary_key</span> <span class='op'>=&gt;</span> <span class='id id'>id</span> <span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -835,15 +804,13 @@ behavior.</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="primary_key-instance_method">
+  <p class="signature " id="primary_key-instance_method">
   
     - (<tt>Symbol</tt>) <strong>primary_key</strong>  <span class="extras">(private)</span>
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>The primary key</p>
@@ -853,7 +820,7 @@ behavior.</p>
 </div>
 <div class="tags">
   
-<p class="tag_title">Returns:</p>
+<h3>Returns:</h3>
 <ul class="return">
   
     <li>
@@ -880,7 +847,7 @@ behavior.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/persistor.rb', line 85</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_primary_key'>primary_key</span><span class='lparen'>(</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id primary_key'>primary_key</span><span class='lparen'>(</span><span class='rparen'>)</span>
   <span class='symbol'>:id</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -889,15 +856,13 @@ behavior.</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="save_raw-instance_method">
+  <p class="signature " id="save_raw-instance_method">
   
     - (<tt>Fixnum</tt><sup>?</sup>) <strong>save_raw</strong>(object, *params)  <span class="extras">(private)</span>
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>Save a raw object, i.e. the object attributes excluding any associations.</p>
@@ -906,7 +871,7 @@ behavior.</p>
   </div>
 </div>
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
+  <h3>Parameters:</h3>
 <ul class="param">
   
     <li>
@@ -927,7 +892,7 @@ behavior.</p>
   
 </ul>
 
-<p class="tag_title">Returns:</p>
+<h3>Returns:</h3>
 <ul class="return">
   
     <li>
@@ -967,16 +932,16 @@ behavior.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/persistor.rb', line 112</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_save_raw'>save_raw</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id save_raw'>save_raw</span><span class='lparen'>(</span><span class='id object'>object</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
   <span class='comment'># use prepared statement for everything
 </span>  <span class='comment'># We only need it at the moment as a workaround for saving the UUID
 </span>  <span class='comment'># So we might in the future either move it to a UuidResourcePersistor
 </span>  <span class='comment'># or cached it by attributes
 </span>  <span class='comment'># @todo benchmark against normal insert
-</span>  <span class='id identifier rubyid_attributes'>attributes</span> <span class='op'>=</span> <span class='id identifier rubyid_filter_attributes_on_save'>filter_attributes_on_save</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_attributes'>attributes</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_statement_name'>statement_name</span> <span class='op'>=</span> <span class='symbol'>:#{</span><span class='id identifier rubyid_table_name'>table_name</span><span class='rbrace'>}</span><span class='tstring_content'>#save_raw</span><span class='tstring_end'>&quot;</span></span>
-  <span class='id identifier rubyid_dataset'>dataset</span><span class='period'>.</span><span class='id identifier rubyid_prepare'>prepare</span><span class='lparen'>(</span><span class='symbol'>:insert</span><span class='comma'>,</span> <span class='id identifier rubyid_statement_name'>statement_name</span><span class='comma'>,</span> <span class='id identifier rubyid_attributes'>attributes</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span><span class='period'>.</span><span class='id identifier rubyid_mash'>mash</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_k'>k</span><span class='op'>|</span> <span class='lbracket'>[</span><span class='id identifier rubyid_k'>k</span><span class='comma'>,</span> <span class='symbol'>:$</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_k'>k</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='ivar'>@session</span><span class='period'>.</span><span class='id identifier rubyid_database'>database</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='id identifier rubyid_statement_name'>statement_name</span><span class='comma'>,</span> <span class='id identifier rubyid_attributes'>attributes</span><span class='rparen'>)</span>
+</span>  <span class='id attributes'>attributes</span> <span class='op'>=</span> <span class='id filter_attributes_on_save'>filter_attributes_on_save</span><span class='lparen'>(</span><span class='id object'>object</span><span class='period'>.</span><span class='id attributes'>attributes</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
+  <span class='id statement_name'>statement_name</span> <span class='op'>=</span> <span class='symbol'>:#{</span><span class='id table_name'>table_name</span><span class='rbrace'>}</span><span class='tstring_content'>#save_raw</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id dataset'>dataset</span><span class='period'>.</span><span class='id prepare'>prepare</span><span class='lparen'>(</span><span class='symbol'>:insert</span><span class='comma'>,</span> <span class='id statement_name'>statement_name</span><span class='comma'>,</span> <span class='id attributes'>attributes</span><span class='period'>.</span><span class='id keys'>keys</span><span class='period'>.</span><span class='id mash'>mash</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id k'>k</span><span class='op'>|</span> <span class='lbracket'>[</span><span class='id k'>k</span><span class='comma'>,</span> <span class='symbol'>:$</span><span class='embexpr_beg'>#{</span><span class='id k'>k</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='ivar'>@session</span><span class='period'>.</span><span class='id database'>database</span><span class='period'>.</span><span class='id call'>call</span><span class='lparen'>(</span><span class='id statement_name'>statement_name</span><span class='comma'>,</span> <span class='id attributes'>attributes</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -984,15 +949,13 @@ behavior.</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="table_name-instance_method">
+  <p class="signature " id="table_name-instance_method">
   
     - (<tt>String</tt>) <strong>table_name</strong> 
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>The name of the table</p>
@@ -1002,7 +965,7 @@ behavior.</p>
 </div>
 <div class="tags">
   
-<p class="tag_title">Returns:</p>
+<h3>Returns:</h3>
 <ul class="return">
   
     <li>
@@ -1034,8 +997,8 @@ behavior.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/persistor.rb', line 54</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_table_name'>table_name</span>
-  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_table_name'>table_name</span>
+<span class='kw'>def</span> <span class='id table_name'>table_name</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id class'>class</span><span class='period'>.</span><span class='id table_name'>table_name</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1043,15 +1006,13 @@ behavior.</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="update_raw-instance_method">
+  <p class="signature " id="update_raw-instance_method">
   
     - (<tt>Fixnum</tt><sup>?</sup>) <strong>update_raw</strong>(object, id, *params)  <span class="extras">(private)</span>
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>Upate a raw object, i.e. the object attributes excluding any associations.</p>
@@ -1060,7 +1021,7 @@ behavior.</p>
   </div>
 </div>
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
+  <h3>Parameters:</h3>
 <ul class="param">
   
     <li>
@@ -1097,7 +1058,7 @@ behavior.</p>
   
 </ul>
 
-<p class="tag_title">Returns:</p>
+<h3>Returns:</h3>
 <ul class="return">
   
     <li>
@@ -1135,13 +1096,13 @@ behavior.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/persistor.rb', line 129</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_update_raw'>update_raw</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_id'>id</span><span class='period'>.</span><span class='id identifier rubyid_tap'>tap</span> <span class='kw'>do</span>
-    <span class='id identifier rubyid_attributes'>attributes</span> <span class='op'>=</span> <span class='id identifier rubyid_filter_attributes_on_save'>filter_attributes_on_save</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_attributes'>attributes</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
-    <span class='kw'>return</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='id identifier rubyid_attributes'>attributes</span> <span class='op'>==</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
-    <span class='id identifier rubyid_statement_name'>statement_name</span> <span class='op'>=</span> <span class='symbol'>:#{</span><span class='id identifier rubyid_table_name'>table_name</span><span class='rbrace'>}</span><span class='tstring_content'>#update_raw</span><span class='tstring_end'>&quot;</span></span>
-    <span class='id identifier rubyid_dataset'>dataset</span><span class='period'>.</span><span class='id identifier rubyid_filter'>filter</span><span class='lparen'>(</span><span class='id identifier rubyid_primary_key'>primary_key</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_prepare'>prepare</span><span class='lparen'>(</span><span class='symbol'>:update</span><span class='comma'>,</span> <span class='id identifier rubyid_statement_name'>statement_name</span><span class='comma'>,</span> <span class='id identifier rubyid_attributes'>attributes</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span><span class='period'>.</span><span class='id identifier rubyid_mash'>mash</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_k'>k</span><span class='op'>|</span> <span class='lbracket'>[</span><span class='id identifier rubyid_k'>k</span><span class='comma'>,</span> <span class='symbol'>:$</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_k'>k</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
-    <span class='ivar'>@session</span><span class='period'>.</span><span class='id identifier rubyid_database'>database</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='id identifier rubyid_statement_name'>statement_name</span><span class='comma'>,</span> <span class='id identifier rubyid_attributes'>attributes</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id update_raw'>update_raw</span><span class='lparen'>(</span><span class='id object'>object</span><span class='comma'>,</span> <span class='id id'>id</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
+  <span class='id id'>id</span><span class='period'>.</span><span class='id tap'>tap</span> <span class='kw'>do</span>
+    <span class='id attributes'>attributes</span> <span class='op'>=</span> <span class='id filter_attributes_on_save'>filter_attributes_on_save</span><span class='lparen'>(</span><span class='id object'>object</span><span class='period'>.</span><span class='id attributes'>attributes</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
+    <span class='kw'>return</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='id attributes'>attributes</span> <span class='op'>==</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+    <span class='id statement_name'>statement_name</span> <span class='op'>=</span> <span class='symbol'>:#{</span><span class='id table_name'>table_name</span><span class='rbrace'>}</span><span class='tstring_content'>#update_raw</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id dataset'>dataset</span><span class='period'>.</span><span class='id filter'>filter</span><span class='lparen'>(</span><span class='id primary_key'>primary_key</span> <span class='op'>=&gt;</span> <span class='id id'>id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id prepare'>prepare</span><span class='lparen'>(</span><span class='symbol'>:update</span><span class='comma'>,</span> <span class='id statement_name'>statement_name</span><span class='comma'>,</span> <span class='id attributes'>attributes</span><span class='period'>.</span><span class='id keys'>keys</span><span class='period'>.</span><span class='id mash'>mash</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id k'>k</span><span class='op'>|</span> <span class='lbracket'>[</span><span class='id k'>k</span><span class='comma'>,</span> <span class='symbol'>:$</span><span class='embexpr_beg'>#{</span><span class='id k'>k</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+    <span class='ivar'>@session</span><span class='period'>.</span><span class='id database'>database</span><span class='period'>.</span><span class='id call'>call</span><span class='lparen'>(</span><span class='id statement_name'>statement_name</span><span class='comma'>,</span> <span class='id attributes'>attributes</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1152,7 +1113,7 @@ behavior.</p>
   </div>
 
 </div>
-
+    
     
   </body>
 </html>

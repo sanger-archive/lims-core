@@ -20,7 +20,7 @@ module Lims::Core
       attribute :filter, Filter, :required => true, :initializable => true, :writer => :private
 
       # Main method. Take an session an return an filtered persistor.
-      # @session [Session]
+      # @param [Session]
       # @return [Persistor]
       def call(session)
         filter.call(session.persistor_for(@model))

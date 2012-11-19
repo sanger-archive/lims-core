@@ -6,7 +6,7 @@
 <title>
   Class: Lims::Core::Actions::CreatePlate
   
-    &mdash; Documentation by YARD 0.8.2.1
+    &mdash; Documentation by YARD 0.7.3
   
 </title>
 
@@ -15,11 +15,9 @@
   <link rel="stylesheet" href="../../../css/common.css" type="text/css" media="screen" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
-  hasFrames = window.top.frames.main ? true : false;
-  relpath = '../../../';
-  framesUrl = "../../../frames.html#!" + escape(window.location.href);
+  relpath = '../../..';
+  if (relpath != '') relpath += '/';
 </script>
-
 
   <script type="text/javascript" charset="utf-8" src="../../../js/jquery.js"></script>
 
@@ -28,41 +26,36 @@
 
   </head>
   <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
     <div id="header">
       <div id="menu">
   
-    <a href="../../../_index.html">Index (C)</a> &raquo;
+    <a href="../../../_index.html">Index (C)</a> &raquo; 
     <span class='title'><span class='object_link'><a href="../../../Lims.html" title="Lims (module)">Lims</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../../Core.html" title="Lims::Core (module)">Core</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Actions.html" title="Lims::Core::Actions (module)">Actions</a></span></span>
      &raquo; 
     <span class="title">CreatePlate</span>
   
-
+  
   <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
       <div id="search">
   
-    <a class="full_list_link" id="class_list_link"
-        href="../../../class_list.html">
-      Class List
-    </a>
+    <a id="class_list_link" href="#">Class List</a>
   
-    <a class="full_list_link" id="method_list_link"
-        href="../../../method_list.html">
-      Method List
-    </a>
+    <a id="method_list_link" href="#">Method List</a>
   
-    <a class="full_list_link" id="file_list_link"
-        href="../../../file_list.html">
-      File List
-    </a>
+    <a id="file_list_link" href="#">File List</a>
   
 </div>
       <div class="clear"></div>
     </div>
-
+    
     <iframe id="search_frame"></iframe>
-
+    
     <div id="content"><h1>Class: Lims::Core::Actions::CreatePlate
   
   
@@ -108,13 +101,12 @@
   
 
 
-
-  <h2>Constant Summary</h2>
   
-  <h3 class="inherited">Constants included
-     from <span class='object_link'><a href="Action.html" title="Lims::Core::Actions::Action (module)">Action</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Action.html#UnrevertableAction-constant" title="Lims::Core::Actions::Action::UnrevertableAction (constant)">Action::UnrevertableAction</a></span></p>
-
+  
+  
+  
+  <h3 class="inherited">Constants included from <span class='object_link'><a href="Action.html" title="Lims::Core::Actions::Action (module)">Action</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Action.html#UnrevertableAction-constant" title="Lims::Core::Actions::Action::UnrevertableAction (constant)">UnrevertableAction</a></span></p>
 
   <h2>Instance Attribute Summary <small>(<a href="#" class="summary_toggle">collapse</a>)</small></h2>
   <ul class="summary">
@@ -129,10 +121,7 @@
   </span>
   
   
-  
-    
-      <span class="note title readonly">readonly</span>
-    
+    <span class="note title readonly">readonly</span>
     
   
   
@@ -141,10 +130,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>{ "A1" =&gt; [{ :sample =&gt; s1, :quantity =&gt; 2}, =&gt; s2]
-}.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -153,6 +139,9 @@
 
 
 
+  
+  
+  
 
   
     <h2>
@@ -170,7 +159,6 @@
 
     
   </span>
-  
   
   
   
@@ -195,7 +183,6 @@
   
   
   
-  
   <h3 class="inherited">Methods included from <span class='object_link'><a href="Action.html" title="Lims::Core::Actions::Action (module)">Action</a></span></h3>
   <p class="inherited"><span class='object_link'><a href="Action.html#included-class_method" title="Lims::Core::Actions::Action.included (method)">included</a></span></p>
 
@@ -204,25 +191,30 @@
     
       
       <span id=""></span>
+      <span id="wells_description-instance_method"></span>
       <div class="method_details first">
-  <h3 class="signature first" id="wells_description-instance_method">
+  <p class="signature first" id="wells_description-instance_method">
   
     - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>wells_description</strong>  <span class="extras">(readonly)</span>
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
-<p>{ "A1" =&gt; [{ :sample =&gt; s1, :quantity =&gt; 2}, =&gt; s2] }</p>
-
 
   </div>
 </div>
 <div class="tags">
   
+  <div class="examples">
+    <h3>Examples:</h3>
+    
+      <h4><div class='inline'></div></h4>
+      <pre class="example code"><span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>A1</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='lbrace'>{</span> <span class='symbol'>:sample</span> <span class='op'>=&gt;</span> <span class='id s1'>s1</span><span class='comma'>,</span> <span class='symbol'>:quantity</span> <span class='op'>=&gt;</span> <span class='int'>2</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='symbol'>:sample</span> <span class='op'>=&gt;</span> <span class='id s2'>s2</span><span class='rbrace'>}</span><span class='rbracket'>]</span> <span class='rbrace'>}</span></pre>
+    
+  </div>
+
 
 </div><table class="source_code">
   <tr>
@@ -235,7 +227,7 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/actions/create_plate.rb', line 17</span>
 
-<span class='id identifier rubyid_attribute'>attribute</span> <span class='symbol'>:wells_description</span><span class='comma'>,</span> <span class='const'>Hash</span><span class='comma'>,</span> <span class='symbol'>:default</span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span><span class='rbrace'>}</span></pre>
+<span class='id attribute'>attribute</span> <span class='symbol'>:wells_description</span><span class='comma'>,</span> <span class='const'>Hash</span><span class='comma'>,</span> <span class='symbol'>:default</span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span><span class='rbrace'>}</span></pre>
     </td>
   </tr>
 </table>
@@ -246,18 +238,16 @@
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
-
+    
     
       <div class="method_details first">
-  <h3 class="signature first" id="_call_in_session-instance_method">
+  <p class="signature first" id="_call_in_session-instance_method">
   
     - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>_call_in_session</strong>(session) 
   
 
   
-
-  
-</h3><table class="source_code">
+</p><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
@@ -277,15 +267,15 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/actions/create_plate.rb', line 19</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid__call_in_session'>_call_in_session</span><span class='lparen'>(</span><span class='id identifier rubyid_session'>session</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_plate'>plate</span> <span class='op'>=</span> <span class='const'>Laboratory</span><span class='op'>::</span><span class='const'>Plate</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:number_of_columns</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_number_of_columns'>number_of_columns</span><span class='comma'>,</span> <span class='symbol'>:number_of_rows</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_number_of_rows'>number_of_rows</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_session'>session</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_plate'>plate</span>
-  <span class='id identifier rubyid_wells_description'>wells_description</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_well_name'>well_name</span><span class='comma'>,</span> <span class='id identifier rubyid_aliquots'>aliquots</span><span class='op'>|</span>
-    <span class='id identifier rubyid_aliquots'>aliquots</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_aliquot'>aliquot</span><span class='op'>|</span>
-      <span class='id identifier rubyid_plate'>plate</span><span class='lbracket'>[</span><span class='id identifier rubyid_well_name'>well_name</span><span class='rbracket'>]</span> <span class='op'>&lt;&lt;</span>  <span class='const'>Laboratory</span><span class='op'>::</span><span class='const'>Aliquot</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_aliquot'>aliquot</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id _call_in_session'>_call_in_session</span><span class='lparen'>(</span><span class='id session'>session</span><span class='rparen'>)</span>
+  <span class='id plate'>plate</span> <span class='op'>=</span> <span class='const'>Laboratory</span><span class='op'>::</span><span class='const'>Plate</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='symbol'>:number_of_columns</span> <span class='op'>=&gt;</span> <span class='id number_of_columns'>number_of_columns</span><span class='comma'>,</span> <span class='symbol'>:number_of_rows</span> <span class='op'>=&gt;</span> <span class='id number_of_rows'>number_of_rows</span><span class='rparen'>)</span>
+  <span class='id session'>session</span> <span class='op'>&lt;&lt;</span> <span class='id plate'>plate</span>
+  <span class='id wells_description'>wells_description</span><span class='period'>.</span><span class='id each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id well_name'>well_name</span><span class='comma'>,</span> <span class='id aliquots'>aliquots</span><span class='op'>|</span>
+    <span class='id aliquots'>aliquots</span><span class='period'>.</span><span class='id each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id aliquot'>aliquot</span><span class='op'>|</span>
+      <span class='id plate'>plate</span><span class='lbracket'>[</span><span class='id well_name'>well_name</span><span class='rbracket'>]</span> <span class='op'>&lt;&lt;</span>  <span class='const'>Laboratory</span><span class='op'>::</span><span class='const'>Aliquot</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='id aliquot'>aliquot</span><span class='rparen'>)</span>
     <span class='kw'>end</span>
   <span class='kw'>end</span>
-  <span class='lbrace'>{</span> <span class='symbol'>:plate</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_plate'>plate</span><span class='comma'>,</span> <span class='symbol'>:uuid</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_session'>session</span><span class='period'>.</span><span class='id identifier rubyid_uuid_for!'>uuid_for!</span><span class='lparen'>(</span><span class='id identifier rubyid_plate'>plate</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='lbrace'>{</span> <span class='symbol'>:plate</span> <span class='op'>=&gt;</span> <span class='id plate'>plate</span><span class='comma'>,</span> <span class='symbol'>:uuid</span> <span class='op'>=&gt;</span> <span class='id session'>session</span><span class='period'>.</span><span class='id uuid_for!'>uuid_for!</span><span class='lparen'>(</span><span class='id plate'>plate</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -295,7 +285,7 @@
   </div>
 
 </div>
-
+    
     
   </body>
 </html>

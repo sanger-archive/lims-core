@@ -4,20 +4,22 @@ require 'lims-core/organization/order'
 
 module Lims::Core
   module Actions
+      # sources and targets represent the {Organization::Order} order {Organization::Order::Item items}.
+      # source items get a "done" status and
+      # target items get a "pending" status on creation. 
     class CreateOrder
       include Action
 
       attribute :pipeline, String
       attribute :parameters, Hash, :default => {}
       # @attribute [Hash<String, String>] sources
-      # @attribute [Hash<String, String>] targets
       # @example
-      # { "role" => "{uuid of the underlying object}"}
-      # sources and targets represent the Order items.
-      # source items get a "done" status and
-      # target items get a "pending" status on creation. 
+      #   { "role" => "{uuid of the underlying object}"}
       attribute :sources, Resource::HashString, :default => {}
+      # @attribute [Hash<String, String>] targets
       attribute :targets, Resource::HashString, :default => {}
+      #   { "role" => "{uuid of the underlying object}",
+      #     "role1" => nil}
       attribute :study, Organization::Study, :required => true
       attribute :cost_code, String, :required => true
 

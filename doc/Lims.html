@@ -6,7 +6,7 @@
 <title>
   Module: Lims
   
-    &mdash; Documentation by YARD 0.8.2.1
+    &mdash; Documentation by YARD 0.7.3
   
 </title>
 
@@ -15,11 +15,9 @@
   <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
-  hasFrames = window.top.frames.main ? true : false;
   relpath = '';
-  framesUrl = "frames.html#!" + escape(window.location.href);
+  if (relpath != '') relpath += '/';
 </script>
-
 
   <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
 
@@ -28,41 +26,36 @@
 
   </head>
   <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
     <div id="header">
       <div id="menu">
   
-    <a href="_index.html">Index (L)</a> &raquo;
+    <a href="_index.html">Index (L)</a> &raquo; 
     
     
     <span class="title">Lims</span>
   
-
+  
   <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
       <div id="search">
   
-    <a class="full_list_link" id="class_list_link"
-        href="class_list.html">
-      Class List
-    </a>
+    <a id="class_list_link" href="#">Class List</a>
   
-    <a class="full_list_link" id="method_list_link"
-        href="method_list.html">
-      Method List
-    </a>
+    <a id="method_list_link" href="#">Method List</a>
   
-    <a class="full_list_link" id="file_list_link"
-        href="file_list.html">
-      File List
-    </a>
+    <a id="file_list_link" href="#">File List</a>
   
 </div>
       <div class="clear"></div>
     </div>
-
+    
     <iframe id="search_frame"></iframe>
-
+    
     <div id="content"><h1>Module: Lims
   
   
@@ -80,7 +73,7 @@
   
     <dt class="r1 last">Defined in:</dt>
     <dd class="r1 last">lib/lims-core.rb<span class="defines">,<br />
-  lib/lims-core/version.rb,<br /> lib/lims-core/persistence/sequel/migrations.rb</span>
+  lib/lims-core/version.rb,<br /> spec/organization/order_spec.rb,<br /> spec/organization/order/item_spec.rb,<br /> lib/lims-core/persistence/sequel/migrations.rb</span>
 </dd>
   
 </dl>
@@ -99,11 +92,11 @@
 
 </div><h2>Defined Under Namespace</h2>
 <p class="children">
-  
+   
     
       <strong class="modules">Modules:</strong> <span class='object_link'><a href="Lims/Core.html" title="Lims::Core (module)">Core</a></span>
     
-  
+   
     
   
 </p>
@@ -114,10 +107,8 @@
 
 
 
-
-
 </div>
-
+    
     
   </body>
 </html>

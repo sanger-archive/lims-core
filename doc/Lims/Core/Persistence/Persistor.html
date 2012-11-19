@@ -6,7 +6,7 @@
 <title>
   Class: Lims::Core::Persistence::Persistor
   
-    &mdash; Documentation by YARD 0.8.2.1
+    &mdash; Documentation by YARD 0.7.3
   
 </title>
 
@@ -15,11 +15,9 @@
   <link rel="stylesheet" href="../../../css/common.css" type="text/css" media="screen" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
-  hasFrames = window.top.frames.main ? true : false;
-  relpath = '../../../';
-  framesUrl = "../../../frames.html#!" + escape(window.location.href);
+  relpath = '../../..';
+  if (relpath != '') relpath += '/';
 </script>
-
 
   <script type="text/javascript" charset="utf-8" src="../../../js/jquery.js"></script>
 
@@ -28,41 +26,36 @@
 
   </head>
   <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
     <div id="header">
       <div id="menu">
   
-    <a href="../../../_index.html">Index (P)</a> &raquo;
+    <a href="../../../_index.html">Index (P)</a> &raquo; 
     <span class='title'><span class='object_link'><a href="../../../Lims.html" title="Lims (module)">Lims</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../../Core.html" title="Lims::Core (module)">Core</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Persistence.html" title="Lims::Core::Persistence (module)">Persistence</a></span></span>
      &raquo; 
     <span class="title">Persistor</span>
   
-
+  
   <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
       <div id="search">
   
-    <a class="full_list_link" id="class_list_link"
-        href="../../../class_list.html">
-      Class List
-    </a>
+    <a id="class_list_link" href="#">Class List</a>
   
-    <a class="full_list_link" id="method_list_link"
-        href="../../../method_list.html">
-      Method List
-    </a>
+    <a id="method_list_link" href="#">Method List</a>
   
-    <a class="full_list_link" id="file_list_link"
-        href="../../../file_list.html">
-      File List
-    </a>
+    <a id="file_list_link" href="#">File List</a>
   
 </div>
       <div class="clear"></div>
     </div>
-
+    
     <iframe id="search_frame"></iframe>
-
+    
     <div id="content"><h1>Class: Lims::Core::Persistence::Persistor
   <span class="abstract note title">Abstract</span>
   
@@ -108,7 +101,7 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     <div class="note abstract">
-  <strong>This class is abstract.</strong>
+  <strong>This class is abstract.</strong> 
   <div class='inline'>
 <p>Base class for all the persistors, needs to implements a `self.model`</p>
 </div>
@@ -118,8 +111,8 @@
 cousin class. The specific code of a persistor should be extended by
 writting a persistor module in the sub-persistence module. This module will
 be  automatically included to generated class. See
-Persistence::finalize_module. Each instance can get an identity map, and
-or parameter specific to a session/thread.</p>
+<span class='object_link'><a href="../Persistence.html#finalize_submodule-class_method" title="Lims::Core::Persistence.finalize_submodule (method)">finalize_submodule</a></span>. Each instance can get an identity map,
+and or parameter specific to a session/thread.</p>
 
 
   </div>
@@ -133,10 +126,15 @@ or parameter specific to a session/thread.</p>
 </div>
 
 
+  
+  
+  
+  
 
 
-
-
+  
+  
+  
 
   
     <h2>
@@ -154,7 +152,6 @@ or parameter specific to a session/thread.</p>
 
     
   </span>
-  
   
   
   
@@ -181,8 +178,7 @@ or parameter specific to a session/thread.</p>
   
   
   
-  
-  <span class="abstract note title">abstract</span>
+  <span class="abstract note title">Abstract</span>
   
   
 
@@ -208,7 +204,6 @@ or parameter specific to a session/thread.</p>
   
   
   
-  
 
   
     <span class="summary_desc"><div class='inline'>
@@ -226,7 +221,6 @@ or parameter specific to a session/thread.</p>
 
     
   </span>
-  
   
   
   <span class="note title private">private</span>
@@ -250,7 +244,6 @@ or parameter specific to a session/thread.</p>
   </span>
   
   
-  
   <span class="note title private">private</span>
   
   
@@ -272,7 +265,6 @@ or parameter specific to a session/thread.</p>
   </span>
   
   
-  
   <span class="note title private">private</span>
   
   
@@ -282,7 +274,7 @@ or parameter specific to a session/thread.</p>
     <span class="summary_desc"><div class='inline'>
 <p>Transform  store fields to object attributes This can be used to change the
 name of an attribute (its key) or its value or both (example resource to
-resource_id) This is the reverse of filter_attributes_on_save.</p>
+resource_id) This is the reverse of <span class='object_link'><a href="#filter_attributes_on_save-instance_method" title="Lims::Core::Persistence::Persistor#filter_attributes_on_save (method)">#filter_attributes_on_save</a></span>.</p>
 </div></span>
   
 </li>
@@ -296,7 +288,6 @@ resource_id) This is the reverse of filter_attributes_on_save.</p>
 
     
   </span>
-  
   
   
   <span class="note title private">private</span>
@@ -325,8 +316,7 @@ resource_id).</p>
   
   
   
-  
-  <span class="abstract note title">abstract</span>
+  <span class="abstract note title">Abstract</span>
   
   
 
@@ -352,7 +342,6 @@ resource_id).</p>
   
   
   
-  
 
   
     <span class="summary_desc"><div class='inline'>
@@ -370,7 +359,6 @@ resource_id).</p>
 
     
   </span>
-  
   
     <span class="note title constructor">constructor</span>
   
@@ -402,7 +390,6 @@ resource_id).</p>
   
   
   
-  
 
   
     <span class="summary_desc"><div class='inline'></div></span>
@@ -424,7 +411,6 @@ resource_id).</p>
   
   
   
-  
 
   
     <span class="summary_desc"><div class='inline'></div></span>
@@ -440,7 +426,6 @@ resource_id).</p>
 
     
   </span>
-  
   
   
   <span class="note title private">private</span>
@@ -466,7 +451,6 @@ resource_id).</p>
   </span>
   
   
-  
   <span class="note title private">private</span>
   
   
@@ -488,7 +472,6 @@ resource_id).</p>
 
     
   </span>
-  
   
   
   <span class="note title private">private</span>
@@ -518,7 +501,6 @@ resource_id).</p>
   
   
   
-  
 
   
     <span class="summary_desc"><div class='inline'>
@@ -542,7 +524,6 @@ resource_id).</p>
   
   
   
-  
 
   
     <span class="summary_desc"><div class='inline'></div></span>
@@ -558,7 +539,6 @@ resource_id).</p>
 
     
   </span>
-  
   
   
   <span class="note title private">private</span>
@@ -588,7 +568,6 @@ resource_id).</p>
   
   
   
-  
 
   
     <span class="summary_desc"><div class='inline'>
@@ -606,7 +585,6 @@ resource_id).</p>
 
     
   </span>
-  
   
   
   
@@ -637,7 +615,6 @@ we don't use the indentity map.</p>
   
   
   
-  
 
   
     <span class="summary_desc"><div class='inline'>
@@ -656,7 +633,6 @@ we don't use the indentity map.</p>
 
     
   </span>
-  
   
   
   <span class="note title private">private</span>
@@ -682,7 +658,6 @@ we don't use the indentity map.</p>
   </span>
   
   
-  
   <span class="note title private">private</span>
   
   
@@ -704,7 +679,6 @@ we don't use the indentity map.</p>
 
     
   </span>
-  
   
   
   <span class="note title private">private</span>
@@ -732,7 +706,6 @@ we don't use the indentity map.</p>
   
   
   
-  
 
   
     <span class="summary_desc"><div class='inline'>
@@ -750,7 +723,6 @@ we don't use the indentity map.</p>
 
     
   </span>
-  
   
   
   <span class="note title private">private</span>
@@ -774,7 +746,6 @@ we don't use the indentity map.</p>
 
     
   </span>
-  
   
   
   <span class="note title private">private</span>
@@ -801,22 +772,19 @@ we don't use the indentity map.</p>
   
   
   
-  
   <h3 class="inherited">Methods included from <span class='object_link'><a href="IdentityMap.html" title="Lims::Core::Persistence::IdentityMap (module)">IdentityMap</a></span></h3>
   <p class="inherited"><span class='object_link'><a href="IdentityMap.html#id_for-instance_method" title="Lims::Core::Persistence::IdentityMap#id_for (method)">#id_for</a></span>, <span class='object_link'><a href="IdentityMap.html#map_id_object-instance_method" title="Lims::Core::Persistence::IdentityMap#map_id_object (method)">#map_id_object</a></span>, <span class='object_link'><a href="IdentityMap.html#object_for-instance_method" title="Lims::Core::Persistence::IdentityMap#object_for (method)">#object_for</a></span></p>
 <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
   
     <div class="method_details first">
-  <h3 class="signature first" id="initialize-instance_method">
+  <p class="signature first" id="initialize-instance_method">
   
     - (<tt><span class='object_link'><a href="" title="Lims::Core::Persistence::Persistor (class)">Persistor</a></span></tt>) <strong>initialize</strong>(session, *args, &amp;block) 
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>A new instance of Persistor</p>
@@ -841,9 +809,9 @@ we don't use the indentity map.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 19</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='lparen'>(</span><span class='id identifier rubyid_session'>session</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
-  <span class='ivar'>@session</span> <span class='op'>=</span> <span class='id identifier rubyid_session'>session</span>
-  <span class='kw'>super</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id initialize'>initialize</span> <span class='lparen'>(</span><span class='id session'>session</span><span class='comma'>,</span> <span class='op'>*</span><span class='id args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id block'>block</span><span class='rparen'>)</span>
+  <span class='ivar'>@session</span> <span class='op'>=</span> <span class='id session'>session</span>
+  <span class='kw'>super</span><span class='lparen'>(</span><span class='op'>*</span><span class='id args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id block'>block</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -855,18 +823,16 @@ we don't use the indentity map.</p>
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
-
+    
     
       <div class="method_details first">
-  <h3 class="signature first" id="[]-instance_method">
+  <p class="signature first" id="[]-instance_method">
   
     - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt><sup>?</sup>) <strong>[]</strong>(id) 
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>Load a model by different criteria. Could be either :</p>
@@ -886,7 +852,7 @@ depending of the parameter. Note that loaded object are automatically
   </div>
 </div>
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
+  <h3>Parameters:</h3>
 <ul class="param">
   
     <li>
@@ -907,7 +873,7 @@ depending of the parameter. Note that loaded object are automatically
   
 </ul>
 
-<p class="tag_title">Returns:</p>
+<h3>Returns:</h3>
 <ul class="return">
   
     <li>
@@ -942,10 +908,10 @@ depending of the parameter. Note that loaded object are automatically
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 39</span>
 
-<span class='kw'>def</span> <span class='op'>[]</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
-  <span class='kw'>case</span> <span class='id identifier rubyid_id'>id</span>
-  <span class='kw'>when</span> <span class='const'>Fixnum</span> <span class='kw'>then</span> <span class='id identifier rubyid_get_or_create_single_model'>get_or_create_single_model</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
-  <span class='kw'>when</span> <span class='const'>Hash</span> <span class='kw'>then</span> <span class='id identifier rubyid_find_by'>find_by</span><span class='lparen'>(</span><span class='id identifier rubyid_filter_attributes_on_save'>filter_attributes_on_save</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='symbol'>:single</span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='op'>[]</span><span class='lparen'>(</span><span class='id id'>id</span><span class='rparen'>)</span>
+  <span class='kw'>case</span> <span class='id id'>id</span>
+  <span class='kw'>when</span> <span class='const'>Fixnum</span> <span class='kw'>then</span> <span class='id get_or_create_single_model'>get_or_create_single_model</span><span class='lparen'>(</span><span class='id id'>id</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='const'>Hash</span> <span class='kw'>then</span> <span class='id find_by'>find_by</span><span class='lparen'>(</span><span class='id filter_attributes_on_save'>filter_attributes_on_save</span><span class='lparen'>(</span><span class='id id'>id</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='symbol'>:single</span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -954,18 +920,16 @@ depending of the parameter. Note that loaded object are automatically
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="count-instance_method">
+  <p class="signature " id="count-instance_method">
   
     - (<tt>Fixnum</tt>) <strong>count</strong> 
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     <div class="note abstract">
-  <strong>This method is abstract.</strong>
+  <strong>This method is abstract.</strong> 
   <div class='inline'></div>
 </div>
 
@@ -976,7 +940,7 @@ depending of the parameter. Note that loaded object are automatically
 </div>
 <div class="tags">
   
-<p class="tag_title">Returns:</p>
+<h3>Returns:</h3>
 <ul class="return">
   
     <li>
@@ -989,7 +953,7 @@ depending of the parameter. Note that loaded object are automatically
     </li>
   
 </ul>
-<p class="tag_title">Raises:</p>
+<h3>Raises:</h3>
 <ul class="raise">
   
     <li>
@@ -1016,8 +980,8 @@ depending of the parameter. Note that loaded object are automatically
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 161</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_count'>count</span>
-  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>NotImplementedError</span>
+<span class='kw'>def</span> <span class='id count'>count</span>
+  <span class='id raise'>raise</span> <span class='const'>NotImplementedError</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1025,15 +989,13 @@ depending of the parameter. Note that loaded object are automatically
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="delete-instance_method">
+  <p class="signature " id="delete-instance_method">
   
     - (<tt>Fixnum</tt><sup>?</sup>) <strong>delete</strong>(object, *params) 
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>deletes an object and returns its id or nil if failure</p>
@@ -1043,7 +1005,7 @@ depending of the parameter. Note that loaded object are automatically
 </div>
 <div class="tags">
   
-<p class="tag_title">Returns:</p>
+<h3>Returns:</h3>
 <ul class="return">
   
     <li>
@@ -1074,11 +1036,11 @@ depending of the parameter. Note that loaded object are automatically
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 56</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
-  <span class='id identifier rubyid_id_for'>id_for</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_id'>id</span><span class='op'>|</span>
-    <span class='id identifier rubyid_delete_raw'>delete_raw</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_delete_children'>delete_children</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id delete'>delete</span><span class='lparen'>(</span><span class='id object'>object</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id object'>object</span><span class='period'>.</span><span class='id nil?'>nil?</span>
+  <span class='id id_for'>id_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id id'>id</span><span class='op'>|</span>
+    <span class='id delete_raw'>delete_raw</span><span class='lparen'>(</span><span class='id object'>object</span><span class='comma'>,</span> <span class='id id'>id</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
+    <span class='id delete_children'>delete_children</span><span class='lparen'>(</span><span class='id id'>id</span><span class='comma'>,</span> <span class='id object'>object</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1087,15 +1049,13 @@ depending of the parameter. Note that loaded object are automatically
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="delete_children-instance_method">
+  <p class="signature " id="delete_children-instance_method">
   
     - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>delete_children</strong>(id, object)  <span class="extras">(private)</span>
   
 
   
-
-  
-</h3><table class="source_code">
+</p><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
@@ -1107,7 +1067,7 @@ depending of the parameter. Note that loaded object are automatically
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 250</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_delete_children'>delete_children</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id delete_children'>delete_children</span><span class='lparen'>(</span><span class='id id'>id</span><span class='comma'>,</span> <span class='id object'>object</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1115,15 +1075,13 @@ depending of the parameter. Note that loaded object are automatically
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="delete_raw-instance_method">
+  <p class="signature " id="delete_raw-instance_method">
   
     - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>delete_raw</strong>(object, id)  <span class="extras">(private)</span>
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 
@@ -1131,7 +1089,7 @@ depending of the parameter. Note that loaded object are automatically
 </div>
 <div class="tags">
   
-<p class="tag_title">Raises:</p>
+<h3>Raises:</h3>
 <ul class="raise">
   
     <li>
@@ -1158,8 +1116,8 @@ depending of the parameter. Note that loaded object are automatically
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 231</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_delete_raw'>delete_raw</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>NotImplementedError</span>
+<span class='kw'>def</span> <span class='id delete_raw'>delete_raw</span><span class='lparen'>(</span><span class='id object'>object</span><span class='comma'>,</span> <span class='id id'>id</span><span class='rparen'>)</span>
+  <span class='id raise'>raise</span> <span class='const'>NotImplementedError</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1167,26 +1125,24 @@ depending of the parameter. Note that loaded object are automatically
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="filter_attributes_on_load-instance_method">
+  <p class="signature " id="filter_attributes_on_load-instance_method">
   
     - (<tt>Hash</tt>) <strong>filter_attributes_on_load</strong>(attributes)  <span class="extras">(private)</span>
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>Transform  store fields to object attributes This can be used to change the
 name of an attribute (its key) or its value or both (example resource to
-resource_id) This is the reverse of filter_attributes_on_save</p>
+resource_id) This is the reverse of <span class='object_link'><a href="#filter_attributes_on_save-instance_method" title="Lims::Core::Persistence::Persistor#filter_attributes_on_save (method)">#filter_attributes_on_save</a></span></p>
 
 
   </div>
 </div>
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
+  <h3>Parameters:</h3>
 <ul class="param">
   
     <li>
@@ -1202,7 +1158,7 @@ resource_id) This is the reverse of filter_attributes_on_save</p>
   
 </ul>
 
-<p class="tag_title">Returns:</p>
+<h3>Returns:</h3>
 <ul class="return">
   
     <li>
@@ -1229,8 +1185,8 @@ resource_id) This is the reverse of filter_attributes_on_save</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 265</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_filter_attributes_on_load'>filter_attributes_on_load</span><span class='lparen'>(</span><span class='id identifier rubyid_attributes'>attributes</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_attributes'>attributes</span>
+<span class='kw'>def</span> <span class='id filter_attributes_on_load'>filter_attributes_on_load</span><span class='lparen'>(</span><span class='id attributes'>attributes</span><span class='rparen'>)</span>
+  <span class='id attributes'>attributes</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1238,15 +1194,13 @@ resource_id) This is the reverse of filter_attributes_on_save</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="filter_attributes_on_save-instance_method">
+  <p class="signature " id="filter_attributes_on_save-instance_method">
   
     - (<tt>Hash</tt>) <strong>filter_attributes_on_save</strong>(attributes)  <span class="extras">(private)</span>
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>Transform object attributes to store fields This can be used to change the
@@ -1257,7 +1211,7 @@ resource_id)</p>
   </div>
 </div>
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
+  <h3>Parameters:</h3>
 <ul class="param">
   
     <li>
@@ -1273,7 +1227,7 @@ resource_id)</p>
   
 </ul>
 
-<p class="tag_title">Returns:</p>
+<h3>Returns:</h3>
 <ul class="return">
   
     <li>
@@ -1300,8 +1254,8 @@ resource_id)</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 274</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_filter_attributes_on_save'>filter_attributes_on_save</span><span class='lparen'>(</span><span class='id identifier rubyid_attributes'>attributes</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_attributes'>attributes</span>
+<span class='kw'>def</span> <span class='id filter_attributes_on_save'>filter_attributes_on_save</span><span class='lparen'>(</span><span class='id attributes'>attributes</span><span class='rparen'>)</span>
+  <span class='id attributes'>attributes</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1309,18 +1263,16 @@ resource_id)</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="for_each_in_slice-instance_method">
+  <p class="signature " id="for_each_in_slice-instance_method">
   
     - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>for_each_in_slice</strong>(start, length) {|key, attributes| ... }
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     <div class="note abstract">
-  <strong>This method is abstract.</strong>
+  <strong>This method is abstract.</strong> 
   <div class='inline'></div>
 </div>
 
@@ -1330,7 +1282,7 @@ resource_id)</p>
   </div>
 </div>
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
+  <h3>Parameters:</h3>
 <ul class="param">
   
     <li>
@@ -1362,7 +1314,7 @@ resource_id)</p>
   
 </ul>
 
-<p class="tag_title">Yield Parameters:</p>
+<h3>Yield Parameters:</h3>
 <ul class="yieldparam">
   
     <li>
@@ -1393,7 +1345,7 @@ resource_id)</p>
     </li>
   
 </ul>
-<p class="tag_title">Raises:</p>
+<h3>Raises:</h3>
 <ul class="raise">
   
     <li>
@@ -1420,8 +1372,8 @@ resource_id)</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 172</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_for_each_in_slice'>for_each_in_slice</span><span class='lparen'>(</span><span class='id identifier rubyid_start'>start</span><span class='comma'>,</span> <span class='id identifier rubyid_length'>length</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>NotImplementedError</span>
+<span class='kw'>def</span> <span class='id for_each_in_slice'>for_each_in_slice</span><span class='lparen'>(</span><span class='id start'>start</span><span class='comma'>,</span> <span class='id length'>length</span><span class='rparen'>)</span>
+  <span class='id raise'>raise</span> <span class='const'>NotImplementedError</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1429,15 +1381,13 @@ resource_id)</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="ids_for-instance_method">
+  <p class="signature " id="ids_for-instance_method">
   
     - (<tt>Array&lt;Id&gt;</tt>) <strong>ids_for</strong>(criteria) 
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>compute a list of ids matching the criteria</p>
@@ -1446,7 +1396,7 @@ resource_id)</p>
   </div>
 </div>
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
+  <h3>Parameters:</h3>
 <ul class="param">
   
     <li>
@@ -1467,7 +1417,7 @@ resource_id)</p>
   
 </ul>
 
-<p class="tag_title">Returns:</p>
+<h3>Returns:</h3>
 <ul class="return">
   
     <li>
@@ -1480,7 +1430,7 @@ resource_id)</p>
     </li>
   
 </ul>
-<p class="tag_title">Raises:</p>
+<h3>Raises:</h3>
 <ul class="raise">
   
     <li>
@@ -1507,8 +1457,8 @@ resource_id)</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 145</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_ids_for'>ids_for</span><span class='lparen'>(</span><span class='id identifier rubyid_criteria'>criteria</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>NotImplementedError</span>
+<span class='kw'>def</span> <span class='id ids_for'>ids_for</span><span class='lparen'>(</span><span class='id criteria'>criteria</span><span class='rparen'>)</span>
+  <span class='id raise'>raise</span> <span class='const'>NotImplementedError</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1516,15 +1466,13 @@ resource_id)</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="load_aggregated_elements-instance_method">
+  <p class="signature " id="load_aggregated_elements-instance_method">
   
     - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>load_aggregated_elements</strong>(id, &amp;block) 
   
 
   
-
-  
-</h3><table class="source_code">
+</p><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
@@ -1538,8 +1486,8 @@ resource_id)</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 153</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_load_aggregated_elements'>load_aggregated_elements</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_load_raw_associations'>load_raw_associations</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_element_id'>element_id</span><span class='op'>|</span>
+<span class='kw'>def</span> <span class='id load_aggregated_elements'>load_aggregated_elements</span><span class='lparen'>(</span><span class='id id'>id</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id block'>block</span><span class='rparen'>)</span>
+  <span class='id load_raw_associations'>load_raw_associations</span><span class='lparen'>(</span><span class='id id'>id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id element_id'>element_id</span><span class='op'>|</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1548,15 +1496,13 @@ resource_id)</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="load_associated_elements-instance_method">
+  <p class="signature " id="load_associated_elements-instance_method">
   
     - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>load_associated_elements</strong> 
   
 
   
-
-  
-</h3><table class="source_code">
+</p><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
@@ -1568,7 +1514,7 @@ resource_id)</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 150</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_load_associated_elements'>load_associated_elements</span><span class='lparen'>(</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id load_associated_elements'>load_associated_elements</span><span class='lparen'>(</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1576,15 +1522,13 @@ resource_id)</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="load_children-instance_method">
+  <p class="signature " id="load_children-instance_method">
   
     - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>load_children</strong>(id, m)  <span class="extras">(private)</span>
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>Loads children from the database and set the to model object.</p>
@@ -1593,7 +1537,7 @@ resource_id)</p>
   </div>
 </div>
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
+  <h3>Parameters:</h3>
 <ul class="param">
   
     <li>
@@ -1643,7 +1587,7 @@ resource_id)</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 256</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_load_children'>load_children</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_m'>m</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id load_children'>load_children</span><span class='lparen'>(</span><span class='id id'>id</span><span class='comma'>,</span> <span class='id m'>m</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1651,15 +1595,13 @@ resource_id)</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="load_raw_object-instance_method">
+  <p class="signature " id="load_raw_object-instance_method">
   
     - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>load_raw_object</strong>(id)  <span class="extras">(private)</span>
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>load the object without any dependency</p>
@@ -1668,7 +1610,7 @@ resource_id)</p>
   </div>
 </div>
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
+  <h3>Parameters:</h3>
 <ul class="param">
   
     <li>
@@ -1689,7 +1631,7 @@ resource_id)</p>
   
 </ul>
 
-<p class="tag_title">Returns:</p>
+<h3>Returns:</h3>
 <ul class="return">
   
     <li>
@@ -1707,7 +1649,7 @@ resource_id)</p>
     </li>
   
 </ul>
-<p class="tag_title">Raises:</p>
+<h3>Raises:</h3>
 <ul class="raise">
   
     <li>
@@ -1734,8 +1676,8 @@ resource_id)</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 199</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_load_raw_object'>load_raw_object</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>NotImplementedError</span>
+<span class='kw'>def</span> <span class='id load_raw_object'>load_raw_object</span><span class='lparen'>(</span><span class='id id'>id</span><span class='rparen'>)</span>
+  <span class='id raise'>raise</span> <span class='const'>NotImplementedError</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1743,15 +1685,13 @@ resource_id)</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="load_single_model-instance_method">
+  <p class="signature " id="load_single_model-instance_method">
   
     - (<tt><span class='object_link'><a href="../Resource.html" title="Lims::Core::Resource (module)">Resource</a></span></tt>) <strong>load_single_model</strong>(id, raw_attributes = nil)  <span class="extras">(private)</span>
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>Load a model object (and its children) from its database id.</p>
@@ -1760,7 +1700,7 @@ resource_id)</p>
   </div>
 </div>
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
+  <h3>Parameters:</h3>
 <ul class="param">
   
     <li>
@@ -1799,7 +1739,7 @@ resource_id)</p>
   
 </ul>
 
-<p class="tag_title">Returns:</p>
+<h3>Returns:</h3>
 <ul class="return">
   
     <li>
@@ -1817,7 +1757,7 @@ resource_id)</p>
     </li>
   
 </ul>
-<p class="tag_title">Raises:</p>
+<h3>Raises:</h3>
 <ul class="raise">
   
     <li>
@@ -1852,10 +1792,10 @@ resource_id)</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 93</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_load_single_model'>load_single_model</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_raw_attributes'>raw_attributes</span><span class='op'>=</span><span class='kw'>nil</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_raw_attributes'>raw_attributes</span> <span class='op'>||=</span> <span class='id identifier rubyid_load_raw_attributes'>load_raw_attributes</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_model'>model</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_filter_attributes_on_load'>filter_attributes_on_load</span><span class='lparen'>(</span><span class='id identifier rubyid_raw_attributes'>raw_attributes</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_tap'>tap</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_m'>m</span><span class='op'>|</span>
-    <span class='id identifier rubyid_load_children'>load_children</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_m'>m</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id load_single_model'>load_single_model</span><span class='lparen'>(</span><span class='id id'>id</span><span class='comma'>,</span> <span class='id raw_attributes'>raw_attributes</span><span class='op'>=</span><span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id raw_attributes'>raw_attributes</span> <span class='op'>||=</span> <span class='id load_raw_attributes'>load_raw_attributes</span><span class='lparen'>(</span><span class='id id'>id</span><span class='rparen'>)</span>
+  <span class='id model'>model</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='id filter_attributes_on_load'>filter_attributes_on_load</span><span class='lparen'>(</span><span class='id raw_attributes'>raw_attributes</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span><span class='period'>.</span><span class='id tap'>tap</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id m'>m</span><span class='op'>|</span>
+    <span class='id load_children'>load_children</span><span class='lparen'>(</span><span class='id id'>id</span><span class='comma'>,</span> <span class='id m'>m</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1864,15 +1804,13 @@ resource_id)</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="model-instance_method">
+  <p class="signature " id="model-instance_method">
   
     - (<tt>Class</tt>) <strong>model</strong> 
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>Associate class (without persistence).</p>
@@ -1882,7 +1820,7 @@ resource_id)</p>
 </div>
 <div class="tags">
   
-<p class="tag_title">Returns:</p>
+<h3>Returns:</h3>
 <ul class="return">
   
     <li>
@@ -1909,8 +1847,8 @@ resource_id)</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 26</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_model'>model</span>
-  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='op'>::</span><span class='const'>Model</span>
+<span class='kw'>def</span> <span class='id model'>model</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id class'>class</span><span class='op'>::</span><span class='const'>Model</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1918,22 +1856,20 @@ resource_id)</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="multi_criteria_filter-instance_method">
+  <p class="signature " id="multi_criteria_filter-instance_method">
   
     - (<tt><span class='object_link'><a href="" title="Lims::Core::Persistence::Persistor (class)">Persistor</a></span></tt>) <strong>multi_criteria_filter</strong>(criteria) 
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 
   </div>
 </div>
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
+  <h3>Parameters:</h3>
 <ul class="param">
   
     <li>
@@ -1954,7 +1890,7 @@ resource_id)</p>
   
 </ul>
 
-<p class="tag_title">Returns:</p>
+<h3>Returns:</h3>
 <ul class="return">
   
     <li>
@@ -1981,8 +1917,8 @@ resource_id)</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/multi_criteria_filter.rb', line 30</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_multi_criteria_filter'>multi_criteria_filter</span><span class='lparen'>(</span><span class='id identifier rubyid_criteria'>criteria</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>NotImplementedError</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>multi_criteria_filter methods needs to be implemented for subclass of Persistor</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>def</span> <span class='id multi_criteria_filter'>multi_criteria_filter</span><span class='lparen'>(</span><span class='id criteria'>criteria</span><span class='rparen'>)</span>
+  <span class='id raise'>raise</span> <span class='const'>NotImplementedError</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>multi_criteria_filter methods needs to be implemented for subclass of Persistor</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1990,15 +1926,13 @@ resource_id)</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="primary_key-instance_method">
+  <p class="signature " id="primary_key-instance_method">
   
     - (<tt>Symbol</tt>) <strong>primary_key</strong>  <span class="extras">(private)</span>
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>The primary key</p>
@@ -2008,7 +1942,7 @@ resource_id)</p>
 </div>
 <div class="tags">
   
-<p class="tag_title">Returns:</p>
+<h3>Returns:</h3>
 <ul class="return">
   
     <li>
@@ -2035,7 +1969,7 @@ resource_id)</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 192</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_primary_key'>primary_key</span><span class='lparen'>(</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id primary_key'>primary_key</span><span class='lparen'>(</span><span class='rparen'>)</span>
   <span class='symbol'>:id</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -2044,15 +1978,13 @@ resource_id)</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="save-instance_method">
+  <p class="signature " id="save-instance_method">
   
     - (<tt>Fixnum</tt><sup>?</sup>) <strong>save</strong>(object, *params) 
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>save an object and return is id or nil if failure</p>
@@ -2062,7 +1994,7 @@ resource_id)</p>
 </div>
 <div class="tags">
   
-<p class="tag_title">Returns:</p>
+<h3>Returns:</h3>
 <ul class="return">
   
     <li>
@@ -2091,10 +2023,10 @@ resource_id)</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 48</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_save'>save</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
-  <span class='id identifier rubyid_id_for'>id_for</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_id'>id</span><span class='op'>|</span> <span class='id identifier rubyid_update'>update</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span> <span class='rbrace'>}</span> <span class='op'>||</span>
-    <span class='id identifier rubyid_map_id_object'>map_id_object</span><span class='lparen'>(</span><span class='id identifier rubyid_save_new'>save_new</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span> <span class='comma'>,</span> <span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id save'>save</span><span class='lparen'>(</span><span class='id object'>object</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id object'>object</span><span class='period'>.</span><span class='id nil?'>nil?</span>
+  <span class='id id_for'>id_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id id'>id</span><span class='op'>|</span> <span class='id update'>update</span><span class='lparen'>(</span><span class='id object'>object</span><span class='comma'>,</span> <span class='id id'>id</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span> <span class='rbrace'>}</span> <span class='op'>||</span>
+    <span class='id map_id_object'>map_id_object</span><span class='lparen'>(</span><span class='id save_new'>save_new</span><span class='lparen'>(</span><span class='id object'>object</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span> <span class='comma'>,</span> <span class='id object'>object</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2102,15 +2034,13 @@ resource_id)</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="save_as_aggregation-instance_method">
+  <p class="signature " id="save_as_aggregation-instance_method">
   
     - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>save_as_aggregation</strong>(source_id, target, *params) 
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>save an aggregation Aggregation doesn't have necessarily and id therefore
@@ -2122,7 +2052,7 @@ children have to be saved.</p>
   </div>
 </div>
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
+  <h3>Parameters:</h3>
 <ul class="param">
   
     <li>
@@ -2184,8 +2114,8 @@ children have to be saved.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 84</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_save_as_aggregation'>save_as_aggregation</span><span class='lparen'>(</span><span class='id identifier rubyid_source_id'>source_id</span><span class='comma'>,</span> <span class='id identifier rubyid_target'>target</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_save_raw_association'>save_raw_association</span><span class='lparen'>(</span><span class='id identifier rubyid_source_id'>source_id</span><span class='comma'>,</span> <span class='ivar'>@session</span><span class='period'>.</span><span class='id identifier rubyid_save'>save</span><span class='lparen'>(</span><span class='id identifier rubyid_target'>target</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id save_as_aggregation'>save_as_aggregation</span><span class='lparen'>(</span><span class='id source_id'>source_id</span><span class='comma'>,</span> <span class='id target'>target</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
+  <span class='id save_raw_association'>save_raw_association</span><span class='lparen'>(</span><span class='id source_id'>source_id</span><span class='comma'>,</span> <span class='ivar'>@session</span><span class='period'>.</span><span class='id save'>save</span><span class='lparen'>(</span><span class='id target'>target</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2193,15 +2123,13 @@ children have to be saved.</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="save_as_association-instance_method">
+  <p class="signature " id="save_as_association-instance_method">
   
     - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>save_as_association</strong>(source, target, *params) 
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>save an association Association doesn't have necessarily and id therefore
@@ -2211,7 +2139,7 @@ we don't use the indentity map. Save objects if needed.</p>
   </div>
 </div>
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
+  <h3>Parameters:</h3>
 <ul class="param">
   
     <li>
@@ -2278,8 +2206,8 @@ we don't use the indentity map. Save objects if needed.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 70</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_save_as_association'>save_as_association</span><span class='lparen'>(</span><span class='id identifier rubyid_source'>source</span><span class='comma'>,</span> <span class='id identifier rubyid_target'>target</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_save_raw_association'>save_raw_association</span><span class='lparen'>(</span><span class='ivar'>@session</span><span class='period'>.</span><span class='id identifier rubyid_id_for!'>id_for!</span><span class='lparen'>(</span><span class='id identifier rubyid_source'>source</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='ivar'>@session</span><span class='period'>.</span><span class='id identifier rubyid_id_for!'>id_for!</span><span class='lparen'>(</span><span class='id identifier rubyid_target'>target</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id save_as_association'>save_as_association</span><span class='lparen'>(</span><span class='id source'>source</span><span class='comma'>,</span> <span class='id target'>target</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
+  <span class='id save_raw_association'>save_raw_association</span><span class='lparen'>(</span><span class='ivar'>@session</span><span class='period'>.</span><span class='id id_for!'>id_for!</span><span class='lparen'>(</span><span class='id source'>source</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='ivar'>@session</span><span class='period'>.</span><span class='id id_for!'>id_for!</span><span class='lparen'>(</span><span class='id target'>target</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2287,15 +2215,13 @@ we don't use the indentity map. Save objects if needed.</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="save_children-instance_method">
+  <p class="signature " id="save_children-instance_method">
   
     - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>save_children</strong>(id, object)  <span class="extras">(private)</span>
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>save children of a newly created object.</p>
@@ -2304,7 +2230,7 @@ we don't use the indentity map. Save objects if needed.</p>
   </div>
 </div>
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
+  <h3>Parameters:</h3>
 <ul class="param">
   
     <li>
@@ -2355,7 +2281,7 @@ we don't use the indentity map. Save objects if needed.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 238</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_save_children'>save_children</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id save_children'>save_children</span><span class='lparen'>(</span><span class='id id'>id</span><span class='comma'>,</span> <span class='id object'>object</span><span class='rparen'>)</span>
 
 <span class='kw'>end</span></pre>
     </td>
@@ -2364,15 +2290,13 @@ we don't use the indentity map. Save objects if needed.</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="save_new-instance_method">
+  <p class="signature " id="save_new-instance_method">
   
     - (<tt>Fixnum</tt><sup>?</sup>) <strong>save_new</strong>(object, *params)  <span class="extras">(private)</span>
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>Called to save a new object, i.e. which is not already in the database.</p>
@@ -2381,7 +2305,7 @@ we don't use the indentity map. Save objects if needed.</p>
   </div>
 </div>
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
+  <h3>Parameters:</h3>
 <ul class="param">
   
     <li>
@@ -2402,7 +2326,7 @@ we don't use the indentity map. Save objects if needed.</p>
   
 </ul>
 
-<p class="tag_title">Returns:</p>
+<h3>Returns:</h3>
 <ul class="return">
   
     <li>
@@ -2436,9 +2360,9 @@ we don't use the indentity map. Save objects if needed.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 207</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_save_new'>save_new</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_save_raw'>save_raw</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_tap'>tap</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_id'>id</span><span class='op'>|</span>
-    <span class='id identifier rubyid_save_children'>save_children</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id save_new'>save_new</span><span class='lparen'>(</span><span class='id object'>object</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
+  <span class='id save_raw'>save_raw</span><span class='lparen'>(</span><span class='id object'>object</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span><span class='period'>.</span><span class='id tap'>tap</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id id'>id</span><span class='op'>|</span>
+    <span class='id save_children'>save_children</span><span class='lparen'>(</span><span class='id id'>id</span><span class='comma'>,</span> <span class='id object'>object</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -2447,22 +2371,20 @@ we don't use the indentity map. Save objects if needed.</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="save_raw-instance_method">
+  <p class="signature " id="save_raw-instance_method">
   
     - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>save_raw</strong>(object, *params)  <span class="extras">(private)</span>
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 
   </div>
 </div>
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
+  <h3>Parameters:</h3>
 <ul class="param">
   
     <li>
@@ -2483,7 +2405,7 @@ we don't use the indentity map. Save objects if needed.</p>
   
 </ul>
 
-<p class="tag_title">Raises:</p>
+<h3>Raises:</h3>
 <ul class="raise">
   
     <li>
@@ -2510,8 +2432,8 @@ we don't use the indentity map. Save objects if needed.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 214</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_save_raw'>save_raw</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>NotImplementedError</span>
+<span class='kw'>def</span> <span class='id save_raw'>save_raw</span><span class='lparen'>(</span><span class='id object'>object</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
+  <span class='id raise'>raise</span> <span class='const'>NotImplementedError</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2519,15 +2441,13 @@ we don't use the indentity map. Save objects if needed.</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="slice-instance_method">
+  <p class="signature " id="slice-instance_method">
   
     - (<tt>Enumerable&lt;Hash&gt;</tt>) <strong>slice</strong>(start, length) 
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>Get a slice of object by offset, length. <tt>start</tt> here is an offset
@@ -2537,7 +2457,7 @@ we don't use the indentity map. Save objects if needed.</p>
   </div>
 </div>
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
+  <h3>Parameters:</h3>
 <ul class="param">
   
     <li>
@@ -2569,7 +2489,7 @@ we don't use the indentity map. Save objects if needed.</p>
   
 </ul>
 
-<p class="tag_title">Returns:</p>
+<h3>Returns:</h3>
 <ul class="return">
   
     <li>
@@ -2600,10 +2520,10 @@ we don't use the indentity map. Save objects if needed.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 181</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_slice'>slice</span><span class='lparen'>(</span><span class='id identifier rubyid_start'>start</span><span class='comma'>,</span> <span class='id identifier rubyid_length'>length</span><span class='rparen'>)</span>
-  <span class='const'>Enumerator</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_yielder'>yielder</span><span class='op'>|</span>
-    <span class='id identifier rubyid_for_each_in_slice'>for_each_in_slice</span><span class='lparen'>(</span><span class='id identifier rubyid_start'>start</span><span class='comma'>,</span> <span class='id identifier rubyid_length'>length</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_att'>att</span><span class='op'>|</span>
-      <span class='id identifier rubyid_yielder'>yielder</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_get_or_create_single_model'>get_or_create_single_model</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_att'>att</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id slice'>slice</span><span class='lparen'>(</span><span class='id start'>start</span><span class='comma'>,</span> <span class='id length'>length</span><span class='rparen'>)</span>
+  <span class='const'>Enumerator</span><span class='period'>.</span><span class='id new'>new</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id yielder'>yielder</span><span class='op'>|</span>
+    <span class='id for_each_in_slice'>for_each_in_slice</span><span class='lparen'>(</span><span class='id start'>start</span><span class='comma'>,</span> <span class='id length'>length</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id id'>id</span><span class='comma'>,</span> <span class='id att'>att</span><span class='op'>|</span>
+      <span class='id yielder'>yielder</span> <span class='op'>&lt;&lt;</span> <span class='id get_or_create_single_model'>get_or_create_single_model</span><span class='lparen'>(</span><span class='id id'>id</span><span class='comma'>,</span> <span class='id att'>att</span><span class='rparen'>)</span>
     <span class='kw'>end</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -2613,15 +2533,13 @@ we don't use the indentity map. Save objects if needed.</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="update-instance_method">
+  <p class="signature " id="update-instance_method">
   
     - (<tt>Fixnum</tt><sup>?</sup>) <strong>update</strong>(object, id, *params)  <span class="extras">(private)</span>
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>Save a object already in the database</p>
@@ -2630,7 +2548,7 @@ we don't use the indentity map. Save objects if needed.</p>
   </div>
 </div>
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
+  <h3>Parameters:</h3>
 <ul class="param">
   
     <li>
@@ -2667,7 +2585,7 @@ we don't use the indentity map. Save objects if needed.</p>
   
 </ul>
 
-<p class="tag_title">Returns:</p>
+<h3>Returns:</h3>
 <ul class="return">
   
     <li>
@@ -2704,12 +2622,12 @@ we don't use the indentity map. Save objects if needed.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 222</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_update'>update</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id update'>update</span><span class='lparen'>(</span><span class='id object'>object</span><span class='comma'>,</span> <span class='id id'>id</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
   <span class='comment'># naive version , update everything.
 </span>  <span class='comment'># Probably quicker than trying to guess what has changed
-</span>  <span class='id identifier rubyid_id'>id</span><span class='period'>.</span><span class='id identifier rubyid_tap'>tap</span> <span class='kw'>do</span>
-    <span class='id identifier rubyid_update_raw'>update_raw</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_update_children'>update_children</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span>
+</span>  <span class='id id'>id</span><span class='period'>.</span><span class='id tap'>tap</span> <span class='kw'>do</span>
+    <span class='id update_raw'>update_raw</span><span class='lparen'>(</span><span class='id object'>object</span><span class='comma'>,</span> <span class='id id'>id</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
+    <span class='id update_children'>update_children</span><span class='lparen'>(</span><span class='id id'>id</span><span class='comma'>,</span> <span class='id object'>object</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -2718,15 +2636,13 @@ we don't use the indentity map. Save objects if needed.</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="update_children-instance_method">
+  <p class="signature " id="update_children-instance_method">
   
     - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>update_children</strong>(id, object)  <span class="extras">(private)</span>
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>save children of an existing object.</p>
@@ -2735,7 +2651,7 @@ we don't use the indentity map. Save objects if needed.</p>
   </div>
 </div>
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
+  <h3>Parameters:</h3>
 <ul class="param">
   
     <li>
@@ -2787,9 +2703,9 @@ we don't use the indentity map. Save objects if needed.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 245</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_update_children'>update_children</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_delete_children'>delete_children</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_save_children'>save_children</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id update_children'>update_children</span><span class='lparen'>(</span><span class='id id'>id</span><span class='comma'>,</span> <span class='id object'>object</span><span class='rparen'>)</span>
+  <span class='id delete_children'>delete_children</span><span class='lparen'>(</span><span class='id id'>id</span><span class='comma'>,</span> <span class='id object'>object</span><span class='rparen'>)</span>
+  <span class='id save_children'>save_children</span><span class='lparen'>(</span><span class='id id'>id</span><span class='comma'>,</span> <span class='id object'>object</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2799,7 +2715,7 @@ we don't use the indentity map. Save objects if needed.</p>
   </div>
 
 </div>
-
+    
     
   </body>
 </html>
