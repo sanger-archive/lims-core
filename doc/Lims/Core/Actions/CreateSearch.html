@@ -184,7 +184,6 @@
       <pre class="lines">
 
 
-15
 16
 17
 18
@@ -193,16 +192,31 @@
 21
 22
 23
-24</pre>
+24
+25
+26
+27
+28
+29
+30
+31
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/actions/create_search.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/actions/create_search.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid__call_in_session'>_call_in_session</span><span class='lparen'>(</span><span class='id identifier rubyid_session'>session</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_filter'>filter</span> <span class='op'>=</span> <span class='const'>Persistence</span><span class='op'>::</span><span class='const'>MultiCriteriaFilter</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:criteria</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_criteria'>criteria</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_search'>search</span> <span class='op'>=</span> <span class='const'>Persistence</span><span class='op'>::</span><span class='const'>Search</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:model</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_session'>session</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_model'>model</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_model'>model</span><span class='comma'>,</span> <span class='symbol'>:filter</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_filter'>filter</span><span class='rparen'>)</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_search'>search</span><span class='period'>.</span><span class='id identifier rubyid_valid?'>valid?</span>
-    <span class='id identifier rubyid_session'>session</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_search'>search</span>
+  <span class='id identifier rubyid_search'>search</span> <span class='op'>=</span> <span class='const'>Persistence</span><span class='op'>::</span><span class='const'>Search</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:description</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_description'>description</span><span class='comma'>,</span> 
+                                   <span class='symbol'>:model</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_session'>session</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_model'>model</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_model'>model</span><span class='comma'>,</span> 
+                                   <span class='symbol'>:filter</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_filter'>filter</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_search'>search</span><span class='period'>.</span><span class='id identifier rubyid_valid?'>valid?</span>   
+    <span class='id identifier rubyid_stored_search'>stored_search</span> <span class='op'>=</span> <span class='id identifier rubyid_session'>session</span><span class='period'>.</span><span class='id identifier rubyid_search'>search</span><span class='lbracket'>[</span><span class='id identifier rubyid_search'>search</span><span class='period'>.</span><span class='id identifier rubyid_attributes'>attributes</span><span class='rbracket'>]</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_stored_search'>stored_search</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+      <span class='id identifier rubyid_session'>session</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_search'>search</span>
+    <span class='kw'>else</span> 
+      <span class='id identifier rubyid_search'>search</span> <span class='op'>=</span> <span class='id identifier rubyid_stored_search'>stored_search</span>
+    <span class='kw'>end</span>
     <span class='lbrace'>{</span> <span class='symbol'>:search</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_search'>search</span><span class='comma'>,</span> <span class='symbol'>:uuid</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_session'>session</span><span class='period'>.</span><span class='id identifier rubyid_uuid_for!'>uuid_for!</span><span class='lparen'>(</span><span class='id identifier rubyid_search'>search</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
   <span class='kw'>else</span>
     <span class='kw'>false</span>

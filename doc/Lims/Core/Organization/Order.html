@@ -99,7 +99,7 @@
   
     <dt class="r1 last">Defined in:</dt>
     <dd class="r1 last">lib/lims-core/organization/order.rb<span class="defines">,<br />
-  lib/lims-core/organization/order/item.rb</span>
+  lib/lims-core/actions/create_order.rb,<br /> lib/lims-core/organization/order/item.rb</span>
 </dd>
   
 </dl>
@@ -145,6 +145,18 @@ the *<b>sample</b>*.</p>
     
   
 </p>
+
+  <h2>Constant Summary</h2>
+  
+    <dl class="constants">
+      
+        <dt id="Create-constant" class="">Create =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>Actions</span><span class='op'>::</span><span class='const'>CreateOrder</span></pre></dd>
+      
+    </dl>
+  
 
 
 
@@ -235,7 +247,7 @@ the *<b>sample</b>*.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#add_target-instance_method" title="#add_target (instance method)">- (Object) <strong>add_target</strong>(role) </a>
+      <a href="#add_target-instance_method" title="#add_target (instance method)">- (Item) <strong>add_target</strong>(role, uuid = nil) </a>
     
 
     
@@ -474,7 +486,7 @@ by the pipeline to fulfil the order it needs an underlying object.</p>
       <div class="method_details ">
   <h3 class="signature " id="add_target-instance_method">
   
-    - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>add_target</strong>(role) 
+    - (<tt><span class='object_link'><a href="Order/Item.html" title="Lims::Core::Organization::Order::Item (class)">Item</a></span></tt>) <strong>add_target</strong>(role, uuid = nil) 
   
 
   
@@ -483,14 +495,65 @@ by the pipeline to fulfil the order it needs an underlying object.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>A target is an item produced by the order. It starts has pending and needs
+<p>A target is an item produced by the order. It starts as pending and needs
 to be completed or failed.</p>
 
 
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>role</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>of the target</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>uuid</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>of the underlying object</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Order/Item.html" title="Lims::Core::Organization::Order::Item (class)">Item</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -498,15 +561,15 @@ to be completed or failed.</p>
       <pre class="lines">
 
 
-150
-151
-152</pre>
+153
+154
+155</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/organization/order.rb', line 150</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/organization/order.rb', line 153</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_add_target'>add_target</span><span class='lparen'>(</span><span class='id identifier rubyid_role'>role</span><span class='rparen'>)</span>
-  <span class='kw'>self</span><span class='lbracket'>[</span><span class='id identifier rubyid_role'>role</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>Item</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_add_target'>add_target</span><span class='lparen'>(</span><span class='id identifier rubyid_role'>role</span><span class='comma'>,</span> <span class='id identifier rubyid_uuid'>uuid</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='kw'>self</span><span class='lbracket'>[</span><span class='id identifier rubyid_role'>role</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>Item</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:uuid</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_uuid'>uuid</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
