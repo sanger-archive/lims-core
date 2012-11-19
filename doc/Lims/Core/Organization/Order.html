@@ -499,7 +499,7 @@ to be completed or failed.</p>
   </div>
 </div>
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
+  <h3>Parameters:</h3>
 <ul class="param">
   
     <li>
@@ -538,7 +538,7 @@ to be completed or failed.</p>
   
 </ul>
 
-<p class="tag_title">Returns:</p>
+<h3>Returns:</h3>
 <ul class="return">
   
     <li>
@@ -565,13 +565,8 @@ to be completed or failed.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/organization/order.rb', line 153</span>
 
-<<<<<<< HEAD
-<span class='kw'>def</span> <span class='id identifier rubyid_add_target'>add_target</span><span class='lparen'>(</span><span class='id identifier rubyid_role'>role</span><span class='comma'>,</span> <span class='id identifier rubyid_uuid'>uuid</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-  <span class='kw'>self</span><span class='lbracket'>[</span><span class='id identifier rubyid_role'>role</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>Item</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:uuid</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_uuid'>uuid</span><span class='rparen'>)</span>
-=======
-<span class='kw'>def</span> <span class='id add_target'>add_target</span><span class='lparen'>(</span><span class='id role'>role</span><span class='rparen'>)</span>
-  <span class='kw'>self</span><span class='lbracket'>[</span><span class='id role'>role</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>Item</span><span class='period'>.</span><span class='id new'>new</span>
->>>>>>> 1107e13... Make yard-state_machine work. Update doc
+<span class='kw'>def</span> <span class='id add_target'>add_target</span><span class='lparen'>(</span><span class='id role'>role</span><span class='comma'>,</span> <span class='id uuid'>uuid</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='kw'>self</span><span class='lbracket'>[</span><span class='id role'>role</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>Item</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='symbol'>:uuid</span> <span class='op'>=&gt;</span> <span class='id uuid'>uuid</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
