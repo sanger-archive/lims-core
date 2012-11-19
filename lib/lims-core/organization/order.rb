@@ -146,7 +146,10 @@ module Lims::Core
       end
 
       # A target is an item produced by the order.
-      # It starts has pending and needs to be completed or failed.
+      # It starts as pending and needs to be completed or failed.
+      # @param [String] role of the target
+      # @param [String] uuid of the underlying object
+      # @return [Item]
       def add_target(role, uuid = nil)
         self[role] = Item.new(:uuid => uuid)
       end

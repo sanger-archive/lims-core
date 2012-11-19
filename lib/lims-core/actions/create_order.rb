@@ -9,6 +9,13 @@ module Lims::Core
 
       attribute :pipeline, String
       attribute :parameters, Hash, :default => {}
+      # @attribute [Hash<String, String>] sources
+      # @attribute [Hash<String, String>] targets
+      # @example
+      # { "role" => "{uuid of the underlying object}"}
+      # sources and targets represent the Order items.
+      # source items get a "done" status and
+      # target items get a "pending" status on creation. 
       attribute :sources, Resource::HashString, :default => {}
       attribute :targets, Resource::HashString, :default => {}
       attribute :study, Organization::Study, :required => true
@@ -22,7 +29,7 @@ module Lims::Core
                                         :cost_code => cost_code) 
 
         sources.each { |role, uuid| order.add_source(role, uuid) }
-        targets.each { |role, _| order.add_target(role) }
+        targets.each { |role, uuid| order.add_target(role, uuid) }
 
         session << order
         { :order => order, :uuid => session.uuid_for!(order) }

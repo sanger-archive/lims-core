@@ -26,10 +26,12 @@ module Lims::Core
 
           sources.each do |role, uuid| 
             order[role].should == Organization::Order::Item.new(:uuid => uuid).tap { |item| item.complete }
+            order[role].done?.should == true
           end 
 
-          targets.each do |role, _|
-            order[role].should == Organization::Order::Item.new
+          targets.each do |role, uuid|
+            order[role].should == Organization::Order::Item.new(:uuid => uuid)
+            order[role].pending?.should == true
           end
         end
       end
