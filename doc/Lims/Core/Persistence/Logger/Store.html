@@ -6,7 +6,7 @@
 <title>
   Class: Lims::Core::Persistence::Logger::Store
   
-    &mdash; Documentation by YARD 0.8.2.1
+    &mdash; Documentation by YARD 0.7.3
   
 </title>
 
@@ -15,11 +15,9 @@
   <link rel="stylesheet" href="../../../../css/common.css" type="text/css" media="screen" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
-  hasFrames = window.top.frames.main ? true : false;
-  relpath = '../../../../';
-  framesUrl = "../../../../frames.html#!" + escape(window.location.href);
+  relpath = '../../../..';
+  if (relpath != '') relpath += '/';
 </script>
-
 
   <script type="text/javascript" charset="utf-8" src="../../../../js/jquery.js"></script>
 
@@ -28,41 +26,36 @@
 
   </head>
   <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
     <div id="header">
       <div id="menu">
   
-    <a href="../../../../_index.html">Index (S)</a> &raquo;
+    <a href="../../../../_index.html">Index (S)</a> &raquo; 
     <span class='title'><span class='object_link'><a href="../../../../Lims.html" title="Lims (module)">Lims</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../../../Core.html" title="Lims::Core (module)">Core</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../../Persistence.html" title="Lims::Core::Persistence (module)">Persistence</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Logger.html" title="Lims::Core::Persistence::Logger (module)">Logger</a></span></span>
      &raquo; 
     <span class="title">Store</span>
   
-
+  
   <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
       <div id="search">
   
-    <a class="full_list_link" id="class_list_link"
-        href="../../../../class_list.html">
-      Class List
-    </a>
+    <a id="class_list_link" href="#">Class List</a>
   
-    <a class="full_list_link" id="method_list_link"
-        href="../../../../method_list.html">
-      Method List
-    </a>
+    <a id="method_list_link" href="#">Method List</a>
   
-    <a class="full_list_link" id="file_list_link"
-        href="../../../../file_list.html">
-      File List
-    </a>
+    <a id="file_list_link" href="#">File List</a>
   
 </div>
       <div class="clear"></div>
     </div>
-
+    
     <iframe id="search_frame"></iframe>
-
+    
     <div id="content"><h1>Class: Lims::Core::Persistence::Logger::Store
   
   
@@ -114,8 +107,10 @@
 
 </div>
 
-
-
+  
+  
+  
+  
   <h2>Instance Attribute Summary <small>(<a href="#" class="summary_toggle">collapse</a>)</small></h2>
   <ul class="summary">
     
@@ -129,10 +124,7 @@
   </span>
   
   
-  
-    
-      <span class="note title readonly">readonly</span>
-    
+    <span class="note title readonly">readonly</span>
     
   
   
@@ -158,10 +150,7 @@
   </span>
   
   
-  
-    
-      <span class="note title readonly">readonly</span>
-    
+    <span class="note title readonly">readonly</span>
     
   
   
@@ -181,6 +170,9 @@
 
 
 
+  
+  
+  
 
   
     <h2>
@@ -198,7 +190,6 @@
 
     
   </span>
-  
   
     <span class="note title constructor">constructor</span>
   
@@ -230,7 +221,6 @@
   
   
   
-  
 
   
     <span class="summary_desc"><div class='inline'></div></span>
@@ -249,22 +239,19 @@
   
   
   
-  
   <h3 class="inherited">Methods inherited from <span class='object_link'><a href="../Store.html" title="Lims::Core::Persistence::Store (class)">Store</a></span></h3>
   <p class="inherited"><span class='object_link'><a href="../Store.html#base_module-instance_method" title="Lims::Core::Persistence::Store#base_module (method)">#base_module</a></span>, <span class='object_link'><a href="../Store.html#base_module-class_method" title="Lims::Core::Persistence::Store.base_module (method)">base_module</a></span>, <span class='object_link'><a href="../Store.html#const_missing-class_method" title="Lims::Core::Persistence::Store.const_missing (method)">const_missing</a></span>, <span class='object_link'><a href="../Store.html#create_session-instance_method" title="Lims::Core::Persistence::Store#create_session (method)">#create_session</a></span>, <span class='object_link'><a href="../Store.html#transaction-instance_method" title="Lims::Core::Persistence::Store#transaction (method)">#transaction</a></span>, <span class='object_link'><a href="../Store.html#with_session-instance_method" title="Lims::Core::Persistence::Store#with_session (method)">#with_session</a></span></p>
 <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
   
     <div class="method_details first">
-  <h3 class="signature first" id="initialize-instance_method">
+  <p class="signature first" id="initialize-instance_method">
   
     - (<tt><span class='object_link'><a href="" title="Lims::Core::Persistence::Logger::Store (class)">Store</a></span></tt>) <strong>initialize</strong>(logger, method = :info, *args) 
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>Create a store with an underlying logger. send information to the logger.</p>
@@ -273,7 +260,7 @@
   </div>
 </div>
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
+  <h3>Parameters:</h3>
 <ul class="param">
   
     <li>
@@ -326,13 +313,13 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/logger/store.rb', line 20</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_logger'>logger</span><span class='comma'>,</span> <span class='id identifier rubyid_method'>method</span><span class='op'>=</span><span class='symbol'>:info</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
-  <span class='ivar'>@logger</span> <span class='op'>=</span> <span class='kw'>case</span> <span class='id identifier rubyid_logger'>logger</span>
-            <span class='kw'>when</span> <span class='op'>::</span><span class='const'>Logger</span> <span class='kw'>then</span>  <span class='id identifier rubyid_logger'>logger</span>
-            <span class='kw'>else</span> <span class='op'>::</span><span class='const'>Logger</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_logger'>logger</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id initialize'>initialize</span><span class='lparen'>(</span><span class='id logger'>logger</span><span class='comma'>,</span> <span class='id method'>method</span><span class='op'>=</span><span class='symbol'>:info</span><span class='comma'>,</span> <span class='op'>*</span><span class='id args'>args</span><span class='rparen'>)</span>
+  <span class='ivar'>@logger</span> <span class='op'>=</span> <span class='kw'>case</span> <span class='id logger'>logger</span>
+            <span class='kw'>when</span> <span class='op'>::</span><span class='const'>Logger</span> <span class='kw'>then</span>  <span class='id logger'>logger</span>
+            <span class='kw'>else</span> <span class='op'>::</span><span class='const'>Logger</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='id logger'>logger</span><span class='rparen'>)</span>
             <span class='kw'>end</span>
-  <span class='ivar'>@method</span> <span class='op'>=</span> <span class='id identifier rubyid_method'>method</span>
-  <span class='kw'>super</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
+  <span class='ivar'>@method</span> <span class='op'>=</span> <span class='id method'>method</span>
+  <span class='kw'>super</span><span class='lparen'>(</span><span class='op'>*</span><span class='id args'>args</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -346,16 +333,15 @@
     
       
       <span id=""></span>
+      <span id="logger-instance_method"></span>
       <div class="method_details first">
-  <h3 class="signature first" id="logger-instance_method">
+  <p class="signature first" id="logger-instance_method">
   
     - (<tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>logger</strong>  <span class="extras">(readonly)</span>
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>Returns the value of attribute logger</p>
@@ -379,7 +365,7 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/logger/store.rb', line 13</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_logger'>logger</span>
+<span class='kw'>def</span> <span class='id logger'>logger</span>
   <span class='ivar'>@logger</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -389,16 +375,15 @@
     
       
       <span id=""></span>
+      <span id="method-instance_method"></span>
       <div class="method_details ">
-  <h3 class="signature " id="method-instance_method">
+  <p class="signature " id="method-instance_method">
   
     - (<tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>method</strong>  <span class="extras">(readonly)</span>
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
 <p>Returns the value of attribute method</p>
@@ -422,7 +407,7 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/logger/store.rb', line 14</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_method'>method</span>
+<span class='kw'>def</span> <span class='id method'>method</span>
   <span class='ivar'>@method</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -435,18 +420,16 @@
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
-
+    
     
       <div class="method_details first">
-  <h3 class="signature first" id="log-instance_method">
+  <p class="signature first" id="log-instance_method">
   
     - (<tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>log</strong>(msg) 
   
 
   
-
-  
-</h3><table class="source_code">
+</p><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
@@ -459,8 +442,8 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/logger/store.rb', line 29</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_log'>log</span><span class='lparen'>(</span><span class='id identifier rubyid_msg'>msg</span><span class='rparen'>)</span>
-  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='ivar'>@method</span><span class='comma'>,</span> <span class='id identifier rubyid_msg'>msg</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id log'>log</span><span class='lparen'>(</span><span class='id msg'>msg</span><span class='rparen'>)</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id send'>send</span><span class='lparen'>(</span><span class='ivar'>@method</span><span class='comma'>,</span> <span class='id msg'>msg</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -470,7 +453,7 @@
   </div>
 
 </div>
-
+    
     
   </body>
 </html>

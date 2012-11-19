@@ -71,6 +71,7 @@ GEM
     rack (1.4.1)
     rack-protection (1.2.0)
       rack
+    rake (10.0.1)
     rb-fsevent (0.9.1)
     redcarpet (2.1.1)
     rspec (2.8.0)
@@ -81,6 +82,7 @@ GEM
     rspec-expectations (2.8.0)
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.8.0)
+    ruby-graphviz (1.0.8)
     sequel (3.40.0)
     showoff (0.7.0)
       bluecloth
@@ -105,9 +107,12 @@ GEM
     uuid (2.3.5)
       macaddr (~> 1.0)
     virtus (0.2.0)
-    yard (0.8.2.1)
+    yard (0.7.3)
     yard-rspec (0.1)
       yard
+    yard-state_machine (0.0.1)
+      ruby-graphviz (~> 1.0.0)
+      yard (~> 0.7.3)
 
 PLATFORMS
   ruby
@@ -124,11 +129,14 @@ DEPENDENCIES
   guard-rspec
   guard-yard
   lims-core!
+  rake
   rb-fsevent (~> 0.9.1)
   redcarpet
   rspec (~> 2.8.0)
+  ruby-graphviz
   showoff
   sqlite3
   terminal-notifier-guard
-  yard (>= 0.7.0)
+  yard (= 0.7.3)
   yard-rspec (= 0.1)
+  yard-state_machine

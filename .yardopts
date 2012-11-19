@@ -1,1 +1,1 @@
---private -p .yard_templates lib
+--private -p .yard_templates lib spec/**/*_spec.rb

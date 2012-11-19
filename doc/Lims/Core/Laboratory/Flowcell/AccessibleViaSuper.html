@@ -6,7 +6,7 @@
 <title>
   Module: Lims::Core::Laboratory::Flowcell::AccessibleViaSuper
   
-    &mdash; Documentation by YARD 0.8.2.1
+    &mdash; Documentation by YARD 0.7.3
   
 </title>
 
@@ -15,11 +15,9 @@
   <link rel="stylesheet" href="../../../../css/common.css" type="text/css" media="screen" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
-  hasFrames = window.top.frames.main ? true : false;
-  relpath = '../../../../';
-  framesUrl = "../../../../frames.html#!" + escape(window.location.href);
+  relpath = '../../../..';
+  if (relpath != '') relpath += '/';
 </script>
-
 
   <script type="text/javascript" charset="utf-8" src="../../../../js/jquery.js"></script>
 
@@ -28,41 +26,36 @@
 
   </head>
   <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
     <div id="header">
       <div id="menu">
   
-    <a href="../../../../_index.html">Index (A)</a> &raquo;
+    <a href="../../../../_index.html">Index (A)</a> &raquo; 
     <span class='title'><span class='object_link'><a href="../../../../Lims.html" title="Lims (module)">Lims</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../../../Core.html" title="Lims::Core (module)">Core</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../../Laboratory.html" title="Lims::Core::Laboratory (module)">Laboratory</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Flowcell.html" title="Lims::Core::Laboratory::Flowcell (class)">Flowcell</a></span></span>
      &raquo; 
     <span class="title">AccessibleViaSuper</span>
   
-
+  
   <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
       <div id="search">
   
-    <a class="full_list_link" id="class_list_link"
-        href="../../../../class_list.html">
-      Class List
-    </a>
+    <a id="class_list_link" href="#">Class List</a>
   
-    <a class="full_list_link" id="method_list_link"
-        href="../../../../method_list.html">
-      Method List
-    </a>
+    <a id="method_list_link" href="#">Method List</a>
   
-    <a class="full_list_link" id="file_list_link"
-        href="../../../../file_list.html">
-      File List
-    </a>
+    <a id="file_list_link" href="#">File List</a>
   
 </div>
       <div class="clear"></div>
     </div>
-
+    
     <iframe id="search_frame"></iframe>
-
+    
     <div id="content"><h1>Module: Lims::Core::Laboratory::Flowcell::AccessibleViaSuper
   
   
@@ -93,8 +86,6 @@
 
 
 
-
-
   
     <h2>
       Instance Method Summary
@@ -117,7 +108,6 @@
   
   
   
-  
 
   
     <span class="summary_desc"><div class='inline'>
@@ -134,22 +124,20 @@
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
-
+    
     
       <div class="method_details first">
-  <h3 class="signature first" id="initialize-instance_method">
+  <p class="signature first" id="initialize-instance_method">
   
     - (<tt><span class='object_link'><a href="" title="Lims::Core::Laboratory::Flowcell::AccessibleViaSuper (module)">AccessibleViaSuper</a></span></tt>) <strong>initialize</strong>(*args, &amp;block) 
   
 
   
-
-  
-</h3><div class="docstring">
+</p><div class="docstring">
   <div class="discussion">
     
   <div class="note todo">
-    <strong>TODO:</strong>
+    <strong>TODO:</strong> 
     <div class='inline'>
 <p>move in class method in resource</p>
 </div>
@@ -184,15 +172,15 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/laboratory/flowcell.rb', line 27</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id initialize'>initialize</span><span class='lparen'>(</span><span class='op'>*</span><span class='id args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id block'>block</span><span class='rparen'>)</span>
   <span class='comment'># readonly attributes are normaly not allowed in constructor
 </span>  <span class='comment'># by Virtus. We need to call set_attributes explicitely
-</span>  <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_extract_options!'>extract_options!</span>
+</span>  <span class='id options'>options</span> <span class='op'>=</span> <span class='id args'>args</span><span class='period'>.</span><span class='id extract_options!'>extract_options!</span>
   <span class='comment'># we would use `options &amp; [:lane_number ]` if we could
 </span>  <span class='comment'># but Sequel redefine Hash#&amp; ...
-</span>  <span class='id identifier rubyid_number_of_lanes'>number_of_lanes</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_subset'>subset</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='symbol'>:number_of_lanes</span><span class='rbracket'>]</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_set_attributes'>set_attributes</span><span class='lparen'>(</span><span class='id identifier rubyid_number_of_lanes'>number_of_lanes</span><span class='rparen'>)</span>
-  <span class='kw'>super</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>-</span> <span class='id identifier rubyid_number_of_lanes'>number_of_lanes</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+</span>  <span class='id number_of_lanes'>number_of_lanes</span> <span class='op'>=</span> <span class='id options'>options</span><span class='period'>.</span><span class='id subset'>subset</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='symbol'>:number_of_lanes</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='id set_attributes'>set_attributes</span><span class='lparen'>(</span><span class='id number_of_lanes'>number_of_lanes</span><span class='rparen'>)</span>
+  <span class='kw'>super</span><span class='lparen'>(</span><span class='op'>*</span><span class='id args'>args</span><span class='comma'>,</span> <span class='id options'>options</span> <span class='op'>-</span> <span class='id number_of_lanes'>number_of_lanes</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id block'>block</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -202,7 +190,7 @@
   </div>
 
 </div>
-
+    
     
   </body>
 </html>

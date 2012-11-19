@@ -6,7 +6,7 @@
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.8.2.1
+    &mdash; Documentation by YARD 0.7.3
   
 </title>
 
@@ -15,11 +15,9 @@
   <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
-  hasFrames = window.top.frames.main ? true : false;
   relpath = '';
-  framesUrl = "frames.html#!" + escape(window.location.href);
+  if (relpath != '') relpath += '/';
 </script>
-
 
   <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
 
@@ -28,62 +26,58 @@
 
   </head>
   <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
     <div id="header">
       <div id="menu">
   
-    <a href="_index.html">Index</a> &raquo; 
+    <a href="_index.html" title="Index">Index</a> &raquo; 
     <span class="title">File: README</span>
   
-
+  
   <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
       <div id="search">
   
-    <a class="full_list_link" id="class_list_link"
-        href="class_list.html">
-      Class List
-    </a>
+    <a id="class_list_link" href="#">Class List</a>
   
-    <a class="full_list_link" id="method_list_link"
-        href="method_list.html">
-      Method List
-    </a>
+    <a id="method_list_link" href="#">Method List</a>
   
-    <a class="full_list_link" id="file_list_link"
-        href="file_list.html">
-      File List
-    </a>
+    <a id="file_list_link" href="#">File List</a>
   
 </div>
       <div class="clear"></div>
     </div>
-
+    
     <iframe id="search_frame"></iframe>
-
+    
     <div id="content"><div id='filecontents'><!-- vim: spell:spelllang=en tw=80
 Yard markup
 # @markup markdown
 # @title README
 -->
 
+
 <h1>Overview </h1>
 
 <p>This gem implements the core functionalities of the LIMS (Laboratory Information Management System).
-It&#39;s not meant to be a stand alone application but the core library of the LIMS
+It's not meant to be a stand alone application but the core library of the LIMS
 server.</p>
 
 <p>For more information consult the documentation.</p>
 
 <h1>Installation</h1>
 
-<pre class="code ruby"><code><span class='id identifier rubyid_gem'>gem</span> <span class='id identifier rubyid_install'>install</span> <span class='id identifier rubyid_lims'>lims</span><span class='op'>-</span><span class='id identifier rubyid_core'>core</span>
-</code></pre>
+<pre class="code"><span class='id gem'>gem</span> <span class='id install'>install</span> <span class='id lims'>lims</span><span class='op'>-</span><span class='id core'>core</span>
+</pre>
 
 <p>Or, if you are using <a href="http://gembundler.com/">bundler</a> , add the following line</p>
 
-<pre class="code ruby"><code> <span class='id identifier rubyid_gem'>gem</span> <span class='symbol'>:lims</span><span class='op'>-</span><span class='id identifier rubyid_core'>core</span><span class='comma'>,</span> <span class='symbol'>:git</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>git+ssh://git@github.com/sanger/lims-core.git'
-</span></span></code></pre>
+<pre class="code"> <span class='id gem'>gem</span> <span class='symbol'>:lims</span><span class='op'>-</span><span class='id core'>core</span><span class='comma'>,</span> <span class='symbol'>:git</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>git+ssh://git@github.com/sanger/lims-core.git'
+</span></span></pre>
 
 <p>in your <code>Gemfile</code>.</p>
 
@@ -102,7 +96,7 @@ classes as facet do. The common requirements are grouped in the <code>lib/common
 file.</p>
 
 <p>For the user convenience, requiring a directory should requires everything
-underneath. However, requiring <code>lims-core</code> will require <code>Persistence</code>, but not 
+underneath. However, requiring <code>lims-core</code> will require <code>Persistence</code>, but not
 the subdirectories of it (specific to each different stores like <code>Sequel</code>, or
 <code>Logger</code>). This to not force to install all the dependencies specific to each
 store.</p>
@@ -114,21 +108,20 @@ It allows to write documentation within the doc and add <em>typing</em> hints/
 expectations.
 The recommended format for stand alone documentation files is
 <a href="http://daringfireball.net/projects/markdown/">markdown</a>, however
-it&#39;s easier to keep the native markup language used by <strong>yard</strong>, i.e. the
+it's easier to keep the native markup language used by <strong>yard</strong>, i.e. the
 <a href="http://rdoc.sourceforge.net/">rdoc</a> one.
-This allows the code to be parsed via <strong>rdoc</strong> and doesn&#39;t need the extra spaces at
+This allows the code to be parsed via <strong>rdoc</strong> and doesn't need the extra spaces at
 the end of a line needed by <strong>markdown</strong>.</p>
 
-<p>However, when the usage of pure <strong>markdown</strong> seems appropriate, it&#39;s still
+<p>However, when the usage of pure <strong>markdown</strong> seems appropriate, it's still
 possible to the use <code>@markup</code> switch.</p>
 
 <p>Some documentation can also be added in the specs.</p>
 
 <h2>Tests</h2>
 
-<p>We are using <a href="http://rspec.info/">rspec</a>.</p>
-</div></div>
-
+<p>We are using <a href="http://rspec.info/">rspec</a>.</p></div></div>
+    
     
   </body>
 </html>

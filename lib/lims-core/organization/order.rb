@@ -103,7 +103,7 @@ module Lims::Core
         end
 
         event :fail do
-          transition :in_progress=> :failed
+          transition [:draft, :pending, :in_progress] => :failed
         end
       end
 
@@ -118,7 +118,7 @@ module Lims::Core
         key_is_for_items?(key) ? items[key.to_s]=value : super(key, value)
       end
 
-      def_delegators :items, :each, :size , :keys, :values, :map, :mashr , :include?, :to_a 
+      def_delegators :items, :each, :size , :keys, :values, :map, :mashr , :include?, :to_a , :fetch
 
       # Check if the argument is a key for items
       # or attributes

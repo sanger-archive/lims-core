@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>
-  Documentation by YARD 0.8.2.1
+  Documentation by YARD 0.7.3
   
 </title>
 
@@ -13,11 +13,9 @@
   <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
-  hasFrames = window.top.frames.main ? true : false;
   relpath = '';
-  framesUrl = "frames.html#!" + escape(window.location.href);
+  if (relpath != '') relpath += '/';
 </script>
-
 
   <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
 
@@ -26,42 +24,40 @@
 
   </head>
   <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
     <div id="header">
       <div id="menu">
   
-
+    
+    <span class="title"></span>
+  
+  
   <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
       <div id="search">
   
-    <a class="full_list_link" id="class_list_link"
-        href="class_list.html">
-      Class List
-    </a>
+    <a id="class_list_link" href="#">Class List</a>
   
-    <a class="full_list_link" id="method_list_link"
-        href="method_list.html">
-      Method List
-    </a>
+    <a id="method_list_link" href="#">Method List</a>
   
-    <a class="full_list_link" id="file_list_link"
-        href="file_list.html">
-      File List
-    </a>
+    <a id="file_list_link" href="#">File List</a>
   
 </div>
       <div class="clear"></div>
     </div>
-
+    
     <iframe id="search_frame"></iframe>
-
-    <div id="content"><h1 class="noborder title">Documentation by YARD 0.8.2.1</h1>
+    
+    <div id="content"><h1 class="noborder title">Documentation by YARD 0.7.3</h1>
 <div id="listing">
   <h1 class="alphaindex">Alphabetic Index</h1>
   
   <h2>File Listing</h2>
-  <ul id="files" class="index_inline_list">
+  <ul id="files">
   
   
     <li class="r1"><a href="index.html" title="README">README</a></li>
@@ -72,6 +68,8 @@
 <div class="clear"></div>
 <h2>Namespace Listing A-Z</h2>
 
+
+  <ul class="toplevel"><li><span class='object_link'><a href="top-level-namespace.html" title=" (root)">Top Level Namespace</a></span></li></ul>
 
 
 
@@ -85,79 +83,93 @@
           <ul>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Laboratory/Plate/AccessibleViaSuper.html" title="Lims::Core::Laboratory::Plate::AccessibleViaSuper (module)">AccessibleViaSuper</a></span>
+                <span class='object_link'><a href="Lims/Core/Laboratory/Plate/AccessibleViaSuper.html" title="Lims::Core::Laboratory::Plate::AccessibleViaSuper (module)">AccessibleViaSuper</a></span> 
                 
                   <small>(Lims::Core::Laboratory::Plate)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Laboratory/Flowcell/AccessibleViaSuper.html" title="Lims::Core::Laboratory::Flowcell::AccessibleViaSuper (module)">AccessibleViaSuper</a></span>
+                <span class='object_link'><a href="Lims/Core/Laboratory/Flowcell/AccessibleViaSuper.html" title="Lims::Core::Laboratory::Flowcell::AccessibleViaSuper (module)">AccessibleViaSuper</a></span> 
                 
                   <small>(Lims::Core::Laboratory::Flowcell)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Resource/AccessibleViaSuper.html" title="Lims::Core::Resource::AccessibleViaSuper (module)">AccessibleViaSuper</a></span>
+                <span class='object_link'><a href="Lims/Core/Resource/AccessibleViaSuper.html" title="Lims::Core::Resource::AccessibleViaSuper (module)">AccessibleViaSuper</a></span> 
                 
                   <small>(Lims::Core::Resource)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Actions/Action.html" title="Lims::Core::Actions::Action (module)">Action</a></span>
-                
-                  <small>(Lims::Core::Actions)</small>
-                
-              </li>
-            
-              <li>
-                <span class='object_link'><a href="Lims/Core/Actions.html" title="Lims::Core::Actions (module)">Actions</a></span>
+                <span class='object_link'><a href="Lims/Core/Action.html" title="Lims::Core::Action (module)">Action</a></span> 
                 
                   <small>(Lims::Core)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Actions/Action/AfterEval.html" title="Lims::Core::Actions::Action::AfterEval (module)">AfterEval</a></span>
+                <span class='object_link'><a href="Lims/Core/Actions/Action.html" title="Lims::Core::Actions::Action (module)">Action</a></span> 
+                
+                  <small>(Lims::Core::Actions)</small>
+                
+              </li>
+            
+              <li>
+                <span class='object_link'><a href="Lims/Core/Actions.html" title="Lims::Core::Actions (module)">Actions</a></span> 
+                
+                  <small>(Lims::Core)</small>
+                
+              </li>
+            
+              <li>
+                <span class='object_link'><a href="Lims/Core/Actions/Action/AfterEval.html" title="Lims::Core::Actions::Action::AfterEval (module)">AfterEval</a></span> 
                 
                   <small>(Lims::Core::Actions::Action)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Sequel/Aliquot.html" title="Lims::Core::Persistence::Sequel::Aliquot (class)">Aliquot</a></span>
-                
-                  <small>(Lims::Core::Persistence::Sequel)</small>
-                
-              </li>
-            
-              <li>
-                <span class='object_link'><a href="Lims/Core/Laboratory/Aliquot.html" title="Lims::Core::Laboratory::Aliquot (class)">Aliquot</a></span>
+                <span class='object_link'><a href="Lims/Core/Laboratory/Aliquot.html" title="Lims::Core::Laboratory::Aliquot (class)">Aliquot</a></span> 
                 
                   <small>(Lims::Core::Laboratory)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Aliquot.html" title="Lims::Core::Persistence::Aliquot (class)">Aliquot</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/Sequel/Aliquot.html" title="Lims::Core::Persistence::Sequel::Aliquot (class)">Aliquot</a></span> 
+                
+                  <small>(Lims::Core::Persistence::Sequel)</small>
+                
+              </li>
+            
+              <li>
+                <span class='object_link'><a href="Lims/Core/Persistence/Aliquot.html" title="Lims::Core::Persistence::Aliquot (class)">Aliquot</a></span> 
                 
                   <small>(Lims::Core::Persistence)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/TagGroup/Association.html" title="Lims::Core::Persistence::TagGroup::Association (class)">Association</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/Logger/Array.html" title="Lims::Core::Persistence::Logger::Array (class)">Array</a></span> 
                 
-                  <small>(Lims::Core::Persistence::TagGroup)</small>
+                  <small>(Lims::Core::Persistence::Logger)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Sequel/TagGroup/Association.html" title="Lims::Core::Persistence::Sequel::TagGroup::Association (class)">Association</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/Sequel/TagGroup/Association.html" title="Lims::Core::Persistence::Sequel::TagGroup::Association (class)">Association</a></span> 
                 
                   <small>(Lims::Core::Persistence::Sequel::TagGroup)</small>
+                
+              </li>
+            
+              <li>
+                <span class='object_link'><a href="Lims/Core/Persistence/TagGroup/Association.html" title="Lims::Core::Persistence::TagGroup::Association (class)">Association</a></span> 
+                
+                  <small>(Lims::Core::Persistence::TagGroup)</small>
                 
               </li>
             
@@ -170,63 +182,63 @@
           <ul>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Resource/ClassMethod.html" title="Lims::Core::Resource::ClassMethod (module)">ClassMethod</a></span>
+                <span class='object_link'><a href="Lims/Core/Resource/ClassMethod.html" title="Lims::Core::Resource::ClassMethod (module)">ClassMethod</a></span> 
                 
                   <small>(Lims::Core::Resource)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Laboratory/Container/ClassMethods.html" title="Lims::Core::Laboratory::Container::ClassMethods (module)">ClassMethods</a></span>
+                <span class='object_link'><a href="Lims/Core/Laboratory/Container/ClassMethods.html" title="Lims::Core::Laboratory::Container::ClassMethods (module)">ClassMethods</a></span> 
                 
                   <small>(Lims::Core::Laboratory::Container)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Laboratory/Container.html" title="Lims::Core::Laboratory::Container (module)">Container</a></span>
+                <span class='object_link'><a href="Lims/Core/Laboratory/Container.html" title="Lims::Core::Laboratory::Container (module)">Container</a></span> 
                 
                   <small>(Lims::Core::Laboratory)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core.html" title="Lims::Core (module)">Core</a></span>
+                <span class='object_link'><a href="Lims/Core.html" title="Lims::Core (module)">Core</a></span> 
                 
                   <small>(Lims)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Actions/CreateFlowcell.html" title="Lims::Core::Actions::CreateFlowcell (class)">CreateFlowcell</a></span>
+                <span class='object_link'><a href="Lims/Core/Actions/CreateFlowcell.html" title="Lims::Core::Actions::CreateFlowcell (class)">CreateFlowcell</a></span> 
                 
                   <small>(Lims::Core::Actions)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Actions/CreateOrder.html" title="Lims::Core::Actions::CreateOrder (class)">CreateOrder</a></span>
+                <span class='object_link'><a href="Lims/Core/Actions/CreateOrder.html" title="Lims::Core::Actions::CreateOrder (class)">CreateOrder</a></span> 
                 
                   <small>(Lims::Core::Actions)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Actions/CreatePlate.html" title="Lims::Core::Actions::CreatePlate (class)">CreatePlate</a></span>
+                <span class='object_link'><a href="Lims/Core/Actions/CreatePlate.html" title="Lims::Core::Actions::CreatePlate (class)">CreatePlate</a></span> 
                 
                   <small>(Lims::Core::Actions)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Actions/CreateSearch.html" title="Lims::Core::Actions::CreateSearch (class)">CreateSearch</a></span>
+                <span class='object_link'><a href="Lims/Core/Actions/CreateSearch.html" title="Lims::Core::Actions::CreateSearch (class)">CreateSearch</a></span> 
                 
                   <small>(Lims::Core::Actions)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Actions/CreateTube.html" title="Lims::Core::Actions::CreateTube (class)">CreateTube</a></span>
+                <span class='object_link'><a href="Lims/Core/Actions/CreateTube.html" title="Lims::Core::Actions::CreateTube (class)">CreateTube</a></span> 
                 
                   <small>(Lims::Core::Actions)</small>
                 
@@ -241,21 +253,21 @@
           <ul>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/IdentityMap/DuplicateError.html" title="Lims::Core::Persistence::IdentityMap::DuplicateError (class)">DuplicateError</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/IdentityMap/DuplicateError.html" title="Lims::Core::Persistence::IdentityMap::DuplicateError (class)">DuplicateError</a></span> 
                 
                   <small>(Lims::Core::Persistence::IdentityMap)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/IdentityMap/DuplicateIdError.html" title="Lims::Core::Persistence::IdentityMap::DuplicateIdError (class)">DuplicateIdError</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/IdentityMap/DuplicateIdError.html" title="Lims::Core::Persistence::IdentityMap::DuplicateIdError (class)">DuplicateIdError</a></span> 
                 
                   <small>(Lims::Core::Persistence::IdentityMap)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/IdentityMap/DuplicateObjectError.html" title="Lims::Core::Persistence::IdentityMap::DuplicateObjectError (class)">DuplicateObjectError</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/IdentityMap/DuplicateObjectError.html" title="Lims::Core::Persistence::IdentityMap::DuplicateObjectError (class)">DuplicateObjectError</a></span> 
                 
                   <small>(Lims::Core::Persistence::IdentityMap)</small>
                 
@@ -270,37 +282,37 @@
           <ul>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Filter.html" title="Lims::Core::Persistence::Filter (class)">Filter</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/Filter.html" title="Lims::Core::Persistence::Filter (class)">Filter</a></span> 
                 
                   <small>(Lims::Core::Persistence)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Sequel/Filters.html" title="Lims::Core::Persistence::Sequel::Filters (module)">Filters</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/Sequel/Filters.html" title="Lims::Core::Persistence::Sequel::Filters (module)">Filters</a></span> 
                 
                   <small>(Lims::Core::Persistence::Sequel)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Flowcell.html" title="Lims::Core::Persistence::Flowcell (class)">Flowcell</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/Sequel/Flowcell.html" title="Lims::Core::Persistence::Sequel::Flowcell (class)">Flowcell</a></span> 
                 
-                  <small>(Lims::Core::Persistence)</small>
+                  <small>(Lims::Core::Persistence::Sequel)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Laboratory/Flowcell.html" title="Lims::Core::Laboratory::Flowcell (class)">Flowcell</a></span>
+                <span class='object_link'><a href="Lims/Core/Laboratory/Flowcell.html" title="Lims::Core::Laboratory::Flowcell (class)">Flowcell</a></span> 
                 
                   <small>(Lims::Core::Laboratory)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Sequel/Flowcell.html" title="Lims::Core::Persistence::Sequel::Flowcell (class)">Flowcell</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/Flowcell.html" title="Lims::Core::Persistence::Flowcell (class)">Flowcell</a></span> 
                 
-                  <small>(Lims::Core::Persistence::Sequel)</small>
+                  <small>(Lims::Core::Persistence)</small>
                 
               </li>
             
@@ -313,7 +325,7 @@
           <ul>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Resource/HashString.html" title="Lims::Core::Resource::HashString (class)">HashString</a></span>
+                <span class='object_link'><a href="Lims/Core/Resource/HashString.html" title="Lims::Core::Resource::HashString (class)">HashString</a></span> 
                 
                   <small>(Lims::Core::Resource)</small>
                 
@@ -328,35 +340,42 @@
           <ul>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/IdentityMap.html" title="Lims::Core::Persistence::IdentityMap (module)">IdentityMap</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/IdentityMap.html" title="Lims::Core::Persistence::IdentityMap (module)">IdentityMap</a></span> 
                 
                   <small>(Lims::Core::Persistence)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Resource/IsArrayOf.html" title="Lims::Core::Resource::IsArrayOf (module)">IsArrayOf</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/IdentityMapClass.html" title="Lims::Core::Persistence::IdentityMapClass (class)">IdentityMapClass</a></span> 
+                
+                  <small>(Lims::Core::Persistence)</small>
+                
+              </li>
+            
+              <li>
+                <span class='object_link'><a href="Lims/Core/Resource/IsArrayOf.html" title="Lims::Core::Resource::IsArrayOf (module)">IsArrayOf</a></span> 
                 
                   <small>(Lims::Core::Resource)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Order/Item.html" title="Lims::Core::Persistence::Order::Item (class)">Item</a></span>
-                
-                  <small>(Lims::Core::Persistence::Order)</small>
-                
-              </li>
-            
-              <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Sequel/Order/Item.html" title="Lims::Core::Persistence::Sequel::Order::Item (class)">Item</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/Sequel/Order/Item.html" title="Lims::Core::Persistence::Sequel::Order::Item (class)">Item</a></span> 
                 
                   <small>(Lims::Core::Persistence::Sequel::Order)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Organization/Order/Item.html" title="Lims::Core::Organization::Order::Item (class)">Item</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/Order/Item.html" title="Lims::Core::Persistence::Order::Item (class)">Item</a></span> 
+                
+                  <small>(Lims::Core::Persistence::Order)</small>
+                
+              </li>
+            
+              <li>
+                <span class='object_link'><a href="Lims/Core/Organization/Order/Item.html" title="Lims::Core::Organization::Order::Item (class)">Item</a></span> 
                 
                   <small>(Lims::Core::Organization::Order)</small>
                 
@@ -371,47 +390,47 @@
           <ul>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Laboratory/Labellable.html" title="Lims::Core::Laboratory::Labellable (module)">Labellable</a></span>
+                <span class='object_link'><a href="Lims/Core/Laboratory/Labellable.html" title="Lims::Core::Laboratory::Labellable (module)">Labellable</a></span> 
                 
                   <small>(Lims::Core::Laboratory)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Laboratory.html" title="Lims::Core::Laboratory (module)">Laboratory</a></span>
+                <span class='object_link'><a href="Lims/Core/Laboratory.html" title="Lims::Core::Laboratory (module)">Laboratory</a></span> 
                 
                   <small>(Lims::Core)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Flowcell/Lane.html" title="Lims::Core::Persistence::Flowcell::Lane (class)">Lane</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/Flowcell/Lane.html" title="Lims::Core::Persistence::Flowcell::Lane (class)">Lane</a></span> 
                 
                   <small>(Lims::Core::Persistence::Flowcell)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Sequel/Flowcell/Lane.html" title="Lims::Core::Persistence::Sequel::Flowcell::Lane (class)">Lane</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/Sequel/Flowcell/Lane.html" title="Lims::Core::Persistence::Sequel::Flowcell::Lane (class)">Lane</a></span> 
                 
                   <small>(Lims::Core::Persistence::Sequel::Flowcell)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Laboratory/Flowcell/Lane.html" title="Lims::Core::Laboratory::Flowcell::Lane (class)">Lane</a></span>
+                <span class='object_link'><a href="Lims/Core/Laboratory/Flowcell/Lane.html" title="Lims::Core::Laboratory::Flowcell::Lane (class)">Lane</a></span> 
                 
                   <small>(Lims::Core::Laboratory::Flowcell)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims.html" title="Lims (module)">Lims</a></span>
+                <span class='object_link'><a href="Lims.html" title="Lims (module)">Lims</a></span> 
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Logger.html" title="Lims::Core::Persistence::Logger (module)">Logger</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/Logger.html" title="Lims::Core::Persistence::Logger (module)">Logger</a></span> 
                 
                   <small>(Lims::Core::Persistence)</small>
                 
@@ -429,14 +448,14 @@
           <ul>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Sequel/Migrations.html" title="Lims::Core::Persistence::Sequel::Migrations (module)">Migrations</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/Sequel/Migrations.html" title="Lims::Core::Persistence::Sequel::Migrations (module)">Migrations</a></span> 
                 
                   <small>(Lims::Core::Persistence::Sequel)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/MultiCriteriaFilter.html" title="Lims::Core::Persistence::MultiCriteriaFilter (class)">MultiCriteriaFilter</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/MultiCriteriaFilter.html" title="Lims::Core::Persistence::MultiCriteriaFilter (class)">MultiCriteriaFilter</a></span> 
                 
                   <small>(Lims::Core::Persistence)</small>
                 
@@ -451,47 +470,47 @@
           <ul>
             
               <li>
-                <span class='object_link'><a href="Object.html" title="Object (class)">Object</a></span>
+                <span class='object_link'><a href="Object.html" title="Object (class)">Object</a></span> 
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Laboratory/Oligo.html" title="Lims::Core::Laboratory::Oligo (class)">Oligo</a></span>
+                <span class='object_link'><a href="Lims/Core/Laboratory/Oligo.html" title="Lims::Core::Laboratory::Oligo (class)">Oligo</a></span> 
                 
                   <small>(Lims::Core::Laboratory)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Oligo.html" title="Lims::Core::Persistence::Oligo (class)">Oligo</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/Oligo.html" title="Lims::Core::Persistence::Oligo (class)">Oligo</a></span> 
                 
                   <small>(Lims::Core::Persistence)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Organization/Order.html" title="Lims::Core::Organization::Order (class)">Order</a></span>
-                
-                  <small>(Lims::Core::Organization)</small>
-                
-              </li>
-            
-              <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Order.html" title="Lims::Core::Persistence::Order (class)">Order</a></span>
-                
-                  <small>(Lims::Core::Persistence)</small>
-                
-              </li>
-            
-              <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Sequel/Order.html" title="Lims::Core::Persistence::Sequel::Order (class)">Order</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/Sequel/Order.html" title="Lims::Core::Persistence::Sequel::Order (class)">Order</a></span> 
                 
                   <small>(Lims::Core::Persistence::Sequel)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Organization.html" title="Lims::Core::Organization (module)">Organization</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/Order.html" title="Lims::Core::Persistence::Order (class)">Order</a></span> 
+                
+                  <small>(Lims::Core::Persistence)</small>
+                
+              </li>
+            
+              <li>
+                <span class='object_link'><a href="Lims/Core/Organization/Order.html" title="Lims::Core::Organization::Order (class)">Order</a></span> 
+                
+                  <small>(Lims::Core::Organization)</small>
+                
+              </li>
+            
+              <li>
+                <span class='object_link'><a href="Lims/Core/Organization.html" title="Lims::Core::Organization (module)">Organization</a></span> 
                 
                   <small>(Lims::Core)</small>
                 
@@ -506,70 +525,70 @@
           <ul>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence.html" title="Lims::Core::Persistence (module)">Persistence</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence.html" title="Lims::Core::Persistence (module)">Persistence</a></span> 
                 
                   <small>(Lims::Core)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Sequel/Persistor.html" title="Lims::Core::Persistence::Sequel::Persistor (module)">Persistor</a></span>
-                
-                  <small>(Lims::Core::Persistence::Sequel)</small>
-                
-              </li>
-            
-              <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Persistor.html" title="Lims::Core::Persistence::Persistor (class)">Persistor</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/Persistor.html" title="Lims::Core::Persistence::Persistor (class)">Persistor</a></span> 
                 
                   <small>(Lims::Core::Persistence)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Logger/Persistor.html" title="Lims::Core::Persistence::Logger::Persistor (module)">Persistor</a></span>
-                
-                  <small>(Lims::Core::Persistence::Logger)</small>
-                
-              </li>
-            
-              <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Search/Persistor.html" title="Lims::Core::Persistence::Search::Persistor (class)">Persistor</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/Search/Persistor.html" title="Lims::Core::Persistence::Search::Persistor (class)">Persistor</a></span> 
                 
                   <small>(Lims::Core::Persistence::Search)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Sequel/Plate.html" title="Lims::Core::Persistence::Sequel::Plate (class)">Plate</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/Sequel/Persistor.html" title="Lims::Core::Persistence::Sequel::Persistor (module)">Persistor</a></span> 
                 
                   <small>(Lims::Core::Persistence::Sequel)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Plate.html" title="Lims::Core::Persistence::Plate (class)">Plate</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/Logger/Persistor.html" title="Lims::Core::Persistence::Logger::Persistor (module)">Persistor</a></span> 
+                
+                  <small>(Lims::Core::Persistence::Logger)</small>
+                
+              </li>
+            
+              <li>
+                <span class='object_link'><a href="Lims/Core/Persistence/Plate.html" title="Lims::Core::Persistence::Plate (class)">Plate</a></span> 
                 
                   <small>(Lims::Core::Persistence)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Laboratory/Plate.html" title="Lims::Core::Laboratory::Plate (class)">Plate</a></span>
+                <span class='object_link'><a href="Lims/Core/Laboratory/Plate.html" title="Lims::Core::Laboratory::Plate (class)">Plate</a></span> 
                 
                   <small>(Lims::Core::Laboratory)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Actions/PlateTransfer.html" title="Lims::Core::Actions::PlateTransfer (class)">PlateTransfer</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/Sequel/Plate.html" title="Lims::Core::Persistence::Sequel::Plate (class)">Plate</a></span> 
+                
+                  <small>(Lims::Core::Persistence::Sequel)</small>
+                
+              </li>
+            
+              <li>
+                <span class='object_link'><a href="Lims/Core/Actions/PlateTransfer.html" title="Lims::Core::Actions::PlateTransfer (class)">PlateTransfer</a></span> 
                 
                   <small>(Lims::Core::Actions)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Organization/Project.html" title="Lims::Core::Organization::Project (class)">Project</a></span>
+                <span class='object_link'><a href="Lims/Core/Organization/Project.html" title="Lims::Core::Organization::Project (class)">Project</a></span> 
                 
                   <small>(Lims::Core::Organization)</small>
                 
@@ -584,21 +603,21 @@
           <ul>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Laboratory/Receptacle.html" title="Lims::Core::Laboratory::Receptacle (module)">Receptacle</a></span>
+                <span class='object_link'><a href="Lims/Core/Laboratory/Receptacle.html" title="Lims::Core::Laboratory::Receptacle (module)">Receptacle</a></span> 
                 
                   <small>(Lims::Core::Laboratory)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Organization/Releasable.html" title="Lims::Core::Organization::Releasable (module)">Releasable</a></span>
+                <span class='object_link'><a href="Lims/Core/Organization/Releasable.html" title="Lims::Core::Organization::Releasable (module)">Releasable</a></span> 
                 
                   <small>(Lims::Core::Organization)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Resource.html" title="Lims::Core::Resource (module)">Resource</a></span>
+                <span class='object_link'><a href="Lims/Core/Resource.html" title="Lims::Core::Resource (module)">Resource</a></span> 
                 
                   <small>(Lims::Core)</small>
                 
@@ -613,98 +632,98 @@
           <ul>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Laboratory/Sample.html" title="Lims::Core::Laboratory::Sample (class)">Sample</a></span>
+                <span class='object_link'><a href="Lims/Core/Laboratory/Sample.html" title="Lims::Core::Laboratory::Sample (class)">Sample</a></span> 
                 
                   <small>(Lims::Core::Laboratory)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Sample.html" title="Lims::Core::Persistence::Sample (class)">Sample</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/Sample.html" title="Lims::Core::Persistence::Sample (class)">Sample</a></span> 
                 
                   <small>(Lims::Core::Persistence)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Search.html" title="Lims::Core::Persistence::Search (class)">Search</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/Search.html" title="Lims::Core::Persistence::Search (class)">Search</a></span> 
                 
                   <small>(Lims::Core::Persistence)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Sequel/Search.html" title="Lims::Core::Persistence::Sequel::Search (class)">Search</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/Sequel/Search.html" title="Lims::Core::Persistence::Sequel::Search (class)">Search</a></span> 
                 
                   <small>(Lims::Core::Persistence::Sequel)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Sequel.html" title="Lims::Core::Persistence::Sequel (module)">Sequel</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/Sequel.html" title="Lims::Core::Persistence::Sequel (module)">Sequel</a></span> 
                 
                   <small>(Lims::Core::Persistence)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Session.html" title="Lims::Core::Persistence::Session (class)">Session</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/Session.html" title="Lims::Core::Persistence::Session (class)">Session</a></span> 
                 
                   <small>(Lims::Core::Persistence)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Sequel/Session.html" title="Lims::Core::Persistence::Sequel::Session (class)">Session</a></span>
-                
-                  <small>(Lims::Core::Persistence::Sequel)</small>
-                
-              </li>
-            
-              <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Logger/Session.html" title="Lims::Core::Persistence::Logger::Session (class)">Session</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/Logger/Session.html" title="Lims::Core::Persistence::Logger::Session (class)">Session</a></span> 
                 
                   <small>(Lims::Core::Persistence::Logger)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Resource/State.html" title="Lims::Core::Resource::State (class)">State</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/Sequel/Session.html" title="Lims::Core::Persistence::Sequel::Session (class)">Session</a></span> 
+                
+                  <small>(Lims::Core::Persistence::Sequel)</small>
+                
+              </li>
+            
+              <li>
+                <span class='object_link'><a href="Lims/Core/Resource/State.html" title="Lims::Core::Resource::State (class)">State</a></span> 
                 
                   <small>(Lims::Core::Resource)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Logger/Store.html" title="Lims::Core::Persistence::Logger::Store (class)">Store</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/Store.html" title="Lims::Core::Persistence::Store (class)">Store</a></span> 
                 
-                  <small>(Lims::Core::Persistence::Logger)</small>
+                  <small>(Lims::Core::Persistence)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Sequel/Store.html" title="Lims::Core::Persistence::Sequel::Store (class)">Store</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/Sequel/Store.html" title="Lims::Core::Persistence::Sequel::Store (class)">Store</a></span> 
                 
                   <small>(Lims::Core::Persistence::Sequel)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Store.html" title="Lims::Core::Persistence::Store (class)">Store</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/Logger/Store.html" title="Lims::Core::Persistence::Logger::Store (class)">Store</a></span> 
+                
+                  <small>(Lims::Core::Persistence::Logger)</small>
+                
+              </li>
+            
+              <li>
+                <span class='object_link'><a href="Lims/Core/Persistence/Study.html" title="Lims::Core::Persistence::Study (class)">Study</a></span> 
                 
                   <small>(Lims::Core::Persistence)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Study.html" title="Lims::Core::Persistence::Study (class)">Study</a></span>
-                
-                  <small>(Lims::Core::Persistence)</small>
-                
-              </li>
-            
-              <li>
-                <span class='object_link'><a href="Lims/Core/Organization/Study.html" title="Lims::Core::Organization::Study (class)">Study</a></span>
+                <span class='object_link'><a href="Lims/Core/Organization/Study.html" title="Lims::Core::Organization::Study (class)">Study</a></span> 
                 
                   <small>(Lims::Core::Organization)</small>
                 
@@ -719,72 +738,72 @@
           <ul>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Sequel/TagGroup.html" title="Lims::Core::Persistence::Sequel::TagGroup (class)">TagGroup</a></span>
-                
-                  <small>(Lims::Core::Persistence::Sequel)</small>
-                
-              </li>
-            
-              <li>
-                <span class='object_link'><a href="Lims/Core/Laboratory/TagGroup.html" title="Lims::Core::Laboratory::TagGroup (class)">TagGroup</a></span>
-                
-                  <small>(Lims::Core::Laboratory)</small>
-                
-              </li>
-            
-              <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/TagGroup.html" title="Lims::Core::Persistence::TagGroup (class)">TagGroup</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/TagGroup.html" title="Lims::Core::Persistence::TagGroup (class)">TagGroup</a></span> 
                 
                   <small>(Lims::Core::Persistence)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Actions/TagWells.html" title="Lims::Core::Actions::TagWells (class)">TagWells</a></span>
-                
-                  <small>(Lims::Core::Actions)</small>
-                
-              </li>
-            
-              <li>
-                <span class='object_link'><a href="Lims/Core/Actions/TransferWellsToTubes.html" title="Lims::Core::Actions::TransferWellsToTubes (class)">TransferWellsToTubes</a></span>
-                
-                  <small>(Lims::Core::Actions)</small>
-                
-              </li>
-            
-              <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Tube.html" title="Lims::Core::Persistence::Tube (class)">Tube</a></span>
-                
-                  <small>(Lims::Core::Persistence)</small>
-                
-              </li>
-            
-              <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Sequel/Tube.html" title="Lims::Core::Persistence::Sequel::Tube (class)">Tube</a></span>
-                
-                  <small>(Lims::Core::Persistence::Sequel)</small>
-                
-              </li>
-            
-              <li>
-                <span class='object_link'><a href="Lims/Core/Laboratory/Tube.html" title="Lims::Core::Laboratory::Tube (class)">Tube</a></span>
+                <span class='object_link'><a href="Lims/Core/Laboratory/TagGroup.html" title="Lims::Core::Laboratory::TagGroup (class)">TagGroup</a></span> 
                 
                   <small>(Lims::Core::Laboratory)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Sequel/Tube/TubeAliquot.html" title="Lims::Core::Persistence::Sequel::Tube::TubeAliquot (class)">TubeAliquot</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/Sequel/TagGroup.html" title="Lims::Core::Persistence::Sequel::TagGroup (class)">TagGroup</a></span> 
                 
-                  <small>(Lims::Core::Persistence::Sequel::Tube)</small>
+                  <small>(Lims::Core::Persistence::Sequel)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Tube/TubeAliquot.html" title="Lims::Core::Persistence::Tube::TubeAliquot (class)">TubeAliquot</a></span>
+                <span class='object_link'><a href="Lims/Core/Actions/TagWells.html" title="Lims::Core::Actions::TagWells (class)">TagWells</a></span> 
+                
+                  <small>(Lims::Core::Actions)</small>
+                
+              </li>
+            
+              <li>
+                <span class='object_link'><a href="Lims/Core/Actions/TransferWellsToTubes.html" title="Lims::Core::Actions::TransferWellsToTubes (class)">TransferWellsToTubes</a></span> 
+                
+                  <small>(Lims::Core::Actions)</small>
+                
+              </li>
+            
+              <li>
+                <span class='object_link'><a href="Lims/Core/Persistence/Sequel/Tube.html" title="Lims::Core::Persistence::Sequel::Tube (class)">Tube</a></span> 
+                
+                  <small>(Lims::Core::Persistence::Sequel)</small>
+                
+              </li>
+            
+              <li>
+                <span class='object_link'><a href="Lims/Core/Persistence/Tube.html" title="Lims::Core::Persistence::Tube (class)">Tube</a></span> 
+                
+                  <small>(Lims::Core::Persistence)</small>
+                
+              </li>
+            
+              <li>
+                <span class='object_link'><a href="Lims/Core/Laboratory/Tube.html" title="Lims::Core::Laboratory::Tube (class)">Tube</a></span> 
+                
+                  <small>(Lims::Core::Laboratory)</small>
+                
+              </li>
+            
+              <li>
+                <span class='object_link'><a href="Lims/Core/Persistence/Tube/TubeAliquot.html" title="Lims::Core::Persistence::Tube::TubeAliquot (class)">TubeAliquot</a></span> 
                 
                   <small>(Lims::Core::Persistence::Tube)</small>
+                
+              </li>
+            
+              <li>
+                <span class='object_link'><a href="Lims/Core/Persistence/Sequel/Tube/TubeAliquot.html" title="Lims::Core::Persistence::Sequel::Tube::TubeAliquot (class)">TubeAliquot</a></span> 
+                
+                  <small>(Lims::Core::Persistence::Sequel::Tube)</small>
                 
               </li>
             
@@ -797,42 +816,49 @@
           <ul>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/User.html" title="Lims::Core::Persistence::User (class)">User</a></span>
+                <span class='object_link'><a href="Lims/Core/Actions/UpdateOrder.html" title="Lims::Core::Actions::UpdateOrder (class)">UpdateOrder</a></span> 
                 
-                  <small>(Lims::Core::Persistence)</small>
+                  <small>(Lims::Core::Actions)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Organization/User.html" title="Lims::Core::Organization::User (class)">User</a></span>
+                <span class='object_link'><a href="Lims/Core/Organization/User.html" title="Lims::Core::Organization::User (class)">User</a></span> 
                 
                   <small>(Lims::Core::Organization)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Uuids/UuidResource.html" title="Lims::Core::Uuids::UuidResource (class)">UuidResource</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/User.html" title="Lims::Core::Persistence::User (class)">User</a></span> 
+                
+                  <small>(Lims::Core::Persistence)</small>
+                
+              </li>
+            
+              <li>
+                <span class='object_link'><a href="Lims/Core/Persistence/UuidResource.html" title="Lims::Core::Persistence::UuidResource (class)">UuidResource</a></span> 
+                
+                  <small>(Lims::Core::Persistence)</small>
+                
+              </li>
+            
+              <li>
+                <span class='object_link'><a href="Lims/Core/Uuids/UuidResource.html" title="Lims::Core::Uuids::UuidResource (class)">UuidResource</a></span> 
                 
                   <small>(Lims::Core::Uuids)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/UuidResource.html" title="Lims::Core::Persistence::UuidResource (class)">UuidResource</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/Uuidable.html" title="Lims::Core::Persistence::Uuidable (module)">Uuidable</a></span> 
                 
                   <small>(Lims::Core::Persistence)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Uuidable.html" title="Lims::Core::Persistence::Uuidable (module)">Uuidable</a></span>
-                
-                  <small>(Lims::Core::Persistence)</small>
-                
-              </li>
-            
-              <li>
-                <span class='object_link'><a href="Lims/Core/Uuids.html" title="Lims::Core::Uuids (module)">Uuids</a></span>
+                <span class='object_link'><a href="Lims/Core/Uuids.html" title="Lims::Core::Uuids (module)">Uuids</a></span> 
                 
                   <small>(Lims::Core)</small>
                 
@@ -847,21 +873,21 @@
           <ul>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Laboratory/Plate/Well.html" title="Lims::Core::Laboratory::Plate::Well (class)">Well</a></span>
+                <span class='object_link'><a href="Lims/Core/Laboratory/Plate/Well.html" title="Lims::Core::Laboratory::Plate::Well (class)">Well</a></span> 
                 
                   <small>(Lims::Core::Laboratory::Plate)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Sequel/Plate/Well.html" title="Lims::Core::Persistence::Sequel::Plate::Well (class)">Well</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/Sequel/Plate/Well.html" title="Lims::Core::Persistence::Sequel::Plate::Well (class)">Well</a></span> 
                 
                   <small>(Lims::Core::Persistence::Sequel::Plate)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Lims/Core/Persistence/Plate/Well.html" title="Lims::Core::Persistence::Plate::Well (class)">Well</a></span>
+                <span class='object_link'><a href="Lims/Core/Persistence/Plate/Well.html" title="Lims::Core::Persistence::Plate::Well (class)">Well</a></span> 
                 
                   <small>(Lims::Core::Persistence::Plate)</small>
                 
@@ -877,7 +903,7 @@
 </div>
 
 </div>
-
+    
     
   </body>
 </html>

@@ -13,7 +13,7 @@ module Lims::Core
       end
       # @attribute [Hash<String, Array<Hash>>] wells_description
       # @example
-      # { "A1" => [{ :sample => s1, :quantity => 2}, {:sample => s2}] }
+      #   { "A1" => [{ :sample => s1, :quantity => 2}, {:sample => s2}] }
       attribute :wells_description, Hash, :default => {}
 
       def _call_in_session(session)

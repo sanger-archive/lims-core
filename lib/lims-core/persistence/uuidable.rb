@@ -22,12 +22,12 @@ module Lims::Core
 
       # Compute the name (string) used to be saved in the Uuid table.
       # @param [Class] model_class class of the resource
-      # @retun [String]
+      # @return [String]
       def model_name_for(model_class)
         persistor_name_for(model_class)
       end
 
-      # Get the class from the class name. Inverse of {model_name_for}.
+      # Get the class from the class name. Inverse of {#model_name_for}.
       def class_for(model_name)
         persistor_for(model_name).model
       end
