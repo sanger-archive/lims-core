@@ -43,9 +43,9 @@ module Lims::Core
     end
   end
 
-  module Persistence
+  module Organization
     class Order
-      Update = Organization::Order
+      Update = Actions::UpdateOrder
     end
   end
 end
