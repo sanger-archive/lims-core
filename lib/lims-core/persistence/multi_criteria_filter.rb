@@ -1,13 +1,28 @@
 # vi: ts=2:sts=2:et:sw=2 spell:spelllang=en
 
 require 'lims/core/persistence/filter'
+require 'lims-core/resource'
 
 
 module Lims::Core
   module Persistence
     # Filter  performing a && between all the pairs of a map.
     # Key being the field
-    # Value : a value or a list of values to check real value against.
+    # Value can be either a String, an Array  or a Hash.
+    # Strings and Arrays are normal filters, whereas Hashes
+    # correspond to a joined search. The criteria will apply to the 
+    # joined object corresponding to the key.
+    # @example
+    #   {
+    #     :status => [:pending, :in_progress],
+    #     :item => {
+    #       :status => [:pending],
+    #       :uuid => <plate_uuid>
+    #     }
+    #    }
+    #   Will look for all the orders in pending or in progress status
+    #   *holding* a plate with a pending status.
+    #    
     class MultiCriteriaFilter <  Filter
       include Resource
       attribute :criteria, Hash, :required => true

@@ -70,7 +70,7 @@ module Lims::Core
           dataset.count
         end
 
-        private
+        protected
         # load a slice.
         def for_each_in_slice(start, length)
           return if length == 0
