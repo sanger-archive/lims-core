@@ -4,10 +4,9 @@ source "http://rubygems.org"
 # Specify your gem's dependencies in lims-core.gemspec
 gemspec
 
-group :development do
+group :debugging do
   gem 'debugger'
   gem 'debugger-completion'
-  gem 'rake'
 end
 
 group :pry do
