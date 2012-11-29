@@ -51,9 +51,10 @@ module Lims::Core
         #     session << Plate.new
         #   end
         # @param [Persistable] object the object to persist.
-        # @return  the object itself.
+        # @return  the session, to allow for chaining
         def << (object)
           @objects << object
+          self
         end
 
         # save the object in real.
