@@ -186,7 +186,7 @@ module Lims::Core
         end
       end
 
-      private
+      protected
       # The primary key 
       # @return [Symbol]
       def primary_key()
