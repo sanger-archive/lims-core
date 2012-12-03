@@ -1,7 +1,8 @@
 # Spec requirements
 require 'persistence/sequel/spec_helper'
-
 require 'persistence/sequel/store_shared'
+
+require 'persistence/sequel/order_lookup_filter_shared'
 
 # Model requirements
 require 'lims/core/persistence/sequel/store'
@@ -140,7 +141,7 @@ module Lims::Core
         end
       end
 
-      context "with a creator", :focus => true do
+      context "with a creator" do
         let(:creator) { User.new }
         subject { Order.new(:creator => creator) }
 
@@ -151,6 +152,10 @@ module Lims::Core
             order.creator.should == creator
           end
         end
+      end
+
+      context "#lookup" do
+        it_behaves_like "searchable by item criteria"
       end
     end
   end
