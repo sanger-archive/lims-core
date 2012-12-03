@@ -20,7 +20,8 @@ module Lims::Core
               # corresponding to the persistor
               self.class.new(self, dataset.qualify(table_name).distinct())
         end
-        private
+
+        protected
         # @param Hash criteria
         # @return Persistor
         def __multi_criteria_filter(criteria)
