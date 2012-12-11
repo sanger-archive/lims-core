@@ -15,6 +15,9 @@ module Lims::Core
         attribute :model_class, Class, :writer => :private, :initializable => true
         attribute :uuid, String, :writer => :private, :initializable => true
 
+        class InvalidUuidError < RuntimeError
+        end
+
         Generator = UUID.new
         Form = [8, 4, 4, 4, 12]
         Length = Form.inject { |m, n| m+n }
@@ -60,6 +63,7 @@ module Lims::Core
 
         def self.expand(s)
           match = SplitRegexp.match(s)
+          raise InvalidUuidError.new(s) unless match
           match.captures.join('-')
         end
 
