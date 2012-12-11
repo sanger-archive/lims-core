@@ -109,7 +109,17 @@ real class of the object (or at least something allowing to find it)</p>
 <div class="tags">
   
 
-</div>
+</div><h2>Defined Under Namespace</h2>
+<p class="children">
+   
+    
+   
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="UuidResource/InvalidUuidError.html" title="Lims::Core::Uuids::UuidResource::InvalidUuidError (class)">InvalidUuidError</a></span>
+    
+  
+</p>
+
   <h2>Constant Summary</h2>
   
     <dl class="constants">
@@ -457,13 +467,13 @@ real class of the object (or at least something allowing to find it)</p>
       <pre class="lines">
 
 
-56
-57
-58
-59</pre>
+59
+60
+61
+62</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/uuids/uuid_resource.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/uuids/uuid_resource.rb', line 59</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id bignum_to_string'>bignum_to_string</span><span class='lparen'>(</span><span class='id b'>b</span><span class='rparen'>)</span>
   <span class='id l'>l</span> <span class='op'>=</span> <span class='const'>Form</span><span class='period'>.</span><span class='id inject'>inject</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id m'>m</span><span class='comma'>,</span> <span class='id n'>n</span><span class='op'>|</span> <span class='id m'>m</span><span class='op'>+</span><span class='id n'>n</span> <span class='rbrace'>}</span>
@@ -487,12 +497,12 @@ real class of the object (or at least something allowing to find it)</p>
       <pre class="lines">
 
 
-66
-67
-68</pre>
+70
+71
+72</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/uuids/uuid_resource.rb', line 66</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/uuids/uuid_resource.rb', line 70</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id compact'>compact</span><span class='lparen'>(</span><span class='id s'>s</span><span class='rparen'>)</span>
   <span class='id s'>s</span><span class='period'>.</span><span class='id tr'>tr</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>-</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
@@ -509,22 +519,46 @@ real class of the object (or at least something allowing to find it)</p>
   
 
   
-</p><table class="source_code">
+</p><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<h3>Raises:</h3>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="UuidResource/InvalidUuidError.html" title="Lims::Core::Uuids::UuidResource::InvalidUuidError (class)">InvalidUuidError</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-61
-62
-63
-64</pre>
+64
+65
+66
+67
+68</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/uuids/uuid_resource.rb', line 61</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/uuids/uuid_resource.rb', line 64</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id expand'>expand</span><span class='lparen'>(</span><span class='id s'>s</span><span class='rparen'>)</span>
   <span class='id match'>match</span> <span class='op'>=</span> <span class='const'>SplitRegexp</span><span class='period'>.</span><span class='id match'>match</span><span class='lparen'>(</span><span class='id s'>s</span><span class='rparen'>)</span>
+  <span class='id raise'>raise</span> <span class='const'>InvalidUuidError</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='id s'>s</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id match'>match</span>
   <span class='id match'>match</span><span class='period'>.</span><span class='id captures'>captures</span><span class='period'>.</span><span class='id join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>-</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -545,12 +579,12 @@ real class of the object (or at least something allowing to find it)</p>
       <pre class="lines">
 
 
-33
-34
-35</pre>
+36
+37
+38</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/uuids/uuid_resource.rb', line 33</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/uuids/uuid_resource.rb', line 36</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id generate_uuid'>generate_uuid</span><span class='lparen'>(</span><span class='rparen'>)</span>
   <span class='const'>Generator</span><span class='period'>.</span><span class='id generate'>generate</span>
@@ -584,12 +618,12 @@ real class of the object (or at least something allowing to find it)</p>
       <pre class="lines">
 
 
-38
-39
-40</pre>
+41
+42
+43</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/uuids/uuid_resource.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/uuids/uuid_resource.rb', line 41</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id pack'>pack</span><span class='lparen'>(</span><span class='id to_pack'>to_pack</span><span class='rparen'>)</span>
   <span class='lbracket'>[</span><span class='id compact'>compact</span><span class='lparen'>(</span><span class='id to_pack'>to_pack</span><span class='rparen'>)</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id pack'>pack</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>H*</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -651,12 +685,12 @@ real class of the object (or at least something allowing to find it)</p>
       <pre class="lines">
 
 
-49
-50
-51</pre>
+52
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/uuids/uuid_resource.rb', line 49</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/uuids/uuid_resource.rb', line 52</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id string_to_bignum'>string_to_bignum</span><span class='lparen'>(</span><span class='id s'>s</span><span class='rparen'>)</span>
   <span class='id compact'>compact</span><span class='lparen'>(</span><span class='id s'>s</span><span class='rparen'>)</span><span class='period'>.</span><span class='id to_i'>to_i</span><span class='lparen'>(</span><span class='int'>16</span><span class='rparen'>)</span>
@@ -679,12 +713,12 @@ real class of the object (or at least something allowing to find it)</p>
       <pre class="lines">
 
 
-42
-43
-44</pre>
+45
+46
+47</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/uuids/uuid_resource.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/uuids/uuid_resource.rb', line 45</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id unpack'>unpack</span><span class='lparen'>(</span><span class='id packed'>packed</span><span class='rparen'>)</span>
   <span class='id expand'>expand</span><span class='lparen'>(</span><span class='id packed'>packed</span><span class='period'>.</span><span class='id unpack'>unpack</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>H*</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id first'>first</span><span class='rparen'>)</span>
@@ -729,12 +763,12 @@ real class of the object (or at least something allowing to find it)</p>
       <pre class="lines">
 
 
-29
-30
-31</pre>
+32
+33
+34</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/uuids/uuid_resource.rb', line 29</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/uuids/uuid_resource.rb', line 32</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id valid?'>valid?</span><span class='lparen'>(</span><span class='id uuid'>uuid</span><span class='rparen'>)</span>
   <span class='op'>!</span><span class='op'>!</span><span class='lparen'>(</span><span class='id uuid'>uuid</span> <span class='op'>=~</span> <span class='const'>ValidationRegexp</span><span class='rparen'>)</span>
@@ -763,13 +797,13 @@ real class of the object (or at least something allowing to find it)</p>
       <pre class="lines">
 
 
-25
-26
-27
-28</pre>
+28
+29
+30
+31</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/uuids/uuid_resource.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/uuids/uuid_resource.rb', line 28</span>
 
 <span class='kw'>def</span> <span class='id key'>key</span>
   <span class='comment'># Hack to get the id after the object being save
@@ -793,12 +827,12 @@ real class of the object (or at least something allowing to find it)</p>
       <pre class="lines">
 
 
-75
-76
-77</pre>
+79
+80
+81</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/uuids/uuid_resource.rb', line 75</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/uuids/uuid_resource.rb', line 79</span>
 
 <span class='kw'>def</span> <span class='id uuid'>uuid</span>
   <span class='ivar'>@uuid</span> <span class='op'>||=</span> <span class='const'>UuidResource</span><span class='period'>.</span><span class='id generate_uuid'>generate_uuid</span>

@@ -154,7 +154,6 @@ module Lims::Core
         def filter_persistor(persistor)
           # If the persistor session is the current session, there is nothing to do
           # just return the object as it is.
-            debugger
             return persistor if  persistor.instance_eval {@session} == self
 
             # we need first to find the original persistor, ie the one  that the user can call via
