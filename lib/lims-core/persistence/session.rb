@@ -146,20 +146,50 @@ module Lims::Core
           persistor_for(object).delete(object, *options)
         end
 
+        # Create a new persistor sharing the same internal parameters
+        # but with the "context" (datasest) of the new one.
+        # This can be used to "reset" a filtered persistor to the current session.
+        # @param [Persistor] persistor
+        # @return [Persistor]
+        def filter_persistor(persistor)
+          # If the persistor session is the current session, there is nothing to do
+          # just return the object as it is.
+            debugger
+            return persistor if  persistor.instance_eval {@session} == self
+
+            # we need first to find the original persistor, ie the one  that the user can call via
+            # session.model
+            original = persistor_for(persistor.class)
+            persistor.class.new(original, persistor.dataset)
+        end
+
+        # Find the first persistor of the specified class.
+        # Optimize if needed.
+        # @param [Class]
+        # @return [Persistor]
+        def persistor_for_persistor_class(klass)
+          @persistor_map.each do |name, persistor|
+            return persistor if persistor.is_a?(klass)
+          end
+        end
+
+
+
+
         # Get the persistor corresponding to the object class
         # @param [Resource, String, Symbol, Persistor] object
         # @return [Persistor, nil]
         def persistor_for(object)
           if object.is_a?(Persistor)
-            # @todo clean instance_eval hack by maybe add a Persistor#clone method, or something
-            return object.instance_eval {@session} == self ? object : object.class.new(self, object.dataset)
+            return filter_persistor(object)
           end
           name = persistor_name_for(object)
           @persistor_map[name]  ||= begin 
-          persistor_class = @store.base_module.constant(name)
-          raise NameError, "Persistor #{name} not defined for #{@store.base_module.name}" unless persistor_class &&  persistor_class.ancestors.include?(Persistor)
-          persistor_class.new(self)
+            persistor_class = @store.base_module.constant(name)
+            raise NameError, "Persistor #{name} not defined for #{@store.base_module.name}" unless persistor_class &&  persistor_class.ancestors.include?(Persistor)
+            persistor_class.new(self)
         end
+
       end
 
       public :persistor_for
@@ -170,7 +200,7 @@ module Lims::Core
         case object
         when String then object
         when Symbol then object.to_s
-        when Class then object.name.sub(/^Lims::Core::\w+::/, '')
+        when Class then object.name.sub(/^Lims::Core::(Persistence::)?\w+::/, '')
         else persistor_name_for(object.class)
         end.upper_camelcase
       end
