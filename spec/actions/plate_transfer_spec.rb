@@ -8,7 +8,6 @@ require 'persistence/sequel/store_shared'
 require 'lims/core/actions/plate_transfer'
 require 'lims/core/persistence/sequel/store'
 require 'logger'
-DB = Sequel.sqlite '', :logger => Logger.new($stdout) 
 
 module Lims::Core
   module Actions

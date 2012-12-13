@@ -14,18 +14,15 @@ module Lims::Core
         let(:create_parameters) {  {:description => description, :filter => filter, :model => model } }
 
         it "requires a model" do
-          described_class.new(create_parameters - [:model])
-          subject.valid?.should == false
+          described_class.new(create_parameters - [:model]).valid?.should == false
         end
 
         it "requires a filter" do
-          described_class.new(create_parameters - [:filter])
-          subject.valid?.should == false
+          described_class.new(create_parameters - [:filter]).valid?.should == false
         end
         
         it "requires a description" do
-          described_class.new(create_parameters - [:description])
-          subject.valid?.should == false
+          described_class.new(create_parameters - [:description]).valid?.should == false
         end
 
         it "requires a model and a filter" do
