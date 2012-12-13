@@ -11,7 +11,6 @@ require 'lims/core/actions/tag_wells'
 
 require 'lims/core/persistence/sequel/store'
 
-require 'logger'
 
 module Lims::Core
   module Actions
@@ -20,10 +19,7 @@ module Lims::Core
       let(:number_of_rows) {8}
       let(:number_of_columns) {12}
       context "with a sequel store" do
-        include_context "prepare tables"
-        let(:db) { ::Sequel.sqlite('', :loggers => [Logger.new($stdout)]) }
-        let(:store) { Persistence::Sequel::Store.new(db) }
-        before (:each) { prepare_table(db) }
+        include_context "sequel store"
 
         context "and everything already in the database" do
           let(:plate_id) { save(new_plate_with_samples(1)) }
@@ -48,7 +44,7 @@ module Lims::Core
 
               plate.each_with_index do  |well, name|
                 well.each do |aliquot|
-                  puts "well #{name}, tag #{aliquot.tag}"
+                  #puts "well #{name}, tag #{aliquot.tag}"
                   aliquot.tag.should == case name
                                         when "C1" then oligo_1
                                         when "F7" then oligo_2
