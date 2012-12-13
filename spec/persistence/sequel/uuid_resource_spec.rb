@@ -8,10 +8,7 @@ require 'lims/core/persistence/uuid_resource'
 module Lims::Core
   module Persistence
     describe Sequel::UuidResource do
-      include_context "prepare tables"
-      let(:db) { DB }
-      let(:store) { Sequel::Store.new(db) }
-      before (:each) { prepare_table(db) }
+      include_context "sequel store"
 #      before  { Uuids::UuidResource.stub(:pack) { |s| s }  }
 #      before  { Uuids::UuidResource.stub(:unpack) { |s| s }  }
       context "#saving" do

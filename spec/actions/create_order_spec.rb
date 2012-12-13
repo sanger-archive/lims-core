@@ -48,7 +48,10 @@ module Lims::Core
       let(:cost_code) { mock(:cost_code) }
 
       let(:create_order_parameters) { 
-        { :pipeline => pipeline,
+        { :store => mock(:store),
+          :user => mock(:user),
+          :application => "my application",
+          :pipeline => pipeline,
           :parameters => parameters,
           :sources => sources,
           :targets => targets,
@@ -57,14 +60,13 @@ module Lims::Core
       }
 
       context "to be valid" do
-        it "requires a study" do
-          described_class.new(create_order_parameters - [:study])
-          subject.valid?.should == false
-        end 
+        it do
+          s = described_class.new(create_order_parameters)
+          described_class.new(create_order_parameters).valid?.should == true
+        end
 
         it "requires a cost code" do
-          described_class.new(create_order_parameters - [:cost_code])
-          subject.valid?.should == false
+          described_class.new(create_order_parameters - [:cost_code]).valid?.should == false
         end  
       end
 
