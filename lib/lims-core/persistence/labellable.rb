@@ -6,26 +6,26 @@ module Lims::Core
     class Labellable < Persistor
       Model = Laboratory::Labellable
 
-      # ke4 TODO add contents related methods?
       def content
-        @session.send("Labellable::Content")
+        @session.send("Labellable::Label")
       end
 
       # Saves all children of a given Labellable
       def save_children(id, labellable)
+        @session.save(labellable.content, id)
       end
 
       # Loads all children of a given Labellable
       def load_children(id, labellable)
+        content.loads(id) do |content|
+          labellable[content] = content
+        end
       end
 
-      def content
-      end
+      class Label < Persistor
+        Model = Laboratory::Labellable::Label
 
-#      class Content < Persistor
-#        Model = Laboratory::Labellable::Content
-#        
-#      end
+      end
     end
   end
 end

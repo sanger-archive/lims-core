@@ -44,7 +44,7 @@ module Lims::Core
         expect { save(labellable) }.to change { db[:labellables].count}.by(1)
       end
       it "modifies the contents table" do
-        expect { save(labellable) }.to change { db[:contents].count}.by(1)
+        expect { save(labellable) }.to change { db[:labels].count}.by(1)
       end
     end
   end

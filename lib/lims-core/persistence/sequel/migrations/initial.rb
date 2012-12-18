@@ -121,11 +121,11 @@ module Lims::Core::Persistence::Sequel::Migrations
         String :type
       end
 
-      create_table :contents do
+      create_table :labels do
         primary_key :id
-        String :key
+        foreign_key :labellable_id, :labellables, :key => :id
+        String :position
         String :value
-        Integer :labellable_id
       end
     end
   end
