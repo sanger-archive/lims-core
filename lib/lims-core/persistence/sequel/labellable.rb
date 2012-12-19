@@ -11,6 +11,16 @@ module Lims::Core
           :labellables
         end
 
+#        def save_raw_association(labellables_id, labels_id)
+#            dataset.insert(:labellables_id => labellables_id, :labels_id  => labels_id)
+#        end
+
+        def filter_attributes_on_save(attributes, *params)
+          debugger
+          attributes.delete(:content)
+          attributes
+        end
+
         class Label < Persistence::Labellable::Label
           include Sequel::Persistor
 

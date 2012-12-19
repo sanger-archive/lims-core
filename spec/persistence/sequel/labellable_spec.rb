@@ -4,6 +4,7 @@ require 'persistence/sequel/store_shared'
 
 # Model requirements
 require 'lims/core/persistence/labellable'
+require 'lims/core/laboratory/sanger_barcode'
 
 module Lims::Core
   describe Laboratory::Labellable do
@@ -11,18 +12,15 @@ module Lims::Core
 
     let(:name) { "test plate" }
     let(:type) { "plate" }
-    let(:content) { { "front barcode" => "12345ABC" } }
+    let(:content) { { "front barcode" => Laboratory::SangerBarcode.new({ :value =>"12345ABC" }) } }
     let(:parameters) { { :name => name, :type => type, :content => content } }
-    let(:labellable) { described_class.new(parameters) }
+    let(:labellable) { Laboratory::Labellable.new(parameters) }
     
     context "when created within a session" do
       it "should modify the labellable table" do
         expect do
-          store.with_session { |session|
-            session << labellable
-          }
+          store.with_session { |session| session << labellable }
         end.to change { db[:labellables].count}.by(1)
-          #db[:labellable_contents].count.by(1)
       end
     end
 
@@ -30,12 +28,14 @@ module Lims::Core
       labellable_id = save(labellable).should_not be_nil
     end
 
-    it "can be reloded" do  
+    it "can be reloded" do
+      labellable_id = save(labellable)
       store.with_session do |session|
-        session.labellable[labellable_id] = labellable
-        session.labellable[labellable_id].name = labellable.name
-        session.labellable[labellable_id].type = labellable.type
-        session.labellable[labellable_id].content = labellable.content
+        loaded_labellable = session.labellable[labellable_id]
+        loaded_labellable.should == labellable
+        loaded_labellable.name == labellable.name
+        loaded_labellable.type == labellable.type
+        loaded_labellable.content == labellable.content
       end
     end
 
@@ -43,7 +43,7 @@ module Lims::Core
       it "modifies the labellables table" do
         expect { save(labellable) }.to change { db[:labellables].count}.by(1)
       end
-      it "modifies the contents table" do
+      it "modifies the labels table" do
         expect { save(labellable) }.to change { db[:labels].count}.by(1)
       end
     end

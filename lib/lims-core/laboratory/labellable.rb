@@ -18,7 +18,7 @@ module Lims::Core
 
       def initialize(*args, &block)
         super(*args, &block)
-        @content = {}
+#        @content = {}
       end
 
       include Enumerable
@@ -37,6 +37,31 @@ module Lims::Core
       def labels
         content.values
       end
+
+      # TODO ke4 temporary fix - remove it later, when Maxime fixed the related defect
+      def attributes
+        {:name => @name,
+         :type => @type,
+         :content => @content }
+      end
+
+#      module AccessibleViaSuper
+#        # @todo move in class method in resource
+#        def initialize(*args, &block)
+#          debugger
+#          # readonly attributes are normaly not allowed in constructor
+#          # by Virtus. We need to call set_attributes explicitely
+#          options = args.extract_options!
+#          # we would use `options & [:lane_number ]` if we could
+#          # but Sequel redefine Hash#& ...
+#          parameters = options.subset([:name, :type, :content])
+#          set_attributes(parameters)
+#          super(*args, options - parameters, &block)
+#        end
+#
+#      end
+#      # We need to do that so is_array can call it via super
+#      include AccessibleViaSuper
 
       # Mixin needed by Object wanted to be 
       # attached to a Labellable
