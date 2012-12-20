@@ -64,6 +64,7 @@ module Lims::Core
             include_context("for Labellable (without labels)")
             it_behaves_like("creating a Labellable")
           end
+
         end
       end
     end
