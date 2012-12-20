@@ -2,6 +2,7 @@
 require 'actions/action_examples'
 
 # Model requirements
+require 'lims/core/actions/create_labellable'
 require 'lims/core/laboratory/sanger_barcode'
 
 module Lims::Core
@@ -68,7 +69,8 @@ module Lims::Core
         let (:store) { Persistence::Store.new }
         include_context("for application", "Test create laballable")
 
-        it "creates a labellable object" do
+#        it "creates a labellable object" do
+        context do
           include_context("setup required attributes", "my test plate", "plate")
 
           context do
