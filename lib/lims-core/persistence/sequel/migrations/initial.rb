@@ -124,6 +124,7 @@ module Lims::Core::Persistence::Sequel::Migrations
       create_table :labels do
         primary_key :id
         foreign_key :labellable_id, :labellables, :key => :id
+        String :type
         String :position
         String :value
       end

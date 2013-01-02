@@ -16,7 +16,6 @@ module Lims::Core
 #        end
 
         def filter_attributes_on_save(attributes, *params)
-          debugger
           attributes.delete(:content)
           attributes
         end
@@ -30,9 +29,9 @@ module Lims::Core
 
           def loads(labellable_id)
             dataset.filter(:labellable_id => labellable_id).each do |att|
-              debugger
-              label = @session.labellable.label.get_or_create_single_model(att[:id], att)
-              yield(label)
+              position = att.delete(:position)
+              label = @session.labellable.content.get_or_create_single_model(att[:id], att)
+              yield(position, label)
             end
           end
         end

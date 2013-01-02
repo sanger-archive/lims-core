@@ -45,24 +45,6 @@ module Lims::Core
          :content => @content }
       end
 
-#      module AccessibleViaSuper
-#        # @todo move in class method in resource
-#        def initialize(*args, &block)
-#          debugger
-#          # readonly attributes are normaly not allowed in constructor
-#          # by Virtus. We need to call set_attributes explicitely
-#          options = args.extract_options!
-#          # we would use `options & [:lane_number ]` if we could
-#          # but Sequel redefine Hash#& ...
-#          parameters = options.subset([:name, :type, :content])
-#          set_attributes(parameters)
-#          super(*args, options - parameters, &block)
-#        end
-#
-#      end
-#      # We need to do that so is_array can call it via super
-#      include AccessibleViaSuper
-
       # Mixin needed by Object wanted to be 
       # attached to a Labellable
       # Its value correspond to what will be scanned and what will be

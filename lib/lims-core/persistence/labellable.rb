@@ -1,5 +1,6 @@
 require 'lims/core/persistence/persistor'
 require 'lims/core/laboratory/labellable'
+require 'lims/core/laboratory/sanger_barcode'
 
 module Lims::Core
   module Persistence
@@ -12,18 +13,21 @@ module Lims::Core
 
       # Saves all children of a given Labellable
       def save_children(id, labellable)
-        @session.save(labellable.content, id)
+        labellable.each do |position, label|
+          @session.save(label, id, position)
+        end
       end
 
       # Loads all children of a given Labellable
       def load_children(id, labellable)
-        content.loads(id) do |content|
-          labellable[content] = content
+        content.loads(id) do |position, label|
+          labellable[position] = label
         end
       end
 
       class Label < Persistor
-        Model = Laboratory::Labellable::Label
+        #TODO ke4 replace it with proper model instance
+        Model = Laboratory::SangerBarcode
 
       end
     end
