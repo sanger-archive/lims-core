@@ -19,8 +19,10 @@ module Lims::Core
         session << labellable
         
         #TODO ke4 add content creation
+        labellable.positions.concat(content.keys)
+        labellable.labels.concat(content.values)
         
-        { :labellable => label, :uuid => session.uuid_for!(labellable) }
+        { :labellable => labellable, :uuid => session.uuid_for!(labellable) }
       end
     end
   end

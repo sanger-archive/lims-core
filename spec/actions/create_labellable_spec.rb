@@ -1,5 +1,6 @@
 # Spec requirements
 require 'actions/action_examples'
+require 'actions/spec_helper'
 
 # Model requirements
 require 'lims/core/actions/create_labellable'
@@ -29,7 +30,7 @@ module Lims::Core
     end
 
     shared_context "for Laballable with barcode content" do
-      let(:content) { { "front barcode" => SangerBarcode.new({:value =>"12345ABC" }) } }
+      let(:content) { { "front barcode" => Lims::Core::Laboratory::SangerBarcode.new({:value =>"12345ABC" }) } }
       subject do
         CreateLabellable.new(:store => store, :user => user, :application => application)  do |action, session|
           action.ostruct_update(required_parameters)
@@ -39,7 +40,7 @@ module Lims::Core
 
       let(:labellable_checker) {
         lambda { |labellable|
-          labellable.content.should not_empty
+          labellable.content.should_not be_empty
           labellable.content.should be_a(Hash)
           labellable.content.should == content
         }
@@ -47,6 +48,7 @@ module Lims::Core
     end
 
     shared_examples_for "creating a Labellable" do
+      include_context "create object"
       it_behaves_like "an action"
       it "creates a labellable when called" do
         result = subject.call()
@@ -64,14 +66,18 @@ module Lims::Core
 
     describe CreateLabellable do
       context "with a valid store" do
-        include_context "create object"
-        it_behaves_like "an action"
-        let (:store) { Persistence::Store.new }
-        include_context("for application", "Test create laballable")
+        let!(:store) { Persistence::Store.new }
+        include_context("setup required attributes", "my test plate", "plate")
 
-#        it "creates a labellable object" do
-        context do
-          include_context("setup required attributes", "my test plate", "plate")
+        context "to be valid Laballable" do
+          it do
+            s = described_class.new(required_parameters)
+            described_class.new(required_parameters).valid?.should == true
+          end
+        end
+
+        context "valid calling context" do
+          include_context("for application", "Test create laballable")
 
           context do
             include_context("for empty Labellable")
