@@ -18,11 +18,10 @@ module Lims::Core
 
       def initialize(*args, &block)
         super(*args, &block)
-#        @content = {}
       end
 
       include Enumerable
-      def_delegators :@content, :each, :size, :each_with_index, :map, :zip, :clear, :empty?, :include? \
+      def_delegators :content, :each, :size, :each_with_index, :map, :zip, :clear, :empty?, :include? \
         ,:to_a, :keys, :values, :delete, :fetch, :[], :[]=
 
 
@@ -38,11 +37,10 @@ module Lims::Core
         content.values
       end
 
-      # TODO ke4 temporary fix - remove it later, when Maxime fixed the related defect
-      def attributes
-        {:name => @name,
-         :type => @type,
-         :content => @content }
+      def self.type_to_class
+        @@type_to_class ||= begin
+
+      end
       end
 
       # Mixin needed by Object wanted to be 
@@ -53,6 +51,7 @@ module Lims::Core
       # in the API server
       # Type needs to be defind by the class in the initializing
       module Label
+        @@subclasses = Set.new()
         def self.included(klass)
           klass.instance_eval do
             include Resource
@@ -60,7 +59,22 @@ module Lims::Core
             attribute :value, String, :required => true
             attribute :type, String, :writter => true, :required => true
           end
+
+          @@subclasses << klass
         end
+
+       def self.new(attributes)
+        type = attributes.delete(:type)
+        klass = type_to_class(type)
+        raise RuntimeError, "No class associated to label type '#{type}'" unless klass
+        klass.new(attributes)
+      end
+
+      def self.type_to_class(type)
+        @@type_to_subclass ||= @@subclasses.mash { |s| [s::Type, s] }
+        @@type_to_subclass[type]
+      end
+ 
 
         module After
         def initialize(*args, &block)

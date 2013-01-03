@@ -25,10 +25,10 @@ module Lims::Core
     end
 
     it "should save it" do
-      labellable_id = save(labellable).should_not be_nil
+      labellable_id = save(labellable).should be_true
     end
 
-    it "can be reloded" do
+    it "can be reloaded" do
       labellable_id = save(labellable)
       store.with_session do |session|
         loaded_labellable = session.labellable[labellable_id]
@@ -36,6 +36,7 @@ module Lims::Core
         loaded_labellable.name == labellable.name
         loaded_labellable.type == labellable.type
         loaded_labellable.content == labellable.content
+        loaded_labellable["front barcode"].should be_a(Laboratory::SangerBarcode)
       end
     end
 
