@@ -8,8 +8,8 @@ module Lims::Core
     class CreateLabellable
       include Action
 
-      attribute :name, String, :required => true, :write => :private, :initializable => true
-      attribute :type, String, :required => true, :write => :private, :initializable => true
+      attribute :name, String, :required => true, :writer => :private, :initializable => true
+      attribute :type, String, :required => true, :writer => :private, :initializable => true
 
       def _call_in_session(session)
         labellable = Laboratory::Labellable.new(:name => name,
