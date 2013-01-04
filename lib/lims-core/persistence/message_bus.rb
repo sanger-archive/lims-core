@@ -48,6 +48,12 @@ module Lims
         @exchange = @channel.topic(name, options)
       end
 
+      # Specifies the number of messages to prefetch.
+      # @param [int] number of messages to prefetch
+      def prefetch(number)
+        @channel.prefetch(number)
+      end
+
       def publish(message, options = {})
         @exchange.publish(message, options)
       end
