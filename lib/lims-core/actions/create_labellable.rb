@@ -10,7 +10,6 @@ module Lims::Core
 
       attribute :name, String, :required => true, :write => :private, :initializable => true
       attribute :type, String, :required => true, :write => :private, :initializable => true
-      #TODO ke4 maybe it should be label instead of content?
       attribute :content, Hash, :default => {}, :write => :private, :initializable => true
 
       def _call_in_session(session)
