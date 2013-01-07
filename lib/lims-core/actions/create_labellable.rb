@@ -15,13 +15,10 @@ module Lims::Core
 
       def _call_in_session(session)
         labellable = Laboratory::Labellable.new(:name => name,
-                                                :type => type)
+                                                :type => type,
+                                                :content => content)
         session << labellable
-        
-        #TODO ke4 add content creation
-        labellable.positions.concat(content.keys)
-        labellable.labels.concat(content.values)
-        
+
         { :labellable => labellable, :uuid => session.uuid_for!(labellable) }
       end
     end

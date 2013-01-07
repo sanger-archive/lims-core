@@ -34,7 +34,7 @@ module Lims::Core
       subject do
         CreateLabellable.new(:store => store, :user => user, :application => application)  do |action, session|
           action.ostruct_update(required_parameters)
-          action.ostruct_update( { :content => content } )
+          action.content = content
         end
       end
 
@@ -70,10 +70,8 @@ module Lims::Core
         include_context("setup required attributes", "my test plate", "plate")
 
         context "to be valid Laballable" do
-          it do
-            s = described_class.new(required_parameters)
-            described_class.new(required_parameters).valid?.should == true
-          end
+          subject { Lims::Core::Laboratory::Labellable }
+          specify { subject.new(required_parameters).should be_valid }
         end
 
         context "valid calling context" do
