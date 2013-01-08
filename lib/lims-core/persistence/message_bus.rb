@@ -20,6 +20,7 @@ module Lims
           %w{host port exchange_name durable prefetch_number}.each do |setting|
             raise MessageBusError, "#{setting} option is required to use the message bus" unless bus_settings.include?(setting.to_s)
           end
+
           @config = bus_settings
         end
 
@@ -87,6 +88,8 @@ module Lims
         # @param [String] JSON message
         # @param [Hash] publishing options
         def publish(message, options = {})
+          raise MessageBusError, "exchange is not reachable" unless @exchange.instance_of?(Bunny::Exchange)
+          
           options.merge!(:persistent => @message_persistence) unless @message_persistence.nil? 
           @exchange.publish(message, options)
         end
