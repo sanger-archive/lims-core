@@ -73,7 +73,7 @@
   
     <dt class="r1 last">Defined in:</dt>
     <dd class="r1 last">lib/lims-core/actions.rb<span class="defines">,<br />
-  spec/actions/tag_well_spec.rb,<br /> lib/lims-core/actions/action.rb,<br /> spec/actions/create_tube_spec.rb,<br /> spec/actions/create_order_spec.rb,<br /> spec/actions/create_plate_spec.rb,<br /> spec/actions/update_order_spec.rb,<br /> spec/actions/create_search_spec.rb,<br /> lib/lims-core/actions/tag_wells.rb,<br /> spec/actions/plate_transfer_spec.rb,<br /> lib/lims-core/actions/create_tube.rb,<br /> spec/actions/create_flowcell_spec.rb,<br /> lib/lims-core/actions/update_order.rb,<br /> lib/lims-core/actions/create_plate.rb,<br /> lib/lims-core/actions/create_order.rb,<br /> lib/lims-core/actions/create_search.rb,<br /> lib/lims-core/actions/plate_transfer.rb,<br /> lib/lims-core/actions/create_flowcell.rb,<br /> spec/actions/sequel/create_search_spec.rb,<br /> lib/lims-core/actions/transfer_wells_to_tubes.rb</span>
+  spec/actions/tag_well_spec.rb,<br /> lib/lims-core/actions/action.rb,<br /> spec/actions/create_tube_spec.rb,<br /> spec/actions/update_order_spec.rb,<br /> spec/actions/create_plate_spec.rb,<br /> spec/actions/create_order_spec.rb,<br /> spec/actions/create_search_spec.rb,<br /> lib/lims-core/actions/tag_wells.rb,<br /> spec/actions/plate_transfer_spec.rb,<br /> spec/actions/create_flowcell_spec.rb,<br /> lib/lims-core/actions/create_tube.rb,<br /> lib/lims-core/actions/create_plate.rb,<br /> lib/lims-core/actions/update_order.rb,<br /> lib/lims-core/actions/create_order.rb,<br /> lib/lims-core/actions/create_search.rb,<br /> lib/lims-core/actions/plate_transfer.rb,<br /> lib/lims-core/actions/create_flowcell.rb,<br /> spec/actions/sequel/create_search_spec.rb,<br /> lib/lims-core/actions/transfer_wells_to_tubes.rb</span>
 </dd>
   
 </dl>
@@ -160,6 +160,7 @@ probably each correspond to one call in the API.</p>
       <pre class="lines">
 
 
+18
 19
 20
 21
@@ -182,11 +183,10 @@ probably each correspond to one call in the API.</p>
 38
 39
 40
-41
-42</pre>
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'spec/actions/plate_transfer_spec.rb', line 19</span>
+      <pre class="code"><span class="info file"># File 'spec/actions/plate_transfer_spec.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id should_transfer'>should_transfer</span> 
   <span class='comment'># @todo special test session class ?

@@ -199,7 +199,12 @@ module Lims::Core
         case object
         when String then object
         when Symbol then object.to_s
-        when Class then object.name.sub(/^Lims::Core::(Persistence::)?\w+::/, '')
+        when Class,Module
+          if object.respond_to?(:base_class)
+            return persistor_name_for(object.base_class)
+          else
+            object.name.sub(/^Lims::Core::(Persistence::)?\w+::/, '')
+          end
         else persistor_name_for(object.class)
         end.upper_camelcase
       end

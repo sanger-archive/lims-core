@@ -13,7 +13,6 @@ require 'lims/core/actions/transfer_wells_to_tubes'
 require 'lims/core/persistence/sequel/store'
 
 require 'logger'
-DB = Sequel.sqlite '', :logger => Logger.new($stdout)
 PS=Lims::Core::Persistence::Sequel
 
 module Lims::Core

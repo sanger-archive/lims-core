@@ -11,12 +11,13 @@ require 'persistence/sequel/multi_criteria_filter_shared'
 # Model requirements
 require 'lims/core/laboratory/plate'
 
-require 'logger'
 module Lims::Core
 
   describe "Sequel#Plate " do
     include_context "sequel store"
     include_context "plate factory"
+
+    include
 
     def last_plate_id(session)
       session.plate.dataset.order_by(:id).last[:id]
