@@ -1,4 +1,5 @@
 require 'bunny'
+require 'common'
 
 module Lims
   module Core
@@ -13,15 +14,24 @@ module Lims
       # Use the bunny gem as RabbitMQ client
       class MessageBus
 
+        include Virtus
+        include Aequitas 
+        attribute :host, String, :required => true, :writer => :private
+        attribute :port, Integer, :required => true, :writer => :private
+        attribute :exchange_name, String, :required => true, :writer => :private
+        attribute :durable, Boolean, :required => true, :writer => :private
+        attribute :prefetch_number, Integer, :required => true, :writer => :private
+
+
         # Initialize the message bus and check the required options 
         # are passed as parameters.
-        # @param [Hash] bus settings
-        def initialize(bus_settings = {})
-          %w{host port exchange_name durable prefetch_number}.each do |setting|
-            raise MessageBusError, "#{setting} option is required to use the message bus" unless bus_settings.include?(setting.to_s)
-          end
-
-          @config = bus_settings
+        # @param [Hash] settings
+        def initialize(settings = {})
+          @host = settings["host"]
+          @port = settings["port"]
+          @exchange_name = settings["exchange_name"]
+          @durable = settings["durable"]
+          @prefetch_number = settings["prefetch_number"]
         end
 
         # Executed after a connection loss
@@ -37,11 +47,11 @@ module Lims
         # Create a channel and setup a new exchange.
         def connect
           begin
-            @connection = Bunny.new(:host => @config["host"], :port => @config["port"])
+            @connection = Bunny.new(:host => host, :port => port)
             @connection.start
             @channel = @connection.create_channel
-            set_prefetch_number(@config["prefetch_number"])
-            set_exchange(@config["exchange_name"], :durable => @config["durable"])
+            set_prefetch_number(prefetch_number)
+            set_exchange(exchange_name, :durable => durable)
           rescue Bunny::TCPConnectionFailed, Bunny::PossibleAuthenticationFailureError => e
             connection_failure_handler.call
           end
