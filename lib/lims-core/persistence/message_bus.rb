@@ -13,8 +13,14 @@ module Lims
       # Use the bunny gem as RabbitMQ client
       class MessageBus
 
-        def initialize(connection_settings = {})
-          @connection_settings = connection_settings
+        # Initialize the message bus and check the required options 
+        # are passed as parameters.
+        # @param [Hash] bus settings
+        def initialize(bus_settings = {})
+          %w{host port exchange_name durable prefetch_number}.each do |setting|
+            raise MessageBusError, "#{setting} option is required to use the message bus" unless bus_settings.include?(setting.to_s)
+          end
+          @config = bus_settings
         end
 
         # Executed after a connection loss
@@ -27,37 +33,41 @@ module Lims
 
         # Create a new connection to the broker using
         # the connection settings.
+        # Create a channel and setup a new exchange.
         def connect
           begin
-            @connection = Bunny.new(@connection_settings)
+            @connection = Bunny.new(:host => @config["host"], :port => @config["port"])
             @connection.start
+            @channel = @connection.create_channel
+            set_prefetch_number(@config["prefetch_number"])
+            set_exchange(@config["exchange_name"], :durable => @config["durable"])
           rescue Bunny::TCPConnectionFailed, Bunny::PossibleAuthenticationFailureError => e
             connection_failure_handler.call
           end
         end  
 
+        # Close the connection
         def close
           @connection.close 
         end
 
-        def create_channel
-          @channel = @connection.create_channel 
-        end
-
-        # Create a new topic exchange with the given options
+        # Create (or get if it already exists) a new topic
+        # exchange with the given options.
         # Especially, the durable option can be set here to
         # mark the exchange as durable (survive a server restart)
         # @param [String] name
         # @param [Hash] exchange options
-        def topic(name, options = {})
-          @exchange = @channel.topic(name, options)
+        def set_exchange(exchange_name, options = {})
+          @exchange = @channel.topic(exchange_name, options)
         end
+        private :set_exchange
 
         # Specifies the number of messages to prefetch.
         # @param [int] number of messages to prefetch
-        def prefetch(number)
+        def set_prefetch_number(number)
           @channel.prefetch(number)
         end
+        private :set_prefetch_number
 
         # Set the message persistence behaviour.
         # If persistent, the message will be persisted to disk
@@ -68,7 +78,7 @@ module Lims
         # It is set all the time, meaning the messages will survive 
         # a server restart, if the queue and the exchange are durable.
         # @param [Bool] persistence
-        def message_persistence(persistent)
+        def set_message_persistence(persistent)
           @message_persistence = persistent 
         end
 
