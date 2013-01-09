@@ -12,9 +12,9 @@ module Lims::Core
     # Labellable acts mainly has a hash of location => labels
     class Labellable
       include Resource
-      attribute :name, String, :required => true, :write => :private, :initializable => true
-      attribute :type, String, :required => true, :write => :private, :initializable => true
-      attribute :content, Hash, :default => {}, :write => :private, :initializable => true
+      attribute :name, String, :required => true, :writer => :private, :initializable => true
+      attribute :type, String, :required => true, :writer => :private, :initializable => true
+      attribute :content, Hash, :default => {}, :writer => :private, :initializable => true
 
       def initialize(*args, &block)
         super(*args, &block)
@@ -22,17 +22,47 @@ module Lims::Core
 
       include Enumerable
       def_delegators :content, :each, :size, :each_with_index, :map, :zip, :clear, :empty?, :include? \
-        ,:to_a, :keys, :values, :delete, :fetch, :[], :[]=
+        ,:to_a, :keys, :values, :delete, :fetch
 
 
-        # Return all positions
-        # @return [Array<String>]
+
+      # We need to redefine [] and []=
+      # as Virtus it to computes attributes
+      # Therefore, we use the Virtus method for Symbols.
+      # Everything else, is redirected to content.
+      # i.e. 
+      #     labellable[:name]  # == labellable.name
+      #     labellable["name"] # label in position "name".
+      def [](key)
+        case key
+        when Symbol
+          super(key)
+        else
+          content[key]
+        end
+      end
+
+      def []=(key, value)
+        case key
+        when Symbol
+          super(key, value)
+        else
+          content[key] = value
+        end
+      end
+
+
+
+
+
+      # Return all positions
+      # @return [Array<String>]
       def positions
         content.keys
       end
 
 
-    # @return [Array<Label>]
+      # @return [Array<Label>]
       def labels
         content.values
       end
@@ -41,29 +71,29 @@ module Lims::Core
         @@type_to_class ||= begin
 
       end
-      end
+    end
 
-      # Mixin needed by Object wanted to be 
-      # attached to a Labellable
-      # Its value correspond to what will be scanned and what will be
-      # looked up in the database.
-      # The actual formatting of it to the final user would be done
-      # in the API server
-      # Type needs to be defind by the class in the initializing
-      module Label
-        @@subclasses = Set.new()
-        def self.included(klass)
-          klass.instance_eval do
-            include Resource
-            include After
-            attribute :value, String, :required => true
-            attribute :type, String, :writter => true, :required => true
-          end
-
-          @@subclasses << klass
+    # Mixin needed by Object wanted to be 
+    # attached to a Labellable
+    # Its value correspond to what will be scanned and what will be
+    # looked up in the database.
+    # The actual formatting of it to the final user would be done
+    # in the API server
+    # Type needs to be defind by the class in the initializing
+    module Label
+      @@subclasses = Set.new()
+      def self.included(klass)
+        klass.instance_eval do
+          include Resource
+          include After
+          attribute :value, String, :required => true
+          attribute :type, String, :writter => true, :required => true
         end
 
-       def self.new(attributes)
+        @@subclasses << klass
+      end
+
+      def self.new(attributes)
         type = attributes.delete(:type)
         klass = type_to_class(type)
         raise RuntimeError, "No class associated to label type '#{type}'" unless klass
@@ -74,15 +104,15 @@ module Lims::Core
         @@type_to_subclass ||= @@subclasses.mash { |s| [s::Type, s] }
         @@type_to_subclass[type]
       end
- 
 
-        module After
+
+      module After
         def initialize(*args, &block)
           @type = self.class::Type
           super(*args, &block)
         end
       end
-      end
     end
   end
+end
 end
