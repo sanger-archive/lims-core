@@ -38,13 +38,13 @@ module Lims::Core
         it "requires correct settings to connect to the message bus" do
           expect do
             described_class.new(bus_settings - ["host"]).connect
-          end.to raise_error(MessageBusError)
+          end.to raise_error(InvalidSettingsError)
         end
 
         it "requires an exchange to publish a message" do
           expect do
             described_class.new(bus_settings).publish("message")
-          end.to raise_error(MessageBusError)
+          end.to raise_error(ConnectionError)
         end
       end
     end

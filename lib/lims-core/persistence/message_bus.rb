@@ -5,10 +5,14 @@ module Lims
   module Core
     module Persistence
 
-      # Exception MessageBusError raised after a failed connection
+      # Exception ConnectionError raised after a failed connection
       # to RabbitMQ server.
-      class MessageBusError < StandardError
+      class ConnectionError < StandardError
       end 
+
+      # Exception InvalidSettingsError raised after a setting error
+      class InvalidSettingsError < StandardError
+      end
 
       # Basic methods to publish messages on the bus
       # Use the bunny gem as RabbitMQ client
@@ -38,7 +42,7 @@ module Lims
         # The exception should be catched and rollback the actions.
         def connection_failure_handler
           Proc.new do
-            raise MessageBusError, "can't connect to RabbitMQ server"
+            raise ConnectionError, "can't connect to RabbitMQ server"
           end
         end
 
@@ -54,7 +58,7 @@ module Lims
               set_prefetch_number(prefetch_number)
               set_exchange(exchange_name, :durable => durable)
             else
-              raise MessageBusError, "settings are invalid"
+              raise InvalidSettingsError, "settings are invalid"
             end
           rescue Bunny::TCPConnectionFailed, Bunny::PossibleAuthenticationFailureError => e
             connection_failure_handler.call
@@ -102,7 +106,7 @@ module Lims
         # @param [String] JSON message
         # @param [Hash] publishing options
         def publish(message, options = {})
-          raise MessageBusError, "exchange is not reachable" unless @exchange.instance_of?(Bunny::Exchange)
+          raise ConnectionError, "exchange is not reachable" unless @exchange.instance_of?(Bunny::Exchange)
           
           options.merge!(:persistent => @message_persistence) unless @message_persistence.nil? 
           @exchange.publish(message, options)
