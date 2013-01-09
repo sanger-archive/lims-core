@@ -33,9 +33,9 @@ module Lims::Core
       store.with_session do |session|
         loaded_labellable = session.labellable[labellable_id]
         loaded_labellable.should == labellable
-        loaded_labellable.name == labellable.name
-        loaded_labellable.type == labellable.type
-        loaded_labellable.content == labellable.content
+        loaded_labellable.name.should == labellable.name
+        loaded_labellable.type.should == labellable.type
+        loaded_labellable.content.should == labellable.content
         loaded_labellable["front barcode"].should be_a(Laboratory::SangerBarcode)
       end
     end
