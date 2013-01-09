@@ -1,6 +1,7 @@
 # Spec requirements
 require 'actions/action_examples'
 require 'actions/spec_helper'
+require 'persistence/sequel/store_shared'
 
 # Model requirements
 require 'lims/core/actions/create_labellable'
@@ -9,10 +10,23 @@ require 'lims/core/laboratory/sanger_barcode'
 
 module Lims::Core
   module Actions
-    shared_context "setup required attributes" do |name, labellable_type|
-      let(:name) { name }
-      let(:labellable_type) { labellable_type }
-      let(:required_labellable_parameters) { { :name => name, :type => labellable_type } }
+
+    shared_context "setup required attributes" do
+      let(:location) { "00000000-1111-2222-333333333333" } # uuid of an asset (i.e. plate)
+      let(:label_position) { "front barcode" }
+      let(:label_type) { "sanger-barcode" }
+      let(:label_value) { "1234-ABC" }
+      let(:required_labellable_parameters) { { :location => location,
+                                               :type => label_type,
+                                               :value => label_value,
+                                               :position => label_position}
+      }
+
+      let!(:labellable) { store.with_session do |session|
+          session << labellable=Laboratory::Labellable.new({:name => "foo", :type => "resource"})
+          labellable
+        end
+      }
     end
 
     shared_context "for common labellable checker" do
@@ -26,38 +40,31 @@ module Lims::Core
       }
     end
 
-    shared_context "for Labellable without label(s)" do
-      subject do
-        CreateLabellable.new(:store => store, :user => user, :application => application)  do |action, session|
-          action.ostruct_update(required_labellable_parameters)
-        end
-      end
-
-      let(:label_checker) {
-        lambda { |labellable|
-          labellable.positions.should be_empty
-          labellable.positions.should be_a(Array)
-          labellable.labels.should be_empty
-          labellable.labels.should be_a(Array)
-        }
-      }
-    end
+#    shared_context "for Labellable without label(s)" do
+#      subject do
+#        CreateLabel.new(:store => store, :user => user, :application => application)  do |action, session|
+#          action.ostruct_update(required_labellable_parameters)
+#        end
+#      end
+#
+#      let(:label_checker) {
+#        lambda { |labellable|
+#          labellable.positions.should be_empty
+#          labellable.positions.should be_a(Array)
+#          labellable.labels.should be_empty
+#          labellable.labels.should be_a(Array)
+#        }
+#      }
+#    end
 
     shared_context "for Laballable with label content(s)" do
-      let(:position_1) { "front barcode" }
-      let(:value_1) { "1234-ABC" }
-      let(:label_type_1) { "sanger barcode" }
-      let(:labels_parameters) { { :labels => { position1 =>
-        Lims::Core::Laboratory::SangerBarcode.new({:value => label_type_1 })
-      } } }
-#      let(:label) { { "front barcode" => Lims::Core::Laboratory::SangerBarcode.new({:value =>"12345ABC" }) } }
+#      let(:labels_parameters) { { :labels => { position1 =>
+#        Lims::Core::Laboratory::SangerBarcode.new({:value => label_type_1 })
+#      } } }
       subject do
         CreateLabel.new(:store => store, :user => user, :application => application)  do |action, session|
           action.ostruct_update(required_labellable_parameters)
 #          action.label = labels_parameters
-          action.label_type = label_type_1
-          action.value = value_1
-          action.position = position_1
         end
       end
 
@@ -68,8 +75,7 @@ module Lims::Core
           labellable.labels.should_not be_empty
           labellable.labels.should be_a(Array)
 
-          labellable.positions[0] == position_1
-
+          labellable.positions[0] == label_position
         }
       }
     end
@@ -82,37 +88,27 @@ module Lims::Core
         result.should be_a(Hash)
 
         labellable = result[:labellable]
-        labellable.type.should == labellable_type
-        labellable.name.should == name
+        labellable.name.should == location
 
         labellable_checker[labellable]
         label_checker[labellable]
-
-        result[:uuid].should == uuid
       end
     end
 
-    describe CreateLabellable do
+    describe CreateLabel do
       context "with a valid store" do
-        let!(:store) { Persistence::Store.new }
-        include_context("setup required attributes", "my test plate", "plate")
+        include_context "sequel store"
+        include_context("setup required attributes")
 
-        context "to be valid Laballable" do
-          subject { Lims::Core::Laboratory::Labellable }
-          specify { subject.new(required_labellable_parameters).should be_valid }
-        end
+#        context "to be valid Laballable" do
+#          subject { Lims::Core::Laboratory::Labellable }
+#          specify { subject.new(required_labellable_parameters).should be_valid }
+#        end
 
         context "valid calling context" do
-          include_context("for application", "Test create laballable")
+          include_context("for application", "Test create laballable with label content")
 
           context do
-            include_context("for Labellable without label(s)")
-            include_context("for common labellable checker")
-            it_behaves_like("creating a Labellable")
-          end
-
-          context do
-            subject { Lims::Core::Actions::CreateLabel }
             include_context("for Laballable with label content(s)")
             include_context("for common labellable checker")
             it_behaves_like("creating a Labellable")

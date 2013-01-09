@@ -67,10 +67,6 @@ module Lims::Core
         content.values
       end
 
-      def update_label(position, label)
-          content[position] = label
-      end
-
       def self.type_to_class
         @@type_to_class ||= begin
 

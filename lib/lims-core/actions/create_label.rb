@@ -8,34 +8,38 @@ module Lims::Core
     class CreateLabel
       include Action
 
-      attribute :name, String, :required => true, :write => :private, :initializable => true
+      attribute :location, String, :required => true, :write => :private, :initializable => true
       attribute :type, String, :required => true, :write => :private, :initializable => true
-      attribute :label_type, String, :required => true, :write => :private, :initializable => true
       attribute :value, String, :required => true, :write => :private, :initializable => true
       attribute :position, String, :required => true, :write => :private, :initializable => true
 
-      def _call_in_session(session)
-        debugger
-        labellable = session.labellable[{:uuid=>name}]
-        unless labellable.nil?
-          label = Laboratory::Label.new(:type => label_type,
-                                        :value => value)
-          session << label
-
-          labellable.update_label(position, label)
-
-          session << labellable
-
-          { :label => label, :uuid => session.uuid_for!(label) }
-        else
-          false
-        end
+      def _validate_parameters
+        labellable = session.labellable[{:name=>location}]
+        raise InvalidParameters, 
+          "Labellable object is not exist with the given location: {#location}" if labellable.nil?
       end
+
+      def _call_in_session(session)
+        labellable = session.labellable[{:name=>location}]
+
+        label = Laboratory::Labellable::Label.new(:type => type,
+                                      :value => value)
+debugger
+        labellable[position]= label
+        debugger
+        { :labellable => labellable }
+      end
+
     end
   end
+
   module Laboratory
     class Labellable
       Update = Actions::CreateLabel
+
+      module Label
+        Create = Actions::CreateLabel
+      end
     end
   end
 end
