@@ -34,6 +34,12 @@ module Lims::Core
         it "requires correct settings" do
           described_class.new(bus_settings).valid?.should == true
         end
+
+        it "requires an exchange to publish a message" do
+          expect do
+            described_class.new(bus_settings).publish("message")
+          end.to raise_error(MessageBusError)
+        end
       end
     end
   end 
