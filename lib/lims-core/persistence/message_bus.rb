@@ -5,15 +5,6 @@ module Lims
   module Core
     module Persistence
 
-      # Exception ConnectionError raised after a failed connection
-      # to RabbitMQ server.
-      class ConnectionError < StandardError
-      end 
-
-      # Exception InvalidSettingsError raised after a setting error
-      class InvalidSettingsError < StandardError
-      end
-
       # Basic methods to publish messages on the bus
       # Use the bunny gem as RabbitMQ client
       class MessageBus
@@ -26,6 +17,14 @@ module Lims
         attribute :durable, Boolean, :required => true, :writer => :private
         attribute :prefetch_number, Integer, :required => true, :writer => :private
 
+        # Exception ConnectionError raised after a failed connection
+        # to RabbitMQ server.
+        class ConnectionError < StandardError
+        end 
+
+        # Exception InvalidSettingsError raised after a setting error
+        class InvalidSettingsError < StandardError
+        end
 
         # Initialize the message bus and check the required options 
         # are passed as parameters.
