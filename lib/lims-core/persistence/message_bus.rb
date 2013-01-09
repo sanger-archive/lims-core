@@ -47,11 +47,15 @@ module Lims
         # Create a channel and setup a new exchange.
         def connect
           begin
-            @connection = Bunny.new(:host => host, :port => port)
-            @connection.start
-            @channel = @connection.create_channel
-            set_prefetch_number(prefetch_number)
-            set_exchange(exchange_name, :durable => durable)
+            if valid?
+              @connection = Bunny.new(:host => host, :port => port)
+              @connection.start
+              @channel = @connection.create_channel
+              set_prefetch_number(prefetch_number)
+              set_exchange(exchange_name, :durable => durable)
+            else
+              raise MessageBusError, "settings are invalid"
+            end
           rescue Bunny::TCPConnectionFailed, Bunny::PossibleAuthenticationFailureError => e
             connection_failure_handler.call
           end
