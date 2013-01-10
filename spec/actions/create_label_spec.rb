@@ -11,7 +11,7 @@ require 'lims/core/laboratory/sanger_barcode'
 module Lims::Core
   module Actions
 
-    shared_context "setup required attributes" do
+    shared_context "setup required attributes for label" do
       let(:location) { "00000000-1111-2222-333333333333" } # uuid of an asset (i.e. plate)
       let(:label_position) { "front barcode" }
       let(:label_type) { "sanger-barcode" }
@@ -23,7 +23,7 @@ module Lims::Core
       }
 
       let!(:labellable) { store.with_session do |session|
-          session << labellable=Laboratory::Labellable.new({:name => "foo", :type => "resource"})
+          session << labellable=Laboratory::Labellable.new({:name => location, :type => "resource"})
           labellable
         end
       }
@@ -80,10 +80,11 @@ module Lims::Core
       }
     end
 
-    shared_examples_for "creating a Labellable" do
+    shared_examples_for "creating a Labellable with label(s)" do
       include_context "create object"
       it_behaves_like "an action"
       it "creates a labellable when called" do
+
         result = subject.call()
         result.should be_a(Hash)
 
@@ -98,7 +99,7 @@ module Lims::Core
     describe CreateLabel do
       context "with a valid store" do
         include_context "sequel store"
-        include_context("setup required attributes")
+        include_context("setup required attributes for label")
 
 #        context "to be valid Laballable" do
 #          subject { Lims::Core::Laboratory::Labellable }
@@ -111,7 +112,7 @@ module Lims::Core
           context do
             include_context("for Laballable with label content(s)")
             include_context("for common labellable checker")
-            it_behaves_like("creating a Labellable")
+            it_behaves_like("creating a Labellable with label(s)")
           end
         end
       end

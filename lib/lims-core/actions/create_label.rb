@@ -24,9 +24,9 @@ module Lims::Core
 
         label = Laboratory::Labellable::Label.new(:type => type,
                                       :value => value)
-debugger
+
         labellable[position]= label
-        debugger
+
         { :labellable => labellable }
       end
 
@@ -37,9 +37,9 @@ debugger
     class Labellable
       Update = Actions::CreateLabel
 
-      module Label
-        Create = Actions::CreateLabel
-      end
+#      module Label
+#        Create = Actions::CreateLabel
+#      end
     end
   end
 end
