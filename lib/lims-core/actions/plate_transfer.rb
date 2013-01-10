@@ -15,12 +15,16 @@ module Lims::Core
       attribute :source, Laboratory::Plate, :required => true, :writer => :private
       attribute :target, Laboratory::Plate, :required => true, :writer => :private
       attribute :transfer_map, Hash, :required => true, :writer => :private
+      attribute :aliquot_type, String, :required => false, :writer => :private
 
 
       # transfer the content of  from source to target according to map
       def _call_in_session(session)
           transfer_map.each do |from ,to|
-            target[to] << source[from].take
+            target[to] << source[from].take.each do |aliquot|
+              aliquot.type = aliquot_type unless aliquot_type.nil?
+              aliquot
+            end
           end
           target
       end
