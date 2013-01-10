@@ -18,12 +18,13 @@ module Lims::Core
       attribute :aliquot_type, String, :required => false, :writer => :private
 
 
-      # transfer the content of  from source to target according to map
+      # transfer the content of from source to target according to map
+      # If aliquot_type is given, it sets the type on all the aliquots
+      # of the target plate.
       def _call_in_session(session)
           transfer_map.each do |from ,to|
             target[to] << source[from].take.each do |aliquot|
               aliquot.type = aliquot_type unless aliquot_type.nil?
-              aliquot
             end
           end
           target
