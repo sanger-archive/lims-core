@@ -79,11 +79,14 @@ module Lims::Core
             end.call
           end
 
+          let(:aliquot_type) { "sample" }
+
           subject do
             described_class.new(:store => store, :user => user, :application => application) do |a, s|
               a.source = s.plate[source_id]
               a.target = s.plate[target_id]
               a.transfer_map = { :C3 => :B1 }
+              a.aliquot_type = aliquot_type
             end 
           end
           context "when called" do
@@ -91,7 +94,9 @@ module Lims::Core
             it "should save the transfered plates" do
               store.with_session do |s|
                 source, target = [source_id, target_id].map { |i| s.plate[i] }
-                target[:B1].should == source[:C3] 
+                target[:B1].should == source[:C3].each do |aliquot|
+                 aliquot.type = aliquot_type
+                end
               end
             end
           end
