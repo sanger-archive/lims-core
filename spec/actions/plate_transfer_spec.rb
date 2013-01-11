@@ -79,8 +79,6 @@ module Lims::Core
             end.call
           end
 
-          let(:aliquot_type) { "sample" }
-
           context "when called without updating aliquot type" do
             subject do
               described_class.new(:store => store, :user => user, :application => application) do |a, s|
@@ -99,6 +97,7 @@ module Lims::Core
           end
 
           context "when called updating aliquot type" do
+            let(:aliquot_type) { "sample" }
             subject do
               described_class.new(:store => store, :user => user, :application => application) do |a, s|
                 a.source = s.plate[source_id]
@@ -112,7 +111,6 @@ module Lims::Core
               store.with_session do |s|
                 source, target = [source_id, target_id].map { |i| s.plate[i] }
                 target[:B1].should_not == source[:C3]
-                debugger
                 target[:B1].each do |aliquot|
                   aliquot.type.should == aliquot_type
                 end
