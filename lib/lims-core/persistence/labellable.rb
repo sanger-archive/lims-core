@@ -13,6 +13,10 @@ module Lims::Core
         @session.send("Labellable::Label")
       end
 
+      def save(object, *params)
+        save_object(object, {:name => object.name}, *params)
+      end
+
       # Saves all children of a given Labellable
       def save_children(id, labellable)
         labellable.each do |position, label_object|
@@ -29,6 +33,10 @@ module Lims::Core
 
       class Label < Persistor
         Model = Laboratory::Labellable::Label
+
+        def save(object, *params)
+          save_object(object, {:value => object.value}, *params)
+        end
       end
     end
   end
