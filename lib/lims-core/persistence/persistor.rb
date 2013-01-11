@@ -51,6 +51,21 @@ module Lims::Core
           map_id_object(save_new(object, *params) , object)
       end
 
+      # Saves or updates a non-uuidable object
+      # and returns its id or nil if failure
+      # @return [Fixnum, nil]
+      def save_object(object, criteria, *params)
+        return nil if object.nil?
+        id = ids_for(criteria).first
+        id.tap do
+          if id.nil?
+            map_id_object(save_new(object, *params) , object)
+          else
+            update(object, id, *params)
+          end
+        end
+      end
+
       # deletes an object and returns its id or nil if failure
       # @return [Fixnum, nil]
       def delete(object, *params)
