@@ -8,10 +8,10 @@ module Lims::Core
     class CreateLabel
       include Action
 
-      attribute :location, String, :required => true, :write => :private, :initializable => true
-      attribute :type, String, :required => true, :write => :private, :initializable => true
-      attribute :value, String, :required => true, :write => :private, :initializable => true
-      attribute :position, String, :required => true, :write => :private, :initializable => true
+      attribute :location, String, :required => true, :writer => :private, :initializable => true
+      attribute :type, String, :required => true, :writer => :private, :initializable => true
+      attribute :value, String, :required => true, :writer => :private, :initializable => true
+      attribute :position, String, :required => true, :writer => :private, :initializable => true
 
       def _validate_parameters
         labellable = session.labellable[{:name=>location}]
@@ -20,14 +20,17 @@ module Lims::Core
       end
 
       def _call_in_session(session)
+
         labellable = session.labellable[{:name=>location}]
 
         label = Laboratory::Labellable::Label.new(:type => type,
                                       :value => value)
 
+        session << label
+
         labellable[position]= label
 
-        { :labellable => labellable }
+        { :labellable => labellable, :uuid => session.uuid_for!(labellable) }
       end
 
     end
