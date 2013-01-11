@@ -23,12 +23,17 @@ module Lims::Core
       # of the target plate.
       def _call_in_session(session)
           transfer_map.each do |from ,to|
-            target[to] << source[from].take.each do |aliquot|
-              aliquot.type = aliquot_type unless aliquot_type.nil?
+            target[to] << source[from].take
+
+            unless aliquot_type.nil?
+              target[to].each do |aliquot|
+                aliquot.type = aliquot_type
+              end
             end
           end
           target
       end
+
     end
   end
 end
