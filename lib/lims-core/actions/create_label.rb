@@ -26,8 +26,6 @@ module Lims::Core
         label = Laboratory::Labellable::Label.new(:type => type,
                                       :value => value)
 
-        session << label
-
         labellable[position]= label
 
         { :labellable => labellable, :uuid => session.uuid_for!(labellable) }

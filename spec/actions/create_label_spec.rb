@@ -22,7 +22,8 @@ module Lims::Core
                                                :position => label_position}
       }
 
-      let!(:labellable) { store.with_session do |session|
+      let!(:labellable) { 
+        store.with_session do |session|
           session << labellable=Laboratory::Labellable.new({:name => location, :type => "resource"})
           labellable
         end
@@ -40,31 +41,10 @@ module Lims::Core
       }
     end
 
-#    shared_context "for Labellable without label(s)" do
-#      subject do
-#        CreateLabel.new(:store => store, :user => user, :application => application)  do |action, session|
-#          action.ostruct_update(required_labellable_parameters)
-#        end
-#      end
-#
-#      let(:label_checker) {
-#        lambda { |labellable|
-#          labellable.positions.should be_empty
-#          labellable.positions.should be_a(Array)
-#          labellable.labels.should be_empty
-#          labellable.labels.should be_a(Array)
-#        }
-#      }
-#    end
-
     shared_context "for Laballable with label content(s)" do
-#      let(:labels_parameters) { { :labels => { position1 =>
-#        Lims::Core::Laboratory::SangerBarcode.new({:value => label_type_1 })
-#      } } }
       subject do
         CreateLabel.new(:store => store, :user => user, :application => application)  do |action, session|
           action.ostruct_update(required_labellable_parameters)
-#          action.label = labels_parameters
         end
       end
 
@@ -81,7 +61,6 @@ module Lims::Core
     end
 
     shared_examples_for "creating a Labellable with label(s)" do
-      include_context "create object"
       it_behaves_like "an action"
       it "creates a labellable when called" do
 
@@ -100,11 +79,6 @@ module Lims::Core
       context "with a valid store" do
         include_context "sequel store"
         include_context("setup required attributes for label")
-
-#        context "to be valid Laballable" do
-#          subject { Lims::Core::Laboratory::Labellable }
-#          specify { subject.new(required_labellable_parameters).should be_valid }
-#        end
 
         context "valid calling context" do
           include_context("for application", "Test create laballable with label content")
