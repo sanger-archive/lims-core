@@ -55,7 +55,9 @@ module Lims::Core
           labellable.labels.should_not be_empty
           labellable.labels.should be_a(Array)
 
-          labellable.positions[0] == label_position
+          labellable.positions[0].should == label_position
+          labellable.labels[0].type.should == label_type
+          labellable.labels[0].value.should == label_value
         }
       }
     end

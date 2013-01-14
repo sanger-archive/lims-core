@@ -37,10 +37,6 @@ module Lims::Core
   module Laboratory
     class Labellable
       Update = Actions::CreateLabel
-
-#      module Label
-#        Create = Actions::CreateLabel
-#      end
     end
   end
 end
