@@ -11,9 +11,9 @@ module Lims::Core
           :labellables
         end
 
-#        def save_raw_association(labellables_id, labels_id)
-#            dataset.insert(:labellables_id => labellables_id, :labels_id  => labels_id)
-#        end
+        def save_raw_association(labellables_id, labels_id)
+            dataset.insert(:labellables_id => labellables_id, :labels_id  => labels_id)
+        end
 
         def filter_attributes_on_save(attributes, *params)
           attributes.delete(:content)
@@ -23,7 +23,7 @@ module Lims::Core
         # Mixin to be included by classes of Labellable::Labels
         class Label  < Persistence::Labellable::Label
           include Sequel::Persistor
-          include Sequel::Persistor
+
           def self.table_name
             :labels
           end
