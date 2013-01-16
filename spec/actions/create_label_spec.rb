@@ -6,7 +6,6 @@ require 'persistence/sequel/store_shared'
 # Model requirements
 require 'lims/core/actions/create_labellable'
 require 'lims/core/actions/create_label'
-require 'lims/core/laboratory/sanger_barcode'
 
 module Lims::Core
   module Actions
@@ -30,51 +29,46 @@ module Lims::Core
       }
     end
 
-    shared_context "for common labellable checker" do
-      let(:labellable_checker) {
-        lambda { |labellable|
-          labellable.name.should_not be_empty
-          labellable.name.should be_a(String)
-          labellable.type.should_not be_empty
-          labellable.type.should be_a(String)
-        }
-      }
-    end
-
     shared_context "for Laballable with label content(s)" do
-      subject do
+      let(:created_label) {
         CreateLabel.new(:store => store, :user => user, :application => application)  do |action, session|
           action.ostruct_update(required_labellable_parameters)
         end
-      end
-
-      let(:label_checker) {
-        lambda { |labellable|
-          labellable.positions.should_not be_empty
-          labellable.positions.should be_a(Array)
-          labellable.labels.should_not be_empty
-          labellable.labels.should be_a(Array)
-
-          labellable.positions[0].should == label_position
-          labellable.labels[0].type.should == label_type
-          labellable.labels[0].value.should == label_value
-        }
       }
     end
 
-    shared_examples_for "creating a Labellable with label(s)" do
+    shared_examples_for "a label" do
+      subject { result }
+      it { should be_a(Lims::Core::Laboratory::Labellable) }
+
+      subject { labellable_result }
+      its(:positions) { should_not be_empty }
+      its(:positions) { should be_a(Array) }
+      its(:labels) { should_not be_empty }
+      its(:labels) { should be_a(Array) }
+
+      its(:positions) { subject[0].should == label_position }
+      its(:labels) { subject[0].type.should == label_type }
+      its(:labels) { subject[0].value.should == label_value }
+    end
+
+    shared_examples_for "a labellable" do
+      subject { labellable_result }
+      its(:name) { should == location }
+      its(:name) { should_not be_empty }
+      its(:name) { should be_a(String) }
+      its(:type) { should_not be_empty }
+      its(:type) { should be_a(String) }
+    end
+
+    shared_examples_for "a labellable action" do
+      subject { created_label }
       it_behaves_like "an action"
-      it "creates a labellable when called" do
+    end
 
-        result = subject.call()
-        result.should be_a(Hash)
-
-        labellable = result[:labellable]
-        labellable.name.should == location
-
-        labellable_checker[labellable]
-        label_checker[labellable]
-      end
+    shared_context "creating a Labellable with label(s)" do
+      let(:result) { created_label.call() }
+      let(:labellable_result) { result[:labellable] }
     end
 
     describe CreateLabel do
@@ -87,8 +81,11 @@ module Lims::Core
 
           context do
             include_context("for Laballable with label content(s)")
-            include_context("for common labellable checker")
-            it_behaves_like("creating a Labellable with label(s)")
+            include_context("creating a Labellable with label(s)")
+
+            it_behaves_like "a label"
+            it_behaves_like "a labellable"
+            it_behaves_like "a labellable action"
           end
         end
       end
