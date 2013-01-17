@@ -54,6 +54,12 @@ module Lims::Core
         return new
       end
 
+      def ===(other)
+        to_exclude = [:quantity]
+        a, b = [self, other].map { |a| a.attributes - to_exclude }
+        a == b
+      end
+
 
       # The following methods should be in subclass
       # It will need to be move in subclass if we implement subclasses
@@ -92,7 +98,8 @@ module Lims::Core
       # add the specified amount to the current aliquot quantity, can be nil
       # @param [Float,Nil] quantity
       def increase_quantity(quantity)
-        self.quantity = self.class.add_quantity(self.quantity, quantity)
+        new_quantity = self.class.add_quantity(self.quantity, quantity)
+        self.quantity = new_quantity && [0, new_quantity].max
 
       end
 
