@@ -33,5 +33,38 @@ module Lims::Core::Laboratory
       it "should be in a receptacle"
       it "can't be empty"
     end
+
+    context "a solvent" do
+      subject{ described_class.new(:type => Aliquot::Solvent) }
+      its(:dimension) { should == Aliquot::Volume }
+      its(:unit) { should == "ul" }
+
+      context "with a quantity" do
+        subject{ described_class.new(:type => Aliquot::Solvent, :quantity => 1000) }
+        it "can have a quantity added to it " do
+          subject.increase_quantity(50).should == 1050
+        end
+        it "can have an unknown quantity added to it " do
+          subject.increase_quantity(nil).should == 1000
+        end
+      end
+
+    end
+      context "without a quantity" do
+        it "can have a quantity added to it " do
+          subject.increase_quantity(50).should == 50
+        end
+        it "can have an unknown quantity added to it " do
+          subject.increase_quantity(nil).should == nil
+        end
+      end
+
+    context "#add_quantity" do
+      it do
+        Aliquot::add_quantity(nil,nil).should == nil
+        Aliquot::add_quantity(nil,2).should == 2
+        Aliquot::add_quantity(1,2).should == 3
+      end
+    end
   end
 end
