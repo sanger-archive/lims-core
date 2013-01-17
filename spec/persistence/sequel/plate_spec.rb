@@ -80,7 +80,7 @@ module Lims::Core
             # add some aliquot to the wells
             store.with_session do |session|
             plate = session.plate[plate_id]
-            1.upto(10) { |i|  3.times { plate[i] <<  new_aliquot } }
+            1.upto(10) { |i|  3.times { |j| plate[i] <<  new_aliquot(i,j) } }
             end
           }
 
