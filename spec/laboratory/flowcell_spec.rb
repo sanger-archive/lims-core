@@ -15,12 +15,12 @@ module Lims::Core::Laboratory
     it_behaves_like "a container", Flowcell::Lane
 
     it "can have a content put in one lane" do
-      aliquot = mock(:aliquot)
+      aliquot = Aliquot.new
       subject[0] << aliquot
       subject[0].should include(aliquot)
     end
     it "can have an aliquot added in one lane" do
-      aliquot = mock(:aliquot)
+      aliquot = Aliquot.new
       subject[0] << aliquot
       subject[0].should include(aliquot)
     end

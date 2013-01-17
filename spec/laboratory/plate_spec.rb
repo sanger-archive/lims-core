@@ -19,14 +19,14 @@ module Lims::Core::Laboratory
   shared_examples "a hash" do
     it "can be indexed with a symbol " do
       subject[:B3].should be_a(Plate::Well)
-      aliquot = mock(:aliquot)
+      aliquot = Aliquot.new
       subject[:B3] << aliquot
       subject[:B3].should include(aliquot)
     end
 
     it "can be indexed with a string " do
       subject["B3"].should be_a(Plate::Well)
-      aliquot = mock(:aliquot)
+      aliquot = Aliquot.new
       subject["B3"] << aliquot
       subject["B3"].should include(aliquot)
     end
@@ -53,7 +53,7 @@ module Lims::Core::Laboratory
     end
 
     it "'s values can be iterated an modified" do
-      aliquot= mock(:aliquot)
+      aliquot= Aliquot.new
       index = 3
       subject.values.each_with_index do |well, i|
         if i == index
@@ -65,7 +65,7 @@ module Lims::Core::Laboratory
     end
 
     it "can be iterated with index (String)" do
-      aliquot= mock(:aliquot)
+      aliquot= Aliquot.new
       index = "A3"
       subject.each_with_index do |well, i|
         if i == index
