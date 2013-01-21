@@ -15,6 +15,9 @@ module Lims::Core
       end
       include Container
 
+      class RackPositionNotEmpty < StandardError
+      end
+
       # Overwrite []= method to add tube in the rack.
       # @param [Symbol, String] position in the rack
       # @param [Laboratory::Tube] tube
@@ -27,7 +30,9 @@ module Lims::Core
           col = $2.to_i - 1
           raise IndexOutOfRangeError unless (0...number_of_rows).include?(row)
           raise IndexOutOfRangeError unless (0...number_of_columns).include?(col)
-          content[row * number_of_columns + col] = value
+          position = row * number_of_columns + col
+          raise RackPositionNotEmpty unless content[position].nil?
+          content[position] = value
         when Symbol
           self[key.to_s] = value
         else

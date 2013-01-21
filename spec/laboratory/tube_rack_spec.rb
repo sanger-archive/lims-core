@@ -56,6 +56,10 @@ module Lims::Core::Laboratory
         expect { subject[:A2] = "something" }.to raise_error(ArgumentError)
       end
 
+      it "cannot replace a tube if it already exists in the rack" do
+        expect { subject[:A1] = Lims::Core::Laboratory::Tube.new }.to raise_error(TubeRack::RackPositionNotEmpty)
+      end
+
       it_behaves_like "a container", Tube
       it_behaves_like "a tube rack hash"
       it_behaves_like "labellable"
