@@ -11,6 +11,9 @@ require 'persistence/sequel/multi_criteria_filter_shared'
 # Model requirements
 require 'lims/core/laboratory/plate'
 
+require 'lims-core/laboratory/labellable'
+require 'lims-core/laboratory/sanger_barcode'
+
 module Lims::Core
 
   describe "Sequel#Plate " do
@@ -99,6 +102,34 @@ module Lims::Core
             expect { delete_plate }.to change { db[:wells].count}.by(-31)
           end
         end
+
+      context "#lookup by label" do
+        let(:label_position) { "front barcode" }
+        let(:label_value) { "01234" }
+        let(:label) { Laboratory::SangerBarcode.new(:value => label_value) }
+        let!(:labellable) { 
+          store.with_session do |session|
+            plate = session.plate[plate_id]
+            session << labellable = Laboratory::Labellable.new(:name => session.uuid_for(plate), :type => "resource")
+            labellable[label_position] = label
+            labellable
+          end
+        }
+
+        it "find the plate by label value", :focus => true  do
+          filter = Persistence::MultiCriteriaFilter.new(:value => label_value)
+          search = Persistence::Search.new(:model => Laboratory::Plate, :filter => filter, :description => "lookup plate by label value")
+
+          store.with_session do |session|
+          debugger
+            results = search.call(session)
+            all = results.slice(0,1000).to_a
+            all.size.should == 1
+            all.first.should == subject
+          end
+        end
+
+      end
       end
 
       context do
@@ -106,6 +137,7 @@ module Lims::Core
         it_behaves_like "paginable resource", :plate
         it_behaves_like "filtrable", :plate
       end
+
     end
   end
 end
