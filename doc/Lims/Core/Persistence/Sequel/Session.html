@@ -136,13 +136,70 @@
   
   
 
+  
+    <h2>
+      Class Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#pack_uuid-class_method" title="pack_uuid (class method)">+ (Object) <strong>pack_uuid</strong>(uuid) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Pack if needed an uuid to its store representation.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#unpack_uuid-class_method" title="unpack_uuid (class method)">+ (String) <strong>unpack_uuid</strong>(puuid) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Unpac if needed an uuid from its store representation.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
 
   
   
   
   
   
-  <h2>Method Summary</h2>
+  
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="../Uuidable.html" title="Lims::Core::Persistence::Uuidable (module)">Uuidable</a></span></h3>
   <p class="inherited"><span class='object_link'><a href="../Uuidable.html#%5B%5D-instance_method" title="Lims::Core::Persistence::Uuidable#[] (method)">#[]</a></span>, <span class='object_link'><a href="../Uuidable.html#class_for-instance_method" title="Lims::Core::Persistence::Uuidable#class_for (method)">#class_for</a></span>, <span class='object_link'><a href="../Uuidable.html#delete_resource-instance_method" title="Lims::Core::Persistence::Uuidable#delete_resource (method)">#delete_resource</a></span>, <span class='object_link'><a href="../Uuidable.html#model_name_for-instance_method" title="Lims::Core::Persistence::Uuidable#model_name_for (method)">#model_name_for</a></span>, <span class='object_link'><a href="../Uuidable.html#new_uuid_resource_for-instance_method" title="Lims::Core::Persistence::Uuidable#new_uuid_resource_for (method)">#new_uuid_resource_for</a></span>, <span class='object_link'><a href="../Uuidable.html#uuid_for-instance_method" title="Lims::Core::Persistence::Uuidable#uuid_for (method)">#uuid_for</a></span>, <span class='object_link'><a href="../Uuidable.html#uuid_for%21-instance_method" title="Lims::Core::Persistence::Uuidable#uuid_for! (method)">#uuid_for!</a></span>, <span class='object_link'><a href="../Uuidable.html#uuid_resource_for-instance_method" title="Lims::Core::Persistence::Uuidable#uuid_resource_for (method)">#uuid_resource_for</a></span></p>
@@ -155,7 +212,7 @@
   
   
   <h3 class="inherited">Methods inherited from <span class='object_link'><a href="../Session.html" title="Lims::Core::Persistence::Session (class)">Lims::Core::Persistence::Session</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../Session.html#%3C%3C-instance_method" title="Lims::Core::Persistence::Session#&lt;&lt; (method)">#<<</a></span>, <span class='object_link'><a href="../Session.html#delete-instance_method" title="Lims::Core::Persistence::Session#delete (method)">#delete</a></span>, <span class='object_link'><a href="../Session.html#delete_in_real-instance_method" title="Lims::Core::Persistence::Session#delete_in_real (method)">#delete_in_real</a></span>, <span class='object_link'><a href="../Session.html#filter_persistor-instance_method" title="Lims::Core::Persistence::Session#filter_persistor (method)">#filter_persistor</a></span>, <span class='object_link'><a href="../Session.html#id_for-instance_method" title="Lims::Core::Persistence::Session#id_for (method)">#id_for</a></span>, <span class='object_link'><a href="../Session.html#id_for%21-instance_method" title="Lims::Core::Persistence::Session#id_for! (method)">#id_for!</a></span>, <span class='object_link'><a href="../Session.html#initialize-instance_method" title="Lims::Core::Persistence::Session#initialize (method)">#initialize</a></span>, <span class='object_link'><a href="../Session.html#managed%3F-instance_method" title="Lims::Core::Persistence::Session#managed? (method)">#managed?</a></span>, <span class='object_link'><a href="../Session.html#method_missing-instance_method" title="Lims::Core::Persistence::Session#method_missing (method)">#method_missing</a></span>, <span class='object_link'><a href="../Session.html#on_object_load-instance_method" title="Lims::Core::Persistence::Session#on_object_load (method)">#on_object_load</a></span>, <span class='object_link'><a href="../Session.html#persistor_for-instance_method" title="Lims::Core::Persistence::Session#persistor_for (method)">#persistor_for</a></span>, <span class='object_link'><a href="../Session.html#persistor_for_persistor_class-instance_method" title="Lims::Core::Persistence::Session#persistor_for_persistor_class (method)">#persistor_for_persistor_class</a></span>, <span class='object_link'><a href="../Session.html#persistor_name_for-instance_method" title="Lims::Core::Persistence::Session#persistor_name_for (method)">#persistor_name_for</a></span>, <span class='object_link'><a href="../Session.html#save-instance_method" title="Lims::Core::Persistence::Session#save (method)">#save</a></span>, <span class='object_link'><a href="../Session.html#save_all-instance_method" title="Lims::Core::Persistence::Session#save_all (method)">#save_all</a></span>, <span class='object_link'><a href="../Session.html#with_session-instance_method" title="Lims::Core::Persistence::Session#with_session (method)">#with_session</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="../Session.html#%3C%3C-instance_method" title="Lims::Core::Persistence::Session#&lt;&lt; (method)">#<<</a></span>, <span class='object_link'><a href="../Session.html#delete-instance_method" title="Lims::Core::Persistence::Session#delete (method)">#delete</a></span>, <span class='object_link'><a href="../Session.html#delete_in_real-instance_method" title="Lims::Core::Persistence::Session#delete_in_real (method)">#delete_in_real</a></span>, <span class='object_link'><a href="../Session.html#filter_persistor-instance_method" title="Lims::Core::Persistence::Session#filter_persistor (method)">#filter_persistor</a></span>, <span class='object_link'><a href="../Session.html#id_for-instance_method" title="Lims::Core::Persistence::Session#id_for (method)">#id_for</a></span>, <span class='object_link'><a href="../Session.html#id_for%21-instance_method" title="Lims::Core::Persistence::Session#id_for! (method)">#id_for!</a></span>, <span class='object_link'><a href="../Session.html#initialize-instance_method" title="Lims::Core::Persistence::Session#initialize (method)">#initialize</a></span>, <span class='object_link'><a href="../Session.html#managed%3F-instance_method" title="Lims::Core::Persistence::Session#managed? (method)">#managed?</a></span>, <span class='object_link'><a href="../Session.html#method_missing-instance_method" title="Lims::Core::Persistence::Session#method_missing (method)">#method_missing</a></span>, <span class='object_link'><a href="../Session.html#on_object_load-instance_method" title="Lims::Core::Persistence::Session#on_object_load (method)">#on_object_load</a></span>, <span class='object_link'><a href="../Session.html#pack_uuid-instance_method" title="Lims::Core::Persistence::Session#pack_uuid (method)">#pack_uuid</a></span>, <span class='object_link'><a href="../Session.html#persistor_for-instance_method" title="Lims::Core::Persistence::Session#persistor_for (method)">#persistor_for</a></span>, <span class='object_link'><a href="../Session.html#persistor_for_persistor_class-instance_method" title="Lims::Core::Persistence::Session#persistor_for_persistor_class (method)">#persistor_for_persistor_class</a></span>, <span class='object_link'><a href="../Session.html#persistor_name_for-instance_method" title="Lims::Core::Persistence::Session#persistor_name_for (method)">#persistor_name_for</a></span>, <span class='object_link'><a href="../Session.html#save-instance_method" title="Lims::Core::Persistence::Session#save (method)">#save</a></span>, <span class='object_link'><a href="../Session.html#save_all-instance_method" title="Lims::Core::Persistence::Session#save_all (method)">#save_all</a></span>, <span class='object_link'><a href="../Session.html#unpack_uuid-instance_method" title="Lims::Core::Persistence::Session#unpack_uuid (method)">#unpack_uuid</a></span>, <span class='object_link'><a href="../Session.html#with_session-instance_method" title="Lims::Core::Persistence::Session#with_session (method)">#with_session</a></span></p>
 
   <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
@@ -174,6 +231,146 @@
   
 </div>
 
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="pack_uuid-class_method">
+  
+    + (<tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>pack_uuid</strong>(uuid) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>Pack if needed an uuid to its store representation</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>uuid</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+16
+17
+18</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/session.rb', line 16</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id pack_uuid'>pack_uuid</span><span class='lparen'>(</span><span class='id uuid'>uuid</span><span class='rparen'>)</span>
+  <span class='const'>Uuids</span><span class='op'>::</span><span class='const'>UuidResource</span><span class='op'>::</span><span class='id pack'>pack</span><span class='lparen'>(</span><span class='id uuid'>uuid</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="unpack_uuid-class_method">
+  
+    + (<tt>String</tt>) <strong>unpack_uuid</strong>(puuid) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>Unpac if needed an uuid from its store representation</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>puuid</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+23
+24
+25</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/session.rb', line 23</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id unpack_uuid'>unpack_uuid</span><span class='lparen'>(</span><span class='id puuid'>puuid</span><span class='rparen'>)</span>
+  <span class='const'>Uuids</span><span class='op'>::</span><span class='const'>UuidResource</span><span class='op'>::</span><span class='id unpack'>unpack</span><span class='lparen'>(</span><span class='id puuid'>puuid</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
 
 </div>
     
