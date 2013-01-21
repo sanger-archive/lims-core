@@ -23,27 +23,19 @@ module Lims::Core
         include Receptacle
       end
 
-
-     is_array_of Well do |p,t|
+      is_array_of Well do |p,t|
         (p.number_of_rows*p.number_of_columns).times.map { t.new }
       end
 
       include Container
-      
-      
-
 
       # This should be set by the user.
       # We mock it to give pools by column
       # @return [Hash<String, Array<String>] pools pool name => list of wells name
       def pools
-        # 
-
         1.upto(number_of_columns).mash do |c|
           [c, 1.upto(number_of_rows).map { |r| indexes_to_well_name(r-1,c-1) } ]
         end
-
-
       end
     end
   end

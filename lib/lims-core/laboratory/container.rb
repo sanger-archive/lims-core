@@ -49,7 +49,7 @@ module Lims::Core
       end
       # We need to do that so is_array can call it via super
       include AccessibleViaSuper
-      
+
       # Hash behavior
 
       # Provides the list of the well names, equivalent to
@@ -58,8 +58,8 @@ module Lims::Core
       def keys
         0.upto(size-1).map { |i| index_to_well_name(i) }
       end
-      
-       # List of the wells, equivalent to Hash#values
+
+      # List of the wells, equivalent to Hash#values
       def values
         @content
       end
@@ -73,12 +73,10 @@ module Lims::Core
       # @return [String] ex "A1"
       # @todo memoize if needed
       def index_to_well_name(index)
-
         row = index / number_of_columns
         column = index % number_of_columns
 
         indexes_to_well_name(row, column)
-
       end
 
       # Convert a well name to a index (number fro 0 to size -1)
@@ -86,7 +84,7 @@ module Lims::Core
         raise NotImplementedError
       end
 
-                  # return a well from a 2D index
+      # return a well from a 2D index
       # Also check the boundary
       # @param [Fixnum] row index of the row (starting at 0)
       # @param [Fixnum] col index of the column (starting at 0)
@@ -99,23 +97,11 @@ module Lims::Core
       private :get_well
 
 
-
-     module ClassMethods
-        # Declare the container using the contained classes
-        # Define basic iterators over the contained objects.
-        # @todo implement
-        def contains(klass)
-          # @todo FIXME it doesn't work
-          #define_method klass.name.snakecase do
-          #  raise NotImplementedError
-          #end
+      module ClassMethods
+        def indexes_to_well_name(row, column)
+          "#{(row+?A.ord).chr}#{column+1}"
         end
-       def indexes_to_well_name(row, column)
-        "#{(row+?A.ord).chr}#{column+1}"
       end
-
-     end
-
     end
   end
 end
