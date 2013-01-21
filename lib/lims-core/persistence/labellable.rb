@@ -27,6 +27,30 @@ module Lims::Core
         end
       end
 
+      # Pack if needed an uuid to its store representation
+      # This method is need to lookup an uuid by name
+      # @param [String] uuid
+      # @return [Object]
+      def self.pack_uuid(uuid)
+        uuid
+      end
+
+      def pack_uuid(uuid)
+        self.class.pack_uuid(uuid)
+      end
+
+      # Unpac if needed an uuid from its store representation
+      # @param [Object] puuid
+      # @return [String]
+      def self.unpack_uuid(puuid)
+        puuid
+      end
+
+      def unpack_uuid(uuid)
+        self.class.unpack_uuid(uuid)
+      end
+
+
       class Label < Persistor
         Model = Laboratory::Labellable::Label
       end

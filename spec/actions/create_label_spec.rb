@@ -11,7 +11,7 @@ module Lims::Core
   module Actions
 
     shared_context "setup required attributes for label" do
-      let(:location) { "00000000-1111-2222-333333333333" } # uuid of an asset (i.e. plate)
+      let(:location) { "00000000-1111-2222-3333-444444444444" } # uuid of an asset (i.e. plate)
       let(:label_position) { "front barcode" }
       let(:label_type) { "sanger-barcode" }
       let(:label_value) { "1234-ABC" }

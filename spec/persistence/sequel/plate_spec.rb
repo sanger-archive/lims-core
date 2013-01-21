@@ -6,10 +6,15 @@ require 'persistence/resource_shared'
 require 'persistence/sequel/store_shared'
 require 'persistence/sequel/page_shared'
 require 'persistence/sequel/multi_criteria_filter_shared'
+require 'persistence/sequel/label_filter_shared'
 
 
 # Model requirements
 require 'lims/core/laboratory/plate'
+
+require 'lims-core/persistence/label_filter'
+require 'lims-core/laboratory/labellable'
+require 'lims-core/laboratory/sanger_barcode'
 
 module Lims::Core
 
@@ -98,6 +103,18 @@ module Lims::Core
           it "deletes the well rows" do
             expect { delete_plate }.to change { db[:wells].count}.by(-31)
           end
+        end
+
+        context "#lookup by label" do
+          let!(:uuid) {
+            store.with_session do |session|
+              plate = session.plate[plate_id]
+              session.uuid_for!(plate)
+            end
+          }
+
+          it_behaves_like "labels filtrable"
+
         end
       end
 
