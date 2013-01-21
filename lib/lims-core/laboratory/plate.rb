@@ -21,12 +21,7 @@ module Lims::Core
       # Contains some chemical substances.
       class Well
         include Receptacle
-
-        #@todo move into Receptacle
-        def to_s()
-          content.to_s
-        end
-      end # class Well
+      end
 
 
      is_array_of Well do |p,t|
