@@ -21,7 +21,7 @@ module Lims::Core
       end
 
       include Enumerable
-      def_delegators :content, :each, :size, :each_with_index, :map, :zip, :clear, :empty?, :include? \
+      def_delegators :content, :each, :size, :each_with_index, :map, :zip, :clear, :include? \
         ,:to_a, :keys, :values, :delete, :fetch
 
 
@@ -51,9 +51,9 @@ module Lims::Core
         end
       end
 
-
-
-
+      def empty?
+        false
+      end
 
       # Return all positions
       # @return [Array<String>]
