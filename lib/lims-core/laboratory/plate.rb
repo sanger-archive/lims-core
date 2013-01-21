@@ -34,7 +34,7 @@ module Lims::Core
       # @return [Hash<String, Array<String>] pools pool name => list of wells name
       def pools
         1.upto(number_of_columns).mash do |c|
-          [c, 1.upto(number_of_rows).map { |r| indexes_to_well_name(r-1,c-1) } ]
+          [c, 1.upto(number_of_rows).map { |r| indexes_to_element_name(r-1,c-1) } ]
         end
       end
     end

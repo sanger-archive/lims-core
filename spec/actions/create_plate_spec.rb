@@ -27,7 +27,7 @@ module Lims::Core
         {}.tap do |h|
           1.upto(number_of_rows) do |row|
             1.upto(number_of_columns) do |column|
-              h[Laboratory::Plate.indexes_to_well_name(row-1, column-1)] = [{
+              h[Laboratory::Plate.indexes_to_element_name(row-1, column-1)] = [{
                 :sample => new_sample(row, column),
                 :quantity => nil
               }]
