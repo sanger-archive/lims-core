@@ -1,6 +1,8 @@
 require 'lims/core/persistence/labellable'
 require 'lims/core/persistence/sequel/persistor'
 
+require 'lims/core/uuids/uuid_resource'
+
 module Lims::Core
   module Persistence
     module Sequel
@@ -17,6 +19,8 @@ module Lims::Core
 
         def filter_attributes_on_save(attributes, *params)
           attributes.delete(:content)
+          name = attributes[:name]
+          attributes[:name] = Uuids::UuidResource::pack(name)
           attributes
         end
 

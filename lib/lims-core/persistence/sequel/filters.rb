@@ -21,6 +21,22 @@ module Lims::Core
               self.class.new(self, dataset.qualify(table_name).distinct())
         end
 
+        # Implements a label filter for a Sequel::Persistor.
+        # Nil value would be ignored
+        # @param [String, Nil] position of the label 
+        # @param [String, Nil] value of the label
+        # @param [String, Nil] type fo the label
+        # @return [Persistor]
+        def label_filter(criteria)
+          labellable_dataset = @session.labellable.__multi_criteria_filter(criteria).dataset
+
+          # join labellabe request to uuid_resource
+          persistor = self.class.new(self, labellable_dataset.join("uuid_resources", :uuid => :"name"))
+
+          # join everything to current resource table
+          self.class.new(self, dataset.join(persistor.dataset, :key => primary_key))
+        end
+
         protected
         # @param Hash criteria
         # @return Persistor
