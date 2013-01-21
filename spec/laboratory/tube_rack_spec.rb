@@ -12,18 +12,19 @@ module Lims::Core::Laboratory
       subject["B5"].should be_a(Tube)
     end
 
-    it "raise an exception if well doesn't exit" do
+    it "raise an exception if the position in the rack doesn't exit" do
       expect { subject[:A13] }.to raise_error(TubeRack::IndexOutOfRangeError)
       expect { subject[:I1] }.to raise_error(TubeRack::IndexOutOfRangeError)
     end
 
-    it "has a key for each wells" do
+    it "has a key for each position" do
       subject.keys.size.should be == size
       subject.keys.should include("B3")
       subject.keys.should include("H12")
       subject.keys.should_not include("L2")
     end
 
+    it { should respond_to(:keys) }
     it { should respond_to(:values) }
 
     it "iterates as a Hash" do

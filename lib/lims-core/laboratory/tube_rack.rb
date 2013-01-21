@@ -27,7 +27,7 @@ module Lims::Core
           col = $2.to_i - 1
           raise IndexOutOfRangeError unless (0...number_of_rows).include?(row)
           raise IndexOutOfRangeError unless (0...number_of_columns).include?(col)
-          content[row * number_of_columns + col] =  value
+          content[row * number_of_columns + col] = value
         when Symbol
           self[key.to_s] = value
         else
