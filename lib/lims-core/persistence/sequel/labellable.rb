@@ -16,14 +16,14 @@ module Lims::Core
       # Pack if needed an uuid to its store representation
       # @param [String] uuid
       # @return [Object]
-      def pack_uuid(uuid)
+      def self.pack_uuid(uuid)
         Uuids::UuidResource::pack(uuid)
       end
 
       # Unpac if needed an uuid from its store representation
       # @param [Object] puuid
       # @return [String]
-      def unpack_uuid(puuid)
+      def self.unpack_uuid(puuid)
         Uuids::UuidResource::unpack(puuid)
       end
 
@@ -40,7 +40,7 @@ module Lims::Core
           attributes
         end
 
-        def xfilter_attributes_on_load(attributes, *params)
+        def filter_attributes_on_load(attributes, *params)
           if attributes[:type] == "resource"
             name = attributes[:name]
             attributes[:name] = unpack_uuid(name)
