@@ -15,24 +15,18 @@ module Lims::Core
       let(:label_position) { "front barcode" }
       let(:label_type) { "sanger-barcode" }
       let(:label_value) { "1234-ABC" }
-      let(:required_labellable_parameters) { { :location => location,
-                                               :type => label_type,
-                                               :value => label_value,
-                                               :position => label_position}
-      }
-
-      let!(:labellable) { 
-        store.with_session do |session|
-          session << labellable=Laboratory::Labellable.new({:name => location, :type => "resource"})
-          labellable
-        end
+      let(:labellable) {
+        Laboratory::Labellable.new({:name => location, :type => "resource"})
       }
     end
 
     shared_context "for Laballable with label content(s)" do
       let(:created_label) {
         CreateLabel.new(:store => store, :user => user, :application => application)  do |action, session|
-          action.ostruct_update(required_labellable_parameters)
+          action.labellable = labellable
+          action.type = label_type
+          action.value = label_value
+          action.position = label_position
         end
       }
     end
