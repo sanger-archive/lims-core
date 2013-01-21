@@ -167,29 +167,6 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#pack_uuid-class_method" title="pack_uuid (class method)">+ (Object) <strong>pack_uuid</strong>(uuid) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>Pack if needed an uuid to its store representation.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
       <a href="#table_name-class_method" title="table_name (class method)">+ (Object) <strong>table_name</strong> </a>
     
 
@@ -204,29 +181,6 @@
 
   
     <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#unpack_uuid-class_method" title="unpack_uuid (class method)">+ (String) <strong>unpack_uuid</strong>(puuid) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>Unpac if needed an uuid from its store representation.</p>
-</div></span>
   
 </li>
 
@@ -335,7 +289,7 @@
   
   
   <h3 class="inherited">Methods inherited from <span class='object_link'><a href="../Labellable.html" title="Lims::Core::Persistence::Labellable (class)">Labellable</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../Labellable.html#label-instance_method" title="Lims::Core::Persistence::Labellable#label (method)">#label</a></span>, <span class='object_link'><a href="../Labellable.html#load_children-instance_method" title="Lims::Core::Persistence::Labellable#load_children (method)">#load_children</a></span>, <span class='object_link'><a href="../Labellable.html#pack_uuid-instance_method" title="Lims::Core::Persistence::Labellable#pack_uuid (method)">#pack_uuid</a></span>, <span class='object_link'><a href="../Labellable.html#save_children-instance_method" title="Lims::Core::Persistence::Labellable#save_children (method)">#save_children</a></span>, <span class='object_link'><a href="../Labellable.html#unpack_uuid-instance_method" title="Lims::Core::Persistence::Labellable#unpack_uuid (method)">#unpack_uuid</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="../Labellable.html#label-instance_method" title="Lims::Core::Persistence::Labellable#label (method)">#label</a></span>, <span class='object_link'><a href="../Labellable.html#load_children-instance_method" title="Lims::Core::Persistence::Labellable#load_children (method)">#load_children</a></span>, <span class='object_link'><a href="../Labellable.html#save_children-instance_method" title="Lims::Core::Persistence::Labellable#save_children (method)">#save_children</a></span></p>
 
   
   
@@ -369,74 +323,7 @@
     
     
       <div class="method_details first">
-  <p class="signature first" id="pack_uuid-class_method">
-  
-    + (<tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>pack_uuid</strong>(uuid) 
-  
-
-  
-</p><div class="docstring">
-  <div class="discussion">
-    
-<p>Pack if needed an uuid to its store representation</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <h3>Parameters:</h3>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>uuid</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-<h3>Returns:</h3>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-19
-20
-21</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/labellable.rb', line 19</span>
-
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id pack_uuid'>pack_uuid</span><span class='lparen'>(</span><span class='id uuid'>uuid</span><span class='rparen'>)</span>
-  <span class='const'>Uuids</span><span class='op'>::</span><span class='const'>UuidResource</span><span class='op'>::</span><span class='id pack'>pack</span><span class='lparen'>(</span><span class='id uuid'>uuid</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <p class="signature " id="table_name-class_method">
+  <p class="signature first" id="table_name-class_method">
   
     + (<tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>table_name</strong> 
   
@@ -463,73 +350,6 @@
 </table>
 </div>
     
-      <div class="method_details ">
-  <p class="signature " id="unpack_uuid-class_method">
-  
-    + (<tt>String</tt>) <strong>unpack_uuid</strong>(puuid) 
-  
-
-  
-</p><div class="docstring">
-  <div class="discussion">
-    
-<p>Unpac if needed an uuid from its store representation</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <h3>Parameters:</h3>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>puuid</span>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-<h3>Returns:</h3>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-26
-27
-28</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/labellable.rb', line 26</span>
-
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id unpack_uuid'>unpack_uuid</span><span class='lparen'>(</span><span class='id puuid'>puuid</span><span class='rparen'>)</span>
-  <span class='const'>Uuids</span><span class='op'>::</span><span class='const'>UuidResource</span><span class='op'>::</span><span class='id unpack'>unpack</span><span class='lparen'>(</span><span class='id puuid'>puuid</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
   </div>
 
   <div id="instance_method_details" class="method_details_list">
@@ -549,21 +369,21 @@
       <pre class="lines">
 
 
-43
-44
-45
-46
-47
-48
-49</pre>
+30
+31
+32
+33
+34
+35
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/labellable.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/labellable.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id filter_attributes_on_load'>filter_attributes_on_load</span><span class='lparen'>(</span><span class='id attributes'>attributes</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id attributes'>attributes</span><span class='lbracket'>[</span><span class='symbol'>:type</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>resource</span><span class='tstring_end'>&quot;</span></span>
     <span class='id name'>name</span> <span class='op'>=</span> <span class='id attributes'>attributes</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span>
-    <span class='id attributes'>attributes</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id unpack_uuid'>unpack_uuid</span><span class='lparen'>(</span><span class='id name'>name</span><span class='rparen'>)</span>
+    <span class='id attributes'>attributes</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='ivar'>@session</span><span class='period'>.</span><span class='id unpack_uuid'>unpack_uuid</span><span class='lparen'>(</span><span class='id name'>name</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
   <span class='id attributes'>attributes</span>
 <span class='kw'>end</span></pre>
@@ -585,23 +405,23 @@
       <pre class="lines">
 
 
-34
-35
-36
-37
-38
-39
-40
-41</pre>
+21
+22
+23
+24
+25
+26
+27
+28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/labellable.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/labellable.rb', line 21</span>
 
 <span class='kw'>def</span> <span class='id filter_attributes_on_save'>filter_attributes_on_save</span><span class='lparen'>(</span><span class='id attributes'>attributes</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
   <span class='id attributes'>attributes</span><span class='period'>.</span><span class='id delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:content</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id attributes'>attributes</span><span class='lbracket'>[</span><span class='symbol'>:type</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>resource</span><span class='tstring_end'>&quot;</span></span>
     <span class='id name'>name</span> <span class='op'>=</span> <span class='id attributes'>attributes</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span>
-    <span class='id attributes'>attributes</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id pack_uuid'>pack_uuid</span><span class='lparen'>(</span><span class='id name'>name</span><span class='rparen'>)</span>
+    <span class='id attributes'>attributes</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='ivar'>@session</span><span class='period'>.</span><span class='id pack_uuid'>pack_uuid</span><span class='lparen'>(</span><span class='id name'>name</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
   <span class='id attributes'>attributes</span>
 <span class='kw'>end</span></pre>
@@ -623,12 +443,12 @@
       <pre class="lines">
 
 
-30
-31
-32</pre>
+17
+18
+19</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/labellable.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/labellable.rb', line 17</span>
 
 <span class='kw'>def</span> <span class='id save_raw_association'>save_raw_association</span><span class='lparen'>(</span><span class='id labellables_id'>labellables_id</span><span class='comma'>,</span> <span class='id labels_id'>labels_id</span><span class='rparen'>)</span>
     <span class='id dataset'>dataset</span><span class='period'>.</span><span class='id insert'>insert</span><span class='lparen'>(</span><span class='symbol'>:labellables_id</span> <span class='op'>=&gt;</span> <span class='id labellables_id'>labellables_id</span><span class='comma'>,</span> <span class='symbol'>:labels_id</span>  <span class='op'>=&gt;</span> <span class='id labels_id'>labels_id</span><span class='rparen'>)</span>

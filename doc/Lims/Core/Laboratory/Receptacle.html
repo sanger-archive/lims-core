@@ -238,7 +238,10 @@ bait library.</p>
 68
 69
 70
-71</pre>
+71
+72
+73
+74</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/laboratory/receptacle.rb', line 15</span>
@@ -277,7 +280,6 @@ bait library.</p>
       <span class='id content'>content</span><span class='period'>.</span><span class='id select'>select</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id a'>a</span><span class='op'>|</span> <span class='id a'>a</span><span class='period'>.</span><span class='id dimension'>dimension</span> <span class='op'>==</span> <span class='id dimension'>dimension</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id inject'>inject</span><span class='lparen'>(</span><span class='kw'>nil</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id q'>q</span><span class='comma'>,</span> <span class='id a'>a</span><span class='op'>|</span> <span class='const'>Aliquot</span><span class='op'>::</span><span class='id add_quantity'>add_quantity</span><span class='lparen'>(</span><span class='id q'>q</span><span class='comma'>,</span> <span class='id a'>a</span><span class='period'>.</span><span class='id quantity'>quantity</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
     <span class='kw'>end</span>
 
-
     <span class='kw'>def</span> <span class='id volume'>volume</span>
       <span class='id quantity'>quantity</span><span class='lparen'>(</span><span class='const'>Aliquot</span><span class='op'>::</span><span class='const'>Volume</span><span class='rparen'>)</span>
     <span class='kw'>end</span>
@@ -297,6 +299,10 @@ bait library.</p>
 </span>    <span class='kw'>def</span> <span class='id take_fraction'>take_fraction</span><span class='lparen'>(</span><span class='id f'>f</span><span class='rparen'>)</span>
       <span class='id f'>f</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='int'>0</span><span class='comma'>,</span> <span class='id f'>f</span><span class='comma'>,</span> <span class='int'>1</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id sort'>sort</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id f'>f</span> <span class='comment'># clamp
 </span>      <span class='id content'>content</span><span class='period'>.</span><span class='id map'>map</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id a'>a</span><span class='op'>|</span> <span class='id a'>a</span><span class='period'>.</span><span class='id take_fraction'>take_fraction</span><span class='lparen'>(</span><span class='id f'>f</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+    <span class='kw'>end</span>
+
+    <span class='kw'>def</span> <span class='id to_s'>to_s</span><span class='lparen'>(</span><span class='rparen'>)</span>
+      <span class='id content'>content</span><span class='period'>.</span><span class='id to_s'>to_s</span>
     <span class='kw'>end</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
