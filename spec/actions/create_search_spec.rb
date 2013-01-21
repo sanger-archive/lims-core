@@ -55,6 +55,18 @@ module Lims::Core
           }
 
           it_behaves_like "creating a search"
+          context "with label criteria" do
+            include_context "create object"
+            let(:criteria) {{ :label => {:position => "front barcode"}}}
+            it "uses a LabelFilter" do
+              result = subject.call
+              result.should be_a Hash
+              search = result[:search]
+              search.should be_a Persistence::Search
+              search.filter.should be_a(Persistence::LabelFilter) 
+            end
+
+          end
         end
 
         context "invalid" do
@@ -70,7 +82,9 @@ module Lims::Core
             end
           end
         end
+
       end
+
     end
   end
 end

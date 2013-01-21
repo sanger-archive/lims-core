@@ -3,6 +3,7 @@ require 'persistence/sequel/spec_helper'
 
 require 'persistence/sequel/store_shared'
 require 'laboratory/tube_shared'
+require 'persistence/sequel/label_filter_shared'
 
 # Model requirements
 require 'lims/core/persistence/sequel/store'
@@ -70,6 +71,17 @@ module Lims::Core
               tube.should be_empty
             end
           end
+        end
+
+        context "#lookup by label" do
+          let!(:uuid) {
+            store.with_session do |session|
+              tube = session.tube[tube_id]
+              session.uuid_for!(tube)
+            end
+          }
+
+          it_behaves_like "labels filtrable"
         end
       end
     end

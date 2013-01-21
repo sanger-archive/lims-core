@@ -3,6 +3,7 @@ require 'lims/core/actions/action'
 
 require 'lims/core/persistence/search'
 require 'lims/core/persistence/multi_criteria_filter'
+require 'lims/core/persistence/label_filter'
 
 module Lims::Core
   module Actions
@@ -14,7 +15,12 @@ module Lims::Core
       attribute :criteria, Hash, :required => true
 
       def _call_in_session(session)
-        filter = Persistence::MultiCriteriaFilter.new(:criteria => criteria)
+        # Create the appropriate filter depending on the criteria
+        filter = if criteria.size == 1 && criteria.keys.first.to_s == "label"
+          Persistence::LabelFilter.new(:criteria => criteria)
+        else
+          Persistence::MultiCriteriaFilter.new(:criteria => criteria)
+        end
         search = Persistence::Search.new(:description => description, 
                                          :model => session.send(model).model, 
                                          :filter => filter)
