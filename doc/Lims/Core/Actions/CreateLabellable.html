@@ -175,20 +175,36 @@
       <pre class="lines">
 
 
-14
 15
 16
 17
 18
 19
-20</pre>
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/actions/create_labellable.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/actions/create_labellable.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id _call_in_session'>_call_in_session</span><span class='lparen'>(</span><span class='id session'>session</span><span class='rparen'>)</span>
   <span class='id labellable'>labellable</span> <span class='op'>=</span> <span class='const'>Laboratory</span><span class='op'>::</span><span class='const'>Labellable</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='symbol'>:name</span> <span class='op'>=&gt;</span> <span class='id name'>name</span><span class='comma'>,</span>
                                           <span class='symbol'>:type</span> <span class='op'>=&gt;</span> <span class='id type'>type</span><span class='rparen'>)</span>
+
+  <span class='id labels'>labels</span><span class='period'>.</span><span class='id each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id position'>position</span><span class='comma'>,</span> <span class='id label'>label</span><span class='op'>|</span>
+    <span class='id created_label'>created_label</span> <span class='op'>=</span> <span class='const'>Laboratory</span><span class='op'>::</span><span class='const'>Labellable</span><span class='op'>::</span><span class='const'>Label</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='symbol'>:type</span> <span class='op'>=&gt;</span> <span class='id label'>label</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>type</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span>
+                                              <span class='symbol'>:value</span> <span class='op'>=&gt;</span> <span class='id label'>label</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>value</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
+
+    <span class='id labellable'>labellable</span><span class='lbracket'>[</span><span class='id position'>position</span><span class='rbracket'>]</span><span class='op'>=</span> <span class='id created_label'>created_label</span>
+  <span class='rbrace'>}</span>
+
   <span class='id session'>session</span> <span class='op'>&lt;&lt;</span> <span class='id labellable'>labellable</span>
 
   <span class='lbrace'>{</span> <span class='symbol'>:labellable</span> <span class='op'>=&gt;</span> <span class='id labellable'>labellable</span><span class='comma'>,</span> <span class='symbol'>:uuid</span> <span class='op'>=&gt;</span> <span class='id session'>session</span><span class='period'>.</span><span class='id uuid_for!'>uuid_for!</span><span class='lparen'>(</span><span class='id labellable'>labellable</span><span class='rparen'>)</span> <span class='rbrace'>}</span>

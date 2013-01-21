@@ -84,7 +84,7 @@
   
     
       <dt class="r2">Includes:</dt>
-      <dd class="r2"><span class='object_link'><a href="../Resource.html" title="Lims::Core::Resource (module)">Resource</a></span></dd>
+      <dd class="r2"><span class='object_link'><a href="Aliquot/Dimension.html" title="Lims::Core::Laboratory::Aliquot::Dimension (module)">Dimension</a></span>, <span class='object_link'><a href="../Resource.html" title="Lims::Core::Resource (module)">Resource</a></span></dd>
       
     
   
@@ -138,7 +138,27 @@ bait library.</p>
 <div class="tags">
   
 
-</div>
+</div><h2>Defined Under Namespace</h2>
+<p class="children">
+   
+    
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Aliquot/Dimension.html" title="Lims::Core::Laboratory::Aliquot::Dimension (module)">Dimension</a></span>
+    
+   
+    
+  
+</p>
+
+  <h2>Constant Summary</h2>
+  
+
+
+  
+  
+  
+  
+  <h3 class="inherited">Constants included from <span class='object_link'><a href="Aliquot/Dimension.html" title="Lims::Core::Laboratory::Aliquot::Dimension (module)">Dimension</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Aliquot/Dimension.html#AmountOfSubstance-constant" title="Lims::Core::Laboratory::Aliquot::Dimension::AmountOfSubstance (constant)">AmountOfSubstance</a></span>, <span class='object_link'><a href="Aliquot/Dimension.html#DimensionToUnit-constant" title="Lims::Core::Laboratory::Aliquot::Dimension::DimensionToUnit (constant)">DimensionToUnit</a></span>, <span class='object_link'><a href="Aliquot/Dimension.html#Mass-constant" title="Lims::Core::Laboratory::Aliquot::Dimension::Mass (constant)">Mass</a></span>, <span class='object_link'><a href="Aliquot/Dimension.html#Solvent-constant" title="Lims::Core::Laboratory::Aliquot::Dimension::Solvent (constant)">Solvent</a></span>, <span class='object_link'><a href="Aliquot/Dimension.html#Volume-constant" title="Lims::Core::Laboratory::Aliquot::Dimension::Volume (constant)">Volume</a></span></p>
 
   
   
@@ -149,7 +169,42 @@ bait library.</p>
   
   
   
+  
+  
+  
 
+  
+    <h2>
+      Class Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#add_quantity-class_method" title="add_quantity (class method)">+ (Number, Nil) <strong>add_quantity</strong>(q1, q2) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>add to quantities, work out nil number.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
   
     <h2>
       Instance Method Summary
@@ -157,6 +212,50 @@ bait library.</p>
     </h2>
 
     <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#%3D%3D%3D-instance_method" title="#=== (instance method)">- (Object) <strong>===</strong>(other) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#increase_quantity-instance_method" title="#increase_quantity (instance method)">- (Object) <strong>increase_quantity</strong>(quantity) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>add the specified amount to the current aliquot quantity, can be nil.</p>
+</div></span>
+  
+</li>
+
       
         <li class="public ">
   <span class="summary_signature">
@@ -182,7 +281,7 @@ bait library.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#take_fraction-instance_method" title="#take_fraction (instance method)">- (Object) <strong>take_fraction</strong>(fraction) </a>
+      <a href="#take_fraction-instance_method" title="#take_fraction (instance method)">- (Aliquot) <strong>take_fraction</strong>(fraction) </a>
     
 
     
@@ -196,8 +295,32 @@ bait library.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>validates_presence_of :quantity validates_numericalness_of :quantity, :gte
-=&gt; 0.</p>
+<p>Take a percentage of an aliquot and remove the corresponding quantity 1
+(100%) remove everything from the current aliquot nil won't remove anything
+nor set a quantity on the returned aliquot.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#unit-instance_method" title="#unit (instance method)">- (Object) <strong>unit</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The unit in which the quantity is store.</p>
 </div></span>
   
 </li>
@@ -214,16 +337,189 @@ bait library.</p>
   
   
   
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Aliquot/Dimension.html" title="Lims::Core::Laboratory::Aliquot::Dimension (module)">Dimension</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Aliquot/Dimension.html#dimension-instance_method" title="Lims::Core::Laboratory::Aliquot::Dimension#dimension (method)">#dimension</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
   <h3 class="inherited">Methods included from <span class='object_link'><a href="../Resource.html" title="Lims::Core::Resource (module)">Resource</a></span></h3>
   <p class="inherited"><span class='object_link'><a href="../Resource.html#%3D%3D-instance_method" title="Lims::Core::Resource#== (method)">#==</a></span>, <span class='object_link'><a href="../Resource.html#included-class_method" title="Lims::Core::Resource.included (method)">included</a></span></p>
 
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="add_quantity-class_method">
+  
+    + (<tt>Number</tt>, <tt>Nil</tt>) <strong>add_quantity</strong>(q1, q2) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>add to quantities, work out nil number</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>q1</span>
+      
+      
+        <span class='type'>(<tt>Number</tt>, <tt>Nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Number</tt>, <tt>Nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+110
+111
+112</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/laboratory/aliquot.rb', line 110</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id add_quantity'>add_quantity</span><span class='lparen'>(</span><span class='id q1'>q1</span><span class='comma'>,</span> <span class='id q2'>q2</span><span class='rparen'>)</span>
+  <span class='id q1'>q1</span> <span class='op'>&amp;&amp;</span> <span class='id q2'>q2</span> <span class='op'>?</span> <span class='id q1'>q1</span><span class='op'>+</span><span class='id q2'>q2</span> <span class='op'>:</span> <span class='id q1'>q1</span> <span class='op'>||</span> <span class='id q2'>q2</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
     
     
       <div class="method_details first">
-  <p class="signature first" id="quantity-instance_method">
+  <p class="signature first" id="===-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>===</strong>(other) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+57
+58
+59
+60
+61</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/laboratory/aliquot.rb', line 57</span>
+
+<span class='kw'>def</span> <span class='op'>===</span><span class='lparen'>(</span><span class='id other'>other</span><span class='rparen'>)</span>
+  <span class='id to_exclude'>to_exclude</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='symbol'>:quantity</span><span class='rbracket'>]</span>
+  <span class='id a'>a</span><span class='comma'>,</span> <span class='id b'>b</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id other'>other</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id a'>a</span><span class='op'>|</span> <span class='id a'>a</span><span class='period'>.</span><span class='id attributes'>attributes</span> <span class='op'>-</span> <span class='id to_exclude'>to_exclude</span> <span class='rbrace'>}</span>
+  <span class='id a'>a</span> <span class='op'>==</span> <span class='id b'>b</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="increase_quantity-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>increase_quantity</strong>(quantity) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>add the specified amount to the current aliquot quantity, can be nil</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>quantity</span>
+      
+      
+        <span class='type'>(<tt>Float</tt>, <tt>Nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+100
+101
+102
+103
+104</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/laboratory/aliquot.rb', line 100</span>
+
+<span class='kw'>def</span> <span class='id increase_quantity'>increase_quantity</span><span class='lparen'>(</span><span class='id quantity'>quantity</span><span class='rparen'>)</span>
+  <span class='id new_quantity'>new_quantity</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id class'>class</span><span class='period'>.</span><span class='id add_quantity'>add_quantity</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id quantity'>quantity</span><span class='comma'>,</span> <span class='id quantity'>quantity</span><span class='rparen'>)</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id quantity'>quantity</span> <span class='op'>=</span> <span class='id new_quantity'>new_quantity</span> <span class='op'>&amp;&amp;</span> <span class='lbracket'>[</span><span class='int'>0</span><span class='comma'>,</span> <span class='id new_quantity'>new_quantity</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id max'>max</span>
+
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="quantity-instance_method">
   
     - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>quantity</strong> 
   
@@ -266,15 +562,100 @@ bait library.</p>
       <div class="method_details ">
   <p class="signature " id="take_fraction-instance_method">
   
-    - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>take_fraction</strong>(fraction) 
+    - (<tt><span class='object_link'><a href="" title="Lims::Core::Laboratory::Aliquot (class)">Aliquot</a></span></tt>) <strong>take_fraction</strong>(fraction) 
   
 
   
 </p><div class="docstring">
   <div class="discussion">
     
-<p>validates_presence_of :quantity validates_numericalness_of :quantity, :gte
-=&gt; 0</p>
+<p>Take a percentage of an aliquot and remove the corresponding quantity 1
+(100%) remove everything from the current aliquot nil won't remove anything
+nor set a quantity on the returned aliquot</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>fraction</span>
+      
+      
+        <span class='type'>(<tt>Float</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="" title="Lims::Core::Laboratory::Aliquot (class)">Aliquot</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/laboratory/aliquot.rb', line 45</span>
+
+<span class='kw'>def</span> <span class='id take_fraction'>take_fraction</span><span class='lparen'>(</span><span class='id fraction'>fraction</span><span class='rparen'>)</span>
+  <span class='id new'>new</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id class'>class</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='id attributes'>attributes</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id quantity'>quantity</span> <span class='op'>&amp;&amp;</span> <span class='id fraction'>fraction</span>
+    <span class='id new_quantity'>new_quantity</span> <span class='op'>=</span> <span class='id quantity'>quantity</span><span class='op'>*</span><span class='id fraction'>fraction</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id quantity'>quantity</span> <span class='op'>-=</span> <span class='id new_quantity'>new_quantity</span>
+    <span class='id new'>new</span><span class='period'>.</span><span class='id quantity'>quantity</span> <span class='op'>=</span> <span class='id new_quantity'>new_quantity</span>
+  <span class='kw'>else</span>
+    <span class='id new'>new</span><span class='period'>.</span><span class='id quantity'>quantity</span><span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='kw'>end</span>
+  <span class='kw'>return</span> <span class='id new'>new</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="unit-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>unit</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>The unit in which the quantity is store. For example, volume are stored in
+microlittre so the unit will be ul.</p>
 
 
   </div>
@@ -288,27 +669,15 @@ bait library.</p>
       <pre class="lines">
 
 
-39
-40
-41
-42
-43
-44
-45
-46
-47</pre>
+93
+94
+95</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/laboratory/aliquot.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/laboratory/aliquot.rb', line 93</span>
 
-<span class='kw'>def</span> <span class='id take_fraction'>take_fraction</span><span class='lparen'>(</span><span class='id fraction'>fraction</span><span class='rparen'>)</span>
-  <span class='id new'>new</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id class'>class</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='id attributes'>attributes</span><span class='rparen'>)</span>
-  <span class='kw'>if</span> <span class='id quantity'>quantity</span>
-    <span class='id new_quantity'>new_quantity</span> <span class='op'>=</span> <span class='id quantity'>quantity</span><span class='op'>*</span><span class='id fraction'>fraction</span>
-    <span class='kw'>self</span><span class='period'>.</span><span class='id quantity'>quantity</span> <span class='op'>-=</span> <span class='id new_quantity'>new_quantity</span>
-    <span class='id new'>new</span><span class='period'>.</span><span class='id quantity'>quantity</span> <span class='op'>=</span> <span class='id new_quantity'>new_quantity</span>
-  <span class='kw'>end</span>
-  <span class='kw'>return</span> <span class='id new'>new</span>
+<span class='kw'>def</span> <span class='id unit'>unit</span>
+  <span class='const'>DimensionToUnit</span><span class='lbracket'>[</span><span class='id dimension'>dimension</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>

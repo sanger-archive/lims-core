@@ -153,7 +153,9 @@ attributes.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>transfer the content of  from source to target according to map.</p>
+<p>transfer the content of from source to target according to map If
+aliquot_type is given, it sets the type on all the aliquots of the target
+plate.</p>
 </div></span>
   
 </li>
@@ -188,7 +190,9 @@ attributes.</p>
 </p><div class="docstring">
   <div class="discussion">
     
-<p>transfer the content of  from source to target according to map</p>
+<p>transfer the content of from source to target according to map If
+aliquot_type is given, it sets the type on all the aliquots of the target
+plate.</p>
 
 
   </div>
@@ -202,19 +206,31 @@ attributes.</p>
       <pre class="lines">
 
 
-21
-22
-23
 24
 25
-26</pre>
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/actions/plate_transfer.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/actions/plate_transfer.rb', line 24</span>
 
 <span class='kw'>def</span> <span class='id _call_in_session'>_call_in_session</span><span class='lparen'>(</span><span class='id session'>session</span><span class='rparen'>)</span>
     <span class='id transfer_map'>transfer_map</span><span class='period'>.</span><span class='id each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id from'>from</span> <span class='comma'>,</span><span class='id to'>to</span><span class='op'>|</span>
-      <span class='id target'>target</span><span class='lbracket'>[</span><span class='id to'>to</span><span class='rbracket'>]</span> <span class='op'>&lt;&lt;</span> <span class='id source'>source</span><span class='lbracket'>[</span><span class='id from'>from</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id take'>take</span>
+      <span class='id target'>target</span><span class='lbracket'>[</span><span class='id to'>to</span><span class='rbracket'>]</span> <span class='op'>&lt;&lt;</span> <span class='id source'>source</span><span class='lbracket'>[</span><span class='id from'>from</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id take_fraction'>take_fraction</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>
+
+      <span class='kw'>unless</span> <span class='id aliquot_type'>aliquot_type</span><span class='period'>.</span><span class='id nil?'>nil?</span>
+        <span class='id target'>target</span><span class='lbracket'>[</span><span class='id to'>to</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id aliquot'>aliquot</span><span class='op'>|</span>
+          <span class='id aliquot'>aliquot</span><span class='period'>.</span><span class='id type'>type</span> <span class='op'>=</span> <span class='id aliquot_type'>aliquot_type</span>
+        <span class='kw'>end</span>
+      <span class='kw'>end</span>
     <span class='kw'>end</span>
     <span class='id target'>target</span>
 <span class='kw'>end</span></pre>

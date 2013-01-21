@@ -215,19 +215,19 @@ the API server Type needs to be defind by the class in the initializing</p>
       <pre class="lines">
 
 
-55
-56
-57
-58
-59
-60
-61
-62
-63
-64</pre>
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/laboratory/labellable.rb', line 55</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/laboratory/labellable.rb', line 85</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id included'>included</span><span class='lparen'>(</span><span class='id klass'>klass</span><span class='rparen'>)</span>
   <span class='id klass'>klass</span><span class='period'>.</span><span class='id instance_eval'>instance_eval</span> <span class='kw'>do</span>
@@ -279,15 +279,15 @@ the API server Type needs to be defind by the class in the initializing</p>
       <pre class="lines">
 
 
-66
-67
-68
-69
-70
-71</pre>
+96
+97
+98
+99
+100
+101</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/laboratory/labellable.rb', line 66</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/laboratory/labellable.rb', line 96</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='id attributes'>attributes</span><span class='rparen'>)</span>
   <span class='id type'>type</span> <span class='op'>=</span> <span class='id attributes'>attributes</span><span class='period'>.</span><span class='id delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:type</span><span class='rparen'>)</span>
@@ -313,13 +313,13 @@ the API server Type needs to be defind by the class in the initializing</p>
       <pre class="lines">
 
 
-73
-74
-75
-76</pre>
+103
+104
+105
+106</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/laboratory/labellable.rb', line 73</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/laboratory/labellable.rb', line 103</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id type_to_class'>type_to_class</span><span class='lparen'>(</span><span class='id type'>type</span><span class='rparen'>)</span>
   <span class='cvar'>@@type_to_subclass</span> <span class='op'>||=</span> <span class='cvar'>@@subclasses</span><span class='period'>.</span><span class='id mash'>mash</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id s'>s</span><span class='op'>|</span> <span class='lbracket'>[</span><span class='id s'>s</span><span class='op'>::</span><span class='const'>Type</span><span class='comma'>,</span> <span class='id s'>s</span><span class='rbracket'>]</span> <span class='rbrace'>}</span>
