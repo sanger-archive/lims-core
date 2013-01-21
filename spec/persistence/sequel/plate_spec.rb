@@ -6,6 +6,7 @@ require 'persistence/resource_shared'
 require 'persistence/sequel/store_shared'
 require 'persistence/sequel/page_shared'
 require 'persistence/sequel/multi_criteria_filter_shared'
+require 'persistence/sequel/label_filter_shared'
 
 
 # Model requirements
@@ -104,45 +105,17 @@ module Lims::Core
           end
         end
 
-      context "#lookup by label" do
-        let(:label_position) { "front barcode" }
-        let(:label_value) { "01234" }
-        let(:label) { Laboratory::SangerBarcode.new(:value => label_value) }
-        let!(:labellable) { 
-          store.with_session do |session|
-            plate = session.plate[plate_id]
-            session << labellable = Laboratory::Labellable.new(:name => session.uuid_for!(plate), :type => "resource")
-            labellable[label_position] = label
-            labellable
-          end
-        }
+        context "#lookup by label" do
+          let!(:uuid) {
+            store.with_session do |session|
+              plate = session.plate[plate_id]
+              session.uuid_for!(plate)
+            end
+          }
 
-        it "find the plate by label value", :focus => true  do
-          filter = Persistence::LabelFilter.new(:label => {:value => label_value})
-          search = Persistence::Search.new(:model => Laboratory::Plate, :filter => filter, :description => "lookup plate by label value")
+          it_behaves_like "labels filtrable"
 
-          store.with_session do |session|
-            results = search.call(session)
-            all = results.slice(0,1000).to_a
-            all.size.should == 1
-            plate = session.plate[plate_id]
-            all.first.should == plate
-          end
         end
-        it "find the plate by label position", :focus => true  do
-          filter = Persistence::LabelFilter.new(:label => {:position => label_position})
-          search = Persistence::Search.new(:model => Laboratory::Plate, :filter => filter, :description => "lookup plate by label value")
-
-          store.with_session do |session|
-            results = search.call(session)
-            all = results.slice(0,1000).to_a
-            all.size.should == 1
-            plate = session.plate[plate_id]
-            all.first.should == plate
-          end
-        end
-
-      end
       end
 
       context do
@@ -150,7 +123,6 @@ module Lims::Core
         it_behaves_like "paginable resource", :plate
         it_behaves_like "filtrable", :plate
       end
-
     end
   end
 end
