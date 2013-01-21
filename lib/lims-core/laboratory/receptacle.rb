@@ -46,7 +46,6 @@ module Lims::Core
             content.select { |a| a.dimension == dimension }.inject(nil) { |q, a| Aliquot::add_quantity(q, a.quantity) }
           end
 
-
           def volume
             quantity(Aliquot::Volume)
           end
@@ -66,6 +65,10 @@ module Lims::Core
           def take_fraction(f)
             f = [0, f, 1].sort[1] if f # clamp
             content.map {|a| a.take_fraction(f) }
+          end
+
+          def to_s()
+            content.to_s
           end
         end
       end
