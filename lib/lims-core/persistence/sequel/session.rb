@@ -10,6 +10,19 @@ module Lims::Core
       # Sequel specific implementation of a {Persistence::Session Session}.
       class Session < Persistence::Session
         include Uuidable
+        # Pack if needed an uuid to its store representation
+        # @param [String] uuid
+        # @return [Object]
+        def self.pack_uuid(uuid)
+          Uuids::UuidResource::pack(uuid)
+        end
+
+        # Unpac if needed an uuid from its store representation
+        # @param [Object] puuid
+        # @return [String]
+        def self.unpack_uuid(puuid)
+          Uuids::UuidResource::unpack(puuid)
+        end
       end
     end
   end

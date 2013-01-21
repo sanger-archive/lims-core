@@ -121,6 +121,29 @@ module Lims::Core
           @to_delete << object
         end
 
+        # Pack if needed an uuid to its store representation
+        # This method is need to lookup an uuid by name
+        # @param [String] uuid
+        # @return [Object]
+        def self.pack_uuid(uuid)
+          uuid
+        end
+
+        def pack_uuid(uuid)
+          self.class.pack_uuid(uuid)
+        end
+
+        # Unpac if needed an uuid from its store representation
+        # @param [Object] puuid
+        # @return [String]
+        def self.unpack_uuid(puuid)
+          puuid
+        end
+
+        def unpack_uuid(uuid)
+          self.class.unpack_uuid(uuid)
+        end
+
         private
         # save all objects which needs to be
         def save_all()
@@ -154,12 +177,12 @@ module Lims::Core
         def filter_persistor(persistor)
           # If the persistor session is the current session, there is nothing to do
           # just return the object as it is.
-            return persistor if  persistor.instance_eval {@session} == self
+          return persistor if  persistor.instance_eval {@session} == self
 
-            # we need first to find the original persistor, ie the one  that the user can call via
-            # session.model
-            original = persistor_for(persistor.class)
-            persistor.class.new(original, persistor.dataset)
+          # we need first to find the original persistor, ie the one  that the user can call via
+          # session.model
+          original = persistor_for(persistor.class)
+          persistor.class.new(original, persistor.dataset)
         end
 
         # Find the first persistor of the specified class.
@@ -184,9 +207,9 @@ module Lims::Core
           end
           name = persistor_name_for(object)
           @persistor_map[name]  ||= begin 
-            persistor_class = @store.base_module.constant(name)
-            raise NameError, "Persistor #{name} not defined for #{@store.base_module.name}" unless persistor_class &&  persistor_class.ancestors.include?(Persistor)
-            persistor_class.new(self)
+          persistor_class = @store.base_module.constant(name)
+          raise NameError, "Persistor #{name} not defined for #{@store.base_module.name}" unless persistor_class &&  persistor_class.ancestors.include?(Persistor)
+          persistor_class.new(self)
         end
 
       end

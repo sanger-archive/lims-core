@@ -15,13 +15,13 @@ module Lims::Core
 
       def _validate_parameters
         #todo ad session parameters
-        labellable = session.labellable[{:name => session.labellable::pack_uuid(location)}]
+        labellable = session.labellable[{:name => location, :type => "resource"}]
         raise InvalidParameters, 
           "Labellable object is not exist with the given location: {#location}" if labellable.nil?
       end
 
       def _call_in_session(session)
-        labellable = session.labellable[{:name => session.labellable::pack_uuid(location)}]
+        labellable = session.labellable[{:name => location, :type => "resource"}]
 
         label = Laboratory::Labellable::Label.new(:type => type,
                                       :value => value)

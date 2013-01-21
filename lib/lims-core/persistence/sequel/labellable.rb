@@ -13,19 +13,6 @@ module Lims::Core
           :labellables
         end
 
-      # Pack if needed an uuid to its store representation
-      # @param [String] uuid
-      # @return [Object]
-      def self.pack_uuid(uuid)
-        Uuids::UuidResource::pack(uuid)
-      end
-
-      # Unpac if needed an uuid from its store representation
-      # @param [Object] puuid
-      # @return [String]
-      def self.unpack_uuid(puuid)
-        Uuids::UuidResource::unpack(puuid)
-      end
 
         def save_raw_association(labellables_id, labels_id)
             dataset.insert(:labellables_id => labellables_id, :labels_id  => labels_id)
@@ -35,7 +22,7 @@ module Lims::Core
           attributes.delete(:content)
           if attributes[:type] == "resource"
             name = attributes[:name]
-            attributes[:name] = pack_uuid(name)
+            attributes[:name] = @session.pack_uuid(name)
           end
           attributes
         end
@@ -43,7 +30,7 @@ module Lims::Core
         def filter_attributes_on_load(attributes, *params)
           if attributes[:type] == "resource"
             name = attributes[:name]
-            attributes[:name] = unpack_uuid(name)
+            attributes[:name] = @session.unpack_uuid(name)
           end
           attributes
         end
