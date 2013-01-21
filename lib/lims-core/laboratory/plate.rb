@@ -1,6 +1,5 @@
 require 'lims/core/resource'
 require 'lims/core/laboratory/receptacle'
-require 'lims/core/laboratory/container'
 
 require 'facets/hash'
 require 'facets/array'
@@ -23,11 +22,9 @@ module Lims::Core
         include Receptacle
       end
 
-      is_array_of Well do |p,t|
+      is_matrix_of Well do |p,t|
         (p.number_of_rows*p.number_of_columns).times.map { t.new }
       end
-
-      include Container
 
       # This should be set by the user.
       # We mock it to give pools by column

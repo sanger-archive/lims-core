@@ -1,5 +1,4 @@
 require 'lims/core/resource'
-require 'lims/core/laboratory/container'
 require 'lims/core/laboratory/tube'
 
 module Lims::Core
@@ -10,10 +9,9 @@ module Lims::Core
         attribute :"number_of_#{w}s", Fixnum, :required => true, :gte => 0, :writer => :private, :initializable => true
       end
 
-      is_array_of Tube do |p,t|
+      is_matrix_of Tube do |p,t|
         Array.new(p.number_of_rows * p.number_of_columns)
       end
-      include Container
 
       class RackPositionNotEmpty < StandardError
       end
@@ -31,7 +29,7 @@ module Lims::Core
           raise IndexOutOfRangeError unless (0...number_of_rows).include?(row)
           raise IndexOutOfRangeError unless (0...number_of_columns).include?(col)
           position = row * number_of_columns + col
-          raise RackPositionNotEmpty unless content[position].nil?
+          raise RackPositionNotEmpty unless content[position].nil? or value.nil?
           content[position] = value
         when Symbol
           self[key.to_s] = value

@@ -1,7 +1,7 @@
 require 'common'
 
-module Lims::Core
-  module Laboratory
+module Lims
+  module Core
     # A container is an a laboratory pieces
     # containing other laboratory pieces.
     # Example, a plate or a tube rack.
