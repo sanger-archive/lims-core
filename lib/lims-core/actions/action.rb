@@ -25,6 +25,8 @@ module Lims::Core
         end
       end
 
+      InvalidParameters = Class.new(RuntimeError)
+
       module AfterEval
         # Initialize a new actions
         # 'Common' parameters are set as argument
