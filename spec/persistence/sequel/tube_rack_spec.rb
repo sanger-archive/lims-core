@@ -104,7 +104,7 @@ module Lims::Core
           end
 
           it "deletes the tubes rows" do
-            expect { delete_tube_rack }.to change { db[:tube_rack_slots].count}.by(-31)
+            expect { delete_tube_rack }.to change { db[:tube_rack_slots].count}.by(-96)
           end
         end
 
