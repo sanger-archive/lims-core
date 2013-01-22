@@ -19,7 +19,7 @@ module Lims::Core
       }
 
       let!(:labellable_resource) { store.with_session { |s| s[uuid] } }
-      it "find the resource by label value", :focus => true  do
+      it "find the resource by label value"  do
         filter = Persistence::LabelFilter.new(:label => {:value => label_value})
         search = Persistence::Search.new(:model => labellable_resource.class , :filter => filter, :description => "lookup plate by label value")
 
@@ -30,7 +30,7 @@ module Lims::Core
           all.first.should == labellable_resource
         end
       end
-      it "find the resource by label position", :focus => true  do
+      it "find the resource by label position" do
         filter = Persistence::LabelFilter.new(:label => {:position => label_position})
         search = Persistence::Search.new(:model => labellable_resource.class, :filter => filter, :description => "lookup plate by label value")
 

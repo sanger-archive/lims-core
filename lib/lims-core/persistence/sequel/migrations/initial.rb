@@ -11,8 +11,8 @@ module Lims::Core::Persistence::Sequel::Migrations
 
       create_table :aliquots do
         primary_key :id
-        Integer :sample_id
-        Integer :tag_id
+        foreign_key :sample_id, :samples, :key => :id
+        foreign_key :tag_id, :oligos, :key => :id
         Integer :quantity
         String :type
       end
@@ -25,9 +25,9 @@ module Lims::Core::Persistence::Sequel::Migrations
       create_table :lanes do
         #primary_key :flowcell_id, :position
         primary_key :id
-        Integer :flowcell_id
+        foreign_key :flowcell_id, :flowcells, :key => :id
         Integer :position
-        Integer :aliquot_id
+        foreign_key :aliquot_id, :aliquots, :key => :id
       end
 
       create_table :plates do
@@ -38,9 +38,22 @@ module Lims::Core::Persistence::Sequel::Migrations
 
       create_table :wells do
         primary_key :id
-        Integer :plate_id
+        foreign_key :plate_id, :plates, :key => :id
         Integer :position
-        Integer :aliquot_id
+        foreign_key :aliquot_id, :aliquots, :key => :id
+      end
+
+      create_table :tube_racks do
+        primary_key :id
+        Integer :number_of_rows
+        Integer :number_of_columns
+      end
+
+      create_table :tube_rack_slots do
+        primary_key :id
+        foreign_key :tube_rack_id, :tube_racks, :key => :id
+        Integer :position
+        foreign_key :tube_id, :tubes, :key=> :id
       end
 
       create_table :oligos do
@@ -55,9 +68,9 @@ module Lims::Core::Persistence::Sequel::Migrations
 
       create_table :tag_group_associations do
         primary_key :id
-        Integer :tag_group_id
+        foreign_key :tag_group_id, :tag_groups, :key => :id
         Integer :position
-        Integer :oligo_id
+        foreign_key :oligo_id, :oligos, :key => :id
       end
 
       create_table :tubes do
@@ -67,7 +80,7 @@ module Lims::Core::Persistence::Sequel::Migrations
       create_table :tube_aliquots do
         primary_key :id
         Integer :tube_id
-        Integer :aliquot_id
+        foreign_key :aliquot_id, :aliquots, :key => :id
       end
 
       create_table :uuid_resources do
