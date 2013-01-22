@@ -43,6 +43,19 @@ module Lims::Core::Persistence::Sequel::Migrations
         Integer :aliquot_id
       end
 
+      create_table :tube_racks do
+        primary_key :id
+        Integer :number_of_rows
+        Integer :number_of_columns
+      end
+
+      create_table :tube_rack_slots do
+        primary_key :id
+        foreign_key :tube_rack_id, :tube_racks, :key => :id
+        Integer :position
+        foreign_key :tube_id, :tubes, :key=> :id
+      end
+
       create_table :oligos do
         primary_key :id
         String :sequence
