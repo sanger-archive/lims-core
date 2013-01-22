@@ -119,7 +119,7 @@ shared_examples "receptacle" do
 
 
 
-  context "with a chemical content", :focus => true do
+  context "with a chemical content" do
     let(:aliquot) { Lab::Aliquot.new(:quantity=>5) }
     let(:solvent) {  Lab::Aliquot.new(:quantity => 100, :type => Lab::Aliquot::Solvent) }
     subject { described_class.new.tap { |r| r << solvent << aliquot } }

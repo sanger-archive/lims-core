@@ -99,6 +99,12 @@ module Lims::Core
         end
       end
 
+      def []=(i, value)
+        case i
+        when Fixnum then self.content[i]=value
+        else super(i, value)
+        end
+      end
       # iterate only between non empty lanes.
       # @yield [content]
       # @return itself
