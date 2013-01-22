@@ -11,12 +11,23 @@ module Lims::Core
   module Actions
 
     shared_context "tube rack factory" do
-      def new_tube_rack_with_tubes(tubes_location = [])
+      let(:number_of_rows) { 8 }
+      let(:number_of_columns) { 12 }
+ 
+      def new_rack_with_tubes(tubes_location = [])
         Laboratory::TubeRack.new(:number_of_rows => number_of_rows, :number_of_columns => number_of_columns).tap do |rack|
           tubes_location.each do |location|
             tube = Laboratory::Tube.new
             tube << new_aliquot(location)
             rack[location] = tube
+          end
+        end
+      end
+
+      def new_rack_with_empty_tubes(tubes_location = [])
+        Laboratory::TubeRack.new(:number_of_rows => number_of_rows, :number_of_columns => number_of_columns).tap do |rack|
+          tubes_location.each do |location|
+            rack[location] = Laboratory::Tube.new
           end
         end
       end
@@ -43,7 +54,7 @@ module Lims::Core
         
         let(:source_id) {
           store.with_session do |session|
-            rack = new_tube_rack_with_tubes(["A4"]) 
+            rack = new_rack_with_tubes(["A4"]) 
             session << rack
             lambda { session.tube_rack.id_for(rack) }
           end.call
@@ -51,7 +62,7 @@ module Lims::Core
 
         let(:target_id) {
           store.with_session do |session|
-            rack = new_tube_rack_with_tubes(["E9"])
+            rack = new_rack_with_empty_tubes(["E9"])
             session << rack
             lambda { session.tube_rack.id_for(rack) }
           end.call
