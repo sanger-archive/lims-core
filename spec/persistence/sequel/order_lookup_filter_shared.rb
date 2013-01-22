@@ -84,7 +84,7 @@ module Lims::Core
             it_behaves_like "finding orders", { :item => { :role => "source3", :status => "pending", :uuid => "0000-3333-00000000-000000000000" } }, [1]
         end
 
-        context "mix order and items criteria", :focus => true do
+        context "mix order and items criteria" do
           it_behaves_like "finding orders", { :status => "completed", :item => { :uuid => "0000-3333-00000000-000000000000" } }, [2]
         end
       end
