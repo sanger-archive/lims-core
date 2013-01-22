@@ -34,6 +34,10 @@ module Lims::Core
         Aliquot.new(:sample => new_sample(i,j))
       end
 
+      def new_empty_tube()
+        Tube.new
+      end
+
     end
   end
 end

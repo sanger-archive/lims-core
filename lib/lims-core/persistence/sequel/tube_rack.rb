@@ -27,12 +27,12 @@ module Lims::Core
           # @param tube_rack_id the id of the tube_rack to load.
           # @yieldparam [Integer] position
           # @yieldparam [Aliquot] aliquot
-          def load_aliquots(tube_rack_id)
-            Well::dataset(@session).join(Aliquot::dataset(@session), :id => :aliquot_id).filter(:tube_rack_id => tube_rack_id).each do |att|
+          def load_tubes(tube_rack_id)
+            dataset.join(Tube::dataset(@session), :id => :tube_id).filter(:tube_rack_id => tube_rack_id).each do |att|
               position = att.delete(:position)
               att.delete(:id)
-              aliquot  = @session.aliquot.get_or_create_single_model(att[:aliquot_id], att)
-              yield(position, aliquot)
+              tube  = @session.tube.get_or_create_single_model(att[:tube_id], att)
+              yield(position, tube)
             end
           end
         end #class Well

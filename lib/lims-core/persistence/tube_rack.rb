@@ -21,7 +21,7 @@ module Lims::Core
         # we use values here, so position is a number
         tube_rack.values.each_with_index do |tube, position|
           next if nil
-          slot.save_as_association(tube_rack, tube, position)
+          slot.save_as_association(id, tube, position)
         end
       end
 
@@ -32,8 +32,8 @@ module Lims::Core
       # @return [Laboratory::TubeRack, nil] 
       #
       def load_children(id, tube_rack)
-        tube.load_aliquots(id) do |position, aliquot|
-          tube_rack[position] << aliquot
+        slot.load_tubes(id) do |position, tube|
+          tube_rack[position]= tube
         end
       end
 
