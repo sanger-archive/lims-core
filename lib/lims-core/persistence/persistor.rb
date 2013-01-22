@@ -56,8 +56,10 @@ module Lims::Core
       def delete(object, *params)
         return nil if object.nil?
         id_for(object) do |id|
-          delete_raw(object, id, *params)
+          # We need to delet the children before the parent
+          # to not break any constraints
           delete_children(id, object)
+          delete_raw(object, id, *params)
         end
       end
       # save an association

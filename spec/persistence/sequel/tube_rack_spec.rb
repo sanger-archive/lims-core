@@ -85,7 +85,7 @@ module Lims::Core
         end
         context "should be deletable" do
           before {
-            # add some aliquot to the wells
+            # add some aliquot to the tube
             store.with_session do |session|
             tube_rack = session.tube_rack[tube_rack_id]
             1.upto(10) { |i|  3.times { |j| tube_rack[i] = (new_empty_tube <<  new_aliquot(i,j)) } }
@@ -104,7 +104,7 @@ module Lims::Core
           end
 
           it "deletes the tubes rows" do
-            expect { delete_tube_rack }.to change { db[:tubes].count}.by(-31)
+            expect { delete_tube_rack }.to change { db[:tube_rack_slots].count}.by(-31)
           end
         end
 

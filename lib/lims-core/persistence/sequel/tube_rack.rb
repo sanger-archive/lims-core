@@ -41,7 +41,10 @@ module Lims::Core
           :tube_racks
         end
 
-
+        # Delete the tube, rack association, but doesn't delete the tube.
+        def delete_children(id, tube_rack)
+          Slot.dataset(@session).filter(:tube_rack_id => id).delete
+        end
       end
     end
   end
