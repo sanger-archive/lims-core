@@ -23,7 +23,7 @@ module Lims::Core
       # transfer the content of  from source to target according to map
       def _call_in_session(session)
           well_to_tube_map.each do |well , tube|
-            tube << plate[well].take
+            tube << plate[well].take_fraction(1)
           end
       end
     end
