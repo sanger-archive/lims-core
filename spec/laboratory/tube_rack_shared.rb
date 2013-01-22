@@ -12,10 +12,10 @@ module Lims::Core
       def new_tube_rack_with_samples(sample_nb=5)
         TubeRack.new(:number_of_rows => number_of_rows, :number_of_columns => number_of_columns).tap do |tube_rack|
           tube_rack.each_with_index do |slot, i|
+            tube = Tube.new
+            tube_rack[i] = tube
             1.upto(sample_nb) do |j|
-              tube = Tube.new
               tube <<  new_aliquot(i,j)
-              tube_rack[i] = tube
             end
           end
         end
@@ -31,7 +31,7 @@ module Lims::Core
 
       def new_aliquot(i=nil, j=nil)
         sample = Sample
-          Aliquot.new(:sample => new_sample(i,j))
+        Aliquot.new(:sample => new_sample(i,j))
       end
 
     end
