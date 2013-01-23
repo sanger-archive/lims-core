@@ -106,7 +106,7 @@ module Lims::Core::Persistence::Sequel::Migrations
         String :pipeline
         String :parameters
         String :status
-        Text :state
+        blob :state
         foreign_key :study_id, :studies, :key => :id
         String :cost_code
       end
@@ -126,7 +126,7 @@ module Lims::Core::Persistence::Sequel::Migrations
         String :description
         String :filter_type
         String :model
-        Text :filter_parameters
+        blob :filter_parameters
       end
 
       create_table :labellables do
