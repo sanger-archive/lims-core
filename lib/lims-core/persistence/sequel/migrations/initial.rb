@@ -86,7 +86,7 @@ module Lims::Core::Persistence::Sequel::Migrations
 
       create_table :uuid_resources do
         primary_key :id
-        String :uuid, :fixed => true, :size => 32
+        String :uuid, :fixed => true, :size => 64
         String :model_class
         Integer :key
       end
@@ -116,7 +116,7 @@ module Lims::Core::Persistence::Sequel::Migrations
         foreign_key :order_id, :orders, :key => :id
         String :role
         foreign_key :resource_id, :uuid_resources, :key => :id
-        String :uuid, :fixed => true, :size => 16
+        String :uuid, :fixed => true, :size => 64
         String :status
         Integer :iteration, :default => 0
       end
