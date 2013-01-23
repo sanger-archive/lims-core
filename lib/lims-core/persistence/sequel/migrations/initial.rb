@@ -9,6 +9,11 @@ module Lims::Core::Persistence::Sequel::Migrations
         String :name
       end
 
+      create_table :oligos do
+        primary_key :id
+        String :sequence
+      end
+
       create_table :aliquots do
         primary_key :id
         foreign_key :sample_id, :samples, :key => :id
@@ -29,6 +34,17 @@ module Lims::Core::Persistence::Sequel::Migrations
         Integer :position
         foreign_key :aliquot_id, :aliquots, :key => :id
       end
+
+      create_table :tubes do
+        primary_key :id
+      end
+
+      create_table :tube_aliquots do
+        primary_key :id
+        Integer :tube_id
+        foreign_key :aliquot_id, :aliquots, :key => :id
+      end
+
 
       create_table :plates do
         primary_key :id
@@ -56,11 +72,6 @@ module Lims::Core::Persistence::Sequel::Migrations
         foreign_key :tube_id, :tubes, :key=> :id
       end
 
-      create_table :oligos do
-        primary_key :id
-        String :sequence
-      end
-
       create_table :tag_groups do
         primary_key :id
         String :name
@@ -73,21 +84,19 @@ module Lims::Core::Persistence::Sequel::Migrations
         foreign_key :oligo_id, :oligos, :key => :id
       end
 
-      create_table :tubes do
-        primary_key :id
-      end
-
-      create_table :tube_aliquots do
-        primary_key :id
-        Integer :tube_id
-        foreign_key :aliquot_id, :aliquots, :key => :id
-      end
-
       create_table :uuid_resources do
         primary_key :id
-        String :uuid, :fixed => true, :size => 16
+        String :uuid, :fixed => true, :size => 64
         String :model_class
         Integer :key
+      end
+
+      create_table :users do
+        primary_key :id
+      end
+
+      create_table :studies do
+        primary_key :id
       end
 
       create_table :orders do
@@ -107,17 +116,9 @@ module Lims::Core::Persistence::Sequel::Migrations
         foreign_key :order_id, :orders, :key => :id
         String :role
         foreign_key :resource_id, :uuid_resources, :key => :id
-        String :uuid, :fixed => true, :size => 16
+        String :uuid, :fixed => true, :size => 64
         String :status
         Integer :iteration, :default => 0
-      end
-
-      create_table :users do
-        primary_key :id
-      end
-
-      create_table :studies do
-        primary_key :id
       end
 
       create_table :searches do
