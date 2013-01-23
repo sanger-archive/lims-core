@@ -30,6 +30,14 @@ module Lims::Core
           end.call
         }
 
+        let(:target_id) {
+          store.with_session do |session|
+            rack = target_tube_rack 
+            session << rack
+            lambda { session.tube_rack.id_for(rack) }
+          end.call
+        }
+
         context "invalid action parameters" do
           subject { described_class.new(:store => store, :user => user, :application => application) }
           before(:each) { subject.call }
@@ -39,13 +47,7 @@ module Lims::Core
 
         # Tube already present in target tube rack
         context "invalid transfer" do
-          let(:target_id) {
-            store.with_session do |session|
-              rack = new_tube_rack_with_samples(1) 
-              session << rack
-              lambda { session.tube_rack.id_for(rack) }
-            end.call
-          }
+          let(:target_tube_rack) { new_tube_rack_with_samples(1) }
 
           subject do
             described_class.new(:store => store, :user => user, :application => application) do |a,s|
@@ -61,14 +63,7 @@ module Lims::Core
         end
 
         context "valid transfer" do
-          let(:target_id) {
-            store.with_session do |session|
-              rack = new_empty_tube_rack 
-              session << rack
-              lambda { session.tube_rack.id_for(rack) }
-            end.call
-          }
-
+          let(:target_tube_rack) { new_empty_tube_rack }
           before(:each) { subject.call }
           subject do
             described_class.new(:store => store, :user => user, :application => application) do |a,s|
