@@ -17,10 +17,13 @@ module Lims::Core
       end
 
       # Overwrite []= method to add tube in the rack.
+      # The value nil needs to be set sometimes, for
+      # example when we move physically a tube between
+      # racks, the source rack position is then empty.
       # @param [Symbol, String] position in the rack
       # @param [Laboratory::Tube] tube
       def []=(key, value)
-        raise ArgumentError, "#{value} is not a Tube" unless value.is_a? Tube
+        raise ArgumentError, "#{value} is not a Tube" unless value.is_a? Tube or value.nil?
 
         case key
         when /\A([a-zA-Z])(\d+)\z/
