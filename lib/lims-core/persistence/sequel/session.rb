@@ -14,14 +14,19 @@ module Lims::Core
         # @param [String] uuid
         # @return [Object]
         def self.pack_uuid(uuid)
-          Uuids::UuidResource::pack(uuid)
+          # Normal behavior shoulb be pack to binary data
+          #Uuids::UuidResource::pack(uuid)
+          #For now, we just compact it.
+          Uuids::UuidResource::compact(uuid)
+
         end
 
         # Unpac if needed an uuid from its store representation
         # @param [Object] puuid
         # @return [String]
         def self.unpack_uuid(puuid)
-          Uuids::UuidResource::unpack(puuid)
+          #Uuids::UuidResource::unpack(puuid)
+          Uuids::UuidResource::expand(puuid)
         end
       end
     end

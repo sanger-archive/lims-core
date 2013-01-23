@@ -13,7 +13,7 @@ module Lims::Core
         attributes.mash do |k,v|
           case k
           when :model_class then   [ k, @session.model_name_for(v) ]
-          when :uuid then [ k, Uuids::UuidResource.pack(v) ]
+          when :uuid then [ k, @session.pack_uuid(v) ]
           else [k, v]
           end
         end
@@ -23,7 +23,7 @@ module Lims::Core
         attributes.mash do |k,v|
           case k
           when :model_class then [ k, @session.class_for(v) ]
-          when :uuid then [ k, Uuids::UuidResource.unpack(v) ]
+          when :uuid then [ k, @session.unpack_uuid(v) ]
           else [k, v]
           end
         end
