@@ -107,8 +107,8 @@
 
     <span class='id create_table'>create_table</span> <span class='symbol'>:aliquots</span> <span class='kw'>do</span>
       <span class='id primary_key'>primary_key</span> <span class='symbol'>:id</span>
-      <span class='const'>Integer</span> <span class='symbol'>:sample_id</span>
-      <span class='const'>Integer</span> <span class='symbol'>:tag_id</span>
+      <span class='id foreign_key'>foreign_key</span> <span class='symbol'>:sample_id</span><span class='comma'>,</span> <span class='symbol'>:samples</span><span class='comma'>,</span> <span class='symbol'>:key</span> <span class='op'>=&gt;</span> <span class='symbol'>:id</span>
+      <span class='id foreign_key'>foreign_key</span> <span class='symbol'>:tag_id</span><span class='comma'>,</span> <span class='symbol'>:oligos</span><span class='comma'>,</span> <span class='symbol'>:key</span> <span class='op'>=&gt;</span> <span class='symbol'>:id</span>
       <span class='const'>Integer</span> <span class='symbol'>:quantity</span>
       <span class='const'>String</span> <span class='symbol'>:type</span>
     <span class='kw'>end</span>
@@ -121,9 +121,9 @@
     <span class='id create_table'>create_table</span> <span class='symbol'>:lanes</span> <span class='kw'>do</span>
       <span class='comment'>#primary_key :flowcell_id, :position
 </span>      <span class='id primary_key'>primary_key</span> <span class='symbol'>:id</span>
-      <span class='const'>Integer</span> <span class='symbol'>:flowcell_id</span>
+      <span class='id foreign_key'>foreign_key</span> <span class='symbol'>:flowcell_id</span><span class='comma'>,</span> <span class='symbol'>:flowcells</span><span class='comma'>,</span> <span class='symbol'>:key</span> <span class='op'>=&gt;</span> <span class='symbol'>:id</span>
       <span class='const'>Integer</span> <span class='symbol'>:position</span>
-      <span class='const'>Integer</span> <span class='symbol'>:aliquot_id</span>
+      <span class='id foreign_key'>foreign_key</span> <span class='symbol'>:aliquot_id</span><span class='comma'>,</span> <span class='symbol'>:aliquots</span><span class='comma'>,</span> <span class='symbol'>:key</span> <span class='op'>=&gt;</span> <span class='symbol'>:id</span>
     <span class='kw'>end</span>
 
     <span class='id create_table'>create_table</span> <span class='symbol'>:plates</span> <span class='kw'>do</span>
@@ -134,9 +134,9 @@
 
     <span class='id create_table'>create_table</span> <span class='symbol'>:wells</span> <span class='kw'>do</span>
       <span class='id primary_key'>primary_key</span> <span class='symbol'>:id</span>
-      <span class='const'>Integer</span> <span class='symbol'>:plate_id</span>
+      <span class='id foreign_key'>foreign_key</span> <span class='symbol'>:plate_id</span><span class='comma'>,</span> <span class='symbol'>:plates</span><span class='comma'>,</span> <span class='symbol'>:key</span> <span class='op'>=&gt;</span> <span class='symbol'>:id</span>
       <span class='const'>Integer</span> <span class='symbol'>:position</span>
-      <span class='const'>Integer</span> <span class='symbol'>:aliquot_id</span>
+      <span class='id foreign_key'>foreign_key</span> <span class='symbol'>:aliquot_id</span><span class='comma'>,</span> <span class='symbol'>:aliquots</span><span class='comma'>,</span> <span class='symbol'>:key</span> <span class='op'>=&gt;</span> <span class='symbol'>:id</span>
     <span class='kw'>end</span>
 
     <span class='id create_table'>create_table</span> <span class='symbol'>:tube_racks</span> <span class='kw'>do</span>
@@ -164,9 +164,9 @@
 
     <span class='id create_table'>create_table</span> <span class='symbol'>:tag_group_associations</span> <span class='kw'>do</span>
       <span class='id primary_key'>primary_key</span> <span class='symbol'>:id</span>
-      <span class='const'>Integer</span> <span class='symbol'>:tag_group_id</span>
+      <span class='id foreign_key'>foreign_key</span> <span class='symbol'>:tag_group_id</span><span class='comma'>,</span> <span class='symbol'>:tag_groups</span><span class='comma'>,</span> <span class='symbol'>:key</span> <span class='op'>=&gt;</span> <span class='symbol'>:id</span>
       <span class='const'>Integer</span> <span class='symbol'>:position</span>
-      <span class='const'>Integer</span> <span class='symbol'>:oligo_id</span>
+      <span class='id foreign_key'>foreign_key</span> <span class='symbol'>:oligo_id</span><span class='comma'>,</span> <span class='symbol'>:oligos</span><span class='comma'>,</span> <span class='symbol'>:key</span> <span class='op'>=&gt;</span> <span class='symbol'>:id</span>
     <span class='kw'>end</span>
 
     <span class='id create_table'>create_table</span> <span class='symbol'>:tubes</span> <span class='kw'>do</span>
@@ -176,7 +176,7 @@
     <span class='id create_table'>create_table</span> <span class='symbol'>:tube_aliquots</span> <span class='kw'>do</span>
       <span class='id primary_key'>primary_key</span> <span class='symbol'>:id</span>
       <span class='const'>Integer</span> <span class='symbol'>:tube_id</span>
-      <span class='const'>Integer</span> <span class='symbol'>:aliquot_id</span>
+      <span class='id foreign_key'>foreign_key</span> <span class='symbol'>:aliquot_id</span><span class='comma'>,</span> <span class='symbol'>:aliquots</span><span class='comma'>,</span> <span class='symbol'>:key</span> <span class='op'>=&gt;</span> <span class='symbol'>:id</span>
     <span class='kw'>end</span>
 
     <span class='id create_table'>create_table</span> <span class='symbol'>:uuid_resources</span> <span class='kw'>do</span>
