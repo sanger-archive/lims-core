@@ -1,6 +1,7 @@
 # Spec requirements
 require 'actions/action_examples'
 require 'persistence/sequel/store_shared'
+require 'laboratory/tube_rack_shared'
 
 # Model requirements
 require 'lims/core/actions/tube_rack_transfer'
@@ -9,52 +10,21 @@ require 'lims/core/persistence/sequel/store'
 
 module Lims::Core
   module Actions
-
-    shared_context "tube rack factory" do
-      let(:number_of_rows) { 8 }
-      let(:number_of_columns) { 12 }
- 
-      def new_rack_with_tubes(tubes_location = [])
-        Laboratory::TubeRack.new(:number_of_rows => number_of_rows, :number_of_columns => number_of_columns).tap do |rack|
-          tubes_location.each do |location|
-            tube = Laboratory::Tube.new
-            tube << new_aliquot(location)
-            rack[location] = tube
-          end
-        end
-      end
-
-      def new_rack_with_empty_tubes(tubes_location = [])
-        Laboratory::TubeRack.new(:number_of_rows => number_of_rows, :number_of_columns => number_of_columns).tap do |rack|
-          tubes_location.each do |location|
-            rack[location] = Laboratory::Tube.new
-          end
-        end
-      end
-
-      def new_aliquot(str)
-        Laboratory::Aliquot.new(:sample => new_sample(str))
-      end
-
-      def new_sample(str)
-        Laboratory::Sample.new("Sample_#{str}")
-      end
-    end
-
-
     describe TubeRackTransfer do
       context "with a sequel store" do
         include_context "for application", "test tube rack transfer"
         include_context "prepare tables"
-        include_context "tube rack factory"
-        
+        include_context "tube_rack factory"
+
+        let(:number_of_rows) { 8 }
+        let(:number_of_columns) { 12 }
         let(:db) { ::Sequel.sqlite('') }
         let(:store) { Persistence::Sequel::Store.new(db) }
         before(:each) { prepare_table(db) }
-        
+
         let(:source_id) {
           store.with_session do |session|
-            rack = new_rack_with_tubes(["A4"]) 
+            rack = new_tube_rack_with_samples(1) 
             session << rack
             lambda { session.tube_rack.id_for(rack) }
           end.call
@@ -62,7 +32,9 @@ module Lims::Core
 
         let(:target_id) {
           store.with_session do |session|
-            rack = new_rack_with_empty_tubes(["E9"])
+            rack = new_empty_tube_rack.tap do |r|
+              r["E9"] = new_empty_tube
+            end
             session << rack
             lambda { session.tube_rack.id_for(rack) }
           end.call
