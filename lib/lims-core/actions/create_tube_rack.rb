@@ -14,13 +14,13 @@ module Lims::Core
       # @attribute [Hash<String, Laboratory::Tube>] tubes description
       # @example
       # {"A1" => tube_1, "B4" => tube_2}
-      attribute :tubes_description, Hash, :default => {}
+      attribute :tubes, Hash, :default => {}
 
       def _call_in_session(session)
         tube_rack = Laboratory::TubeRack.new(:number_of_columns => number_of_columns, :number_of_rows => number_of_rows)
         session << tube_rack
 
-        tubes_description.each do |position, tube|
+        tubes.each do |position, tube|
           tube_rack[position] = tube
         end
 
