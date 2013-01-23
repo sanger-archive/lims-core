@@ -192,7 +192,9 @@
 </p><div class="docstring">
   <div class="discussion">
     
-<p>Overwrite []= method to add tube in the rack.</p>
+<p>Overwrite []= method to add tube in the rack. The value nil needs to be set
+sometimes, for example when we move physically a tube between racks, the
+source rack position is then empty.</p>
 
 
   </div>
@@ -250,9 +252,6 @@
       <pre class="lines">
 
 
-22
-23
-24
 25
 26
 27
@@ -267,13 +266,16 @@
 36
 37
 38
-39</pre>
+39
+40
+41
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/laboratory/tube_rack.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/laboratory/tube_rack.rb', line 25</span>
 
 <span class='kw'>def</span> <span class='op'>[]=</span><span class='lparen'>(</span><span class='id key'>key</span><span class='comma'>,</span> <span class='id value'>value</span><span class='rparen'>)</span>
-  <span class='id raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id value'>value</span><span class='rbrace'>}</span><span class='tstring_content'> is not a Tube</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id value'>value</span><span class='period'>.</span><span class='id is_a?'>is_a?</span> <span class='const'>Tube</span>
+  <span class='id raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id value'>value</span><span class='rbrace'>}</span><span class='tstring_content'> is not a Tube</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id value'>value</span><span class='period'>.</span><span class='id is_a?'>is_a?</span> <span class='const'>Tube</span> <span class='kw'>or</span> <span class='id value'>value</span><span class='period'>.</span><span class='id nil?'>nil?</span>
 
   <span class='kw'>case</span> <span class='id key'>key</span>
   <span class='kw'>when</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\A([a-zA-Z])(\d+)\z</span><span class='regexp_end'>/</span></span>
