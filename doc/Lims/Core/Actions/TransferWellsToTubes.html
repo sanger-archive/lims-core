@@ -120,7 +120,7 @@ attributes.</p>
   
   
   <h3 class="inherited">Constants included from <span class='object_link'><a href="Action.html" title="Lims::Core::Actions::Action (module)">Action</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Action.html#UnrevertableAction-constant" title="Lims::Core::Actions::Action::UnrevertableAction (constant)">UnrevertableAction</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="Action.html#InvalidParameters-constant" title="Lims::Core::Actions::Action::InvalidParameters (constant)">InvalidParameters</a></span>, <span class='object_link'><a href="Action.html#UnrevertableAction-constant" title="Lims::Core::Actions::Action::UnrevertableAction (constant)">UnrevertableAction</a></span></p>
 
 
 
@@ -234,7 +234,7 @@ attributes.</p>
 
 <span class='kw'>def</span> <span class='id _call_in_session'>_call_in_session</span><span class='lparen'>(</span><span class='id session'>session</span><span class='rparen'>)</span>
     <span class='id well_to_tube_map'>well_to_tube_map</span><span class='period'>.</span><span class='id each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id well'>well</span> <span class='comma'>,</span> <span class='id tube'>tube</span><span class='op'>|</span>
-      <span class='id tube'>tube</span> <span class='op'>&lt;&lt;</span> <span class='id plate'>plate</span><span class='lbracket'>[</span><span class='id well'>well</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id take'>take</span>
+      <span class='id tube'>tube</span> <span class='op'>&lt;&lt;</span> <span class='id plate'>plate</span><span class='lbracket'>[</span><span class='id well'>well</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id take_fraction'>take_fraction</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>
     <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -263,7 +263,7 @@ attributes.</p>
     <li>
       
       
-        <span class='type'>(<tt>InvalidParameters</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="Action.html#InvalidParameters-constant" title="Lims::Core::Actions::Action::InvalidParameters (constant)">InvalidParameters</a></span></tt>)</span>
       
       
       
