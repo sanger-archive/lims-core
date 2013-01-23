@@ -39,11 +39,17 @@ module Lims::Core
 
         # Pack a string representation of an uuid to a char(16)
         def self.pack(to_pack)
-          [compact(to_pack)].pack("H*")
+          # We just just normal string
+          # as we are having trouble using binar and mysql
+          return compact(to_pack)
+          #[compact(to_pack)].pack("H*")
         end
 
         def self.unpack(packed)
-          expand(packed.unpack("H*").first)
+          # We just just normal string
+          # as we are having trouble using binar and mysql
+          expand(packed)
+          #expand(packed.unpack("H*").first)
         end
 
         # Convert the string representation of an Uuid to a bignum
