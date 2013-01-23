@@ -29,7 +29,7 @@ module Lims::Core
     end
 
     shared_context "for a tube rack with tubes" do
-      let(:tubes_description) {{
+      let(:tubes) {{
         "A1" => Laboratory::Tube.new,
         "B3" => Laboratory::Tube.new,
         "D5" => Laboratory::Tube.new,
@@ -39,13 +39,13 @@ module Lims::Core
       subject do
         CreateTubeRack.new(:store => store, :user => user, :application => application) do |a,s|
           a.ostruct_update(dimensions)
-          a.tubes_description = tubes_description
+          a.tubes = tubes
         end
       end
 
       let(:tube_rack_checker) do
         lambda do |tube_rack|
-          tubes_description.each do |position, tube|
+          tubes.each do |position, tube|
             tube_rack[position].should == tube
           end
         end
