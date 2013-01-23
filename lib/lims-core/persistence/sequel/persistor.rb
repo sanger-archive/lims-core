@@ -96,7 +96,7 @@ module Lims::Core
           # OLD dataset.select(primary_key)[criteria] || []
           #
           ds=dataset.select(primary_key).filter(criteria.keys.mash { |k| [k, :"$#{k}"] })
-          statement_name = :"#{table_name}#ids_for"
+          statement_name = :"#{table_name}__ids_for"
           ds.prepare(:select, statement_name)
 
           # for some reason, the prepared statement return an array of Hashes insteead
@@ -116,7 +116,7 @@ module Lims::Core
           # or cached it by attributes
           # @todo benchmark against normal insert
           attributes = filter_attributes_on_save(object.attributes, *params)
-          statement_name = :"#{table_name}#save_raw"
+          statement_name = :"#{table_name}__save_raw"
           dataset.prepare(:insert, statement_name, attributes.keys.mash { |k| [k, :"$#{k}"] })
           @session.database.call(statement_name, attributes)
         end
@@ -130,7 +130,7 @@ module Lims::Core
           id.tap do
             attributes = filter_attributes_on_save(object.attributes, *params)
             return true if attributes == {}
-            statement_name = :"#{table_name}#update_raw"
+            statement_name = :"#{table_name}__update_raw"
             dataset.filter(primary_key => id).prepare(:update, statement_name, attributes.keys.mash { |k| [k, :"$#{k}"] })
             @session.database.call(statement_name, attributes)
           end
