@@ -105,6 +105,11 @@
       <span class='const'>String</span> <span class='symbol'>:name</span>
     <span class='kw'>end</span>
 
+    <span class='id create_table'>create_table</span> <span class='symbol'>:oligos</span> <span class='kw'>do</span>
+      <span class='id primary_key'>primary_key</span> <span class='symbol'>:id</span>
+      <span class='const'>String</span> <span class='symbol'>:sequence</span>
+    <span class='kw'>end</span>
+
     <span class='id create_table'>create_table</span> <span class='symbol'>:aliquots</span> <span class='kw'>do</span>
       <span class='id primary_key'>primary_key</span> <span class='symbol'>:id</span>
       <span class='id foreign_key'>foreign_key</span> <span class='symbol'>:sample_id</span><span class='comma'>,</span> <span class='symbol'>:samples</span><span class='comma'>,</span> <span class='symbol'>:key</span> <span class='op'>=&gt;</span> <span class='symbol'>:id</span>
@@ -125,6 +130,17 @@
       <span class='const'>Integer</span> <span class='symbol'>:position</span>
       <span class='id foreign_key'>foreign_key</span> <span class='symbol'>:aliquot_id</span><span class='comma'>,</span> <span class='symbol'>:aliquots</span><span class='comma'>,</span> <span class='symbol'>:key</span> <span class='op'>=&gt;</span> <span class='symbol'>:id</span>
     <span class='kw'>end</span>
+
+    <span class='id create_table'>create_table</span> <span class='symbol'>:tubes</span> <span class='kw'>do</span>
+      <span class='id primary_key'>primary_key</span> <span class='symbol'>:id</span>
+    <span class='kw'>end</span>
+
+    <span class='id create_table'>create_table</span> <span class='symbol'>:tube_aliquots</span> <span class='kw'>do</span>
+      <span class='id primary_key'>primary_key</span> <span class='symbol'>:id</span>
+      <span class='const'>Integer</span> <span class='symbol'>:tube_id</span>
+      <span class='id foreign_key'>foreign_key</span> <span class='symbol'>:aliquot_id</span><span class='comma'>,</span> <span class='symbol'>:aliquots</span><span class='comma'>,</span> <span class='symbol'>:key</span> <span class='op'>=&gt;</span> <span class='symbol'>:id</span>
+    <span class='kw'>end</span>
+
 
     <span class='id create_table'>create_table</span> <span class='symbol'>:plates</span> <span class='kw'>do</span>
       <span class='id primary_key'>primary_key</span> <span class='symbol'>:id</span>
@@ -152,11 +168,6 @@
       <span class='id foreign_key'>foreign_key</span> <span class='symbol'>:tube_id</span><span class='comma'>,</span> <span class='symbol'>:tubes</span><span class='comma'>,</span> <span class='symbol'>:key</span><span class='op'>=&gt;</span> <span class='symbol'>:id</span>
     <span class='kw'>end</span>
 
-    <span class='id create_table'>create_table</span> <span class='symbol'>:oligos</span> <span class='kw'>do</span>
-      <span class='id primary_key'>primary_key</span> <span class='symbol'>:id</span>
-      <span class='const'>String</span> <span class='symbol'>:sequence</span>
-    <span class='kw'>end</span>
-
     <span class='id create_table'>create_table</span> <span class='symbol'>:tag_groups</span> <span class='kw'>do</span>
       <span class='id primary_key'>primary_key</span> <span class='symbol'>:id</span>
       <span class='const'>String</span> <span class='symbol'>:name</span>
@@ -169,21 +180,19 @@
       <span class='id foreign_key'>foreign_key</span> <span class='symbol'>:oligo_id</span><span class='comma'>,</span> <span class='symbol'>:oligos</span><span class='comma'>,</span> <span class='symbol'>:key</span> <span class='op'>=&gt;</span> <span class='symbol'>:id</span>
     <span class='kw'>end</span>
 
-    <span class='id create_table'>create_table</span> <span class='symbol'>:tubes</span> <span class='kw'>do</span>
-      <span class='id primary_key'>primary_key</span> <span class='symbol'>:id</span>
-    <span class='kw'>end</span>
-
-    <span class='id create_table'>create_table</span> <span class='symbol'>:tube_aliquots</span> <span class='kw'>do</span>
-      <span class='id primary_key'>primary_key</span> <span class='symbol'>:id</span>
-      <span class='const'>Integer</span> <span class='symbol'>:tube_id</span>
-      <span class='id foreign_key'>foreign_key</span> <span class='symbol'>:aliquot_id</span><span class='comma'>,</span> <span class='symbol'>:aliquots</span><span class='comma'>,</span> <span class='symbol'>:key</span> <span class='op'>=&gt;</span> <span class='symbol'>:id</span>
-    <span class='kw'>end</span>
-
     <span class='id create_table'>create_table</span> <span class='symbol'>:uuid_resources</span> <span class='kw'>do</span>
       <span class='id primary_key'>primary_key</span> <span class='symbol'>:id</span>
-      <span class='const'>String</span> <span class='symbol'>:uuid</span><span class='comma'>,</span> <span class='symbol'>:fixed</span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='symbol'>:size</span> <span class='op'>=&gt;</span> <span class='int'>16</span>
+      <span class='const'>String</span> <span class='symbol'>:uuid</span><span class='comma'>,</span> <span class='symbol'>:fixed</span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='symbol'>:size</span> <span class='op'>=&gt;</span> <span class='int'>64</span>
       <span class='const'>String</span> <span class='symbol'>:model_class</span>
       <span class='const'>Integer</span> <span class='symbol'>:key</span>
+    <span class='kw'>end</span>
+
+    <span class='id create_table'>create_table</span> <span class='symbol'>:users</span> <span class='kw'>do</span>
+      <span class='id primary_key'>primary_key</span> <span class='symbol'>:id</span>
+    <span class='kw'>end</span>
+
+    <span class='id create_table'>create_table</span> <span class='symbol'>:studies</span> <span class='kw'>do</span>
+      <span class='id primary_key'>primary_key</span> <span class='symbol'>:id</span>
     <span class='kw'>end</span>
 
     <span class='id create_table'>create_table</span> <span class='symbol'>:orders</span> <span class='kw'>do</span>
@@ -203,17 +212,9 @@
       <span class='id foreign_key'>foreign_key</span> <span class='symbol'>:order_id</span><span class='comma'>,</span> <span class='symbol'>:orders</span><span class='comma'>,</span> <span class='symbol'>:key</span> <span class='op'>=&gt;</span> <span class='symbol'>:id</span>
       <span class='const'>String</span> <span class='symbol'>:role</span>
       <span class='id foreign_key'>foreign_key</span> <span class='symbol'>:resource_id</span><span class='comma'>,</span> <span class='symbol'>:uuid_resources</span><span class='comma'>,</span> <span class='symbol'>:key</span> <span class='op'>=&gt;</span> <span class='symbol'>:id</span>
-      <span class='const'>String</span> <span class='symbol'>:uuid</span><span class='comma'>,</span> <span class='symbol'>:fixed</span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='symbol'>:size</span> <span class='op'>=&gt;</span> <span class='int'>16</span>
+      <span class='const'>String</span> <span class='symbol'>:uuid</span><span class='comma'>,</span> <span class='symbol'>:fixed</span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='symbol'>:size</span> <span class='op'>=&gt;</span> <span class='int'>64</span>
       <span class='const'>String</span> <span class='symbol'>:status</span>
       <span class='const'>Integer</span> <span class='symbol'>:iteration</span><span class='comma'>,</span> <span class='symbol'>:default</span> <span class='op'>=&gt;</span> <span class='int'>0</span>
-    <span class='kw'>end</span>
-
-    <span class='id create_table'>create_table</span> <span class='symbol'>:users</span> <span class='kw'>do</span>
-      <span class='id primary_key'>primary_key</span> <span class='symbol'>:id</span>
-    <span class='kw'>end</span>
-
-    <span class='id create_table'>create_table</span> <span class='symbol'>:studies</span> <span class='kw'>do</span>
-      <span class='id primary_key'>primary_key</span> <span class='symbol'>:id</span>
     <span class='kw'>end</span>
 
     <span class='id create_table'>create_table</span> <span class='symbol'>:searches</span> <span class='kw'>do</span>

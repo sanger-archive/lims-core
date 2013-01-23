@@ -290,13 +290,21 @@
 
 16
 17
-18</pre>
+18
+19
+20
+21
+22</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/session.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id pack_uuid'>pack_uuid</span><span class='lparen'>(</span><span class='id uuid'>uuid</span><span class='rparen'>)</span>
-  <span class='const'>Uuids</span><span class='op'>::</span><span class='const'>UuidResource</span><span class='op'>::</span><span class='id pack'>pack</span><span class='lparen'>(</span><span class='id uuid'>uuid</span><span class='rparen'>)</span>
+  <span class='comment'># Normal behavior shoulb be pack to binary data
+</span>  <span class='comment'>#Uuids::UuidResource::pack(uuid)
+</span>  <span class='comment'>#For now, we just compact it.
+</span>  <span class='const'>Uuids</span><span class='op'>::</span><span class='const'>UuidResource</span><span class='op'>::</span><span class='id compact'>compact</span><span class='lparen'>(</span><span class='id uuid'>uuid</span><span class='rparen'>)</span>
+
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -355,15 +363,17 @@
       <pre class="lines">
 
 
-23
-24
-25</pre>
+27
+28
+29
+30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/session.rb', line 23</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/session.rb', line 27</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id unpack_uuid'>unpack_uuid</span><span class='lparen'>(</span><span class='id puuid'>puuid</span><span class='rparen'>)</span>
-  <span class='const'>Uuids</span><span class='op'>::</span><span class='const'>UuidResource</span><span class='op'>::</span><span class='id unpack'>unpack</span><span class='lparen'>(</span><span class='id puuid'>puuid</span><span class='rparen'>)</span>
+  <span class='comment'>#Uuids::UuidResource::unpack(puuid)
+</span>  <span class='const'>Uuids</span><span class='op'>::</span><span class='const'>UuidResource</span><span class='op'>::</span><span class='id expand'>expand</span><span class='lparen'>(</span><span class='id puuid'>puuid</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
