@@ -37,6 +37,17 @@ module Lims::Core
           self.class.new(self, dataset.join(persistor.dataset, :key => primary_key))
         end
 
+
+
+        def order_filter(criteria)
+          order_persistor = @session.order.__multi_criteria_filter(criteria[:order])
+          order_dataset = order_persistor.dataset.join(:items, :order_id => order_persistor.primary_key).join(:uuid_resources, :uuid => :items__id) 
+
+          self.class.new(self, dataset.join(order_dataset, :key => primary_key)) 
+        end
+
+
+
         protected
         # @param Hash criteria
         # @return Persistor
