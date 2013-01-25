@@ -41,6 +41,14 @@ module Lims::Core
         def filter_attributes_on_save(attributes, order_id=nil, role=nil)
           attributes[:role] = role if role
           attributes[:order_id] = order_id if order_id
+          uuid = attributes[:uuid]
+          attributes[:uuid] = @session.pack_uuid(uuid) unless uuid.nil?
+          attributes
+        end
+
+        def filter_attributes_on_load(attributes)
+          uuid = attributes[:uuid]
+          attributes[:uuid] = @session.unpack_uuid(uuid) unless uuid.nil?
           attributes
         end
       end
