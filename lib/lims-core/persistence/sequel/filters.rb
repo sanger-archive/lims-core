@@ -14,7 +14,6 @@ module Lims::Core
         # @param [Hash<String, Object > criteria
         # @return [Persistor]
         def multi_criteria_filter(criteria)
-          criteria = __pack_criteria_uuids(criteria)
           # We need to create the adequat dataset.
           dataset = __multi_criteria_filter(criteria).dataset
           # As the dataset can include join, we need to select only the columns
@@ -39,20 +38,6 @@ module Lims::Core
         end
 
         protected
-
-        # If uuids are part of the filter criteria,
-        # it needs to be packed in order to be in the same
-        # format with uuids stored in the database.
-        # @param [Hash] criteria
-        # @return [Hash] criteria with uuids packed
-        def __pack_criteria_uuids(criteria)
-          criteria.each do |k, v|
-            criteria[k] = @session.pack_uuid(v) if k.to_s == "uuid"
-            __pack_criteria_uuids(v) if v.is_a? Hash
-          end
-          criteria
-        end
-
         # @param Hash criteria
         # @return Persistor
         def __multi_criteria_filter(criteria)
@@ -63,7 +48,9 @@ module Lims::Core
           joined = criteria.reduce(self) do |persistor, (key, value)|
             case value
             when Hash
-              joined_persistor = persistor.send(key).__multi_criteria_filter(value)
+              criteria_persistor = persistor.send(key)
+              filtered_value = criteria_persistor.filter_attributes_on_save(value.rekey {|k| k.to_sym})
+              joined_persistor = criteria_persistor.__multi_criteria_filter(filtered_value)
               __join(joined_persistor)
             else persistor
             end
