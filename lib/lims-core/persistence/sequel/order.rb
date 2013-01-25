@@ -51,12 +51,6 @@ module Lims::Core
               yield(role, item)
             end
           end
-
-          def filter_attributes_on_load(attributes, *params)
-            uuid = attributes[:uuid]
-            attributes[:uuid] = @session.unpack_uuid(uuid) unless uuid.nil?
-            attributes
-          end
         end
       end
     end

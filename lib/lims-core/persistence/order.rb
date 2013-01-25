@@ -45,6 +45,12 @@ module Lims::Core
           attributes[:uuid] = @session.pack_uuid(uuid) unless uuid.nil?
           attributes
         end
+
+        def filter_attributes_on_load(attributes)
+          uuid = attributes[:uuid]
+          attributes[:uuid] = @session.unpack_uuid(uuid) unless uuid.nil?
+          attributes
+        end
       end
     end
   end
