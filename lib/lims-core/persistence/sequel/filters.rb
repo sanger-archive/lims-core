@@ -14,11 +14,12 @@ module Lims::Core
         # @param [Hash<String, Object > criteria
         # @return [Persistor]
         def multi_criteria_filter(criteria)
+          criteria = __pack_criteria_uuids(criteria)
           # We need to create the adequat dataset.
-              dataset = __multi_criteria_filter(criteria).dataset
-              # As the dataset can include join, we need to select only the columns
-              # corresponding to the persistor
-              self.class.new(self, dataset.qualify(table_name).distinct())
+          dataset = __multi_criteria_filter(criteria).dataset
+          # As the dataset can include join, we need to select only the columns
+          # corresponding to the persistor
+          self.class.new(self, dataset.qualify(table_name).distinct())
         end
 
         # Implements a label filter for a Sequel::Persistor.
@@ -38,6 +39,20 @@ module Lims::Core
         end
 
         protected
+
+        # If uuids are part of the filter criteria,
+        # it needs to be packed in order to be in the same
+        # format with uuids stored in the database.
+        # @param [Hash] criteria
+        # @return [Hash] criteria with uuids packed
+        def __pack_criteria_uuids(criteria)
+          criteria.each do |k, v|
+            criteria[k] = @session.pack_uuid(v) if k.to_s == "uuid"
+            __pack_criteria_uuids(v) if v.is_a? Hash
+          end
+          criteria
+        end
+
         # @param Hash criteria
         # @return Persistor
         def __multi_criteria_filter(criteria)
