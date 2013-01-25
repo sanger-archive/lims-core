@@ -45,6 +45,8 @@ module Lims::Core
           # joined table
           # Hash value are criteria for the corresponding joined tabled
           # We need to extract them and do the obvious join
+          # Values are passed to filter_attributes_on save to get
+          # the right format if needed.
           joined = criteria.reduce(self) do |persistor, (key, value)|
             case value
             when Hash
