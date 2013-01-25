@@ -37,12 +37,6 @@ module Lims::Core
 
       class Item < Persistor
         Model = Organization::Order::Item
-
-        def filter_attributes_on_save(attributes, order_id=nil, role=nil)
-          attributes[:role] = role if role
-          attributes[:order_id] = order_id if order_id
-          attributes
-        end
       end
     end
   end
