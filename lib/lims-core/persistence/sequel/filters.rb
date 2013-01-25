@@ -41,7 +41,7 @@ module Lims::Core
         # @param [Hash<String, Object>] criteria
         # @example
         # {:order => {:item => {:status => "pending"}, :status => "draft"}}
-        # Will create a request to get the resource in a draft order
+        # Create a request to get the resource in a draft order
         # with a pending item status.
         # @return [Persistor]
         def order_filter(criteria)
@@ -55,7 +55,10 @@ module Lims::Core
             order_dataset = order_dataset.join(:items, :order_id => order_persistor.primary_key)
           end
           
+          # Join order dataset with the uuid_resources table 
           order_dataset = order_dataset.join(:uuid_resources, :uuid => :items__uuid)            
+
+          # Join order dataset with the resource dataset
           self.class.new(self, dataset.join(order_dataset, :key => primary_key)) 
         end
 
