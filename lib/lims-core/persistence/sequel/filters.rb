@@ -37,16 +37,27 @@ module Lims::Core
           self.class.new(self, dataset.join(persistor.dataset, :key => primary_key))
         end
 
-
-
+        # Implement an order filter for a Sequel::Persistor.
+        # @param [Hash<String, Object>] criteria
+        # @example
+        # {:order => {:item => {:status => "pending"}, :status => "draft"}}
+        # Will create a request to get the resource in a draft order
+        # with a pending item status.
+        # @return [Persistor]
         def order_filter(criteria)
-          order_persistor = @session.order.__multi_criteria_filter(criteria[:order])
-          order_dataset = order_persistor.dataset.join(:items, :order_id => order_persistor.primary_key).join(:uuid_resources, :uuid => :items__id) 
+          criteria = criteria[:order] if criteria.keys.first.to_s == "order"
+          order_persistor = @session.order.__multi_criteria_filter(criteria)
+          order_dataset = order_persistor.dataset
 
+          # If criteria doesn't include an item key, we need 
+          # to make the join with the table items here.
+          unless criteria.has_key? "item"
+            order_dataset = order_dataset.join(:items, :order_id => order_persistor.primary_key)
+          end
+          
+          order_dataset = order_dataset.join(:uuid_resources, :uuid => :items__uuid)            
           self.class.new(self, dataset.join(order_dataset, :key => primary_key)) 
         end
-
-
 
         protected
         # @param Hash criteria
