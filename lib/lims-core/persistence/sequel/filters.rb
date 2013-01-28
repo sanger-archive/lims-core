@@ -41,7 +41,7 @@ module Lims::Core
         # @param [Hash<String, Object>] criteria
         # @example
         # {:order => {:item => {:status => "pending"}, :status => "draft"}}
-        # Create a request to get the resource in a draft order
+        # Create a request to get the resources in a draft order
         # with a pending item status.
         # @return [Persistor]
         def order_filter(criteria)
