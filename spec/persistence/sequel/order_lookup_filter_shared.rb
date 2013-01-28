@@ -105,6 +105,10 @@ module Lims::Core
           uuids.each do |uuid|
             all.should include(session[uuid])
           end
+
+          all.each do |resource|
+            resource.should be_a(model)
+          end
         end
       end 
     end
