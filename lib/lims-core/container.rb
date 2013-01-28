@@ -35,8 +35,7 @@ module Lims
           when Array
             get_element(*index)
           when /\A([a-zA-Z])(\d+)\z/
-            row, col = element_name_to_index($1, $2)
-            get_element(row, col)
+            get_element($1, $2)
             # why not something like
             # get_well(*[$1, $2].zip(%w{A 1}).map { |a,b| [a,b].map(&:ord).inject { |x,y| x-y } })
           when Symbol
@@ -79,10 +78,13 @@ module Lims
       end
 
       # Converts an element name to an index of the underlying container
+      # The result could be from 0 to size - 1
       def element_name_to_index(row_str, col_str)
-        row = row_str.ord - ?A.ord
-        col = col_str.to_i - 1
-        [ row, col ]
+        row = row_str.ord - ?A.ord if row_str.is_a?(String)
+        col = col_str.to_i - 1 if col_str.is_a?(String)
+        raise IndexOutOfRangeError unless (0...number_of_rows).include?(row)
+        raise IndexOutOfRangeError unless (0...number_of_columns).include?(col)
+        row*number_of_columns + col
       end
 
       # return a element from a 2D index
@@ -91,9 +93,7 @@ module Lims
       # @param [Fixnum] col index of the column (starting at 0)
       # @return [Object]
       def get_element(row, col)
-        raise IndexOutOfRangeError unless (0...number_of_rows).include?(row)
-        raise IndexOutOfRangeError unless (0...number_of_columns).include?(col)
-        @content[row*number_of_columns + col]
+        @content[element_name_to_index(row, col)]
       end
       private :get_element
 

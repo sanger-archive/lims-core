@@ -27,10 +27,7 @@ module Lims::Core
 
         case key
         when /\A([a-zA-Z])(\d+)\z/
-          row, col = element_name_to_index($1, $2)
-          raise IndexOutOfRangeError unless (0...number_of_rows).include?(row)
-          raise IndexOutOfRangeError unless (0...number_of_columns).include?(col)
-          position = row * number_of_columns + col
+          position = element_name_to_index($1, $2)
           raise RackPositionNotEmpty unless content[position].nil? or value.nil?
           content[position] = value
         when Symbol
