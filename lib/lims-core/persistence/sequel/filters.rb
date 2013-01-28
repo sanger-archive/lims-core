@@ -51,7 +51,7 @@ module Lims::Core
 
           # If criteria doesn't include an item key, we need 
           # to make the join with the table items here.
-          unless criteria.has_key? "item"
+          unless criteria.has_key?("item") or criteria.has_key?(:item)
             order_dataset = order_dataset.join(:items, :order_id => order_persistor.primary_key)
           end
           
@@ -59,7 +59,11 @@ module Lims::Core
           order_dataset = order_dataset.join(:uuid_resources, :uuid => :items__uuid)            
 
           # Join order dataset with the resource dataset
-          self.class.new(self, dataset.join(order_dataset, :key => primary_key)) 
+          # Qualify method is needed to get only the fields related
+          # to the resource table. Otherwise, id could be confused.
+          # The expected request would be for example something like
+          # select plates.* from ...
+          self.class.new(self, dataset.join(order_dataset, :key => primary_key).qualify)
         end
 
         protected
