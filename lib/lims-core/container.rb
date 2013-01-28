@@ -35,8 +35,7 @@ module Lims
           when Array
             get_element(*index)
           when /\A([a-zA-Z])(\d+)\z/
-            row = $1.ord - ?A.ord
-            col = $2.to_i - 1
+            row, col = element_name_to_index($1, $2)
             get_element(row, col)
             # why not something like
             # get_well(*[$1, $2].zip(%w{A 1}).map { |a,b| [a,b].map(&:ord).inject { |x,y| x-y } })
@@ -79,9 +78,11 @@ module Lims
         indexes_to_element_name(row, column)
       end
 
-      # Convert a element name to a index (number fro 0 to size -1)
-      def element_name_to_index(name)
-        raise NotImplementedError
+      # Converts an element name to an index of the underlying container
+      def element_name_to_index(row_str, col_str)
+        row = row_str.ord - ?A.ord
+        col = col_str.to_i - 1
+        [ row, col ]
       end
 
       # return a element from a 2D index

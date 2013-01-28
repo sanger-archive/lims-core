@@ -27,8 +27,7 @@ module Lims::Core
 
         case key
         when /\A([a-zA-Z])(\d+)\z/
-          row = $1.ord - ?A.ord
-          col = $2.to_i - 1
+          row, col = element_name_to_index($1, $2)
           raise IndexOutOfRangeError unless (0...number_of_rows).include?(row)
           raise IndexOutOfRangeError unless (0...number_of_columns).include?(col)
           position = row * number_of_columns + col
