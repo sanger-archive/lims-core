@@ -7,7 +7,7 @@ require 'persistence/sequel/store_shared'
 require 'persistence/sequel/page_shared'
 require 'persistence/sequel/multi_criteria_filter_shared'
 require 'persistence/sequel/label_filter_shared'
-
+require 'persistence/sequel/order_lookup_filter_shared'
 
 # Model requirements
 require 'lims/core/laboratory/plate'
@@ -21,8 +21,6 @@ module Lims::Core
   describe "Sequel#Plate " do
     include_context "sequel store"
     include_context "plate factory"
-
-    include
 
     def last_plate_id(session)
       session.plate.dataset.order_by(:id).last[:id]
@@ -114,7 +112,26 @@ module Lims::Core
           }
 
           it_behaves_like "labels filtrable"
+        end
 
+        context "#lookup by order" do
+          let(:model) { Laboratory::Plate }
+          # These uuids match the uuids defined for the order items 
+          # in order_lookup_filter_shared.
+          let!(:uuids) {
+            ['11111111-2222-0000-0000-000000000000', '00000000-3333-0000-0000-000000000000'].tap do |uuids|
+              uuids.each_with_index do |uuid, index|
+                store.with_session do |session|
+                  plate =  new_empty_plate.tap { |plate| plate[index] << new_aliquot}
+                  session << plate
+                  ur = session.new_uuid_resource_for(plate)
+                  ur.send(:uuid=, uuid)
+                end
+              end
+            end
+          }
+
+          it_behaves_like "orders filtrable"
         end
       end
 
