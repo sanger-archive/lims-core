@@ -41,7 +41,7 @@ module Lims::Core
       # @param [Hash] criteria a 
       # @return [Persistor] 
       def order_filter(criteria)
-        raise NotImplementedError "multi_criteria_filter methods needs to be implemented for subclass of Persistor"
+        raise NotImplementedError "order_filter methods needs to be implemented for subclass of Persistor"
       end
     end
   end
