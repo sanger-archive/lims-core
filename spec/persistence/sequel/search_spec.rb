@@ -9,6 +9,7 @@ require 'persistence/resource_shared'
 # Model requirements
 require 'lims/core/persistence/sequel/search'
 require 'lims/core/laboratory/plate'
+require 'lims/core/persistence/order_filter'
 
 require 'logger'
 module Lims::Core
@@ -25,7 +26,15 @@ module Lims::Core
         subject { Persistence::Search.new( :model => model, :filter => filter) }
 
         it_behaves_like "storable resource", :search, {:searches => 1 }
+      end
 
+      context "holding an order filter" do
+        let(:criteria) { {:order => {:item => {:status => "in_progress"}, :status => "pending"}} }
+        let(:filter) { OrderFilter.new(criteria) }
+        let(:model) { Laboratory::Plate }
+        subject { Persistence::Search.new(:model => model, :filter => filter) }
+        
+        it_behaves_like "storable resource", :search, {:searches => 1}
       end
     end
   end
