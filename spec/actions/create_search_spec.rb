@@ -55,6 +55,7 @@ module Lims::Core
           }
 
           it_behaves_like "creating a search"
+
           context "with label criteria" do
             include_context "create object"
             let(:criteria) {{ :label => {:position => "front barcode"}}}
@@ -65,7 +66,18 @@ module Lims::Core
               search.should be_a Persistence::Search
               search.filter.should be_a(Persistence::LabelFilter) 
             end
+          end
 
+          context "with order criteria" do
+            include_context "create object"
+            let(:criteria) { {:order => {:item => {:status => "pending"}, :status => "pending"}} }
+            it "uses an OrderFilter" do
+              result = subject.call
+              result.should be_a Hash
+              search = result[:search]
+              search.should be_a Persistence::Search
+              search.filter.should be_a(Persistence::OrderFilter)
+            end
           end
         end
 
