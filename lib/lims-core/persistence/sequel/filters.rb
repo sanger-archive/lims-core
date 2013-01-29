@@ -15,10 +15,10 @@ module Lims::Core
         # @return [Persistor]
         def multi_criteria_filter(criteria)
           # We need to create the adequat dataset.
-              dataset = __multi_criteria_filter(criteria).dataset
-              # As the dataset can include join, we need to select only the columns
-              # corresponding to the persistor
-              self.class.new(self, dataset.qualify(table_name).distinct())
+          dataset = __multi_criteria_filter(criteria).dataset
+          # As the dataset can include join, we need to select only the columns
+          # corresponding to the persistor
+          self.class.new(self, dataset.qualify(table_name).distinct())
         end
 
         # Implements a label filter for a Sequel::Persistor.
@@ -45,10 +45,14 @@ module Lims::Core
           # joined table
           # Hash value are criteria for the corresponding joined tabled
           # We need to extract them and do the obvious join
+          # Values are passed to filter_attributes_on save to get
+          # the right format if needed.
           joined = criteria.reduce(self) do |persistor, (key, value)|
             case value
             when Hash
-              joined_persistor = persistor.send(key).__multi_criteria_filter(value)
+              criteria_persistor = persistor.send(key)
+              filtered_value = criteria_persistor.filter_attributes_on_save(value.rekey {|k| k.to_sym})
+              joined_persistor = criteria_persistor.__multi_criteria_filter(filtered_value)
               __join(joined_persistor)
             else persistor
             end

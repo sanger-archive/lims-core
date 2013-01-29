@@ -33,23 +33,23 @@ module Lims::Core
           # and sort them
           [
             Organization::Order.new(basic_parameters.merge(:pipeline => "P1")).tap do |o|
-              o.add_source("source1", "1111-1111-00000000-000000000000")
-              o.add_target("source2", "1111-2222-00000000-000000000000")
-              o.add_source("source3", "0000-3333-00000000-000000000000")
+              o.add_source("source1", "11111111-1111-0000-0000-000000000000")
+              o.add_target("source2", "11111111-2222-0000-0000-000000000000")
+              o.add_source("source3", "00000000-3333-0000-0000-000000000000")
               o.build!
               o.start!
             end,
             Organization::Order.new(basic_parameters.merge(:pipeline => "P2")).tap do |o|
-              o.add_source("source1", "2222-1111-00000000-000000000000")
-              o.add_source("source2", "2222-2222-00000000-000000000000")
-              o.add_target("source3", "0000-3333-00000000-000000000000")
+              o.add_source("source1", "22222222-1111-0000-0000-000000000000")
+              o.add_source("source2", "22222222-2222-0000-0000-000000000000")
+              o.add_target("source3", "00000000-3333-0000-0000-000000000000")
               o.build!
               o.start!
             end,
             Organization::Order.new(basic_parameters.merge(:pipeline => "P3")).tap do |o|
-              o.add_source("source1", "3333-1111-00000000-000000000000")
-              o.add_source("source2", "3333-2222-00000000-000000000000")
-              o.add_target("target1", "0000-3333-00000000-000000000000") # common
+              o.add_source("source1", "33333333-1111-0000-0000-000000000000")
+              o.add_source("source2", "33333333-2222-0000-0000-000000000000")
+              o.add_target("target1", "00000000-3333-0000-0000-000000000000") # common
               #o.add_target("target2", "1111-1111-00000000-000000000000")
               o.build!
               o.start!
@@ -64,9 +64,9 @@ module Lims::Core
         }
 
         context "lookup by one uuid" do
-          it_behaves_like "finding orders", { :item => {:uuid => "1111-2222-00000000-000000000000" } }, [0]
+          it_behaves_like "finding orders", { :item => {:uuid => "11111111-2222-0000-0000-000000000000" } }, [0]
           context "find 2 orders" do
-            it_behaves_like "finding orders", { :item => {:uuid => "0000-3333-00000000-000000000000" } }, [0,1,2]
+            it_behaves_like "finding orders", { :item => {:uuid => "00000000-3333-0000-0000-000000000000" } }, [0,1,2]
           end
 
         end
@@ -77,15 +77,15 @@ module Lims::Core
         end
 
         context "lookup by status" do
-            it_behaves_like "finding orders", { :item => {:uuid => "0000-3333-00000000-000000000000", :status => "pending" } }, [1,2]
+            it_behaves_like "finding orders", { :item => {:uuid => "00000000-3333-0000-0000-000000000000", :status => "pending" } }, [1,2]
         end
 
         context "lookup by role and uuid and status" do
-            it_behaves_like "finding orders", { :item => { :role => "source3", :status => "pending", :uuid => "0000-3333-00000000-000000000000" } }, [1]
+            it_behaves_like "finding orders", { :item => { :role => "source3", :status => "pending", :uuid => "00000000-3333-0000-0000-000000000000" } }, [1]
         end
 
         context "mix order and items criteria" do
-          it_behaves_like "finding orders", { :status => "completed", :item => { :uuid => "0000-3333-00000000-000000000000" } }, [2]
+          it_behaves_like "finding orders", { :status => "completed", :item => { :uuid => "00000000-3333-0000-0000-000000000000" } }, [2]
         end
       end
     end

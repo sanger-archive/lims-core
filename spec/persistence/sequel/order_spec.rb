@@ -39,7 +39,7 @@ module Lims::Core
 
         context "saved" do
           let!(:order_id) { save(subject) }
-          let(:uuid_source2) { "uuid2" }
+          let(:uuid_source2) { "11111111-1111-0000-0000-000000000000" }
 
           it "can be reloaded" do
             store.with_session do |session|
@@ -114,7 +114,7 @@ module Lims::Core
             end
           end
           context "with an intermediate item in progress"  do
-            let(:item_uuid) { "uuid" }
+            let(:item_uuid) { "11111111-1111-1111-0000-000000000000" }
             subject do Order.new.tap do |o|
               o.add_target(:intermediate_target);  
               o[:intermediate_target].start
