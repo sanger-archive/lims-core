@@ -11,8 +11,7 @@ module Lims
 
         include Virtus
         include Aequitas 
-        attribute :host, String, :required => true, :writer => :private
-        attribute :port, Integer, :required => true, :writer => :private
+        attribute :connection_uri, String, :required => true, :writer => :private
         attribute :exchange_name, String, :required => true, :writer => :private
         attribute :durable, Boolean, :required => true, :writer => :private
         attribute :prefetch_number, Integer, :required => true, :writer => :private
@@ -30,8 +29,7 @@ module Lims
         # are passed as parameters.
         # @param [Hash] settings
         def initialize(settings = {})
-          @host = settings["host"]
-          @port = settings["port"]
+          @connection_uri = settings["url"]
           @exchange_name = settings["exchange_name"]
           @durable = settings["durable"]
           @prefetch_number = settings["prefetch_number"]
@@ -51,7 +49,7 @@ module Lims
         def connect
           begin
             if valid?
-              @connection = Bunny.new(:host => host, :port => port)
+              @connection = Bunny.new(connection_uri)
               @connection.start
               @channel = @connection.create_channel
               set_prefetch_number(prefetch_number)
