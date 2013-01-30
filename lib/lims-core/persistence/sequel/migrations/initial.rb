@@ -45,6 +45,15 @@ module Lims::Core::Persistence::Sequel::Migrations
         foreign_key :aliquot_id, :aliquots, :key => :id
       end
 
+      create_table :spin_columns do
+        primary_key :id
+      end
+
+      create_table :spin_column_aliquots do
+        primary_key :id
+        Integer :spin_column_id
+        foreign_key :aliquot_id, :aliquots, :key => :id
+      end
 
       create_table :plates do
         primary_key :id
