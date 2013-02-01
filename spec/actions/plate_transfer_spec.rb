@@ -1,7 +1,7 @@
 # Spec requirements
 require 'actions/spec_helper'
 require 'actions/action_examples'
-require 'laboratory/plate_shared.rb'
+require 'laboratory/plate_and_gel_shared'
 
 require 'persistence/sequel/store_shared'
 #Model requirements
@@ -12,7 +12,7 @@ require 'logger'
 module Lims::Core
   module Actions
     describe PlateTransfer do
-      include_context "plate factory"
+      include_context "plate or gel factory"
         let(:user) { mock(:user) }
         let(:application) { "Test create plate" }
       def self.should_transfer 
@@ -21,8 +21,8 @@ module Lims::Core
         context "setup to transfert between valid plates" do
           let(:number_of_rows) { 8 }
           let(:number_of_columns) { 12 }
-          let(:source) { new_plate_with_samples }
-          let(:target) { new_empty_plate }
+          let(:source) { new_plate_or_gel_with_samples(Laboratory::Plate) }
+          let(:target) { new_empty_plate_or_gel(Laboratory::Plate) }
           subject do
             described_class.new(:store => store, :user => user, :application => application) do |a, s|
               a.target = target
@@ -67,14 +67,14 @@ module Lims::Core
           let(:number_of_columns) { 12 }
           let(:source_id) do 
             store.with_session  do |s|
-              s << plate=new_plate_with_samples
+              s << plate=new_plate_or_gel_with_samples(Laboratory::Plate)
               lambda { s.plate.id_for(plate) } # called after save
             end.call
           end
 
           let(:target_id) do 
             store.with_session  do |s|
-              s << plate=new_empty_plate
+              s << plate=new_empty_plate_or_gel(Laboratory::Plate)
               lambda { s.id_for(plate) }
             end.call
           end
