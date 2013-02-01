@@ -6,12 +6,13 @@ require 'facets/array'
 
 module Lims::Core
   module Laboratory
+    # Gel is a labware as seen in a laboratory.
+    # It has a number of rows and number of columns property.
+    # Gel contains Windows and has some readable labels on it (i.e. barcode).
     class Gel
       include Resource
-      %w(row column).each do |w|
-        attribute :"number_of_#{w}s", Fixnum, :required => true, :gte => 0, :writer => :private, :initializable => true
-      end
 
+      # The window can contain a receptacle, which is a chemical substance.
       class Window
         include Receptacle
       end
