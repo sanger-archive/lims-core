@@ -3,7 +3,7 @@ require 'actions/spec_helper'
 require 'actions/action_examples'
 
 require 'persistence/sequel/spec_helper'
-require 'laboratory/plate_shared'
+require 'laboratory/plate_and_gel_shared'
 require 'persistence/sequel/store_shared'
 
 #Model requirements
@@ -15,14 +15,14 @@ require 'lims/core/persistence/sequel/store'
 module Lims::Core
   module Actions
     describe TagWells do
-      include_context "plate factory"
+      include_context "plate or gel factory"
       let(:number_of_rows) {8}
       let(:number_of_columns) {12}
       context "with a sequel store" do
         include_context "sequel store"
 
         context "and everything already in the database" do
-          let(:plate_id) { save(new_plate_with_samples(1)) }
+          let(:plate_id) { save(new_plate_or_gel_with_samples(Laboratory::Plate, 1)) }
           let(:oligo_1_id) { save(Laboratory::Oligo.new("AAA")) }
           let(:oligo_2_id) { save(Laboratory::Oligo.new("TAG")) }
           let(:well_to_tag_id_map) { { :C1 => oligo_1_id, :F7 => oligo_2_id } }
@@ -62,7 +62,7 @@ module Lims::Core
           let(:user) { mock(:user) }
           let(:application) { "Test assign tag to well" }
           subject { described_class.new(:store => store, :user => user, :application => application) do |a,s|
-            s << a.plate=new_plate_with_samples(1)
+            s << a.plate=new_plate_or_gel_with_samples(Laboratory::Plate, 1)
             a.well_to_tag_map = { "C1" => Laboratory::Oligo.new("TAG") }
           end
           }
