@@ -12,7 +12,7 @@ module Lims::Core::Persistence
       let(:number_of_rows) { 1 }
       let(:number_of_columns) { 2 }
       let (:logger) { ::Logger.new($stdout) }
-      let(:plate) { new_plate_or_gel_with_samples(Lims::Core::Laboratory::Plate, 2) }
+      let(:plate) { new_plate_with_samples(2) }
       subject { described_class.new(logger) }
       it "should log plate to stdout" do
         logger.should_receive(:send).with(:info, 'Lims::Core::Laboratory::Plate: {:number_of_rows=>1, :number_of_columns=>2}')

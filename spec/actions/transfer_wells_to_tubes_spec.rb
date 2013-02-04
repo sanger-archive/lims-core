@@ -29,7 +29,7 @@ module Lims::Core
         before (:each) { prepare_table(db) }
 
         context "and everything already in the database" do
-          let(:plate_id) { save(new_plate_or_gel_with_samples(Laboratory::Plate, 1)) }
+          let(:plate_id) { save(new_plate_with_samples(1)) }
           let(:tube1_id) { save(new_empty_tube) }
           let(:tube2_id) { save(new_empty_tube) }
 
@@ -79,7 +79,7 @@ module Lims::Core
           let(:user) { mock(:user) }
           let(:application) { "Test assign tag to well" }
           let(:tube) {  new_empty_tube }
-          let(:plate) { new_plate_or_gel_with_samples(Laboratory::Plate) }
+          let(:plate) { new_plate_with_samples }
           subject { described_class.new(:store => store, :user => user, :application => application) do |a,s|
             a.plate = plate
             a.well_to_tube_map = {"C3" => tube } 

@@ -27,14 +27,14 @@ module Lims::Core
       let(:expected_plate_size) { number_of_rows*number_of_columns }
 
       context do
-        subject { new_plate_or_gel_with_samples(Laboratory::Gel, 3) }
+        subject { new_gel_with_samples(3) }
         it_behaves_like "storable resource", :gel, {:gels => 1, :windows =>  8*12*3 }
       end
 
       context "already created gel" do
         let(:aliquot) { new_aliquot }
         before (:each) do
-          store.with_session { |session| session << new_empty_plate_or_gel(Laboratory::Gel).tap {|_| _[0] << aliquot} }
+          store.with_session { |session| session << new_empty_gel.tap {|_| _[0] << aliquot} }
         end
         let(:gel_id) { store.with_session { |session| @gel_id = last_gel_id(session) } }
 
@@ -116,7 +116,7 @@ module Lims::Core
             ['11111111-2222-0000-0000-000000000000', '00000000-3333-0000-0000-000000000000'].tap do |uuids|
               uuids.each_with_index do |uuid, index|
                 store.with_session do |session|
-                  gel = new_empty_plate_or_gel(Laboratory::Gel).tap { |gel| gel[index] << new_aliquot}
+                  gel = new_empty_gel.tap { |gel| gel[index] << new_aliquot}
                   session << gel
                   ur = session.new_uuid_resource_for(gel)
                   ur.send(:uuid=, uuid)
@@ -130,7 +130,7 @@ module Lims::Core
       end
 
       context do
-        let(:constructor) { lambda { |*_| new_empty_plate_or_gel(Laboratory::Gel) } }
+        let(:constructor) { lambda { |*_| new_empty_gel } }
         it_behaves_like "paginable resource", :gel
         it_behaves_like "filtrable", :gel
       end

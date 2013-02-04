@@ -21,8 +21,8 @@ module Lims::Core
         context "setup to transfert between valid plates" do
           let(:number_of_rows) { 8 }
           let(:number_of_columns) { 12 }
-          let(:source) { new_plate_or_gel_with_samples(Laboratory::Plate) }
-          let(:target) { new_empty_plate_or_gel(Laboratory::Plate) }
+          let(:source) { new_plate_with_samples }
+          let(:target) { new_empty_plate }
           subject do
             described_class.new(:store => store, :user => user, :application => application) do |a, s|
               a.target = target
@@ -67,14 +67,14 @@ module Lims::Core
           let(:number_of_columns) { 12 }
           let(:source_id) do 
             store.with_session  do |s|
-              s << plate=new_plate_or_gel_with_samples(Laboratory::Plate)
+              s << plate=new_plate_with_samples
               lambda { s.plate.id_for(plate) } # called after save
             end.call
           end
 
           let(:target_id) do 
             store.with_session  do |s|
-              s << plate=new_empty_plate_or_gel(Laboratory::Plate)
+              s << plate=new_empty_plate
               lambda { s.id_for(plate) }
             end.call
           end
