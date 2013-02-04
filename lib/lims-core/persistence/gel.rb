@@ -1,4 +1,6 @@
 require 'lims/core/persistence/persistor'
+require 'lims/core/persistence/container'
+require 'lims/core/persistence/container_element'
 require 'lims/core/laboratory/gel'
 
 module Lims::Core
@@ -10,27 +12,11 @@ module Lims::Core
     class Gel < Persistor
       Model = Laboratory::Gel
 
-      # Save all children of the given gel
-      # @param  id object identifier
-      # @param [Laboratory::Gel] gel
-      # @return [Boolean]
-      def save_children(id, gel)
-        # we use values here, so position is a number
-        gel.values.each_with_index do |window, position|
-          @session.save(window, id, position)
-        end
-      end
+      include Container
 
-      # Load all children of the given gel
-      # Loaded object are automatically added to the session.
-      # @param id object identifier
-      # @param [Laboratory::Gel] gel
-      # @return [Laboratory::Gel, nil] 
-      #
-      def load_children(id, gel)
-        window.load_aliquots(id) do |position, aliquot|
-          gel[position] << aliquot
-        end
+      # calls the correct element method
+      def element
+        window
       end
 
       def window
@@ -43,12 +29,8 @@ module Lims::Core
       class Window < Persistor
         Model = Laboratory::Gel::Window
 
-        def save(window, gel_id, position)
-          #todo bulk save if needed
-          window.each do |aliquot|
-            save_as_aggregation(gel_id, aliquot, position)
-          end
-        end
+        include ContainerElement
+
       end
     end
   end
