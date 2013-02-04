@@ -16,6 +16,13 @@ module Lims
         # module is included, its methods are placed right 
         # above the class' methods in inheritance chain.
         klass.class_eval do
+          include Virtus
+          include Aequitas
+
+          %w(row column).each do |w|
+            attribute :"number_of_#{w}s", Fixnum, :required => true, :gte => 0, :writer => :private, :initializable => true
+          end
+
           # each is already defined to look like an Array.
           # This one provide a "String" index (like "A1") aka
           # element name. It can be used to access the Container.

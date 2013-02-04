@@ -5,9 +5,6 @@ module Lims::Core
   module Laboratory
     class TubeRack
       include Resource
-      %w(row column).each do |w|
-        attribute :"number_of_#{w}s", Fixnum, :required => true, :gte => 0, :writer => :private, :initializable => true
-      end
 
       is_matrix_of Tube do |p,t|
         Array.new(p.number_of_rows * p.number_of_columns)

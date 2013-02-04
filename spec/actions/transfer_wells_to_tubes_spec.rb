@@ -3,7 +3,7 @@ require 'actions/spec_helper'
 require 'actions/action_examples'
 
 require 'persistence/sequel/spec_helper'
-require 'laboratory/plate_shared'
+require 'laboratory/plate_and_gel_shared'
 require 'laboratory/tube_shared'
 require 'persistence/sequel/store_shared'
 
@@ -18,7 +18,7 @@ PS=Lims::Core::Persistence::Sequel
 module Lims::Core
   module Actions
     describe TransferWellsToTubes do
-      include_context "plate factory"
+      include_context "plate or gel factory"
       include_context "tube factory"
       let(:number_of_rows) {8}
       let(:number_of_columns) {12}
@@ -29,7 +29,7 @@ module Lims::Core
         before (:each) { prepare_table(db) }
 
         context "and everything already in the database" do
-          let(:plate_id) { save(new_plate_with_samples(1)) }
+          let(:plate_id) { save(new_plate_or_gel_with_samples(Laboratory::Plate, 1)) }
           let(:tube1_id) { save(new_empty_tube) }
           let(:tube2_id) { save(new_empty_tube) }
 
@@ -79,7 +79,7 @@ module Lims::Core
           let(:user) { mock(:user) }
           let(:application) { "Test assign tag to well" }
           let(:tube) {  new_empty_tube }
-          let(:plate) { new_plate_with_samples }
+          let(:plate) { new_plate_or_gel_with_samples(Laboratory::Plate) }
           subject { described_class.new(:store => store, :user => user, :application => application) do |a,s|
             a.plate = plate
             a.well_to_tube_map = {"C3" => tube } 
