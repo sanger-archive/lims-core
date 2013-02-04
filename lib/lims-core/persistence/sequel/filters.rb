@@ -63,7 +63,9 @@ module Lims::Core
           # to the resource table. Otherwise, id could be confused.
           # The expected request would be for example something like
           # select plates.* from ...
-          self.class.new(self, dataset.join(order_dataset, :key => primary_key).qualify)
+          # As a same resource could belong to multiple orders, distinct
+          # is used to get only one copy of each resource.
+          self.class.new(self, dataset.join(order_dataset, :key => primary_key).qualify.distinct)
         end
 
         protected
