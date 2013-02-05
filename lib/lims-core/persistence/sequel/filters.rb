@@ -34,7 +34,11 @@ module Lims::Core
           persistor = self.class.new(self, labellable_dataset.join("uuid_resources", :uuid => :"name"))
 
           # join everything to current resource table
-          self.class.new(self, dataset.join(persistor.dataset, :key => primary_key))
+          # Qualify method is needed to get only the fields related to the searched
+          # resource. Otherwise, multiple id columns are returned which lead to a
+          # ambiguous situation when we try to get the id of the resource. 
+          # This leads to an incorrect uuid for the found resources.
+          self.class.new(self, dataset.join(persistor.dataset, :key => primary_key).qualify)
         end
 
         # Implement an order filter for a Sequel::Persistor.
