@@ -2,6 +2,8 @@
 
 require 'lims/core/persistence/plate'
 require 'lims/core/persistence/sequel/persistor'
+require 'lims/core/persistence/sequel/container'
+require 'lims/core/persistence/sequel/plate_container_element'
 
 module Lims::Core
   module Persistence
@@ -9,56 +11,29 @@ module Lims::Core
       # Not a plate but a plate persistor.
       class Plate < Persistence::Plate
         include Sequel::Persistor
+        include Container
 
       # Not a well but a well {Persistor}.
         class Well < Persistence::Plate::Well
           include Sequel::Persistor
+          include PlateContainerElement
+
           def self.table_name
             :wells
           end
 
-          def save_raw_association(plate_id, aliquot_id, position)
-              dataset.insert(:plate_id => plate_id,
-                             :position => position,
-                             :aliquot_id  => aliquot_id)
-          end
-
-          # Do a bulk load of aliquot and pass each to a block
-          # @param plate_id the id of the plate to load.
-          # @yieldparam [Integer] position
-          # @yieldparam [Aliquot] aliquot
-          def load_aliquots(plate_id)
-            Well::dataset(@session).join(Aliquot::dataset(@session), :id => :aliquot_id).filter(:plate_id => plate_id).each do |att|
-              position = att.delete(:position)
-              att.delete(:id)
-              aliquot  = @session.aliquot.get_or_create_single_model(att[:aliquot_id], att)
-              yield(position, aliquot)
-            end
-          end
         end #class Well
 
         def self.table_name
           :plates
         end
 
-        # Delete all children of the given plate
-        # But don't destroy the 'external' elements (example aliquots)
-        # @param [Fixnum] id the id in the database
-        # @param [Laboratory::Plate] plate
-        def delete_children(id, plate)
-          Well::dataset(@session).filter(:plate_id => id).delete
+        def container_id_sym
+          :plate_id
         end
 
-        # Load all children of the given plate
-        # Loaded object are automatically added to the session.
-        # @param [Fixnum] id the id in the database
-        # @param [Laboratory::Plate] plate
-        # @return [Laboratory::Plate, nil] 
-        #
-        def load_children(id, plate)
-          well.load_aliquots(id) do |position, aliquot|
-            plate[position] << aliquot
-          end
+        def element_dataset
+          Well::dataset(@session)
         end
       end
     end

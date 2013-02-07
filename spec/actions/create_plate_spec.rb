@@ -2,7 +2,7 @@
 require 'actions/spec_helper'
 require 'actions/action_examples'
 
-require 'laboratory/plate_shared'
+require 'laboratory/plate_and_gel_shared'
 
 #Model requirements
 require 'lims/core/actions/create_plate'
@@ -79,7 +79,7 @@ module Lims::Core
     describe CreatePlate do
       context "valid calling context" do
         let!(:store) { Persistence::Store.new() }
-        include_context "plate factory"
+        include_context "plate or gel factory"
         include_context("for application",  "Test plate creation")
 
         include_context("has plate dimension", 8, 12)
