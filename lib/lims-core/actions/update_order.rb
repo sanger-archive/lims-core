@@ -12,9 +12,11 @@ module Lims::Core
       #  The order to update.
       attribute :order, Organization::Order
       # @attribute :items
-      #   a Hash of Items to *add* or *update*
+      #   a Hash of Hash of Items to *add* or *update*
       #   key are the role name
-      #   value are either a uuid (String) or an event (Symbol) to send to the current item.
+      #   value are a Hash of items with
+      #      key being either the item uuid, #   and index, or last for insert
+      #      value either a uuid (String) or an event (Symbol) to send to the current item.
       attribute :items, Hash , :default => {}
       attribute :event, Symbol 
       attribute :pipeline, String
@@ -36,9 +38,34 @@ module Lims::Core
       end
 
       def update_item(role, args)
-        item = order.fetch(role) { |k|  order[k]= Organization::Order::Item.new }
-        args["uuid"].andtap { |uuid| item.uuid = uuid }
-        args["event"].andtap { |event| item.public_send("#{event}!") }
+        items = order.fetch(role) { |k|  order[k]= [] }
+
+        args.each do |key, item_args|
+          item = case key
+          when /\A\d+\z/
+            items[key.to_i]
+          when "last"
+            Organization::Order::Item.new.tap { |item|  items << item }
+          else # uuid
+            # Lookup item by uuid
+            # If we don't find it
+            # we need to create it and add it.
+            # If there are two, we raise an error.
+            founds = items.select { |i| i.uuid == key }
+            case founds.size
+            when 0
+              Organization::Order::Item.new(:uuid => key).tap { |item| items << item }
+            when 1
+              founds.first
+            else
+              raise InvalidParameters, "there are too many items with the uuid #{key} for role '#{role}'"
+            end
+          end
+
+
+          item_args["uuid"].andtap { |uuid| item.uuid = uuid }
+          item_args["event"].andtap { |event| item.public_send("#{event}!") }
+        end
       end
     end
   end

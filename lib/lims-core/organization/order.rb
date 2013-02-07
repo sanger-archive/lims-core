@@ -115,8 +115,12 @@ module Lims::Core
       end
 
       def []=(key, value)
-        raise RuntimeError, "items should be an array" unless value.is_a?(Array)
-        key_is_for_items?(key) ? items[key.to_s]=value : super(key, value)
+        if key_is_for_items?(key) 
+          raise RuntimeError, "items should be an array" unless value.is_a?(Array)
+          items[key.to_s]=value 
+        else
+          super(key, value)
+        end
       end
 
       # Add an item to the specified role
@@ -125,11 +129,7 @@ module Lims::Core
       # @param Item item
       def add_item(role, item)
         role = role.to_s
-        item_list = items[role]
-        unless item_list
-          item_list = items[role]=[]
-        end
-
+        item_list = items.fetch(role) { |k| items[role] = [] }
         item_list << item
         return item
       end
