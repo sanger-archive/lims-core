@@ -22,6 +22,7 @@ shared_examples_for "transfer tube to spin column" do
       end
       spin_column2.size.should == tube2.size
       spin_column2.each do |aliquot|
+        next if aliquot.type == Lims::Core::Laboratory::Aliquot::Solvent
         aliquot.type.should == type2
         aliquot.quantity.should == finalQuantity2
       end
@@ -85,7 +86,7 @@ module Lims::Core
           let(:application) { "test transfer tube-like(s) to tube-like(s)" }
 
           context "with valid parameters" do
-            let(:type1) { "DNA" }
+            let(:type1) { "NA" }
             let(:type2) { "DNA" }
             context "transfer tubes to spin columns with amount" do
               let(:quantity1) { 100 }
@@ -93,7 +94,10 @@ module Lims::Core
               let(:spin_column1_id) { save(new_empty_spin_column) }
               let(:spin_column2_id) { save(new_empty_spin_column) }
               let(:tube1_id) { save(new_tube_with_samples(10, quantity1)) }
-              let(:tube2_id) { save(new_tube_with_samples(10, quantity2)) }
+              let(:tube2_id) { save(new_tube_with_samples(10, quantity2).tap do |tube|
+                    tube.each { |a| a.type = type2 unless a.type }
+                  end
+                ) }
               let(:amount1) { 600 }
               let(:amount2) { 400 }
               let!(:finalQuantity1) { 100 }
@@ -111,8 +115,10 @@ module Lims::Core
                                         "aliquot_type" => type1},
                                      { "source" => tube2,
                                        "target" => spin_column2,
-                                       "amount" => amount2,
-                                       "aliquot_type" => type2}
+                                       "amount" => amount2
+                                       # We don't change the type of this one
+                                       # so, it should be the same as the initial tube
+                                     }
                                    ]
               end
               }
@@ -180,7 +186,8 @@ module Lims::Core
                                      { "source" => tube1,
                                        "target" => tube2,
                                        "fraction" => fraction2,
-                                       "aliquot_type" => type2}
+                                       "aliquot_type" => type2
+                                     }
                                    ]
               end
               }
