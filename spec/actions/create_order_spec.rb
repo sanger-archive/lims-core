@@ -25,15 +25,19 @@ module Lims::Core
           order.should_not respond_to(:items)
 
           sources.each do |role, uuid| 
-            order[role].should_not be_nil
-            order[role].uuid.should == uuid
-            order[role].done?.should == true
+            order[role].each do |item|
+              item.should_not be_nil
+              item.uuid.should == uuid
+              item.done?.should == true
+            end
           end 
 
           targets.each do |role, uuid|
-            order[role].should_not be_nil
-            order[role].uuid.should == uuid
-            order[role].pending?.should == true
+            order[role].each do |item|
+              item.should_not be_nil
+              item.uuid.should == uuid
+              item.pending?.should == true
+            end
           end
         end
       end
@@ -72,21 +76,21 @@ module Lims::Core
 
       context "valid calling context" do
         include_context("for application",  "Test order creation")
-        
+
         subject {
           CreateOrder.new(:store => store, :user => user, :application => application) do |a,s|
-          a.pipeline = pipeline
-          a.parameters = parameters
-          a.sources = sources
-          a.targets = targets
-          a.study = study
-          a.cost_code = cost_code
+            a.pipeline = pipeline
+            a.parameters = parameters
+            a.sources = sources
+            a.targets = targets
+            a.study = study
+            a.cost_code = cost_code
           end
         }
 
         it_behaves_like "creating an order"
       end
-     end
+    end
   end
 end
 
