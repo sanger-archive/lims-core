@@ -125,8 +125,8 @@ module Lims
             let (:item) { mock(:item) }
             let(:role) { "role#1" }
             it "can have item added to it" do
-              subject[role] = item
-              subject[role].should == item
+              subject.add_item(role, item)
+              subject[role].should include(item)
             end
 
             it "returns nil for unknown role" do
@@ -134,13 +134,14 @@ module Lims
             end
 
             it "accepts items at initialization" do
-              order = Order.new(creation_parameters.merge(:items => { role => item }))
-              order[role].should == item
+              order = Order.new(creation_parameters.merge(:items => { role => [item] }))
+              order[role].should include(item)
             end
 
             it "can have a source added" do
               subject.add_source(:source, source_uuid="source_id")
-              subject[:source].tap do |source|
+              subject[:source].first.tap do |source|
+
                 source.done?.should == true
                 source.uuid.should == source_uuid
                 source.iteration.should == 0
@@ -149,7 +150,7 @@ module Lims
 
             it "can have a target added" do
               subject.add_target(:target)
-              subject[:target].tap do |target|
+              subject[:target].first.tap do |target|
                 target.pending?.should == true
                 target.iteration.should == 0
               end
@@ -157,16 +158,17 @@ module Lims
 
             context "with items" do
               let (:item2) { mock(:item2) }
+              let (:item3) { mock(:item3) }
               let(:role2) { "role#2" }
-              let(:items) { { role => item, role2 => item2 } }
+              let(:items) { { role => [item], role2 => [item2, item3] } }
               subject { Order.new(creation_parameters.merge(items)) }
               it "can iterate over all the items" do
                 roles = []
                 items = []
                 subject.should respond_to(:each) do |l_role, l_item|
                   l_item.should == case l_role
-                                   when role then item
-                                   when role2 then item2
+                                   when role then [item]
+                                   when role2 then [item2, item3]
                                    else raise "Wrong Role"
                                    end
                 end

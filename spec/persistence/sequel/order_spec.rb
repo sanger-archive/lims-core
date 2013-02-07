@@ -32,14 +32,15 @@ module Lims::Core
 
       context "an order with items" do
         let(:source) { Order::Item.new }
-        subject { Order.new(:items => { :source => source} ) }
+        subject { Order.new(:items => { :source => [source]} ) }
         it "modifies the items table" do
           expect { save(subject) }.to change { db[:items].count }.by(1)
         end
 
         context "saved" do
           let!(:order_id) { save(subject) }
-          let(:uuid_source2) { "11111111-1111-0000-0000-000000000000" }
+          let(:uuid_source2) { "11111111-1111-0000-0000-111111111111" }
+          let(:uuid_source22) { "11111111-1111-0000-0000-222222222222" }
 
           it "can be reloaded" do
             store.with_session do |session|
@@ -58,8 +59,8 @@ module Lims::Core
               order.add_target(:intermediate_target)
             end
             load_order(order_id) do |order|
-              order[:intermediate_target].should be_an(Order::Item)
-              order[:intermediate_target].status.should == "pending"
+              order[:intermediate_target].first.should be_an(Order::Item)
+              order[:intermediate_target].first.status.should == "pending"
             end
           end
 
@@ -67,13 +68,14 @@ module Lims::Core
           it "can have non-empty items added" do
             load_order(order_id) do |order|
               order.add_source(:source2, uuid_source2)
+              order.add_source(:source2, uuid_source22)
             end
 
             load_order(order_id) do |order|
-              order[:source2].tap do |item|
+              [uuid_source2, uuid_source22].zip(order[:source2]) do |uuid, item|
                 item.done?.should == true
                 item.status.should == "done"
-                item.uuid.should == uuid_source2
+                item.uuid.should == uuid
               end
             end
 
@@ -106,10 +108,10 @@ module Lims::Core
             subject { Order.new.tap { |o| o.add_target(:intermediate_target) } }
             it "can have item's state updated" do
               load_order(order_id) do |order|
-                order[:intermediate_target].start
+                order[:intermediate_target].each(&:start)
               end
               load_order(order_id) do |order|
-                order[:intermediate_target].status.should == "in_progress"
+                order[:intermediate_target].each { |item| item.status.should == "in_progress" }
               end
             end
           end
@@ -117,15 +119,15 @@ module Lims::Core
             let(:item_uuid) { "11111111-1111-1111-0000-000000000000" }
             subject do Order.new.tap do |o|
               o.add_target(:intermediate_target);  
-              o[:intermediate_target].start
+              o[:intermediate_target].each &:start
             end
             end
             it "can have item's uuid updated" do
               load_order(order_id) do |order|
-                order[:intermediate_target].uuid =  item_uuid
+                order[:intermediate_target].first.uuid =  item_uuid
               end
               load_order(order_id) do |order|
-                order[:intermediate_target].uuid.should == item_uuid
+                order[:intermediate_target].first.uuid.should == item_uuid
               end
             end
           end
