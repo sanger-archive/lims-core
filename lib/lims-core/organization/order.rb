@@ -115,7 +115,23 @@ module Lims::Core
       end
 
       def []=(key, value)
+        raise RuntimeError, "items should be an array" unless value.is_a?(Array)
         key_is_for_items?(key) ? items[key.to_s]=value : super(key, value)
+      end
+
+      # Add an item to the specified role
+      # Ideally, uuid should be unique within a role
+      # @param String role
+      # @param Item item
+      def add_item(role, item)
+        role = role.to_s
+        item_list = items[role]
+        unless item_list
+          item_list = items[role]=[]
+        end
+
+        item_list << item
+        return item
       end
 
       def_delegators :items, :each, :size , :keys, :values, :map, :mashr , :include?, :to_a , :fetch
@@ -141,7 +157,7 @@ module Lims::Core
       def add_source(role, uuid)
         Item.new(:uuid => uuid).tap do |item|
           item.complete
-          self[role] = item
+          self.add_item(role, item)
         end
       end
 
@@ -151,7 +167,7 @@ module Lims::Core
       # @param [String] uuid of the underlying object
       # @return [Item]
       def add_target(role, uuid = nil)
-        self[role] = Item.new(:uuid => uuid)
+        self.add_item(role, Item.new(:uuid => uuid))
       end
     end
   end
