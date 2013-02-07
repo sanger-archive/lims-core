@@ -140,7 +140,6 @@ module Lims
 
             it "can have a source added" do
               subject.add_source(:source, source_uuid="source_id")
-              debugger
               subject[:source].first.tap do |source|
 
                 source.done?.should == true
