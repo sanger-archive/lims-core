@@ -14,8 +14,10 @@ module Lims::Core
       # @param [Organization::Order] order
       # @return [Boolean]
       def save_children(id, order)
-        order.each do |role, item|
-          @session.save(item, id, role)
+        order.each do |role, items|
+          items.each do |item|
+            @session.save(item, id, role)
+          end
         end
       end
 
@@ -26,8 +28,14 @@ module Lims::Core
       # @return [Organization::Order, nil] 
       #
       def load_children(id, order)
+        # We don't really need to keep the order of the item
+        # however as the user can update an item via is index
+        # it's need to be the same between what we display
+        # and how we load items.
+        # For this items are loaded sorted by id
+        # So they should be always presented the same way (between and load and a save)
         item.loads(id) do |role, item|
-          order[role] = item
+          order.add_item(role, item)
         end
       end
 

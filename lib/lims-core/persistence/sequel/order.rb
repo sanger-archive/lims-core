@@ -45,7 +45,7 @@ module Lims::Core
           end
 
           def loads(order_id)
-            dataset.filter(:order_id => order_id).each do |att|
+            dataset.filter(:order_id => order_id).order(:id).each do |att|
               role = att.delete(:role)
               item = @session.order.item.get_or_create_single_model(att[:id], att)
               yield(role, item)
