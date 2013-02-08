@@ -1,7 +1,7 @@
 # vi: ts=2:sts=2:et:sw=2  spell:spelllang=en  
 require 'lims/core/actions/action'
 
-require 'lims/core/organization/order'
+require 'lims/core/laboratory/tube'
 
 module Lims::Core
   module Actions
