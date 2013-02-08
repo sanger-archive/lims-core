@@ -15,7 +15,7 @@ module Lims::Core
       #   { "A1" => [{ :sample => s1, :quantity => 2}, {:sample => s2}] }
       attribute :wells_description, Hash, :default => {}
 
-      def getContainer
+      def container_class
         Laboratory::Plate
       end
 
@@ -23,7 +23,7 @@ module Lims::Core
         wells_description
       end
 
-      def container_sym
+      def container_symbol
         :plate
       end
     end

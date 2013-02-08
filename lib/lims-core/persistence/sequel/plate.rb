@@ -3,7 +3,6 @@
 require 'lims/core/persistence/plate'
 require 'lims/core/persistence/sequel/persistor'
 require 'lims/core/persistence/sequel/container'
-require 'lims/core/persistence/sequel/plate_container_element'
 
 module Lims::Core
   module Persistence
@@ -13,7 +12,20 @@ module Lims::Core
         include Sequel::Persistor
         include Container
 
-      # Not a well but a well {Persistor}.
+        module PlateContainerElement
+          include ContainerElement
+
+          def element_dataset
+            Lims::Core::Persistence::Sequel::Plate::Well::dataset(@session)
+          end
+
+          def container_id_sym
+            :plate_id
+          end
+
+        end
+
+        # Not a well but a well {Persistor}.
         class Well < Persistence::Plate::Well
           include Sequel::Persistor
           include PlateContainerElement

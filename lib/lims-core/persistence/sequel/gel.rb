@@ -1,7 +1,6 @@
 require 'lims/core/persistence/gel'
 require 'lims/core/persistence/sequel/persistor'
 require 'lims/core/persistence/sequel/container'
-require 'lims/core/persistence/sequel/gel_container_element'
 
 module Lims::Core
   module Persistence
@@ -10,6 +9,19 @@ module Lims::Core
       class Gel < Persistence::Gel
         include Sequel::Persistor
         include Container
+
+        module GelContainerElement
+          include ContainerElement
+
+          def element_dataset
+            Lims::Core::Persistence::Sequel::Gel::Window::dataset(@session)
+          end
+
+          def container_id_sym
+            :gel_id
+          end
+
+        end
 
         # A window persistor. It saves the window's data to the DB.
         class Window < Persistence::Gel::Window

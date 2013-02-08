@@ -14,7 +14,7 @@ module Lims::Core
       #   { "A1" => [{ :sample => s1, :quantity => 2}, {:sample => s2}] }
       attribute :windows_description, Hash, :default => {}
 
-      def getContainer
+      def container_class
         Laboratory::Gel
       end
 
@@ -22,7 +22,7 @@ module Lims::Core
         windows_description
       end
 
-      def container_sym
+      def container_symbol
         :gel
       end
     end
