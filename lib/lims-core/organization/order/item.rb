@@ -51,6 +51,14 @@ module Lims::Core
             end
           end
 
+          # The item has been used to create the next step of the order.
+          # It's not going to be used anymore in the order.
+          state :unused do
+            def uuid=(uuid)
+              raise NoMethodError
+            end
+          end
+
           # The item creation has failed. It can be reset to pending
           # and then restarted
           state :failed do
@@ -66,6 +74,10 @@ module Lims::Core
 
           event :complete do
             transition [:pending, :in_progress] => :done
+          end
+
+          event :unuse do
+            transition [:done] => :unused
           end
 
           event :cancel do
