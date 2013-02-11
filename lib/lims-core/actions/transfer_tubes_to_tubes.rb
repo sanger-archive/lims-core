@@ -21,10 +21,10 @@ module Lims::Core
 
       def _validate_parameters
         raise ArgumentError, "The transfer array should not be null." unless transfers
-        raise ArgumentError, "You should give the fraction OR the amount of the transfer, not both." unless validAmountAndFraction
+        raise ArgumentError, "You should give the fraction OR the amount of the transfer, not both." unless valid_amount_and_fraction
       end
 
-      def validAmountAndFraction
+      def valid_amount_and_fraction
         valid = true
         transfers.each do |transfer|
           if (transfer["fraction"].nil? && transfer["amount"].nil?) || (transfer["fraction"] && transfer["amount"])
@@ -38,6 +38,8 @@ module Lims::Core
       # transfer the given fraction of aliquot from tube-like asset(s)
       # to tube-like asset(s)
       def _call_in_session(session)
+        sources = []
+        targets = []
         transfers.each do |transfer|
           next unless transfer["fraction"]
           amount = transfer["source"].quantity * transfer["fraction"]
@@ -52,7 +54,12 @@ module Lims::Core
               aliquot.type = transfer["aliquot_type"]
             end
           end
+
+          sources << transfer["source"]
+          targets << transfer["target"]
         end
+
+        { :sources => sources, :targets => targets}
       end
     end
   end
