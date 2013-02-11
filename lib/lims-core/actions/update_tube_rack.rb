@@ -15,8 +15,8 @@ module Lims::Core
         tube_rack.each do |tube|
           unless tube.nil?
             tube.each do |aliquot|
-              aliquot.type = aliquot_type unless aliquot_type.nil?
-              aliquot.quantity = aliquot_quantity unless aliquot_quantity.nil?
+              aliquot.type = aliquot_type if aliquot_type
+              aliquot.quantity = aliquot_quantity if aliquot_quantity
             end
           end
         end
