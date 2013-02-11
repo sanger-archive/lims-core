@@ -58,8 +58,8 @@ module Lims::Core
           sources << transfer["source"]
           targets << transfer["target"]
         end
-
-        { :sources => sources.uniq!, :targets => targets.uniq!}
+        debugger
+        { :sources => sources.uniq, :targets => targets.uniq}
       end
     end
   end
