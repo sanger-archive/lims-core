@@ -41,24 +41,27 @@ module Lims::Core
         sources = []
         targets = []
         transfers.each do |transfer|
-          next unless transfer["fraction"]
-          amount = transfer["source"].quantity * transfer["fraction"]
+          fraction = transfer["fraction"]
+          next unless fraction
+          amount = transfer["source"].quantity * fraction
           transfer["amount"] = amount
         end
 
         transfers.each do |transfer|
-          transfer["target"] << transfer["source"].take_amount(transfer["amount"])
+          source = transfer["source"]
+          target = transfer["target"]
+          target << source.take_amount(transfer["amount"])
 
           unless transfer["aliquot_type"].nil?
-            transfer["target"].each do |aliquot|
+            target.each do |aliquot|
               aliquot.type = transfer["aliquot_type"]
             end
           end
 
-          sources << transfer["source"]
-          targets << transfer["target"]
+          sources << source
+          targets << target
         end
-        debugger
+
         { :sources => sources.uniq, :targets => targets.uniq}
       end
     end
