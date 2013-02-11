@@ -88,7 +88,7 @@
   
     
       <dt class="r2">Includes:</dt>
-      <dd class="r2"><span class='object_link'><a href="Persistor.html" title="Lims::Core::Persistence::Sequel::Persistor (module)">Persistor</a></span></dd>
+      <dd class="r2"><span class='object_link'><a href="../Container.html" title="Lims::Core::Persistence::Container (module)">Container</a></span>, <span class='object_link'><a href="Persistor.html" title="Lims::Core::Persistence::Sequel::Persistor (module)">Persistor</a></span></dd>
       
     
   
@@ -115,6 +115,8 @@
 <p class="children">
    
     
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Plate/PlateContainerElement.html" title="Lims::Core::Persistence::Sequel::Plate::PlateContainerElement (module)">PlateContainerElement</a></span>
+    
    
     
       <strong class="classes">Classes:</strong> <span class='object_link'><a href="Plate/Well.html" title="Lims::Core::Persistence::Sequel::Plate::Well (class)">Well</a></span>
@@ -138,6 +140,10 @@
   
   
   
+  
+  
+  
+  
   <h3 class="inherited">Constants inherited from <span class='object_link'><a href="../Plate.html" title="Lims::Core::Persistence::Plate (class)">Plate</a></span></h3>
   <p class="inherited"><span class='object_link'><a href="../Plate.html#Model-constant" title="Lims::Core::Persistence::Plate::Model (constant)">Model</a></span></p>
 
@@ -145,12 +151,32 @@
   
   
   
+  <h3 class="inherited">Constants included from <span class='object_link'><a href="../../Container.html" title="Lims::Core::Container (module)">Container</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../../Container.html#IndexOutOfRangeError-constant" title="Lims::Core::Container::IndexOutOfRangeError (constant)">IndexOutOfRangeError</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   
   
 
 
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   
@@ -210,7 +236,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#delete_children-instance_method" title="#delete_children (instance method)">- (Object) <strong>delete_children</strong>(id, plate) </a>
+      <a href="#container_id_sym-instance_method" title="#container_id_sym (instance method)">- (Object) <strong>container_id_sym</strong> </a>
     
 
     
@@ -223,10 +249,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Delete all children of the given plate But don't destroy the 'external'
-elements (example aliquots).</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -234,7 +257,7 @@ elements (example aliquots).</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#load_children-instance_method" title="#load_children (instance method)">- (Laboratory::Plate<sup>?</sup>) <strong>load_children</strong>(id, plate) </a>
+      <a href="#element_dataset-instance_method" title="#element_dataset (instance method)">- (Object) <strong>element_dataset</strong> </a>
     
 
     
@@ -247,10 +270,7 @@ elements (example aliquots).</p>
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Load all children of the given plate Loaded object are automatically added
-to the session.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -258,6 +278,16 @@ to the session.</p>
     </ul>
   
 
+
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../Container.html" title="Lims::Core::Persistence::Container (module)">Container</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Container.html#element-instance_method" title="Lims::Core::Persistence::Container#element (method)">#element</a></span>, <span class='object_link'><a href="../Container.html#load_children-instance_method" title="Lims::Core::Persistence::Container#load_children (method)">#load_children</a></span>, <span class='object_link'><a href="../Container.html#save_children-instance_method" title="Lims::Core::Persistence::Container#save_children (method)">#save_children</a></span></p>
 
   
   
@@ -277,7 +307,7 @@ to the session.</p>
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="Filters.html" title="Lims::Core::Persistence::Sequel::Filters (module)">Filters</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Filters.html#label_filter-instance_method" title="Lims::Core::Persistence::Sequel::Filters#label_filter (method)">#label_filter</a></span>, <span class='object_link'><a href="Filters.html#multi_criteria_filter-instance_method" title="Lims::Core::Persistence::Sequel::Filters#multi_criteria_filter (method)">#multi_criteria_filter</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="Filters.html#label_filter-instance_method" title="Lims::Core::Persistence::Sequel::Filters#label_filter (method)">#label_filter</a></span>, <span class='object_link'><a href="Filters.html#multi_criteria_filter-instance_method" title="Lims::Core::Persistence::Sequel::Filters#multi_criteria_filter (method)">#multi_criteria_filter</a></span>, <span class='object_link'><a href="Filters.html#order_filter-instance_method" title="Lims::Core::Persistence::Sequel::Filters#order_filter (method)">#order_filter</a></span></p>
 
   
   
@@ -287,7 +317,27 @@ to the session.</p>
   
   
   <h3 class="inherited">Methods inherited from <span class='object_link'><a href="../Plate.html" title="Lims::Core::Persistence::Plate (class)">Plate</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../Plate.html#save_children-instance_method" title="Lims::Core::Persistence::Plate#save_children (method)">#save_children</a></span>, <span class='object_link'><a href="../Plate.html#well-instance_method" title="Lims::Core::Persistence::Plate#well (method)">#well</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="../Plate.html#element-instance_method" title="Lims::Core::Persistence::Plate#element (method)">#element</a></span>, <span class='object_link'><a href="../Plate.html#well-instance_method" title="Lims::Core::Persistence::Plate#well (method)">#well</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../../Container.html" title="Lims::Core::Container (module)">Container</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../../Container.html#element_name_to_index-instance_method" title="Lims::Core::Container#element_name_to_index (method)">#element_name_to_index</a></span>, <span class='object_link'><a href="../../Container.html#get_element-instance_method" title="Lims::Core::Container#get_element (method)">#get_element</a></span>, <span class='object_link'><a href="../../Container.html#included-class_method" title="Lims::Core::Container.included (method)">included</a></span>, <span class='object_link'><a href="../../Container.html#index_to_element_name-instance_method" title="Lims::Core::Container#index_to_element_name (method)">#index_to_element_name</a></span>, <span class='object_link'><a href="../../Container.html#indexes_to_element_name-instance_method" title="Lims::Core::Container#indexes_to_element_name (method)">#indexes_to_element_name</a></span>, <span class='object_link'><a href="../../Container.html#keys-instance_method" title="Lims::Core::Container#keys (method)">#keys</a></span>, <span class='object_link'><a href="../../Container.html#values-instance_method" title="Lims::Core::Container#values (method)">#values</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../../Container/AccessibleViaSuper.html" title="Lims::Core::Container::AccessibleViaSuper (module)">Container::AccessibleViaSuper</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../../Container/AccessibleViaSuper.html#%5B%5D-instance_method" title="Lims::Core::Container::AccessibleViaSuper#[] (method)">#[]</a></span></p>
 
   
   
@@ -297,7 +347,7 @@ to the session.</p>
   
   
   <h3 class="inherited">Methods inherited from <span class='object_link'><a href="../Persistor.html" title="Lims::Core::Persistence::Persistor (class)">Persistor</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../Persistor.html#%5B%5D-instance_method" title="Lims::Core::Persistence::Persistor#[] (method)">#[]</a></span>, <span class='object_link'><a href="../Persistor.html#count-instance_method" title="Lims::Core::Persistence::Persistor#count (method)">#count</a></span>, <span class='object_link'><a href="../Persistor.html#delete-instance_method" title="Lims::Core::Persistence::Persistor#delete (method)">#delete</a></span>, <span class='object_link'><a href="../Persistor.html#for_each_in_slice-instance_method" title="Lims::Core::Persistence::Persistor#for_each_in_slice (method)">#for_each_in_slice</a></span>, <span class='object_link'><a href="../Persistor.html#ids_for-instance_method" title="Lims::Core::Persistence::Persistor#ids_for (method)">#ids_for</a></span>, <span class='object_link'><a href="../Persistor.html#initialize-instance_method" title="Lims::Core::Persistence::Persistor#initialize (method)">#initialize</a></span>, <span class='object_link'><a href="../Persistor.html#label_filter-instance_method" title="Lims::Core::Persistence::Persistor#label_filter (method)">#label_filter</a></span>, <span class='object_link'><a href="../Persistor.html#load_aggregated_elements-instance_method" title="Lims::Core::Persistence::Persistor#load_aggregated_elements (method)">#load_aggregated_elements</a></span>, <span class='object_link'><a href="../Persistor.html#load_associated_elements-instance_method" title="Lims::Core::Persistence::Persistor#load_associated_elements (method)">#load_associated_elements</a></span>, <span class='object_link'><a href="../Persistor.html#load_single_model-instance_method" title="Lims::Core::Persistence::Persistor#load_single_model (method)">#load_single_model</a></span>, <span class='object_link'><a href="../Persistor.html#model-instance_method" title="Lims::Core::Persistence::Persistor#model (method)">#model</a></span>, <span class='object_link'><a href="../Persistor.html#multi_criteria_filter-instance_method" title="Lims::Core::Persistence::Persistor#multi_criteria_filter (method)">#multi_criteria_filter</a></span>, <span class='object_link'><a href="../Persistor.html#save-instance_method" title="Lims::Core::Persistence::Persistor#save (method)">#save</a></span>, <span class='object_link'><a href="../Persistor.html#save_as_aggregation-instance_method" title="Lims::Core::Persistence::Persistor#save_as_aggregation (method)">#save_as_aggregation</a></span>, <span class='object_link'><a href="../Persistor.html#save_as_association-instance_method" title="Lims::Core::Persistence::Persistor#save_as_association (method)">#save_as_association</a></span>, <span class='object_link'><a href="../Persistor.html#slice-instance_method" title="Lims::Core::Persistence::Persistor#slice (method)">#slice</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="../Persistor.html#%5B%5D-instance_method" title="Lims::Core::Persistence::Persistor#[] (method)">#[]</a></span>, <span class='object_link'><a href="../Persistor.html#count-instance_method" title="Lims::Core::Persistence::Persistor#count (method)">#count</a></span>, <span class='object_link'><a href="../Persistor.html#delete-instance_method" title="Lims::Core::Persistence::Persistor#delete (method)">#delete</a></span>, <span class='object_link'><a href="../Persistor.html#for_each_in_slice-instance_method" title="Lims::Core::Persistence::Persistor#for_each_in_slice (method)">#for_each_in_slice</a></span>, <span class='object_link'><a href="../Persistor.html#ids_for-instance_method" title="Lims::Core::Persistence::Persistor#ids_for (method)">#ids_for</a></span>, <span class='object_link'><a href="../Persistor.html#initialize-instance_method" title="Lims::Core::Persistence::Persistor#initialize (method)">#initialize</a></span>, <span class='object_link'><a href="../Persistor.html#label_filter-instance_method" title="Lims::Core::Persistence::Persistor#label_filter (method)">#label_filter</a></span>, <span class='object_link'><a href="../Persistor.html#load_aggregated_elements-instance_method" title="Lims::Core::Persistence::Persistor#load_aggregated_elements (method)">#load_aggregated_elements</a></span>, <span class='object_link'><a href="../Persistor.html#load_associated_elements-instance_method" title="Lims::Core::Persistence::Persistor#load_associated_elements (method)">#load_associated_elements</a></span>, <span class='object_link'><a href="../Persistor.html#load_single_model-instance_method" title="Lims::Core::Persistence::Persistor#load_single_model (method)">#load_single_model</a></span>, <span class='object_link'><a href="../Persistor.html#model-instance_method" title="Lims::Core::Persistence::Persistor#model (method)">#model</a></span>, <span class='object_link'><a href="../Persistor.html#multi_criteria_filter-instance_method" title="Lims::Core::Persistence::Persistor#multi_criteria_filter (method)">#multi_criteria_filter</a></span>, <span class='object_link'><a href="../Persistor.html#order_filter-instance_method" title="Lims::Core::Persistence::Persistor#order_filter (method)">#order_filter</a></span>, <span class='object_link'><a href="../Persistor.html#save-instance_method" title="Lims::Core::Persistence::Persistor#save (method)">#save</a></span>, <span class='object_link'><a href="../Persistor.html#save_as_aggregation-instance_method" title="Lims::Core::Persistence::Persistor#save_as_aggregation (method)">#save_as_aggregation</a></span>, <span class='object_link'><a href="../Persistor.html#save_as_association-instance_method" title="Lims::Core::Persistence::Persistor#save_as_association (method)">#save_as_association</a></span>, <span class='object_link'><a href="../Persistor.html#slice-instance_method" title="Lims::Core::Persistence::Persistor#slice (method)">#slice</a></span></p>
 
   
   
@@ -344,12 +394,12 @@ to the session.</p>
       <pre class="lines">
 
 
+39
 40
-41
-42</pre>
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/plate.rb', line 40</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/plate.rb', line 39</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id table_name'>table_name</span>
   <span class='symbol'>:plates</span>
@@ -366,70 +416,27 @@ to the session.</p>
     
     
       <div class="method_details first">
-  <p class="signature first" id="delete_children-instance_method">
+  <p class="signature first" id="container_id_sym-instance_method">
   
-    - (<tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>delete_children</strong>(id, plate) 
+    - (<tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>container_id_sym</strong> 
   
 
   
-</p><div class="docstring">
-  <div class="discussion">
-    
-<p>Delete all children of the given plate But don't destroy the 'external'
-elements (example aliquots)</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <h3>Parameters:</h3>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>id</span>
-      
-      
-        <span class='type'>(<tt>Fixnum</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>the id in the database</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>plate</span>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="../../Laboratory/Plate.html" title="Lims::Core::Laboratory::Plate (class)">Laboratory::Plate</a></span></tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-
-</div><table class="source_code">
+</p><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-48
-49
-50</pre>
+43
+44
+45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/plate.rb', line 48</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/plate.rb', line 43</span>
 
-<span class='kw'>def</span> <span class='id delete_children'>delete_children</span><span class='lparen'>(</span><span class='id id'>id</span><span class='comma'>,</span> <span class='id plate'>plate</span><span class='rparen'>)</span>
-  <span class='const'>Well</span><span class='op'>::</span><span class='id dataset'>dataset</span><span class='lparen'>(</span><span class='ivar'>@session</span><span class='rparen'>)</span><span class='period'>.</span><span class='id filter'>filter</span><span class='lparen'>(</span><span class='symbol'>:plate_id</span> <span class='op'>=&gt;</span> <span class='id id'>id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id delete'>delete</span>
+<span class='kw'>def</span> <span class='id container_id_sym'>container_id_sym</span>
+  <span class='symbol'>:plate_id</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -437,87 +444,27 @@ elements (example aliquots)</p>
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="load_children-instance_method">
+  <p class="signature " id="element_dataset-instance_method">
   
-    - (<tt><span class='object_link'><a href="../../Laboratory/Plate.html" title="Lims::Core::Laboratory::Plate (class)">Laboratory::Plate</a></span></tt><sup>?</sup>) <strong>load_children</strong>(id, plate) 
+    - (<tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>element_dataset</strong> 
   
 
   
-</p><div class="docstring">
-  <div class="discussion">
-    
-<p>Load all children of the given plate Loaded object are automatically added
-to the session.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <h3>Parameters:</h3>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>id</span>
-      
-      
-        <span class='type'>(<tt>Fixnum</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>the id in the database</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>plate</span>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="../../Laboratory/Plate.html" title="Lims::Core::Laboratory::Plate (class)">Laboratory::Plate</a></span></tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-<h3>Returns:</h3>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="../../Laboratory/Plate.html" title="Lims::Core::Laboratory::Plate (class)">Laboratory::Plate</a></span></tt>, <tt>nil</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
+</p><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-58
-59
-60
-61
-62</pre>
+47
+48
+49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/plate.rb', line 58</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/plate.rb', line 47</span>
 
-<span class='kw'>def</span> <span class='id load_children'>load_children</span><span class='lparen'>(</span><span class='id id'>id</span><span class='comma'>,</span> <span class='id plate'>plate</span><span class='rparen'>)</span>
-  <span class='id well'>well</span><span class='period'>.</span><span class='id load_aliquots'>load_aliquots</span><span class='lparen'>(</span><span class='id id'>id</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id position'>position</span><span class='comma'>,</span> <span class='id aliquot'>aliquot</span><span class='op'>|</span>
-    <span class='id plate'>plate</span><span class='lbracket'>[</span><span class='id position'>position</span><span class='rbracket'>]</span> <span class='op'>&lt;&lt;</span> <span class='id aliquot'>aliquot</span>
-  <span class='kw'>end</span>
+<span class='kw'>def</span> <span class='id element_dataset'>element_dataset</span>
+  <span class='const'>Well</span><span class='op'>::</span><span class='id dataset'>dataset</span><span class='lparen'>(</span><span class='ivar'>@session</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>

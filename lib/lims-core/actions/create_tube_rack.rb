@@ -13,7 +13,7 @@ module Lims::Core
 
       # @attribute [Hash<String, Laboratory::Tube>] tubes description
       # @example
-      # {"A1" => tube_1, "B4" => tube_2}
+      #     {"A1" => tube_1, "B4" => tube_2}
       attribute :tubes, Hash, :default => {}
 
       def _call_in_session(session)

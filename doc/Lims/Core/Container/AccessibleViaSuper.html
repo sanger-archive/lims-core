@@ -137,13 +137,6 @@
       <pre class="lines">
 
 
-33
-34
-35
-36
-37
-38
-39
 40
 41
 42
@@ -152,19 +145,22 @@
 45
 46
 47
-48</pre>
+48
+49
+50
+51
+52
+53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/container.rb', line 33</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/container.rb', line 40</span>
 
 <span class='kw'>def</span> <span class='op'>[]</span><span class='lparen'>(</span><span class='id index'>index</span><span class='rparen'>)</span>
   <span class='kw'>case</span> <span class='id index'>index</span>
   <span class='kw'>when</span> <span class='const'>Array</span>
     <span class='id get_element'>get_element</span><span class='lparen'>(</span><span class='op'>*</span><span class='id index'>index</span><span class='rparen'>)</span>
   <span class='kw'>when</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\A([a-zA-Z])(\d+)\z</span><span class='regexp_end'>/</span></span>
-    <span class='id row'>row</span> <span class='op'>=</span> <span class='backref'>$1</span><span class='period'>.</span><span class='id ord'>ord</span> <span class='op'>-</span> <span class='CHAR'>?A</span><span class='period'>.</span><span class='id ord'>ord</span>
-    <span class='id col'>col</span> <span class='op'>=</span> <span class='backref'>$2</span><span class='period'>.</span><span class='id to_i'>to_i</span> <span class='op'>-</span> <span class='int'>1</span>
-    <span class='id get_element'>get_element</span><span class='lparen'>(</span><span class='id row'>row</span><span class='comma'>,</span> <span class='id col'>col</span><span class='rparen'>)</span>
+    <span class='id get_element'>get_element</span><span class='lparen'>(</span><span class='backref'>$1</span><span class='comma'>,</span> <span class='backref'>$2</span><span class='rparen'>)</span>
     <span class='comment'># why not something like
 </span>    <span class='comment'># get_well(*[$1, $2].zip(%w{A 1}).map { |a,b| [a,b].map(&amp;:ord).inject { |x,y| x-y } })
 </span>  <span class='kw'>when</span> <span class='const'>Symbol</span>

@@ -141,6 +141,15 @@
       <span class='id foreign_key'>foreign_key</span> <span class='symbol'>:aliquot_id</span><span class='comma'>,</span> <span class='symbol'>:aliquots</span><span class='comma'>,</span> <span class='symbol'>:key</span> <span class='op'>=&gt;</span> <span class='symbol'>:id</span>
     <span class='kw'>end</span>
 
+    <span class='id create_table'>create_table</span> <span class='symbol'>:spin_columns</span> <span class='kw'>do</span>
+      <span class='id primary_key'>primary_key</span> <span class='symbol'>:id</span>
+    <span class='kw'>end</span>
+
+    <span class='id create_table'>create_table</span> <span class='symbol'>:spin_column_aliquots</span> <span class='kw'>do</span>
+      <span class='id primary_key'>primary_key</span> <span class='symbol'>:id</span>
+      <span class='const'>Integer</span> <span class='symbol'>:spin_column_id</span>
+      <span class='id foreign_key'>foreign_key</span> <span class='symbol'>:aliquot_id</span><span class='comma'>,</span> <span class='symbol'>:aliquots</span><span class='comma'>,</span> <span class='symbol'>:key</span> <span class='op'>=&gt;</span> <span class='symbol'>:id</span>
+    <span class='kw'>end</span>
 
     <span class='id create_table'>create_table</span> <span class='symbol'>:plates</span> <span class='kw'>do</span>
       <span class='id primary_key'>primary_key</span> <span class='symbol'>:id</span>
@@ -151,6 +160,19 @@
     <span class='id create_table'>create_table</span> <span class='symbol'>:wells</span> <span class='kw'>do</span>
       <span class='id primary_key'>primary_key</span> <span class='symbol'>:id</span>
       <span class='id foreign_key'>foreign_key</span> <span class='symbol'>:plate_id</span><span class='comma'>,</span> <span class='symbol'>:plates</span><span class='comma'>,</span> <span class='symbol'>:key</span> <span class='op'>=&gt;</span> <span class='symbol'>:id</span>
+      <span class='const'>Integer</span> <span class='symbol'>:position</span>
+      <span class='id foreign_key'>foreign_key</span> <span class='symbol'>:aliquot_id</span><span class='comma'>,</span> <span class='symbol'>:aliquots</span><span class='comma'>,</span> <span class='symbol'>:key</span> <span class='op'>=&gt;</span> <span class='symbol'>:id</span>
+    <span class='kw'>end</span>
+
+    <span class='id create_table'>create_table</span> <span class='symbol'>:gels</span> <span class='kw'>do</span>
+      <span class='id primary_key'>primary_key</span> <span class='symbol'>:id</span>
+      <span class='const'>Integer</span> <span class='symbol'>:number_of_rows</span>
+      <span class='const'>Integer</span> <span class='symbol'>:number_of_columns</span>
+    <span class='kw'>end</span>
+
+    <span class='id create_table'>create_table</span> <span class='symbol'>:windows</span> <span class='kw'>do</span>
+      <span class='id primary_key'>primary_key</span> <span class='symbol'>:id</span>
+      <span class='id foreign_key'>foreign_key</span> <span class='symbol'>:gel_id</span><span class='comma'>,</span> <span class='symbol'>:gels</span><span class='comma'>,</span> <span class='symbol'>:key</span> <span class='op'>=&gt;</span> <span class='symbol'>:id</span>
       <span class='const'>Integer</span> <span class='symbol'>:position</span>
       <span class='id foreign_key'>foreign_key</span> <span class='symbol'>:aliquot_id</span><span class='comma'>,</span> <span class='symbol'>:aliquots</span><span class='comma'>,</span> <span class='symbol'>:key</span> <span class='op'>=&gt;</span> <span class='symbol'>:id</span>
     <span class='kw'>end</span>
@@ -202,7 +224,7 @@
       <span class='const'>String</span> <span class='symbol'>:pipeline</span>
       <span class='const'>String</span> <span class='symbol'>:parameters</span>
       <span class='const'>String</span> <span class='symbol'>:status</span>
-      <span class='const'>Text</span> <span class='symbol'>:state</span>
+      <span class='id blob'>blob</span> <span class='symbol'>:state</span>
       <span class='id foreign_key'>foreign_key</span> <span class='symbol'>:study_id</span><span class='comma'>,</span> <span class='symbol'>:studies</span><span class='comma'>,</span> <span class='symbol'>:key</span> <span class='op'>=&gt;</span> <span class='symbol'>:id</span>
       <span class='const'>String</span> <span class='symbol'>:cost_code</span>
     <span class='kw'>end</span>
@@ -222,7 +244,7 @@
       <span class='const'>String</span> <span class='symbol'>:description</span>
       <span class='const'>String</span> <span class='symbol'>:filter_type</span>
       <span class='const'>String</span> <span class='symbol'>:model</span>
-      <span class='const'>Text</span> <span class='symbol'>:filter_parameters</span>
+      <span class='id blob'>blob</span> <span class='symbol'>:filter_parameters</span>
     <span class='kw'>end</span>
 
     <span class='id create_table'>create_table</span> <span class='symbol'>:labellables</span> <span class='kw'>do</span>

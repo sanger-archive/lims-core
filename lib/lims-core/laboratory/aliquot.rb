@@ -105,7 +105,7 @@ module Lims::Core
 
       # add to quantities, work out nil number
       # @param [Number, Nil] q1
-      # @parm [Number, Nil] q2
+      # @param [Number, Nil] q2
       # @return [Number, Nil]
       def self.add_quantity(q1, q2)
         q1 && q2 ? q1+q2 : q1 || q2
