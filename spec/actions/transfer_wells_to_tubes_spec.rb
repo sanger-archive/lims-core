@@ -3,7 +3,7 @@ require 'actions/spec_helper'
 require 'actions/action_examples'
 
 require 'persistence/sequel/spec_helper'
-require 'laboratory/plate_shared'
+require 'laboratory/plate_and_gel_shared'
 require 'laboratory/tube_shared'
 require 'persistence/sequel/store_shared'
 
@@ -18,7 +18,7 @@ PS=Lims::Core::Persistence::Sequel
 module Lims::Core
   module Actions
     describe TransferWellsToTubes do
-      include_context "plate factory"
+      include_context "plate or gel factory"
       include_context "tube factory"
       let(:number_of_rows) {8}
       let(:number_of_columns) {12}
