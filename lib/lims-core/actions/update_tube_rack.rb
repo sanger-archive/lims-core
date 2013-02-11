@@ -13,9 +13,11 @@ module Lims::Core
 
       def _call_in_session(session)
         tube_rack.each do |tube|
-          tube.each do |aliquot|
-            aliquot.type = aliquot_type unless aliquot_type.nil?
-            aliquot.quantity = aliquot_quantity unless aliquot_quantity.nil?
+          unless tube.nil?
+            tube.each do |aliquot|
+              aliquot.type = aliquot_type unless aliquot_type.nil?
+              aliquot.quantity = aliquot_quantity unless aliquot_quantity.nil?
+            end
           end
         end
         {:tube_rack => tube_rack}
