@@ -1,51 +1,50 @@
-# vi: ts=2:sts=2:et:sw=2 spell:spelllang=en
-
-require 'lims/core/persistence/plate'
+require 'lims/core/persistence/gel'
 require 'lims/core/persistence/sequel/persistor'
 require 'lims/core/persistence/sequel/container'
 
 module Lims::Core
   module Persistence
     module Sequel
-      # Not a plate but a plate persistor.
-      class Plate < Persistence::Plate
+      # A gel persistor. It saves the gel's data to the DB.
+      class Gel < Persistence::Gel
         include Sequel::Persistor
         include Container
 
-        module PlateContainerElement
+        module GelContainerElement
           include ContainerElement
 
           def element_dataset
-            Lims::Core::Persistence::Sequel::Plate::Well::dataset(@session)
+            Lims::Core::Persistence::Sequel::Gel::Window::dataset(@session)
           end
 
           def container_id_sym
-            :plate_id
+            :gel_id
           end
 
         end
 
-        # Not a well but a well {Persistor}.
-        class Well < Persistence::Plate::Well
+        # A window persistor. It saves the window's data to the DB.
+        class Window < Persistence::Gel::Window
           include Sequel::Persistor
-          include PlateContainerElement
+          include GelContainerElement
 
           def self.table_name
-            :wells
+            :windows
           end
 
-        end #class Well
+        end 
+        #class Window
 
         def self.table_name
-          :plates
+          :gels
         end
 
         def container_id_sym
-          :plate_id
+          :gel_id
         end
 
         def element_dataset
-          Well::dataset(@session)
+          Window::dataset(@session)
         end
       end
     end

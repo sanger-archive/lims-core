@@ -1,37 +1,36 @@
-# vi: ts=2:sts=2:et:sw=2  spell:spelllang=en  
 require 'lims/core/actions/action'
 
-require 'lims/core/laboratory/plate'
+require 'lims/core/laboratory/gel'
 require 'lims/core/actions/container'
 
 module Lims::Core
   module Actions
-    class CreatePlate
+    class CreateGel
       include Action
       include Container
 
-      # @attribute [Hash<String, Array<Hash>>] wells_description
+      # @attribute [Hash<String, Array<Hash>>] windows_description
       # @example
       #   { "A1" => [{ :sample => s1, :quantity => 2}, {:sample => s2}] }
-      attribute :wells_description, Hash, :default => {}
+      attribute :windows_description, Hash, :default => {}
 
       def container_class
-        Laboratory::Plate
+        Laboratory::Gel
       end
 
       def element_description
-        wells_description
+        windows_description
       end
 
       def container_symbol
-        :plate
+        :gel
       end
     end
   end
 
   module Laboratory
-    class Plate
-      Create = Actions::CreatePlate
+    class Gel
+      Create = Actions::CreateGel
     end
   end
 end
