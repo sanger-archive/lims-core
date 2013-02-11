@@ -44,10 +44,10 @@ module Lims::Core
         # Implement an order filter for a Sequel::Persistor.
         # @param [Hash<String, Object>] criteria
         # @example
-        # {:order => {:item => {:status => "pending"}, :status => "draft"}}
-        # Create a request to get the resources in a draft order
-        # with a pending item status.
-        # @return [Persistor]
+        #     {:order => {:item => {:status => "pending"}, :status => "draft"}}
+        #     Create a request to get the resources in a draft order
+        #     with a pending item status.
+        #     @return [Persistor]
         def order_filter(criteria)
           criteria = criteria[:order] if criteria.keys.first.to_s == "order"
           order_persistor = @session.order.__multi_criteria_filter(criteria)
