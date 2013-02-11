@@ -59,7 +59,7 @@ module Lims::Core
           targets << transfer["target"]
         end
 
-        { :sources => sources, :targets => targets}
+        { :sources => sources.uniq!, :targets => targets.uniq!}
       end
     end
   end
