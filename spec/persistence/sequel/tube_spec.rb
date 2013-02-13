@@ -48,7 +48,7 @@ module Lims::Core
           before do
             store.with_session do |s|
               tube = s.tube[tube_id]
-              tube<< aliquot
+              tube << aliquot
             end
           end
           it "should be saved" do
@@ -69,6 +69,34 @@ module Lims::Core
             store.with_session do |session|
               tube = session.tube[tube_id]
               tube.should be_empty
+            end
+          end
+        end
+
+        context "with a tube type" do
+          let(:type) { "Eppendorf" }
+          subject { Laboratory::Tube.new(:type => type) } 
+
+          it "can be saved and reloaded" do
+            tube_id = save(subject)
+            
+            store.with_session do |session|
+              tube = session.tube[tube_id]
+              tube.type.should == type
+            end
+          end
+        end
+
+        context "with a tube max volume" do
+          let(:max_volume) { 2 }
+          subject { Laboratory::Tube.new(:max_volume => max_volume) } 
+
+          it "can be saved and reloaded" do
+            tube_id = save(subject)
+            
+            store.with_session do |session|
+              tube = session.tube[tube_id]
+              tube.max_volume.should == max_volume
             end
           end
         end

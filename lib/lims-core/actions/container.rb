@@ -33,9 +33,14 @@ module Lims::Core
       def container_symbol
         raise NotImplementedError
       end
+ 
+      # Return the default parameters to create a new container 
+      def container_parameters
+        {:number_of_rows => number_of_rows, :number_of_columns => number_of_columns}
+      end
 
       def _call_in_session(session)
-        new_container = container_class.new(:number_of_columns => number_of_columns, :number_of_rows => number_of_rows)
+        new_container = container_class.new(container_parameters)
         session << new_container
         element_description.each do |element_name, aliquots|
           aliquots.each do |aliquot|
