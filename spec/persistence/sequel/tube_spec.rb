@@ -54,7 +54,7 @@ module Lims::Core
           it "should be saved" do
             store.with_session do |session|
               tube = session.tube[tube_id]
-              tube.to_a.should == [aliquot]
+              tube.should == [aliquot]
             end
           end
         end

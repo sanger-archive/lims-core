@@ -59,8 +59,8 @@ module Lims::Core
           it "should be saved" do
             store.with_session do |session|
               f = session.tube_rack[tube_rack_id]
-              f[0].to_a.should == [] # empty tube
-              f[1].to_a.should == [aliquot]
+              f[0].should == [] # empty tube
+              f[1].should == [aliquot]
               f[7].should be_nil # not tube
             end
           end
@@ -79,7 +79,7 @@ module Lims::Core
               f = session.tube_rack[tube_rack_id]
               f[7].should be_nil
               f[1].should be_nil
-              f[0].to_a.should == [aliquot]
+              f[0].should == [aliquot]
             end
           end
         end
