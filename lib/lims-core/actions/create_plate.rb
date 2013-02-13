@@ -14,17 +14,20 @@ module Lims::Core
       # @example
       #   { "A1" => [{ :sample => s1, :quantity => 2}, {:sample => s2}] }
       attribute :wells_description, Hash, :default => {}
+      # Type is the actual type of the plate, not the role in the order.
+      attribute :type, String, :required => false, :writer => :private 
 
-      def container_class
-        Laboratory::Plate
-      end
-
-      def element_description
-        wells_description
-      end
-
-      def container_symbol
-        :plate
+      def _call_in_session(session)
+        plate = Laboratory::Plate.new(:number_of_columns => number_of_columns, 
+                                      :number_of_rows => number_of_rows,
+                                      :type => type)
+        session << plate
+        wells_description.each do |location, aliquots|
+          aliquots.each do |aliquot|
+            plate[location] <<  Laboratory::Aliquot.new(aliquot)
+          end
+        end
+        { :plate => plate, :uuid => session.uuid_for!(plate) }
       end
     end
   end

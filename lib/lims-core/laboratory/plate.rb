@@ -12,6 +12,8 @@ module Lims::Core
     # TODO add label behavior
     class Plate 
       include Resource
+      # Type contains the actual type of the plate.
+      attribute :type, String, :required => false
 
       # The well of a {Plate}. 
       # Contains some chemical substances.
