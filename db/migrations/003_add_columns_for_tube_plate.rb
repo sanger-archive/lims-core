@@ -5,7 +5,7 @@
       add_column :max_volume, Integer
     end
 
-    alter_table(:plate) do
+    alter_table(:plates) do
       add_column :type, String
     end
   end
