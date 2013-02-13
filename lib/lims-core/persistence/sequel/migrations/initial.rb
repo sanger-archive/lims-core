@@ -61,6 +61,7 @@ module Lims::Core::Persistence::Sequel::Migrations
         primary_key :id
         Integer :number_of_rows
         Integer :number_of_columns
+        String :type
       end
 
       create_table :wells do
