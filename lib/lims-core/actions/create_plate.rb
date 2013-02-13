@@ -17,17 +17,20 @@ module Lims::Core
       # Type is the actual type of the plate, not the role in the order.
       attribute :type, String, :required => false, :writer => :private 
 
-      def _call_in_session(session)
-        plate = Laboratory::Plate.new(:number_of_columns => number_of_columns, 
-                                      :number_of_rows => number_of_rows,
-                                      :type => type)
-        session << plate
-        wells_description.each do |location, aliquots|
-          aliquots.each do |aliquot|
-            plate[location] <<  Laboratory::Aliquot.new(aliquot)
-          end
-        end
-        { :plate => plate, :uuid => session.uuid_for!(plate) }
+      def container_class
+        Laboratory::Plate
+      end
+
+      def element_description
+        wells_description
+      end
+
+      def container_symbol
+        :plate
+      end
+
+      def container_parameters
+        super.merge(:type => type)
       end
     end
   end
