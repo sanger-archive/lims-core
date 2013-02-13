@@ -98,6 +98,21 @@ module Lims::Core
           end
         end
 
+        context "with a plate type" do
+          let(:type) { "plate type" }
+          subject { Laboratory::Plate.new(:number_of_rows => number_of_rows,
+                                          :number_of_columns => number_of_columns,
+                                          :type => type) }
+
+          it "can be saved and reloaded" do
+            plate_id = save(subject)                        
+            store.with_session do |session|
+              plate = session.plate[plate_id]
+              plate.type.should == type
+            end
+          end
+        end
+
         context "#lookup by label" do
           let!(:uuid) {
             store.with_session do |session|
