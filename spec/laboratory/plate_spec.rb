@@ -35,6 +35,12 @@ module Lims::Core::Laboratory
       it_behaves_like "a hash"
       it_behaves_like "labellable"
 
+      it "sets a type" do
+        type = mock(:type)
+        subject.type = type
+        subject.type.should == type
+      end
+
       context "#pools" do
         it "each well belongs to only one pool" do
           pools = subject.pools
