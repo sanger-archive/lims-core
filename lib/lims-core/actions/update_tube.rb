@@ -16,8 +16,13 @@ module Lims::Core
       # aliquot_type and the quantity aliquot_quantity.
       attribute :aliquot_type, String, :required => false, :writer => :private
       attribute :aliquot_quantity, Numeric, :required => false, :writer => :private 
+      # The actual type of the tube, like Eppendorf.
+      attribute :type, String, :required => false, :writer => :private
+      attribute :max_volume, Numeric, :required => false, :writer => :private
 
       def _call_in_session(session)
+        tube.type = type if type
+        tube.max_volume = max_volume if max_volume
         tube.each do |aliquot|
           aliquot.type = aliquot_type unless aliquot_type.nil?
           aliquot.quantity = aliquot_quantity unless aliquot_quantity.nil?
