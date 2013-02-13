@@ -16,6 +16,8 @@ module Lims::Core
         include_context "create object"
 
         let!(:store) { Persistence::Store.new() }
+        let(:tube_type) { "Eppendorf" }
+        let(:tube_max_volume) { 2 }
         let(:aliquot_type) { "DNA" }
         let(:aliquot_quantity) { 5 }
         let(:action) { 
@@ -23,6 +25,8 @@ module Lims::Core
             a.tube = new_tube_with_samples
             a.aliquot_type = aliquot_type
             a.aliquot_quantity = aliquot_quantity
+            a.type = tube_type
+            a.max_volume = tube_max_volume
           end
         }
         let(:result) { action.call }
@@ -46,6 +50,14 @@ module Lims::Core
           updated_tube.each do |aliquot|
             aliquot.quantity.should == aliquot_quantity
           end
+        end
+        
+        it "changes the tube type" do
+          updated_tube.type.should == tube_type
+        end
+
+        it "changes the tube max volume" do
+          updated_tube.max_volume.should == tube_max_volume
         end
       end
     end

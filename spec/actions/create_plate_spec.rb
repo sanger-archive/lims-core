@@ -13,6 +13,7 @@ module Lims::Core
       subject do
         CreatePlate.new(:store => store, :user => user, :application => application)  do |a,s|
           a.ostruct_update(dimensions)
+          a.type = plate_type
         end
       end
 
@@ -39,6 +40,7 @@ module Lims::Core
         CreatePlate.new(:store => store, :user => user, :application => application)  do |a,s|
           a.ostruct_update(dimensions)
           a.wells_description = wells_description
+          a.type = plate_type
         end
       end
 
@@ -63,6 +65,7 @@ module Lims::Core
         plate = result[:plate]
         plate.number_of_rows.should == dimensions[:number_of_rows]
         plate.number_of_columns.should == dimensions[:number_of_columns]
+        plate.type.should == plate_type
         plate_checker[plate]
 
         result[:uuid].should == uuid
@@ -73,7 +76,6 @@ module Lims::Core
       let(:number_of_rows) { row }
       let(:number_of_columns) { col }
       let(:dimensions) {{ :number_of_rows => row, :number_of_columns => col }}
-
     end
 
     describe CreatePlate do
@@ -83,7 +85,7 @@ module Lims::Core
         include_context("for application",  "Test plate creation")
 
         include_context("has plate dimension", 8, 12)
-
+        let(:plate_type) { mock(:plate_type) }
 
         context do
           include_context "for empty plate"

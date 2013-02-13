@@ -76,10 +76,15 @@ module Lims::Core
       end
 
       # Add content to compare
+      # If classe are not in the same hierarchy we only compare the content
       # @param other to compare with
       # @return [Boolean]
       def ==(other)
-        super(other) && content == (other.respond(:content) || other)
+        if other.is_a?(self.class) || self.is_a?(other.class)
+          super(other)
+        else
+          true
+        end && self.to_a == other.to_a
       end
 
       # The underlying array. Use to everything which is not directly delegated 

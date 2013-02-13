@@ -15,8 +15,11 @@ module Lims::Core
       attribute :plate, Laboratory::Plate, :required => true, :writer => :private
       attribute :aliquot_type, String, :required => false, :writer => :private
       attribute :aliquot_quantity, Numeric, :required => false, :writer => :private 
+      # Type is the actual type of the plate, not the role in the order.
+      attribute :type, String, :requried => false, :writer => :private
 
       def _call_in_session(session)
+        plate.type = type if type
         plate.each do |well|
           well.each do |aliquot|
             aliquot.type = aliquot_type if aliquot_type
