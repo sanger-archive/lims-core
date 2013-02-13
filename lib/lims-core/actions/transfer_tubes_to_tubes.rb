@@ -40,17 +40,20 @@ module Lims::Core
       def _call_in_session(session)
         sources = []
         targets = []
+        amounts = []
         transfers.each do |transfer|
           fraction = transfer["fraction"]
-          next unless fraction
-          amount = transfer["source"].quantity * fraction
-          transfer["amount"] = amount
+          if fraction
+            amounts << transfer["source"].quantity * fraction
+          else
+            amounts << transfer["amount"]
+          end
         end
 
-        transfers.each do |transfer|
+        transfers.zip(amounts) do |transfer, amount|
           source = transfer["source"]
           target = transfer["target"]
-          target << source.take_amount(transfer["amount"])
+          target << source.take_amount(amount)
 
           unless transfer["aliquot_type"].nil?
             target.each do |aliquot|
