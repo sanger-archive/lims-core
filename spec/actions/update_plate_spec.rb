@@ -18,6 +18,7 @@ module Lims::Core
       let(:plate) { new_plate_with_samples }
       let(:number_of_rows) { 8 }
       let(:number_of_columns) { 12 }
+      let(:plate_type) { "new plate type" }
       let(:aliquot_type) { "DNA" }
       let(:aliquot_quantity) { 5 }
       let(:action) {
@@ -25,6 +26,7 @@ module Lims::Core
           a.plate = plate 
           a.aliquot_type = aliquot_type
           a.aliquot_quantity = aliquot_quantity
+          a.type = plate_type
         end
       }
       let(:result) { action.call }
@@ -36,6 +38,10 @@ module Lims::Core
       it "updates the plate" do
         result.should be_a Hash
         updated_plate.should be_a Laboratory::Plate
+      end
+
+      it "changes the plate type" do
+        updated_plate.type.should == plate_type        
       end
 
       it "changes aliquots type in each well" do

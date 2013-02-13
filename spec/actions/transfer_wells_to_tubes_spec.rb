@@ -49,8 +49,8 @@ module Lims::Core
               store.with_session do |session|
                 plate = session.plate[plate_id]
                 tube1, tube2 = [tube1_id, tube2_id].map { |id| session.tube[id] }
-                tube1.should == plate["A1"]
-                tube2.should == plate["C3"] 
+                tube1.to_a.should == plate["A1"].to_a
+                tube2.to_a.should == plate["C3"].to_a 
               end
             end
           end
@@ -89,7 +89,7 @@ module Lims::Core
           it "should save all the tubes" do
             plate_id, tube_id = subject.call { |a, s| [s.id_for(plate), s.id_for(tube)] }
             store.with_session do |session|
-              tube.should == plate["C3"]
+              tube.to_a.should == plate["C3"].to_a
             end
           end
         end
