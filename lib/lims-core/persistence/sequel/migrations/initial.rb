@@ -37,8 +37,6 @@ module Lims::Core::Persistence::Sequel::Migrations
 
       create_table :tubes do
         primary_key :id
-        String :type
-        Integer :max_volume
       end
 
       create_table :tube_aliquots do
@@ -61,7 +59,6 @@ module Lims::Core::Persistence::Sequel::Migrations
         primary_key :id
         Integer :number_of_rows
         Integer :number_of_columns
-        String :type
       end
 
       create_table :wells do
