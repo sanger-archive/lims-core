@@ -115,6 +115,7 @@ module Lims::Core
               end
             end
           end
+          
           context "with an intermediate item in progress"  do
             let(:item_uuid) { "11111111-1111-1111-0000-000000000000" }
             subject do Order.new.tap do |o|
@@ -128,6 +129,23 @@ module Lims::Core
               end
               load_order(order_id) do |order|
                 order[:intermediate_target].first.uuid.should == item_uuid
+              end
+            end
+          end
+
+          context "with an item assigned to a batch" do
+            let(:batch_uuid) { "11111111-1111-1111-0000-000000000000" }
+            let(:item) { Order::Item.new(:batch_uuid => batch_uuid) }
+            subject do 
+              Order.new.tap do |order|
+                order[:role] = []
+                order[:role] << item
+              end
+            end
+
+            it "saves item batch uuid" do
+              load_order(order_id) do |order|
+                order["role"].first.batch_uuid.should == batch_uuid
               end
             end
           end
