@@ -2,6 +2,7 @@
   up do
     create_table(:batches) do
       primary_key :id
+      String :process
     end
   end
 
