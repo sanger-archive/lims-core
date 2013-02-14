@@ -52,6 +52,25 @@ module Lims::Core
           updated_order.status.should == new_status
         end
       end
+      context "add pending item and assigned it to a batch " do
+        let(:item_parameters) { { :items => { "role1" => { new_uuid => {"batch_uuid" => batch_uuid}  } } } }
+        it "has a new role" do
+          updated_order.should include("role1")
+        end
+        it "has the correct item"  do
+          updated_order["role1"].first.uuid.should == new_uuid
+        end
+        it "is assigned to a batch" do
+          updated_order["role1"].first.batch_uuid.should == batch_uuid
+        end
+        it "'s item has the correct status_name" do
+          updated_order["role1"].first.status_name.should == :pending
+        end
+        it "has the correst status " do
+          new_status ||= order.status
+          updated_order.status.should == new_status
+        end
+      end
       context "add pending item at the end#{ event and "set send #{event}"}" do
         let(:item_parameters) { { :items => { "role1" => { "last" => {  "uuid" => new_uuid } } } } }
         it "has a new role" do
@@ -84,8 +103,9 @@ module Lims::Core
           updated_order.status.should == new_status
         end
       end
-      context "add done item" do
-        let(:item_parameters) { { :items => { "role1" => { new_uuid => { "event" => :complete } } } } }
+      context "add done item and assign it to a bash" do
+        let(:item_parameters) { { :items => { "role1" => { new_uuid => { "event" => :complete,
+                                                                         "batch_uuid" => batch_uuid} } } } }
         it "has a new role" do
           updated_order.should  include("role1")
         end
@@ -95,7 +115,9 @@ module Lims::Core
         it "has the correct status_name" do
           updated_order["role1"].first.status_name.should == :done
         end
-
+        it "is assigned to a batch" do
+          updated_order["role1"].first.batch_uuid.should == batch_uuid
+        end
         it "has the correst status " do
           new_status ||= order.status
           updated_order.status.should == new_status
@@ -139,33 +161,40 @@ module Lims::Core
     end
 
     shared_examples_for "updating item" do |role, item_event, new_item_status, event=nil, new_status=nil|
-      include_context "order updated"
-      let(:parameters) { item_parameters.tap { |h| h[:event] = event if event } }
-      context "#{item_event} #{role} item#{ event and "set send #{event}"}" do
-        let(:item_parameters) { { :items => { role => { "0" => { "event" => item_event } } } } }
-        it "has the correct item"  do
-          updated_order.should include(role)
-        end
-        it "'s item has the correct status_name" do
-          updated_order[role].first.status.should == new_item_status
-
-        end
-
-        it "has the correct status " do
-          new_status ||= order.status
-          updated_order.status.should == new_status
-        end
+    include_context "order updated"
+    let(:parameters) do
+      item_parameters.tap do |h|
+        h[:event] = event if event
       end
     end
-    shared_examples_for "not updating item" do |role, item_event, event=nil, new_status=nil|
-      include_context "order updated"
-      let(:parameters) { item_parameters.tap { |h| h[:event] = event if event } }
-      context "#{item_event} #{role} item#{ event and "set send #{event}"}" do
-        let(:item_parameters) { { :items => { role => { "0" => { "event" => item_event } } } } }
-        it "raise an error"  do
-          expect { updated_order }.to raise_error StateMachine::InvalidTransition
-        end
+    context "#{item_event} #{role} item#{ event and "set send #{event}"}" do
+      let(:item_parameters) { { :items => { role => { "0" => { "event" => item_event,
+                                                               "batch_uuid" => batch_uuid} } } } }
+      it "has the correct item"  do
+        updated_order.should include(role)
       end
+      it "'s item has the correct status_name" do
+        updated_order[role].first.status.should == new_item_status
+      end
+      it "is assigned correctly to a batch" do
+        debugger
+        updated_order[role].first.batch_uuid.should == batch_uuid
+      end
+      it "has the correct status " do
+        new_status ||= order.status
+        updated_order.status.should == new_status
+      end
+    end
+    end
+    shared_examples_for "not updating item" do |role, item_event, event=nil, new_status=nil|
+    include_context "order updated"
+    let(:parameters) { item_parameters.tap { |h| h[:event] = event if event } }
+    context "#{item_event} #{role} item#{ event and "set send #{event}"}" do
+      let(:item_parameters) { { :items => { role => { "0" => { "event" => item_event } } } } }
+      it "raise an error"  do
+        expect { updated_order }.to raise_error StateMachine::InvalidTransition
+      end
+    end
     end
 
     shared_examples_for "update underlying items" do |event=nil, new_status=nil|
@@ -302,6 +331,7 @@ module Lims::Core
       context "valid calling context" do
         let!(:store) { Persistence::Store.new() }
         include_context("for application",  "Test search creation")
+        let(:batch_uuid) { "33333333-1111-0000-0000-333333333333" }
         let(:action) { described_class.new(:store => store , :user => user, :application => application) do |action, session|
 
             action.order = order
