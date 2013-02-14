@@ -7,8 +7,10 @@ module Lims::Core
     class CreateBatch
       include Action
 
+      attribute :process, String, :required => false, :writer => :private
+
       def _call_in_session(session)
-        batch = Organization::Batch.new
+        batch = Organization::Batch.new(:process => process)
         session << batch
         {:batch => batch, :uuid => session.uuid_for!(batch)}
       end
