@@ -149,6 +149,11 @@ module Lims::Core
         let(:criteria) { {:order => {:item => {:status => "pending"}}} }
         it_behaves_like "finding resources", ['11111111-2222-0000-0000-000000000000']
       end
+
+      context "by batch assigned to order items" do
+        let(:criteria) { {:order => {:item => {:batch_uuid => '11111111-2222-2222-3333-000000000000'}}} }
+        it_behaves_like "finding resources", ['00000000-3333-0000-0000-000000000000']
+      end
    end
   end
 end
