@@ -2,3 +2,4 @@
 *.db
 .bundle
 tags
+.DS_Store
