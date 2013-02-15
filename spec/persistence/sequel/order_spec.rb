@@ -133,7 +133,7 @@ module Lims::Core
             end
           end
 
-          context "with an item assigned to a batch", :focus => true do
+          context "with an item assigned to a batch" do
             let(:batch) { Organization::Batch.new }
             let(:item) { Order::Item.new(:batch => batch) }
             subject do 
@@ -174,7 +174,7 @@ module Lims::Core
         end
       end
 
-      context "#lookup" do
+      context "#lookup", :focus => true do
         it_behaves_like "searchable by item criteria"
       end
     end

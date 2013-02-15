@@ -103,16 +103,18 @@ module Lims::Core
           # These uuids match the uuids defined for the order items 
           # in order_lookup_filter_shared.
           let!(:uuids) {
-            ['11111111-2222-0000-0000-000000000000', '00000000-3333-0000-0000-000000000000'].tap do |uuids|
-              uuids.each_with_index do |uuid, index|
-                store.with_session do |session|
-                  gel =  new_empty_gel.tap { |gel| gel[index] << new_aliquot}
-                  session << gel
-                  ur = session.new_uuid_resource_for(gel)
-                  ur.send(:uuid=, uuid)
-                end
-              end
-            end
+            ['11111111-2222-0000-0000-000000000000', 
+             '22222222-1111-0000-0000-000000000000',
+             '00000000-3333-0000-0000-000000000000'].tap do |uuids|
+               uuids.each_with_index do |uuid, index|
+                 store.with_session do |session|
+                   gel =  new_empty_gel.tap { |gel| gel[index] << new_aliquot}
+                   session << gel
+                   ur = session.new_uuid_resource_for(gel)
+                   ur.send(:uuid=, uuid)
+                 end
+               end
+             end
           }
 
           context "by label" do

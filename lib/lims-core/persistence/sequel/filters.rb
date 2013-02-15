@@ -50,6 +50,8 @@ module Lims::Core
         #     @return [Persistor]
         def order_filter(criteria)
           criteria = criteria[:order] if criteria.keys.first.to_s == "order"
+          criteria = __set_batch_id(criteria)
+
           order_persistor = @session.order.__multi_criteria_filter(criteria)
           order_dataset = order_persistor.dataset
 
@@ -79,28 +81,9 @@ module Lims::Core
         #   Create a request to get the resources which are referenced by
         #   an order item assigned to a batch with the given uuid.
         def batch_filter(criteria)
-          criteria = criteria[:batch] if criteria.keys.first.to_s == "batch"
-          # As the batch uuid is compared to the column items.batch_uuid
-          # we need to rename uuid into batch_uuid. We should pack the uuid
-          # as well. Done here because batch.uuid is not a field of batch 
-          # and the uuids aren't processed by a filter_attributes_on_save 
-          # method.
-          criteria = criteria.mash do |k,v|
-            if k.to_s == "uuid"
-              case v
-              when Array
-                then [:batch_uuid, v.map {|uuid| @session.pack_uuid(uuid) }]
-              else 
-                [:batch_uuid, @session.pack_uuid(v)]
-              end
-            end
-          end
-
-          batch_persistor = @session.order.item.__multi_criteria_filter(criteria)
-          batch_dataset = batch_persistor.dataset
-          batch_dataset = batch_dataset.join(:uuid_resources, :uuid => :items__uuid)
-
-          self.class.new(self, dataset.join(batch_dataset, :key => primary_key).qualify.distinct)
+          criteria = __set_batch_id(criteria)          
+          dataset_tmp = @session.order.item.dataset.join(:uuid_resources, :uuid => :uuid).where(:batch_id => criteria[:batch_id])
+          self.class.new(self, dataset.join(dataset_tmp, :key => primary_key).qualify.distinct)
         end
 
         protected
@@ -146,6 +129,29 @@ module Lims::Core
           self.class.new(self, persistor.dataset.join(table_name, primary_key => :"#{table_name.to_s.singularize}_#{persistor.primary_key}"))
         end
 
+        # For a lookup involving batch, the criteria
+        # is the batch uuid. As the order items have only 
+        # a reference to a batch with its id (in the column batch_id),
+        # it is more convenient to transform the criteria batch uuids 
+        # into a criteria batch ids.
+        # @example
+        #   {:order => {:item => {:batch => {:uuid => 'ABCD'}}}}
+        #   is updated into
+        #   {:order => {:item => {:batch_id => [1]}}}
+        def __set_batch_id(criteria)
+          criteria.mash do |k,v|
+            case
+            when k.to_s == "batch" 
+              then 
+              batch_uuid = v[:uuid].is_a?(Array) ? v[:uuid] : [v[:uuid]]
+              batch_uuid.map! {|uuid| @session.pack_uuid(uuid) }
+              batch_id = @session.uuid_resource.dataset.where(:uuid => batch_uuid).select(:key).all
+              [:batch_id, batch_id.inject([]) {|m,e| m << e.values.first}]
+            when v.class == Hash then [k, __set_batch_id(v)]
+            else [k,v]
+            end
+          end
+        end
       end
     end
   end
