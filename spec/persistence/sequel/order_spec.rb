@@ -174,7 +174,7 @@ module Lims::Core
         end
       end
 
-      context "#lookup", :focus => true do
+      context "#lookup" do
         it_behaves_like "searchable by item criteria"
       end
     end
