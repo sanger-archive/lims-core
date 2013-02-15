@@ -1,7 +1,7 @@
 ::Sequel.migration do
   change do
     alter_table(:items) do
-      add_column :batch_uuid, String, :fixed => true, :size => 64
+      add_foreign_key :batch_id, :batches, :key => :id
     end
   end
 end

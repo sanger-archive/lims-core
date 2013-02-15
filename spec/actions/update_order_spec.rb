@@ -53,7 +53,7 @@ module Lims::Core
         end
       end
       context "add pending item and assigned it to a batch " do
-        let(:item_parameters) { { :items => { "role1" => { new_uuid => {"batch_uuid" => batch_uuid}  } } } }
+        let(:item_parameters) { { :items => { "role1" => { new_uuid => {"batch" => batch}  } } } }
         it "has a new role" do
           updated_order.should include("role1")
         end
@@ -61,7 +61,7 @@ module Lims::Core
           updated_order["role1"].first.uuid.should == new_uuid
         end
         it "is assigned to a batch" do
-          updated_order["role1"].first.batch_uuid.should == batch_uuid
+          updated_order["role1"].first.batch.should == batch
         end
         it "'s item has the correct status_name" do
           updated_order["role1"].first.status_name.should == :pending
@@ -105,7 +105,7 @@ module Lims::Core
       end
       context "add done item and assign it to a bash" do
         let(:item_parameters) { { :items => { "role1" => { new_uuid => { "event" => :complete,
-                                                                         "batch_uuid" => batch_uuid} } } } }
+                                                                         "batch" => batch} } } } }
         it "has a new role" do
           updated_order.should  include("role1")
         end
@@ -116,7 +116,7 @@ module Lims::Core
           updated_order["role1"].first.status_name.should == :done
         end
         it "is assigned to a batch" do
-          updated_order["role1"].first.batch_uuid.should == batch_uuid
+          updated_order["role1"].first.batch.should == batch
         end
         it "has the correst status " do
           new_status ||= order.status
@@ -169,7 +169,7 @@ module Lims::Core
     end
     context "#{item_event} #{role} item#{ event and "set send #{event}"}" do
       let(:item_parameters) { { :items => { role => { "0" => { "event" => item_event,
-                                                               "batch_uuid" => batch_uuid} } } } }
+                                                               "batch" => batch} } } } }
       it "has the correct item"  do
         updated_order.should include(role)
       end
@@ -177,7 +177,7 @@ module Lims::Core
         updated_order[role].first.status.should == new_item_status
       end
       it "is assigned correctly to a batch" do
-        updated_order[role].first.batch_uuid.should == batch_uuid
+        updated_order[role].first.batch.should == batch
       end
       it "has the correct status " do
         new_status ||= order.status
@@ -330,7 +330,7 @@ module Lims::Core
       context "valid calling context" do
         let!(:store) { Persistence::Store.new() }
         include_context("for application",  "Test search creation")
-        let(:batch_uuid) { "33333333-1111-0000-0000-333333333333" }
+        let(:batch) { mock(:batch) }
         let(:action) { described_class.new(:store => store , :user => user, :application => application) do |action, session|
 
             action.order = order

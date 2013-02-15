@@ -69,8 +69,8 @@ module Lims::Core
           end
 
           item_args["uuid"].andtap { |uuid| item.uuid = uuid }
-          item_args["batch_uuid"].andtap { |batch_uuid| item.batch_uuid = batch_uuid }
           item_args["event"].andtap { |event| item.public_send("#{event}!") }
+          item_args["batch"].andtap { |batch| item.batch = batch }
         end
       end
     end

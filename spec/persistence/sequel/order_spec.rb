@@ -133,9 +133,9 @@ module Lims::Core
             end
           end
 
-          context "with an item assigned to a batch" do
-            let(:batch_uuid) { "11111111-1111-1111-0000-000000000000" }
-            let(:item) { Order::Item.new(:batch_uuid => batch_uuid) }
+          context "with an item assigned to a batch", :focus => true do
+            let(:batch) { Organization::Batch.new }
+            let(:item) { Order::Item.new(:batch => batch) }
             subject do 
               Order.new.tap do |order|
                 order[:role] = []
@@ -143,9 +143,9 @@ module Lims::Core
               end
             end
 
-            it "saves item batch uuid" do
+            it "saves item batch" do
               load_order(order_id) do |order|
-                order["role"].first.batch_uuid.should == batch_uuid
+                order["role"].first.batch.should == batch
               end
             end
           end

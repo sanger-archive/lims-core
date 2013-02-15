@@ -47,20 +47,28 @@ module Lims::Core
         Model = Organization::Order::Item
 
         def filter_attributes_on_save(attributes, order_id=nil, role=nil)
+          attributes = attributes.mash do |k,v|
+            case k
+            when :batch then [:batch_id, @session.id_for!(v)]
+            else [k,v]
+            end
+          end
           attributes[:role] = role if role
           attributes[:order_id] = order_id if order_id
           uuid = attributes[:uuid]
           attributes[:uuid] = @session.pack_uuid(uuid) if uuid
-          batch_uuid = attributes[:batch_uuid]
-          attributes[:batch_uuid] = @session.pack_uuid(batch_uuid) if batch_uuid
           attributes
         end
 
         def filter_attributes_on_load(attributes)
+          attributes = attributes.mash do |k,v|
+            case k
+            when :batch_id then [:batch, @session.batch[v]]
+            else [k,v]
+            end
+          end
           uuid = attributes[:uuid]
           attributes[:uuid] = @session.unpack_uuid(uuid) if uuid
-          batch_uuid = attributes[:batch_uuid]
-          attributes[:batch_uuid] = @session.unpack_uuid(batch_uuid) if batch_uuid
           attributes
         end
       end
