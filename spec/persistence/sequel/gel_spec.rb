@@ -5,6 +5,7 @@ require 'laboratory/plate_and_gel_shared'
 require 'persistence/resource_shared'
 require 'persistence/sequel/store_shared'
 require 'persistence/sequel/label_filter_shared'
+require 'persistence/sequel/batch_filter_shared'
 require 'persistence/sequel/order_lookup_filter_shared'
 require 'persistence/sequel/multi_criteria_filter_shared'
 
@@ -97,18 +98,7 @@ module Lims::Core
           end
         end
 
-        context "#lookup by label" do
-          let!(:uuid) {
-            store.with_session do |session|
-              gel = session.gel[gel_id]
-              session.uuid_for!(gel)
-            end
-          }
-
-          it_behaves_like "labels filtrable"
-        end
-
-        context "#lookup by order" do
+        context "#lookup" do
           let(:model) { Laboratory::Gel }
           # These uuids match the uuids defined for the order items 
           # in order_lookup_filter_shared.
@@ -116,7 +106,7 @@ module Lims::Core
             ['11111111-2222-0000-0000-000000000000', '00000000-3333-0000-0000-000000000000'].tap do |uuids|
               uuids.each_with_index do |uuid, index|
                 store.with_session do |session|
-                  gel = new_empty_gel.tap { |gel| gel[index] << new_aliquot}
+                  gel =  new_empty_gel.tap { |gel| gel[index] << new_aliquot}
                   session << gel
                   ur = session.new_uuid_resource_for(gel)
                   ur.send(:uuid=, uuid)
@@ -125,7 +115,23 @@ module Lims::Core
             end
           }
 
-          it_behaves_like "orders filtrable"
+          context "by label" do
+            let!(:uuid) {
+              store.with_session do |session|
+                gel = session.gel[gel_id]
+                session.uuid_for!(gel)
+              end
+            }
+            it_behaves_like "labels filtrable"
+          end
+
+          context "by order" do
+            it_behaves_like "orders filtrable"
+          end
+
+          context "by batch" do
+            it_behaves_like "batch filtrable"
+          end
         end
       end
 

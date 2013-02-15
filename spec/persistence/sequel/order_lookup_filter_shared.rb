@@ -18,7 +18,7 @@ module Lims::Core
             o.add_source("source1", "11111111-1111-0000-0000-000000000000")
             o.add_target("source2", "11111111-2222-0000-0000-000000000000")
             o.add_source("source3", "00000000-3333-0000-0000-000000000000")
-            o[:source1].first.batch_uuid = batch_uuid
+            o[:source2].first.batch_uuid = batch_uuid
             o.build!
             o.start!
           end,
@@ -152,7 +152,7 @@ module Lims::Core
 
       context "by batch assigned to order items" do
         let(:criteria) { {:order => {:item => {:batch_uuid => '11111111-2222-2222-3333-000000000000'}}} }
-        it_behaves_like "finding resources", ['00000000-3333-0000-0000-000000000000']
+        it_behaves_like "finding resources", ['11111111-2222-0000-0000-000000000000', '00000000-3333-0000-0000-000000000000']
       end
    end
   end

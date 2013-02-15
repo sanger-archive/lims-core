@@ -19,8 +19,10 @@ module Lims::Core
         # Create the appropriate filter depending on the criteria
         filter = if criteria.size == 1 && criteria.keys.first.to_s == "label"
                    Persistence::LabelFilter.new(:criteria => criteria)
-                 elsif criteria.size ==1 && criteria.keys.first.to_s == "order"
+                 elsif criteria.size == 1 && criteria.keys.first.to_s == "order"
                    Persistence::OrderFilter.new(:criteria => criteria)
+                 elsif criteria.size == 1 && criteria.keys.first.to_s == "batch"
+                   Persistence::BatchFilter.new(:criteria => criteria)
                  else
                    Persistence::MultiCriteriaFilter.new(:criteria => criteria)
                  end

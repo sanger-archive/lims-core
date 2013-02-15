@@ -72,6 +72,37 @@ module Lims::Core
           self.class.new(self, dataset.join(order_dataset, :key => primary_key).qualify.distinct)
         end
 
+        # Implement a batch filter for a Sequel::Persistor.
+        # @param [Hash<String, Object>] criteria
+        # @example
+        #   {:batch => {:uuid => '11111111-2222-3333-4444-555555555555'}}
+        #   Create a request to get the resources which are referenced by
+        #   an order item assigned to a batch with the given uuid.
+        def batch_filter(criteria)
+          criteria = criteria[:batch] if criteria.keys.first.to_s == "batch"
+          # As the batch uuid is compared to the column items.batch_uuid
+          # we need to rename uuid into batch_uuid. We should pack the uuid
+          # as well. Done here because batch.uuid is not a field of batch 
+          # and the uuids aren't processed by a filter_attributes_on_save 
+          # method.
+          criteria = criteria.mash do |k,v|
+            if k.to_s == "uuid"
+              case v
+              when Array
+                then [:batch_uuid, v.map {|uuid| @session.pack_uuid(uuid) }]
+              else 
+                [:batch_uuid, @session.pack_uuid(v)]
+              end
+            end
+          end
+
+          batch_persistor = @session.order.item.__multi_criteria_filter(criteria)
+          batch_dataset = batch_persistor.dataset
+          batch_dataset = batch_dataset.join(:uuid_resources, :uuid => :items__uuid)
+
+          self.class.new(self, dataset.join(batch_dataset, :key => primary_key).qualify.distinct)
+        end
+
         protected
         # @param Hash criteria
         # @return Persistor
@@ -101,6 +132,7 @@ module Lims::Core
             when Hash
               persistor
             else
+              value = @session.pack_uuid(value) if key.to_s == "uuid"
               self.class.new(persistor, persistor.dataset.filter(::Sequel.qualify(table_name, key) => value))
             end
           end

@@ -177,7 +177,6 @@ module Lims::Core
         updated_order[role].first.status.should == new_item_status
       end
       it "is assigned correctly to a batch" do
-        debugger
         updated_order[role].first.batch_uuid.should == batch_uuid
       end
       it "has the correct status " do
