@@ -51,6 +51,7 @@ module Lims
 				it_has_a :status
 				it_has_a :iteration
 				it_has_a :uuid
+        it_has_a :batch
 
 				it "is initially in a pending status" do
 					subject.status.should == "pending"

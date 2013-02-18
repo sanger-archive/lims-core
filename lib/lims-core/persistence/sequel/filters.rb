@@ -14,6 +14,10 @@ module Lims::Core
         # @param [Hash<String, Object > criteria
         # @return [Persistor]
         def multi_criteria_filter(criteria)
+          # When a batch criteria is present, transform the criteria
+          # {:batch => {:uuid => 'ABC'}} into {:batch_id => [1]}
+          # It is the case when we search order by batch.
+          criteria = __set_batch_id(criteria)
           # We need to create the adequat dataset.
           dataset = __multi_criteria_filter(criteria).dataset
           # As the dataset can include join, we need to select only the columns
@@ -50,6 +54,15 @@ module Lims::Core
         #     @return [Persistor]
         def order_filter(criteria)
           criteria = criteria[:order] if criteria.keys.first.to_s == "order"
+           # When a batch criteria is present, transform the criteria
+          # {:batch => {:uuid => 'ABC'}} into {:batch_id => [1]}
+          # It is the case when we search resources by order.
+          # @example
+          #   {:order => {:item => {:batch => {:uuid => 'ABC'}}}}
+          #   into
+          #   {:order => {:item => {:batch_id => [1]}}}
+          criteria = __set_batch_id(criteria)
+
           order_persistor = @session.order.__multi_criteria_filter(criteria)
           order_dataset = order_persistor.dataset
 
@@ -70,6 +83,20 @@ module Lims::Core
           # As a same resource could belong to multiple orders, distinct
           # is used to get only one copy of each resource.
           self.class.new(self, dataset.join(order_dataset, :key => primary_key).qualify.distinct)
+        end
+
+        # Implement a batch filter for a Sequel::Persistor.
+        # @param [Hash<String, Object>] criteria
+        # @example
+        #   {:batch => {:uuid => '11111111-2222-3333-4444-555555555555'}}
+        #   Create a request to get the resources which are referenced by
+        #   an order item assigned to a batch with the given uuid.
+        #   Is equivalent to the criteria:
+        #   {:order => {:item => {:batch => {:uuid => '11111111-2222-3333-4444-555555555555'}}}}
+        def batch_filter(criteria)
+          criteria = __set_batch_id(criteria)          
+          dataset_tmp = @session.order.item.dataset.join(:uuid_resources, :uuid => :uuid).where(:batch_id => criteria[:batch_id])
+          self.class.new(self, dataset.join(dataset_tmp, :key => primary_key).qualify.distinct)
         end
 
         protected
@@ -101,6 +128,7 @@ module Lims::Core
             when Hash
               persistor
             else
+              value = @session.pack_uuid(value) if key.to_s == "uuid"
               self.class.new(persistor, persistor.dataset.filter(::Sequel.qualify(table_name, key) => value))
             end
           end
@@ -114,6 +142,30 @@ module Lims::Core
           self.class.new(self, persistor.dataset.join(table_name, primary_key => :"#{table_name.to_s.singularize}_#{persistor.primary_key}"))
         end
 
+        # For a lookup involving batch, the criteria
+        # is the batch uuid. As the order items have only 
+        # a reference to a batch with its id (in the column batch_id),
+        # it is more convenient to transform the criteria batch uuids 
+        # into a criteria batch ids before processing the search and 
+        # doing the joints.
+        # @example
+        #   {:order => {:item => {:batch => {:uuid => 'ABCD'}}}}
+        #   is updated into
+        #   {:order => {:item => {:batch_id => [1]}}}
+        def __set_batch_id(criteria)
+          criteria.mash do |k,v|
+            case
+            when k.to_s == "batch" 
+              then 
+              batch_uuid = v["uuid"].is_a?(Array) ? v["uuid"] : [v["uuid"]]
+              batch_uuid.map! {|uuid| @session.pack_uuid(uuid) }
+              batch_id = @session.uuid_resource.dataset.where(:uuid => batch_uuid).select(:key).all
+              [:batch_id, batch_id.inject([]) {|m,e| m << e.values.first}]
+            when v.class == Hash then [k, __set_batch_id(v)]
+            else [k,v]
+            end
+          end
+        end
       end
     end
   end

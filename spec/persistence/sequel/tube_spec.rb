@@ -4,6 +4,8 @@ require 'persistence/sequel/spec_helper'
 require 'persistence/sequel/store_shared'
 require 'laboratory/tube_shared'
 require 'persistence/sequel/label_filter_shared'
+require 'persistence/sequel/order_lookup_filter_shared'
+require 'persistence/sequel/batch_filter_shared'
 
 # Model requirements
 require 'lims/core/persistence/sequel/store'
@@ -101,15 +103,42 @@ module Lims::Core
           end
         end
 
-        context "#lookup by label" do
-          let!(:uuid) {
-            store.with_session do |session|
-              tube = session.tube[tube_id]
-              session.uuid_for!(tube)
+        context "#lookup" do
+          let(:model) { Laboratory::Tube }
+          # These uuids match the uuids defined for the order items 
+          # in order_lookup_filter_shared.
+          let!(:uuids) {
+            ['11111111-2222-0000-0000-000000000000',
+             '22222222-1111-0000-0000-000000000000',
+             '00000000-3333-0000-0000-000000000000'].tap do |uuids|
+               uuids.each_with_index do |uuid, index|
+                store.with_session do |session|
+                  tube = Laboratory::Tube.new
+                  session << tube
+                  ur = session.new_uuid_resource_for(tube)
+                  ur.send(:uuid=, uuid)
+                end
+              end
             end
           }
 
-          it_behaves_like "labels filtrable"
+          context "by label" do
+            let!(:uuid) {
+              store.with_session do |session|
+                tube = session.tube[tube_id]
+                session.uuid_for!(tube)
+              end
+            }
+            it_behaves_like "labels filtrable"
+          end
+
+          context "by order" do
+            it_behaves_like "orders filtrable"
+          end
+
+          context "by batch" do
+            it_behaves_like "batch filtrable"
+          end
         end
       end
     end

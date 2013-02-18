@@ -7,6 +7,7 @@ require 'persistence/sequel/store_shared'
 require 'persistence/sequel/multi_criteria_filter_shared'
 require 'persistence/sequel/label_filter_shared'
 require 'persistence/sequel/order_lookup_filter_shared'
+require 'persistence/sequel/batch_filter_shared'
 
 # Model requirements
 require 'lims/core/laboratory/plate'
@@ -113,35 +114,42 @@ module Lims::Core
           end
         end
 
-        context "#lookup by label" do
-          let!(:uuid) {
-            store.with_session do |session|
-              plate = session.plate[plate_id]
-              session.uuid_for!(plate)
-            end
-          }
-
-          it_behaves_like "labels filtrable"
-        end
-
-        context "#lookup by order" do
+        context "#lookup" do
           let(:model) { Laboratory::Plate }
           # These uuids match the uuids defined for the order items 
           # in order_lookup_filter_shared.
           let!(:uuids) {
-            ['11111111-2222-0000-0000-000000000000', '00000000-3333-0000-0000-000000000000'].tap do |uuids|
-              uuids.each_with_index do |uuid, index|
-                store.with_session do |session|
-                  plate =  new_empty_plate.tap { |plate| plate[index] << new_aliquot}
-                  session << plate
-                  ur = session.new_uuid_resource_for(plate)
-                  ur.send(:uuid=, uuid)
-                end
-              end
-            end
+            ['11111111-2222-0000-0000-000000000000', 
+             '22222222-1111-0000-0000-000000000000',
+             '00000000-3333-0000-0000-000000000000'].tap do |uuids|
+               uuids.each_with_index do |uuid, index|
+                 store.with_session do |session|
+                   plate =  new_empty_plate.tap { |plate| plate[index] << new_aliquot}
+                   session << plate
+                   ur = session.new_uuid_resource_for(plate)
+                   ur.send(:uuid=, uuid)
+                 end
+               end
+             end
           }
 
-          it_behaves_like "orders filtrable"
+          context "by label" do
+            let!(:uuid) {
+              store.with_session do |session|
+                plate = session.plate[plate_id]
+                session.uuid_for!(plate)
+              end
+            }
+            it_behaves_like "labels filtrable"
+          end
+
+          context "by order" do
+            it_behaves_like "orders filtrable"
+          end
+
+          context "by batch" do
+            it_behaves_like "batch filtrable"
+          end
         end
       end
 
