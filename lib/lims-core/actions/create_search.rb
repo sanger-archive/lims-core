@@ -5,6 +5,7 @@ require 'lims/core/persistence/search'
 require 'lims/core/persistence/multi_criteria_filter'
 require 'lims/core/persistence/label_filter'
 require 'lims/core/persistence/order_filter'
+require 'lims/core/persistence/batch_filter'
 
 module Lims::Core
   module Actions
