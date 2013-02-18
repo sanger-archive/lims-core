@@ -110,6 +110,10 @@ module Lims::Core
         context "mix order and items criteria" do
           it_behaves_like "finding orders", { :status => "completed", :item => { :uuid => "00000000-3333-0000-0000-000000000000" } }, [2]
         end
+
+        context "lookup by batch assigned to order items" do
+          it_behaves_like "finding orders", { :item => {:batch => {"uuid" => '11111111-2222-2222-3333-111111111111'}}}, [1] 
+        end
       end
     end
 
@@ -153,7 +157,7 @@ module Lims::Core
       end
 
       context "by batch assigned to order items" do
-        let(:criteria) { {:order => {:item => {:batch => {:uuid => '11111111-2222-2222-3333-000000000000'}}}} }
+        let(:criteria) { {:order => {:item => {:batch => {"uuid" => '11111111-2222-2222-3333-000000000000'}}}} }
         it_behaves_like "finding resources", ['11111111-2222-0000-0000-000000000000', '00000000-3333-0000-0000-000000000000']
       end
    end

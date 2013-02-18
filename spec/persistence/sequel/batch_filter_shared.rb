@@ -10,7 +10,7 @@ module Lims::Core
     let(:search) { Persistence::Search.new(:model => model, :filter => filter, :description => description) }
 
     context "get resources by batch uuid criteria" do
-      let(:criteria) { {:batch => {:uuid => batch_uuids[1]}} }
+      let(:criteria) { {:batch => {"uuid" => batch_uuids[1]}} }
       it "finds resources" do
         store.with_session do |session|
           results = search.call(session)
@@ -23,7 +23,7 @@ module Lims::Core
     end
 
     context "get resources by multiple batch uuid criteria" do
-      let(:criteria) { {:batch => {:uuid => batch_uuids}} }
+      let(:criteria) { {:batch => {"uuid" => batch_uuids}} }
       it "finds resources" do
         store.with_session do |session|
           results = search.call(session)
