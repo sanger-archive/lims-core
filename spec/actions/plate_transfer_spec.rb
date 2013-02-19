@@ -1,7 +1,7 @@
 # Spec requirements
 require 'actions/spec_helper'
 require 'actions/action_examples'
-require 'laboratory/plate_shared.rb'
+require 'laboratory/plate_and_gel_shared'
 
 require 'persistence/sequel/store_shared'
 #Model requirements
@@ -12,7 +12,7 @@ require 'logger'
 module Lims::Core
   module Actions
     describe PlateTransfer do
-      include_context "plate factory"
+      include_context "plate or gel factory"
         let(:user) { mock(:user) }
         let(:application) { "Test create plate" }
       def self.should_transfer 

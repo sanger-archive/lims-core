@@ -3,7 +3,7 @@ require 'actions/spec_helper'
 require 'actions/action_examples'
 
 require 'persistence/sequel/spec_helper'
-require 'laboratory/plate_shared'
+require 'laboratory/plate_and_gel_shared'
 require 'laboratory/tube_shared'
 require 'persistence/sequel/store_shared'
 
@@ -18,7 +18,7 @@ PS=Lims::Core::Persistence::Sequel
 module Lims::Core
   module Actions
     describe TransferWellsToTubes do
-      include_context "plate factory"
+      include_context "plate or gel factory"
       include_context "tube factory"
       let(:number_of_rows) {8}
       let(:number_of_columns) {12}
@@ -50,7 +50,7 @@ module Lims::Core
                 plate = session.plate[plate_id]
                 tube1, tube2 = [tube1_id, tube2_id].map { |id| session.tube[id] }
                 tube1.should == plate["A1"]
-                tube2.should == plate["C3"] 
+                tube2.should == plate["C3"]
               end
             end
           end
@@ -89,7 +89,7 @@ module Lims::Core
           it "should save all the tubes" do
             plate_id, tube_id = subject.call { |a, s| [s.id_for(plate), s.id_for(tube)] }
             store.with_session do |session|
-              tube.should == plate["C3"]
+              tube.should === plate["C3"]
             end
           end
         end

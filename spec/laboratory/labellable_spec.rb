@@ -9,6 +9,11 @@ require 'laboratory/receptacle_examples'
 require 'lims/core/laboratory/labellable'
 
 module Lims::Core::Laboratory
+  shared_examples_for "label creator" do |type, klass|
+    it "should create the correct label class" do
+      described_class.new(:type => type).should be_a klass
+    end
+  end
   describe Labellable  do
     let(:barcode) { mock(:barcode) do |barcode| 
         barcode.stub(:value) {"12345"}
@@ -52,5 +57,10 @@ module Lims::Core::Laboratory
         end
       end
     end
+  end
+
+  describe Labellable::Label do
+    it_behaves_like "label creator", "sanger-barcode", SangerBarcode
+    it_behaves_like "label creator", "2d-barcode", Barcode2D
   end
 end

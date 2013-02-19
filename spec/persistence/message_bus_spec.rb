@@ -10,7 +10,7 @@ module Lims::Core
         let(:prefetch_number) { 30 }
         let(:bus_settings) { {"url" => url, "exchange_name" => exchange_name, "durable" => durable, "prefetch_number" => prefetch_number} }
 
-        it "requires a RabbitMQ url" do
+        it "requires a RabbitMQ host" do
           described_class.new(bus_settings - ["url"]).valid?.should == false
         end
 

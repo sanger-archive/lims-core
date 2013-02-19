@@ -51,6 +51,7 @@ module Lims
 				it_has_a :status
 				it_has_a :iteration
 				it_has_a :uuid
+        it_has_a :batch
 
 				it "is initially in a pending status" do
 					subject.status.should == "pending"
@@ -111,7 +112,24 @@ module Lims
 							end
 						end
 					end
-				end
+
+          context "unused" do
+            before(:each) { 
+              subject.complete
+              subject.unuse
+            }
+            its(:status) { should == "unused" }
+            its(:unused?) { should be_true }
+            its(:iteration) { should == 0 }
+
+            it_can_not_be_modified :iteration
+            it_can_not_be_modified :uuid
+
+            it "can't be reset" do
+              subject.reset.should == false
+            end
+          end
+        end
       end
     end
   end

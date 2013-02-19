@@ -19,66 +19,121 @@ module Lims::Core
     end
 
     shared_examples_for "items" do
-      let(:item_uuid) { "item uuid" }
-      let(:item) { Organization::Order::Item.new(:uuid =>  "uuid") }
+      let(:pending_uuid) { "11111111-1111-0000-0000-111111111111" }
+      let(:in_progress_uuid) { "11111111-1111-0000-0000-222222222222" }
+      let(:done_uuid) { "11111111-1111-0000-0000-333333333333" }
+      let(:item) { Organization::Order::Item.new(:uuid =>   new_uuid) }
       let(:role) { "role" } 
-      let(:order_items) { { "pending" => Organization::Order::Item.new(:uuid => "pending uuid"),
-          "in_progress" => Organization::Order::Item.new(:uuid => "in_progress uuid").tap { |i| i.start! },
-          "done" => Organization::Order::Item.new(:uuid => "done uuid").tap { |i| i.complete! }
+      let(:order_items) { { "pending" => [Organization::Order::Item.new(:uuid => pending_uuid)],
+          "in_progress" => [Organization::Order::Item.new(:uuid => in_progress_uuid).tap { |i| i.start! }],
+          "done" => [Organization::Order::Item.new(:uuid => done_uuid).tap { |i| i.complete! }]
         }
       }
     end
 
     shared_examples_for "adding items" do |event=nil, new_status=nil|
+      let(:new_uuid) { "22222222-1111-0000-0000-111111111111" }
       include_context "order updated"
       let(:parameters) { item_parameters.tap { |h| h[:event] = event if event } }
-      context "add pending item#{ event and "set send #{event}"}" do
-        let(:item_parameters) { { :items => { "role1" => { "uuid" => "item1" } } } }
+      context "add pending item#{event} and set send #{event}" do
+        let(:item_parameters) { { :items => { "role1" => { new_uuid => {}  } } } }
         it "has a new role" do
           updated_order.should  include("role1")
         end
         it "has the correct item"  do
-          updated_order["role1"].uuid.should == "item1"
+          updated_order["role1"].first.uuid.should == new_uuid
         end
         it "'s item has the correct status_name" do
-          updated_order["role1"].status_name.should == :pending
+          updated_order["role1"].first.status_name.should == :pending
         end
 
         it "has the correst status " do
           new_status ||= order.status
           updated_order.status.should == new_status
         end
-
       end
-      # skiping status_name
-      context "add done item" do
-        let(:item_parameters) { { :items => { "role1" => { "uuid" => "item1", "event" => :complete } } } }
+      context "add pending item and assigned it to a batch " do
+        let(:item_parameters) { { :items => { "role1" => { new_uuid => {"batch" => batch}  } } } }
+        it "has a new role" do
+          updated_order.should include("role1")
+        end
+        it "has the correct item"  do
+          updated_order["role1"].first.uuid.should == new_uuid
+        end
+        it "is assigned to a batch" do
+          updated_order["role1"].first.batch.should == batch
+        end
+        it "'s item has the correct status_name" do
+          updated_order["role1"].first.status_name.should == :pending
+        end
+        it "has the correst status " do
+          new_status ||= order.status
+          updated_order.status.should == new_status
+        end
+      end
+      context "add pending item at the end#{ event and "set send #{event}"}" do
+        let(:item_parameters) { { :items => { "role1" => { "last" => {  "uuid" => new_uuid } } } } }
         it "has a new role" do
           updated_order.should  include("role1")
         end
         it "has the correct item"  do
-          updated_order["role1"].uuid.should == "item1"
+          updated_order["role1"].first.uuid.should == new_uuid
         end
-        it "has the correct status_name" do
-          updated_order["role1"].status_name.should == :done
+        it "'s item has the correct status_name" do
+          updated_order["role1"].first.status_name.should == :pending
         end
 
+        it "has the correct status " do
+          new_status ||= order.status
+          updated_order.status.should == new_status
+        end
+      end
+      # skiping status_name
+      context "add done item in existing role" do
+        let(:item_parameters) { { :items => { "done" => { new_uuid => { "event" => :complete } } } } }
+        it "has the correct item"  do
+          updated_order["done"].last.uuid.should == new_uuid
+        end
+        it "has the correct status_name" do
+          updated_order["done"].last.status_name.should == :done
+        end
+
+        it "has the correst status " do
+          new_status ||= order.status
+          updated_order.status.should == new_status
+        end
+      end
+      context "add done item and assign it to a bash" do
+        let(:item_parameters) { { :items => { "role1" => { new_uuid => { "event" => :complete,
+                                                                         "batch" => batch} } } } }
+        it "has a new role" do
+          updated_order.should  include("role1")
+        end
+        it "has the correct item"  do
+          updated_order["role1"].first.uuid.should == new_uuid
+        end
+        it "has the correct status_name" do
+          updated_order["role1"].first.status_name.should == :done
+        end
+        it "is assigned to a batch" do
+          updated_order["role1"].first.batch.should == batch
+        end
         it "has the correst status " do
           new_status ||= order.status
           updated_order.status.should == new_status
         end
       end
       context "add failed item" do
-        let(:item_parameters) { { :items => { "role1"=> { "uuid" => "item1", "event" => :fail } } } }
+        let(:item_parameters) { { :items => { "role1"=> { new_uuid => { "event" => :fail } } } } }
 
         it "has a new role" do
           updated_order.should  include("role1")
         end
         it "has the correct item"  do
-          updated_order["role1"].uuid.should == "item1"
+          updated_order["role1"].first.uuid.should == new_uuid
         end
         it "has the correct status_name" do
-          updated_order["role1"].status_name.should == :failed
+          updated_order["role1"].first.status_name.should == :failed
         end
 
         it "has the correst status " do
@@ -87,15 +142,15 @@ module Lims::Core
         end
       end
       context "add cancelled item" do
-        let(:item_parameters) { { :items => { "role1" => { "uuid" => "item1", "event" => :cancel } } } }
+        let(:item_parameters) { { :items => { "role1" => {  new_uuid => { "event" => :cancel } } } } }
         it "has a new role" do
           updated_order.should  include("role1")
         end
         it "has the correct item"  do
-          updated_order["role1"].uuid.should == "item1"
+          updated_order["role1"].first.uuid.should == new_uuid
         end
         it "has the correct status_name" do
-          updated_order["role1"].status_name.should == :cancelled
+          updated_order["role1"].first.status_name.should == :cancelled
         end
 
         it "has the correst status " do
@@ -106,33 +161,39 @@ module Lims::Core
     end
 
     shared_examples_for "updating item" do |role, item_event, new_item_status, event=nil, new_status=nil|
-      include_context "order updated"
-      let(:parameters) { item_parameters.tap { |h| h[:event] = event if event } }
-      context "#{item_event} #{role} item#{ event and "set send #{event}"}" do
-        let(:item_parameters) { { :items => { role => { "event" => item_event } } } }
-        it "has the correct item"  do
-          updated_order.should include(role)
-        end
-        it "'s item has the correct status_name" do
-          updated_order[role].status.should == new_item_status
-
-        end
-
-        it "has the correct status " do
-          new_status ||= order.status
-          updated_order.status.should == new_status
-        end
+    include_context "order updated"
+    let(:parameters) do
+      item_parameters.tap do |h|
+        h[:event] = event if event
       end
     end
-    shared_examples_for "not updating item" do |role, item_event, event=nil, new_status=nil|
-      include_context "order updated"
-      let(:parameters) { item_parameters.tap { |h| h[:event] = event if event } }
-      context "#{item_event} #{role} item#{ event and "set send #{event}"}" do
-        let(:item_parameters) { { :items => { role => { "event" => item_event } } } }
-        it "raise an error"  do
-          expect { updated_order }.to raise_error StateMachine::InvalidTransition
-        end
+    context "#{item_event} #{role} item#{ event and "set send #{event}"}" do
+      let(:item_parameters) { { :items => { role => { "0" => { "event" => item_event,
+                                                               "batch" => batch} } } } }
+      it "has the correct item"  do
+        updated_order.should include(role)
       end
+      it "'s item has the correct status_name" do
+        updated_order[role].first.status.should == new_item_status
+      end
+      it "is assigned correctly to a batch" do
+        updated_order[role].first.batch.should == batch
+      end
+      it "has the correct status " do
+        new_status ||= order.status
+        updated_order.status.should == new_status
+      end
+    end
+    end
+    shared_examples_for "not updating item" do |role, item_event, event=nil, new_status=nil|
+    include_context "order updated"
+    let(:parameters) { item_parameters.tap { |h| h[:event] = event if event } }
+    context "#{item_event} #{role} item#{ event and "set send #{event}"}" do
+      let(:item_parameters) { { :items => { role => { "0" => { "event" => item_event } } } } }
+      it "raise an error"  do
+        expect { updated_order }.to raise_error StateMachine::InvalidTransition
+      end
+    end
     end
 
     shared_examples_for "update underlying items" do |event=nil, new_status=nil|
@@ -269,6 +330,7 @@ module Lims::Core
       context "valid calling context" do
         let!(:store) { Persistence::Store.new() }
         include_context("for application",  "Test search creation")
+        let(:batch) { mock(:batch) }
         let(:action) { described_class.new(:store => store , :user => user, :application => application) do |action, session|
 
             action.order = order

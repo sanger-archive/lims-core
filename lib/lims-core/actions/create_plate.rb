@@ -2,32 +2,39 @@
 require 'lims/core/actions/action'
 
 require 'lims/core/laboratory/plate'
+require 'lims/core/actions/container'
 
 module Lims::Core
   module Actions
     class CreatePlate
       include Action
+      include Container
 
-      %w(row column).each do |w|
-        attribute :"number_of_#{w}s",  Fixnum, :required => true, :gte => 0, :writer => :private
-      end
       # @attribute [Hash<String, Array<Hash>>] wells_description
       # @example
       #   { "A1" => [{ :sample => s1, :quantity => 2}, {:sample => s2}] }
       attribute :wells_description, Hash, :default => {}
+      # Type is the actual type of the plate, not the role in the order.
+      attribute :type, String, :required => false, :writer => :private 
 
-      def _call_in_session(session)
-        plate = Laboratory::Plate.new(:number_of_columns => number_of_columns, :number_of_rows => number_of_rows)
-        session << plate
-        wells_description.each do |well_name, aliquots|
-          aliquots.each do |aliquot|
-            plate[well_name] <<  Laboratory::Aliquot.new(aliquot)
-          end
-        end
-        { :plate => plate, :uuid => session.uuid_for!(plate) }
+      def container_class
+        Laboratory::Plate
+      end
+
+      def element_description
+        wells_description
+      end
+
+      def container_symbol
+        :plate
+      end
+
+      def container_parameters
+        super.merge(:type => type)
       end
     end
   end
+
   module Laboratory
     class Plate
       Create = Actions::CreatePlate
