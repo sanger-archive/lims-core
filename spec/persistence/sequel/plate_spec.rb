@@ -1,28 +1,22 @@
 # Spec requirements
 require 'persistence/sequel/spec_helper'
 
-require 'laboratory/plate_shared'
+require 'laboratory/plate_and_gel_shared'
 require 'persistence/resource_shared'
 require 'persistence/sequel/store_shared'
-require 'persistence/sequel/page_shared'
 require 'persistence/sequel/multi_criteria_filter_shared'
 require 'persistence/sequel/label_filter_shared'
-
+require 'persistence/sequel/order_lookup_filter_shared'
+require 'persistence/sequel/batch_filter_shared'
 
 # Model requirements
 require 'lims/core/laboratory/plate'
-
-require 'lims-core/persistence/label_filter'
-require 'lims-core/laboratory/labellable'
-require 'lims-core/laboratory/sanger_barcode'
 
 module Lims::Core
 
   describe "Sequel#Plate " do
     include_context "sequel store"
-    include_context "plate factory"
-
-    include
+    include_context "plate or gel factory"
 
     def last_plate_id(session)
       session.plate.dataset.order_by(:id).last[:id]
@@ -42,7 +36,7 @@ module Lims::Core
       context "already created plate" do
         let(:aliquot) { new_aliquot }
         before (:each) do
-          store.with_session { |session| session << new_empty_plate().tap {|_| _[0] << aliquot} }
+          store.with_session { |session| session << new_empty_plate.tap {|_| _[0] << aliquot} }
         end
         let(:plate_id) { store.with_session { |session| @plate_id = last_plate_id(session) } }
 
@@ -105,16 +99,57 @@ module Lims::Core
           end
         end
 
-        context "#lookup by label" do
-          let!(:uuid) {
+        context "with a plate type" do
+          let(:type) { "plate type" }
+          subject { Laboratory::Plate.new(:number_of_rows => number_of_rows,
+                                          :number_of_columns => number_of_columns,
+                                          :type => type) }
+
+          it "can be saved and reloaded" do
+            plate_id = save(subject)                        
             store.with_session do |session|
               plate = session.plate[plate_id]
-              session.uuid_for!(plate)
+              plate.type.should == type
             end
+          end
+        end
+
+        context "#lookup" do
+          let(:model) { Laboratory::Plate }
+          # These uuids match the uuids defined for the order items 
+          # in order_lookup_filter_shared.
+          let!(:uuids) {
+            ['11111111-2222-0000-0000-000000000000', 
+             '22222222-1111-0000-0000-000000000000',
+             '00000000-3333-0000-0000-000000000000'].tap do |uuids|
+               uuids.each_with_index do |uuid, index|
+                 store.with_session do |session|
+                   plate =  new_empty_plate.tap { |plate| plate[index] << new_aliquot}
+                   session << plate
+                   ur = session.new_uuid_resource_for(plate)
+                   ur.send(:uuid=, uuid)
+                 end
+               end
+             end
           }
 
-          it_behaves_like "labels filtrable"
+          context "by label" do
+            let!(:uuid) {
+              store.with_session do |session|
+                plate = session.plate[plate_id]
+                session.uuid_for!(plate)
+              end
+            }
+            it_behaves_like "labels filtrable"
+          end
 
+          context "by order" do
+            it_behaves_like "orders filtrable"
+          end
+
+          context "by batch" do
+            it_behaves_like "batch filtrable"
+          end
         end
       end
 

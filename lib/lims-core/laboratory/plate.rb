@@ -12,9 +12,8 @@ module Lims::Core
     # TODO add label behavior
     class Plate 
       include Resource
-      %w(row column).each do |w|
-        attribute :"number_of_#{w}s", Fixnum, :required => true, :gte => 0, :writer => :private, :initializable => true
-      end
+      # Type contains the actual type of the plate.
+      attribute :type, String, :required => false
 
       # The well of a {Plate}. 
       # Contains some chemical substances.

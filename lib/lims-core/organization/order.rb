@@ -115,7 +115,23 @@ module Lims::Core
       end
 
       def []=(key, value)
-        key_is_for_items?(key) ? items[key.to_s]=value : super(key, value)
+        if key_is_for_items?(key) 
+          raise RuntimeError, "items should be an array" unless value.is_a?(Array)
+          items[key.to_s]=value 
+        else
+          super(key, value)
+        end
+      end
+
+      # Add an item to the specified role
+      # Ideally, uuid should be unique within a role
+      # @param String role
+      # @param Item item
+      def add_item(role, item)
+        role = role.to_s
+        item_list = items.fetch(role) { |k| items[role] = [] }
+        item_list << item
+        return item
       end
 
       def_delegators :items, :each, :size , :keys, :values, :map, :mashr , :include?, :to_a , :fetch
@@ -136,12 +152,15 @@ module Lims::Core
       # As the source is meant to be used by the pipeline to fulfil the order
       # it needs an underlying object.
       # @param [String] role of the source
-      # @param [String] uuid of the underlying object
+      # @param [Array, String] uuids of the underlying object
       # @return [Item]
-      def add_source(role, uuid)
-        Item.new(:uuid => uuid).tap do |item|
-          item.complete
-          self[role] = item
+      def add_source(role, uuids)
+        uuids = [uuids] unless uuids.is_a?(Array)
+        uuids.each do |uuid|
+          Item.new(:uuid => uuid).tap do |item|
+            item.complete
+            self.add_item(role, item)
+          end
         end
       end
 
@@ -150,8 +169,11 @@ module Lims::Core
       # @param [String] role of the target
       # @param [String] uuid of the underlying object
       # @return [Item]
-      def add_target(role, uuid = nil)
-        self[role] = Item.new(:uuid => uuid)
+      def add_target(role, uuids = nil)
+        uuids = [uuids] unless uuids.is_a?(Array)
+        uuids.each do |uuid|
+          self.add_item(role, Item.new(:uuid => uuid))
+        end
       end
     end
   end

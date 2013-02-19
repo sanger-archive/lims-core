@@ -16,6 +16,13 @@ module Lims
         # module is included, its methods are placed right 
         # above the class' methods in inheritance chain.
         klass.class_eval do
+          include Virtus
+          include Aequitas
+
+          %w(row column).each do |w|
+            attribute :"number_of_#{w}s", Fixnum, :required => true, :gte => 0, :writer => :private, :initializable => true
+          end
+
           # each is already defined to look like an Array.
           # This one provide a "String" index (like "A1") aka
           # element name. It can be used to access the Container.
@@ -35,9 +42,7 @@ module Lims
           when Array
             get_element(*index)
           when /\A([a-zA-Z])(\d+)\z/
-            row = $1.ord - ?A.ord
-            col = $2.to_i - 1
-            get_element(row, col)
+            get_element($1, $2)
             # why not something like
             # get_well(*[$1, $2].zip(%w{A 1}).map { |a,b| [a,b].map(&:ord).inject { |x,y| x-y } })
           when Symbol
@@ -79,9 +84,14 @@ module Lims
         indexes_to_element_name(row, column)
       end
 
-      # Convert a element name to a index (number fro 0 to size -1)
-      def element_name_to_index(name)
-        raise NotImplementedError
+      # Converts an element name to an index of the underlying container
+      # The result could be from 0 to size - 1
+      def element_name_to_index(row_str, col_str)
+        row = row_str.ord - ?A.ord if row_str.is_a?(String)
+        col = col_str.to_i - 1 if col_str.is_a?(String)
+        raise IndexOutOfRangeError unless (0...number_of_rows).include?(row)
+        raise IndexOutOfRangeError unless (0...number_of_columns).include?(col)
+        row*number_of_columns + col
       end
 
       # return a element from a 2D index
@@ -90,9 +100,7 @@ module Lims
       # @param [Fixnum] col index of the column (starting at 0)
       # @return [Object]
       def get_element(row, col)
-        raise IndexOutOfRangeError unless (0...number_of_rows).include?(row)
-        raise IndexOutOfRangeError unless (0...number_of_columns).include?(col)
-        @content[row*number_of_columns + col]
+        @content[element_name_to_index(row, col)]
       end
       private :get_element
 

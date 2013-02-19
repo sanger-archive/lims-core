@@ -92,7 +92,7 @@
   
     <dt class="r1 last">Defined in:</dt>
     <dd class="r1 last">lib/lims-core/organization/order.rb<span class="defines">,<br />
-  lib/lims-core/actions/create_order.rb,<br /> lib/lims-core/actions/update_order.rb,<br /> lib/lims-core/organization/order/item.rb</span>
+  lib/lims-core/actions/update_order.rb,<br /> lib/lims-core/actions/create_order.rb,<br /> lib/lims-core/organization/order/item.rb</span>
 </dd>
   
 </dl>
@@ -156,15 +156,15 @@ This class contains 1 state machine managed by the state_machine gem.
   
     <dl class="constants">
       
-        <dt id="Create-constant" class="">Create =
-          
-        </dt>
-        <dd><pre class="code"><span class='const'>Actions</span><span class='op'>::</span><span class='const'>CreateOrder</span></pre></dd>
-      
         <dt id="Update-constant" class="">Update =
           
         </dt>
         <dd><pre class="code"><span class='const'>Actions</span><span class='op'>::</span><span class='const'>UpdateOrder</span></pre></dd>
+      
+        <dt id="Create-constant" class="">Create =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>Actions</span><span class='op'>::</span><span class='const'>CreateOrder</span></pre></dd>
       
     </dl>
   
@@ -237,7 +237,31 @@ This class contains 1 state machine managed by the state_machine gem.
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#add_source-instance_method" title="#add_source (instance method)">- (Item) <strong>add_source</strong>(role, uuid) </a>
+      <a href="#add_item-instance_method" title="#add_item (instance method)">- (Object) <strong>add_item</strong>(role, item) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Add an item to the specified role Ideally, uuid should be unique within a
+role.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#add_source-instance_method" title="#add_source (instance method)">- (Item) <strong>add_source</strong>(role, uuids) </a>
     
 
     
@@ -260,7 +284,7 @@ This class contains 1 state machine managed by the state_machine gem.
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#add_target-instance_method" title="#add_target (instance method)">- (Item) <strong>add_target</strong>(role, uuid = nil) </a>
+      <a href="#add_target-instance_method" title="#add_target (instance method)">- (Item) <strong>add_target</strong>(role, uuids = nil) </a>
     
 
     
@@ -378,13 +402,105 @@ This class contains 1 state machine managed by the state_machine gem.
 
 117
 118
-119</pre>
+119
+120
+121
+122
+123
+124</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/organization/order.rb', line 117</span>
 
 <span class='kw'>def</span> <span class='op'>[]=</span><span class='lparen'>(</span><span class='id key'>key</span><span class='comma'>,</span> <span class='id value'>value</span><span class='rparen'>)</span>
-  <span class='id key_is_for_items?'>key_is_for_items?</span><span class='lparen'>(</span><span class='id key'>key</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id items'>items</span><span class='lbracket'>[</span><span class='id key'>key</span><span class='period'>.</span><span class='id to_s'>to_s</span><span class='rbracket'>]</span><span class='op'>=</span><span class='id value'>value</span> <span class='op'>:</span> <span class='kw'>super</span><span class='lparen'>(</span><span class='id key'>key</span><span class='comma'>,</span> <span class='id value'>value</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id key_is_for_items?'>key_is_for_items?</span><span class='lparen'>(</span><span class='id key'>key</span><span class='rparen'>)</span> 
+    <span class='id raise'>raise</span> <span class='const'>RuntimeError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>items should be an array</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id value'>value</span><span class='period'>.</span><span class='id is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span>
+    <span class='id items'>items</span><span class='lbracket'>[</span><span class='id key'>key</span><span class='period'>.</span><span class='id to_s'>to_s</span><span class='rbracket'>]</span><span class='op'>=</span><span class='id value'>value</span> 
+  <span class='kw'>else</span>
+    <span class='kw'>super</span><span class='lparen'>(</span><span class='id key'>key</span><span class='comma'>,</span> <span class='id value'>value</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="add_item-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>add_item</strong>(role, item) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>Add an item to the specified role Ideally, uuid should be unique within a
+role</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>String</span>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>role</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>Item</span>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>item</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+130
+131
+132
+133
+134
+135</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/organization/order.rb', line 130</span>
+
+<span class='kw'>def</span> <span class='id add_item'>add_item</span><span class='lparen'>(</span><span class='id role'>role</span><span class='comma'>,</span> <span class='id item'>item</span><span class='rparen'>)</span>
+  <span class='id role'>role</span> <span class='op'>=</span> <span class='id role'>role</span><span class='period'>.</span><span class='id to_s'>to_s</span>
+  <span class='id item_list'>item_list</span> <span class='op'>=</span> <span class='id items'>items</span><span class='period'>.</span><span class='id fetch'>fetch</span><span class='lparen'>(</span><span class='id role'>role</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id k'>k</span><span class='op'>|</span> <span class='id items'>items</span><span class='lbracket'>[</span><span class='id role'>role</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='rbrace'>}</span>
+  <span class='id item_list'>item_list</span> <span class='op'>&lt;&lt;</span> <span class='id item'>item</span>
+  <span class='kw'>return</span> <span class='id item'>item</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -394,7 +510,7 @@ This class contains 1 state machine managed by the state_machine gem.
       <div class="method_details ">
   <p class="signature " id="add_source-instance_method">
   
-    - (<tt><span class='object_link'><a href="Order/Item.html" title="Lims::Core::Organization::Order::Item (class)">Item</a></span></tt>) <strong>add_source</strong>(role, uuid) 
+    - (<tt><span class='object_link'><a href="Order/Item.html" title="Lims::Core::Organization::Order::Item (class)">Item</a></span></tt>) <strong>add_source</strong>(role, uuids) 
   
 
   
@@ -430,10 +546,10 @@ by the pipeline to fulfil the order it needs an underlying object.</p>
   
     <li>
       
-        <span class='name'>uuid</span>
+        <span class='name'>uuids</span>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt>Array</tt>, <tt>String</tt>)</span>
       
       
       
@@ -466,20 +582,26 @@ by the pipeline to fulfil the order it needs an underlying object.</p>
       <pre class="lines">
 
 
-141
-142
-143
-144
-145
-146</pre>
+157
+158
+159
+160
+161
+162
+163
+164
+165</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/organization/order.rb', line 141</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/organization/order.rb', line 157</span>
 
-<span class='kw'>def</span> <span class='id add_source'>add_source</span><span class='lparen'>(</span><span class='id role'>role</span><span class='comma'>,</span> <span class='id uuid'>uuid</span><span class='rparen'>)</span>
-  <span class='const'>Item</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='symbol'>:uuid</span> <span class='op'>=&gt;</span> <span class='id uuid'>uuid</span><span class='rparen'>)</span><span class='period'>.</span><span class='id tap'>tap</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id item'>item</span><span class='op'>|</span>
-    <span class='id item'>item</span><span class='period'>.</span><span class='id complete'>complete</span>
-    <span class='kw'>self</span><span class='lbracket'>[</span><span class='id role'>role</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id item'>item</span>
+<span class='kw'>def</span> <span class='id add_source'>add_source</span><span class='lparen'>(</span><span class='id role'>role</span><span class='comma'>,</span> <span class='id uuids'>uuids</span><span class='rparen'>)</span>
+  <span class='id uuids'>uuids</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='id uuids'>uuids</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id uuids'>uuids</span><span class='period'>.</span><span class='id is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span>
+  <span class='id uuids'>uuids</span><span class='period'>.</span><span class='id each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id uuid'>uuid</span><span class='op'>|</span>
+    <span class='const'>Item</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='symbol'>:uuid</span> <span class='op'>=&gt;</span> <span class='id uuid'>uuid</span><span class='rparen'>)</span><span class='period'>.</span><span class='id tap'>tap</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id item'>item</span><span class='op'>|</span>
+      <span class='id item'>item</span><span class='period'>.</span><span class='id complete'>complete</span>
+      <span class='kw'>self</span><span class='period'>.</span><span class='id add_item'>add_item</span><span class='lparen'>(</span><span class='id role'>role</span><span class='comma'>,</span> <span class='id item'>item</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -490,7 +612,7 @@ by the pipeline to fulfil the order it needs an underlying object.</p>
       <div class="method_details ">
   <p class="signature " id="add_target-instance_method">
   
-    - (<tt><span class='object_link'><a href="Order/Item.html" title="Lims::Core::Organization::Order::Item (class)">Item</a></span></tt>) <strong>add_target</strong>(role, uuid = nil) 
+    - (<tt><span class='object_link'><a href="Order/Item.html" title="Lims::Core::Organization::Order::Item (class)">Item</a></span></tt>) <strong>add_target</strong>(role, uuids = nil) 
   
 
   
@@ -531,8 +653,6 @@ to be completed or failed.</p>
         <span class='type'>(<tt>String</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>nil</tt>)</em>
-      
       
         &mdash;
         <div class='inline'>
@@ -563,15 +683,21 @@ to be completed or failed.</p>
       <pre class="lines">
 
 
-153
-154
-155</pre>
+172
+173
+174
+175
+176
+177</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/organization/order.rb', line 153</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/organization/order.rb', line 172</span>
 
-<span class='kw'>def</span> <span class='id add_target'>add_target</span><span class='lparen'>(</span><span class='id role'>role</span><span class='comma'>,</span> <span class='id uuid'>uuid</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-  <span class='kw'>self</span><span class='lbracket'>[</span><span class='id role'>role</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>Item</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='symbol'>:uuid</span> <span class='op'>=&gt;</span> <span class='id uuid'>uuid</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id add_target'>add_target</span><span class='lparen'>(</span><span class='id role'>role</span><span class='comma'>,</span> <span class='id uuids'>uuids</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id uuids'>uuids</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='id uuids'>uuids</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id uuids'>uuids</span><span class='period'>.</span><span class='id is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span>
+  <span class='id uuids'>uuids</span><span class='period'>.</span><span class='id each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id uuid'>uuid</span><span class='op'>|</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id add_item'>add_item</span><span class='lparen'>(</span><span class='id role'>role</span><span class='comma'>,</span> <span class='const'>Item</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='symbol'>:uuid</span> <span class='op'>=&gt;</span> <span class='id uuid'>uuid</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -630,14 +756,14 @@ to be completed or failed.</p>
       <pre class="lines">
 
 
-127
-128
-129
-130
-131</pre>
+143
+144
+145
+146
+147</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/organization/order.rb', line 127</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/organization/order.rb', line 143</span>
 
 <span class='kw'>def</span> <span class='id key_is_for_items?'>key_is_for_items?</span><span class='lparen'>(</span><span class='id key'>key</span><span class='rparen'>)</span>
   <span class='kw'>case</span> <span class='id key'>key</span>
