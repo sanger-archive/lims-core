@@ -3,6 +3,7 @@ require 'common'
 require 'lims/core/resource'
 require 'lims-core/organization/user'
 require 'lims-core/organization/study'
+require 'lims-core/organization/batch'
 
 require 'state_machine'
 
@@ -21,6 +22,7 @@ module Lims::Core
 
         attribute :iteration, Fixnum, :writer => :private, :default => 0
         attribute :uuid, String
+        attribute :batch, Batch
         attribute :status, State
 
         def initialize(*args)

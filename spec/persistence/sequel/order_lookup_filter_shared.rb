@@ -8,6 +8,7 @@ require 'lims/core/persistence/order_filter'
 module Lims::Core
   module Persistence
     shared_context "with saved orders" do
+      include_context "with saved batches"
       let(:basic_parameters) { { :creator => Organization::User.new(), :study => Organization::Study.new(), :pipeline => "testing" } }
       let(:orders) {
         # We give a different pipeline to be able to differentiate each order easily
@@ -30,8 +31,7 @@ module Lims::Core
           Organization::Order.new(basic_parameters.merge(:pipeline => "P3")).tap do |o|
             o.add_source("source1", "33333333-1111-0000-0000-000000000000")
             o.add_source("source2", "33333333-2222-0000-0000-000000000000")
-            o.add_target("target1", "00000000-3333-0000-0000-000000000000") # common
-            #o.add_target("target2", "1111-1111-00000000-000000000000")
+            o.add_target("target1", "00000000-3333-0000-0000-000000000000")
             o.build!
             o.start!
             o.complete!
@@ -40,9 +40,29 @@ module Lims::Core
       }
       let!(:ids) {
         orders.map do |o|
-          save(o)
+          store.with_session do |session|
+            session << o
+            o[:source2].first.batch = session[batch_uuids[0]] if o.pipeline == 'P1'
+            o[:source1].first.batch = session[batch_uuids[1]] if o.pipeline == 'P2'
+            o[:target1].first.batch = session[batch_uuids[0]] if o.pipeline == 'P3'
+          end
         end
       }
+    end
+
+    shared_context "with saved batches" do
+      let!(:batch_uuids) do
+        ['11111111-2222-2222-3333-000000000000', '11111111-2222-2222-3333-111111111111'].tap do |uuids|
+          uuids.each do |uuid|
+            store.with_session do |session|
+              batch = Organization::Batch.new
+              session << batch
+              ur = session.new_uuid_resource_for(batch)
+              ur.send(:uuid=, uuid)
+            end
+          end
+        end
+      end
     end
 
     shared_examples_for "finding orders" do |criteria, indexes|
@@ -64,33 +84,35 @@ module Lims::Core
     end
 
     shared_examples_for "searchable by item criteria" do
-      context "no orders" do
-      end
       context "saved orders" do
         include_context "with saved orders"
+
         context "lookup by one uuid" do
           it_behaves_like "finding orders", { :item => {:uuid => "11111111-2222-0000-0000-000000000000" } }, [0]
           context "find 2 orders" do
             it_behaves_like "finding orders", { :item => {:uuid => "00000000-3333-0000-0000-000000000000" } }, [0,1,2]
           end
-
         end
 
         context "lookup by role" do
-            it_behaves_like "finding orders", { :item => {:role => "source3"} }, [0,1]
-            it_behaves_like "finding orders", { :item => {:role => %w[source3 target1] } }, [0,1,2]
+          it_behaves_like "finding orders", { :item => {:role => "source3"} }, [0,1]
+          it_behaves_like "finding orders", { :item => {:role => %w[source3 target1] } }, [0,1,2]
         end
 
         context "lookup by status" do
-            it_behaves_like "finding orders", { :item => {:uuid => "00000000-3333-0000-0000-000000000000", :status => "pending" } }, [1,2]
+          it_behaves_like "finding orders", { :item => {:uuid => "00000000-3333-0000-0000-000000000000", :status => "pending" } }, [1,2]
         end
 
         context "lookup by role and uuid and status" do
-            it_behaves_like "finding orders", { :item => { :role => "source3", :status => "pending", :uuid => "00000000-3333-0000-0000-000000000000" } }, [1]
+          it_behaves_like "finding orders", { :item => { :role => "source3", :status => "pending", :uuid => "00000000-3333-0000-0000-000000000000" } }, [1]
         end
 
         context "mix order and items criteria" do
           it_behaves_like "finding orders", { :status => "completed", :item => { :uuid => "00000000-3333-0000-0000-000000000000" } }, [2]
+        end
+
+        context "lookup by batch assigned to order items" do
+          it_behaves_like "finding orders", { :item => {:batch => {"uuid" => '11111111-2222-2222-3333-111111111111'}}}, [1] 
         end
       end
     end
@@ -126,13 +148,18 @@ module Lims::Core
 
       context "by order status" do
         let(:criteria) { {:order => {:status => "in_progress"}} }
-        it_behaves_like "finding resources", ['11111111-2222-0000-0000-000000000000', '00000000-3333-0000-0000-000000000000']
+        it_behaves_like "finding resources", ['22222222-1111-0000-0000-000000000000','11111111-2222-0000-0000-000000000000', '00000000-3333-0000-0000-000000000000']
       end
       
       context "by order item" do
         let(:criteria) { {:order => {:item => {:status => "pending"}}} }
         it_behaves_like "finding resources", ['11111111-2222-0000-0000-000000000000']
       end
-    end
+
+      context "by batch assigned to order items" do
+        let(:criteria) { {:order => {:item => {:batch => {"uuid" => '11111111-2222-2222-3333-000000000000'}}}} }
+        it_behaves_like "finding resources", ['11111111-2222-0000-0000-000000000000', '00000000-3333-0000-0000-000000000000']
+      end
+   end
   end
 end

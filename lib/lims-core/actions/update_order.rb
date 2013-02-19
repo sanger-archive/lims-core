@@ -17,6 +17,11 @@ module Lims::Core
       #   value are a Hash of items with
       #      key being either the item uuid, #   and index, or last for insert
       #      value either a uuid (String) or an event (Symbol) to send to the current item.
+      # {:role => {'11111111-1111-2222-3333-444444444444' => 
+      #     {:event => :start,
+      #      :batch_uuid => '111111111-0000-0000-0000-111111111111'}}}
+      # or
+      # {:role => {'1' => {:event => :start}}}
       attribute :items, Hash , :default => {}
       attribute :event, Symbol 
       attribute :pipeline, String
@@ -25,6 +30,7 @@ module Lims::Core
       attribute :cost_code, String
       attribute :parameters, Hash
       attribute :state, Hash
+
       def _call_in_session(session)
         items.each { |role, args| update_item(role, args) }
         if event.present?
@@ -62,9 +68,9 @@ module Lims::Core
             end
           end
 
-
           item_args["uuid"].andtap { |uuid| item.uuid = uuid }
           item_args["event"].andtap { |event| item.public_send("#{event}!") }
+          item_args["batch"].andtap { |batch| item.batch = batch }
         end
       end
     end

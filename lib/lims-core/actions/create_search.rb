@@ -5,6 +5,7 @@ require 'lims/core/persistence/search'
 require 'lims/core/persistence/multi_criteria_filter'
 require 'lims/core/persistence/label_filter'
 require 'lims/core/persistence/order_filter'
+require 'lims/core/persistence/batch_filter'
 
 module Lims::Core
   module Actions
@@ -17,12 +18,11 @@ module Lims::Core
 
       def _call_in_session(session)
         # Create the appropriate filter depending on the criteria
-        filter = if criteria.size == 1 && criteria.keys.first.to_s == "label"
-                   Persistence::LabelFilter.new(:criteria => criteria)
-                 elsif criteria.size ==1 && criteria.keys.first.to_s == "order"
-                   Persistence::OrderFilter.new(:criteria => criteria)
-                 else
-                   Persistence::MultiCriteriaFilter.new(:criteria => criteria)
+        filter = case [criteria.size, criteria.keys.first.to_s]
+                 when [1, "label"] then Persistence::LabelFilter.new(:criteria => criteria)
+                 when [1, "order"] then Persistence::OrderFilter.new(:criteria => criteria)
+                 when [1, "batch"] then Persistence::BatchFilter.new(:criteria => criteria)
+                 else Persistence::MultiCriteriaFilter.new(:criteria => criteria)
                  end
 
         search = Persistence::Search.new(:description => description, 
