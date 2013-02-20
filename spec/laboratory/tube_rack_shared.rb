@@ -12,7 +12,7 @@ module Lims::Core
     shared_context "tube_rack factory" do
       include_context "aliquot factory"
 
-      def new_tube_rack_with_samples(sample_nb=5, quantity=nil)
+      def new_tube_rack_with_samples(sample_nb=5, quantity=nil, volume=100)
         TubeRack.new(:number_of_rows => number_of_rows, :number_of_columns => number_of_columns).tap do |tube_rack|
           tube_rack.each_with_index do |slot, i|
             tube = Tube.new
@@ -20,6 +20,7 @@ module Lims::Core
             1.upto(sample_nb) do |j|
               tube <<  new_aliquot(i,j,quantity)
             end
+            tube << Aliquot.new(:type => Aliquot::Solvent, :quantity => volume) if volume
           end
         end
       end
