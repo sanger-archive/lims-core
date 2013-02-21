@@ -57,7 +57,7 @@ module Lims::Core
 
           unless transfer["aliquot_type"].nil?
             target.each do |aliquot|
-              aliquot.type = transfer["aliquot_type"]
+              aliquot.type = transfer["aliquot_type"] unless aliquot.type == Laboratory::Aliquot::Solvent 
             end
           end
 
