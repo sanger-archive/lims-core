@@ -100,7 +100,7 @@ module Lims::Core
           context "with valid parameters" do
             let(:type1) { "NA" }
             let(:type2) { "DNA" }
-            context "transfer tubes to spin columns with amount" do
+            context "transfer tubes to spin columns with amount", :focus => true do
               let(:quantity1) { 100 }
               let(:quantity2) { 100 }
               let(:spin_column1_id) { save(new_empty_spin_column) }
@@ -110,10 +110,10 @@ module Lims::Core
                     tube.each { |a| a.type = type2 unless a.type }
                   end
                 ) }
-              let(:amount1) { 600 }
-              let(:amount2) { 400 }
-              let!(:finalQuantity1) { 100 }
-              let!(:finalQuantity2) { 100 }
+              let(:amount1) { 80 }
+              let(:amount2) { 40 }
+              let!(:finalQuantity1) { 80 }
+              let!(:finalQuantity2) { 40 }
 
               subject { described_class.new(:store => store, 
                                             :user => user, 

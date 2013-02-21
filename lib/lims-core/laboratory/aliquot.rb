@@ -45,7 +45,7 @@ module Lims::Core
       def take_fraction(fraction)
         new = self.class.new(attributes)
         if quantity && fraction
-          new_quantity = quantity*fraction
+          new_quantity = (quantity*fraction).to_i
           self.quantity -= new_quantity
           new.quantity = new_quantity
         else
