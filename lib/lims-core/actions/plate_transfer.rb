@@ -27,7 +27,7 @@ module Lims::Core
 
             unless aliquot_type.nil?
               target[to].each do |aliquot|
-                aliquot.type = aliquot_type
+                aliquot.type = aliquot_type unless aliquot.type == Laboratory::Aliquot::Solvent
               end
             end
           end
