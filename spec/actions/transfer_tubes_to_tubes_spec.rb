@@ -100,7 +100,7 @@ module Lims::Core
           context "with valid parameters" do
             let(:type1) { "NA" }
             let(:type2) { "DNA" }
-            context "transfer tubes to spin columns with amount", :focus => true do
+            context "transfer tubes to spin columns with amount" do
               let(:quantity1) { 100 }
               let(:quantity2) { 100 }
               let(:spin_column1_id) { save(new_empty_spin_column) }
