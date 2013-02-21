@@ -65,7 +65,12 @@ module Lims::Core
           to = transfer["target_location"]
           aliquot_type = transfer["aliquot_type"]
 
-            # do the element transfer according to the given transfer map
+          # do the element transfer according to the given transfer map
+          if target.class == Lims::Core::Laboratory::TubeRack
+            tube = Lims::Core::Laboratory::Tube.new
+            session << tube
+            target[to] = tube
+          end
           target[to] << source[from].take_amount(amount)
 
           # change the aliquot_type of the target
