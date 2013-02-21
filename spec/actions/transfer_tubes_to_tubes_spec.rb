@@ -17,13 +17,17 @@ shared_examples_for "transfer tube to spin column" do
 
       spin_column1.size.should == tube1.size
       spin_column1.each do |aliquot|
-        aliquot.type.should == type1
+        unless aliquot.type == Lims::Core::Laboratory::Aliquot::Solvent
+          aliquot.type.should == type1
+        end
         aliquot.quantity.should == finalQuantity1
       end
+
       spin_column2.size.should == tube2.size
       spin_column2.each do |aliquot|
-        next if aliquot.type == Lims::Core::Laboratory::Aliquot::Solvent
-        aliquot.type.should == type2
+        unless aliquot.type == Lims::Core::Laboratory::Aliquot::Solvent
+          aliquot.type.should == type2
+        end
         aliquot.quantity.should == finalQuantity2
       end
     end
@@ -37,14 +41,18 @@ shared_examples_for "transfer spin column to tube" do
       tube1, tube2 = [tube1_id, tube2_id].map { |id| session.tube[id] }
       spin_column1, spin_column2 = [spin_column1_id, spin_column2_id].map { |id| session.spin_column[id] }
 
-        tube1.size.should == spin_column1.size
+      tube1.size.should == spin_column1.size
       tube1.each do |aliquot|
-        aliquot.type.should == type1
+        unless aliquot.type == Lims::Core::Laboratory::Aliquot::Solvent
+          aliquot.type.should == type1
+        end
         aliquot.quantity.should == finalQuantity1
       end
       tube2.size.should == spin_column2.size
       tube2.each do |aliquot|
-        aliquot.type.should == type2
+        unless aliquot.type == Lims::Core::Laboratory::Aliquot::Solvent
+          aliquot.type.should == type2
+        end
         aliquot.quantity.should == finalQuantity2
       end
     end
@@ -60,12 +68,16 @@ shared_examples_for "transfer a tube content to a spin column and a tube" do
 
       spin_column1.size.should == tube1.size
       spin_column1.each do |aliquot|
-        aliquot.type.should == type1
+        unless aliquot.type == Lims::Core::Laboratory::Aliquot::Solvent
+          aliquot.type.should == type1
+        end
         aliquot.quantity.should == finalQuantity1
       end
       tube2.size.should == tube1.size
       tube2.each do |aliquot|
-        aliquot.type.should == type2
+        unless aliquot.type == Lims::Core::Laboratory::Aliquot::Solvent
+          aliquot.type.should == type2
+        end
         aliquot.quantity.should == finalQuantity2
       end
     end
@@ -93,8 +105,8 @@ module Lims::Core
               let(:quantity2) { 100 }
               let(:spin_column1_id) { save(new_empty_spin_column) }
               let(:spin_column2_id) { save(new_empty_spin_column) }
-              let(:tube1_id) { save(new_tube_with_samples(10, quantity1)) }
-              let(:tube2_id) { save(new_tube_with_samples(10, quantity2).tap do |tube|
+              let(:tube1_id) { save(new_tube_with_samples(10, quantity1, quantity1)) }
+              let(:tube2_id) { save(new_tube_with_samples(10, quantity2, quantity2).tap do |tube|
                     tube.each { |a| a.type = type2 unless a.type }
                   end
                 ) }
@@ -130,8 +142,8 @@ module Lims::Core
               let(:quantity1) { 100 }
               let(:quantity2) { 100 }
               let(:number_of_samples) { 10 }
-              let(:spin_column1_id) { save(new_spin_column_with_samples(number_of_samples, quantity1)) }
-              let(:spin_column2_id) { save(new_spin_column_with_samples(number_of_samples, quantity2)) }
+              let(:spin_column1_id) { save(new_spin_column_with_samples(number_of_samples, quantity1, quantity1)) }
+              let(:spin_column2_id) { save(new_spin_column_with_samples(number_of_samples, quantity2, quantity2)) }
               let(:tube1_id) { save(new_empty_tube) }
               let(:tube2_id) { save(new_empty_tube) }
               let(:fraction1) { 0.6 }
