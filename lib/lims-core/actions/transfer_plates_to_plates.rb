@@ -1,4 +1,5 @@
 require 'lims/core/actions/action'
+require 'lims/core/actions/transfer_action'
 
 module Lims::Core
   module Actions
@@ -17,75 +18,14 @@ module Lims::Core
     # Aliquot_type is the type of the aliquot (DNA, RNA, NA, sample etc...).
     class TransferPlatesToPlates
       include Action
+      include TransferAction
 
-      attribute :transfers, Array, :required => true, :writer => :private
-
-      def _validate_parameters
-        raise ArgumentError, "The transfer array should not be null." unless transfers
-        raise ArgumentError, "You should give the fraction OR the amount of the transfer, not both." unless valid_amount_and_fraction
-      end
-
-      def valid_amount_and_fraction
-        valid = true
-        transfers.each do |transfer|
-          if (transfer["fraction"].nil? && transfer["amount"].nil?) || (transfer["fraction"] && transfer["amount"])
-            valid = false
-            break
-          end
-        end
-        valid
-      end
-
+      # transfer the given fraction of aliquot from plate-like asset(s)
+      # to plate-like asset(s)
       def _call_in_session(session)
-        sources = []
-        targets = []
-        amounts = []
 
-        transfers.each do |transfer|
-          # simplify the transfer related variables
-          source = transfer["source"]
-          from = transfer["source_location"]
-          fraction = transfer["fraction"]
-          amount = transfer["amount"]
+        _transfer(transfers, _amounts(transfers))
 
-          # Converts the fraction to the amount of the aliquot
-          # and use it later when transfering to the target asset
-          if fraction
-            amounts << source[from].quantity * fraction
-          else
-            amounts << amount
-          end
-        end
-
-        transfers.zip(amounts) do |transfer, amount|
-          # simplify the transfer related variables
-          source = transfer["source"]
-          from = transfer["source_location"]
-          target = transfer["target"]
-          to = transfer["target_location"]
-          aliquot_type = transfer["aliquot_type"]
-
-          # do the element transfer according to the given transfer map
-          if target.class == Lims::Core::Laboratory::TubeRack
-            tube = Lims::Core::Laboratory::Tube.new
-            session << tube
-            target[to] = tube
-          end
-          target[to] << source[from].take_amount(amount)
-
-          # change the aliquot_type of the target
-          unless aliquot_type.nil?
-            target[to].each do |aliquot|
-              aliquot.type = aliquot_type
-            end
-          end
-
-          sources << source
-          targets << target
-
-        end
-
-        { :sources => sources.uniq, :targets => targets.uniq}
       end
     end
   end
