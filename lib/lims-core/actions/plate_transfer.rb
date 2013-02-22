@@ -1,5 +1,6 @@
 # vi: ts=2:sts=2:et:sw=2  spell:spelllang=en  
 require 'lims/core/actions/action'
+require 'lims/core/actions/transfer_action'
 
 require 'lims/core/laboratory/plate'
 
@@ -11,6 +12,7 @@ module Lims::Core
     # For more details, see attributes.
     class PlateTransfer
       include Action
+      include TransferAction
 
       attribute :source, Laboratory::Plate, :required => true, :writer => :private
       attribute :target, Laboratory::Plate, :required => true, :writer => :private
@@ -22,16 +24,9 @@ module Lims::Core
       # If aliquot_type is given, it sets the type on all the aliquots
       # of the target plate.
       def _call_in_session(session)
-          transfer_map.each do |from ,to|
-            target[to] << source[from].take_fraction(1)
-
-            unless aliquot_type.nil?
-              target[to].each do |aliquot|
-                aliquot.type = aliquot_type
-              end
-            end
-          end
-          target
+        transfers = _transfers
+        transfer_hash = _transfer(transfers, _amounts(transfers))
+        transfer_hash[:targets]
       end
 
     end
