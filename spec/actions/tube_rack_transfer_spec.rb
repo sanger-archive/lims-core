@@ -79,7 +79,8 @@ module Lims::Core
             store.with_session do |session|
               source = session.tube_rack[source_id]
               target = session.tube_rack[target_id]
-              target[:E9].should == source[:A4]
+              target[:E9].should_not be_nil
+              source[:A4].quantity.should == 0
             end
           end
         end
