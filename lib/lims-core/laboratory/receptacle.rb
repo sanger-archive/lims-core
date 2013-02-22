@@ -56,7 +56,7 @@ module Lims::Core
           def take_amount(amount=nil, dimension=Aliquot::Volume)
             # @todo : implement
             # take_fraction
-            take_fraction(amount && quantity(dimension) ? amount/quantity(dimension) : nil)
+            take_fraction(amount && quantity(dimension) ? amount/quantity(dimension).to_f : nil)
           end
 
           # Takes (removes) a specified amount of each aliquots (proportionally)
