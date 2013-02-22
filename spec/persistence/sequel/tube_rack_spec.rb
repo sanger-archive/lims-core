@@ -36,7 +36,7 @@ module Lims::Core
 
       context do
         subject { new_tube_rack_with_samples(3) }
-        it_behaves_like "storable resource", :tube_rack, {:tube_racks => 1, :tubes =>  8*12, :tube_rack_slots => 8*12, :aliquots => 3*8*12 }
+        it_behaves_like "storable resource", :tube_rack, {:tube_racks => 1, :tubes =>  8*12, :tube_rack_slots => 8*12, :aliquots => 4*8*12 }
       end
 
       context "already created tube_rack" do
