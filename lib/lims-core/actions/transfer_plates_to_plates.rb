@@ -26,7 +26,7 @@ module Lims::Core
       # to plate-like asset(s)
       def _call_in_session(session)
 
-        _transfer(transfers, _amounts(transfers))
+        _transfer(transfers, _amounts(transfers), session)
 
       end
     end

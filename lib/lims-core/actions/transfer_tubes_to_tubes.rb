@@ -25,7 +25,7 @@ module Lims::Core
       # to tube-like asset(s)
       def _call_in_session(session)
 
-        _transfer(transfers, _amounts(transfers))
+        _transfer(transfers, _amounts(transfers), session)
 
       end
     end

@@ -31,7 +31,7 @@ module Lims::Core
 
           # Do the transfers from source asset(s) to target asset(s)
           # It is working for tube-like and plate-like asset(s), too.
-          def _transfer(transfers, amounts)
+          def _transfer(transfers, amounts, session)
             sources = []
             targets = []
 

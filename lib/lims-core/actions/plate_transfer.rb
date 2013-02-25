@@ -25,7 +25,7 @@ module Lims::Core
       # of the target plate.
       def _call_in_session(session)
         transfers = _transfers
-        transfer_hash = _transfer(transfers, _amounts(transfers))
+        transfer_hash = _transfer(transfers, _amounts(transfers), session)
         transfer_hash[:targets]
       end
 
