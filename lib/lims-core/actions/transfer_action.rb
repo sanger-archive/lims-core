@@ -63,7 +63,7 @@ module Lims::Core
               # change the aliquot_type of the target
               unless aliquot_type.nil?
                 _target.each do |aliquot|
-                  aliquot.type = aliquot_type
+                  aliquot.type = aliquot_type unless aliquot.type == Lims::Core::Laboratory::Aliquot::Solvent
                 end
               end
 
