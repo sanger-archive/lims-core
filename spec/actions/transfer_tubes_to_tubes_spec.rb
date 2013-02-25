@@ -17,7 +17,6 @@ shared_examples_for "transfer tube to spin column" do
 
       spin_column1.size.should == tube1.size
       spin_column1.each do |aliquot|
-        next if aliquot.type == Lims::Core::Laboratory::Aliquot::Solvent
         aliquot.type.should == type1
         aliquot.quantity.should == finalQuantity1
       end
@@ -40,13 +39,11 @@ shared_examples_for "transfer spin column to tube" do
 
         tube1.size.should == spin_column1.size
       tube1.each do |aliquot|
-        next if aliquot.type == Lims::Core::Laboratory::Aliquot::Solvent
         aliquot.type.should == type1
         aliquot.quantity.should == finalQuantity1
       end
       tube2.size.should == spin_column2.size
       tube2.each do |aliquot|
-        next if aliquot.type == Lims::Core::Laboratory::Aliquot::Solvent
         aliquot.type.should == type2
         aliquot.quantity.should == finalQuantity2
       end
@@ -63,13 +60,11 @@ shared_examples_for "transfer a tube content to a spin column and a tube" do
 
       spin_column1.size.should == tube1.size
       spin_column1.each do |aliquot|
-        next if aliquot.type == Lims::Core::Laboratory::Aliquot::Solvent
         aliquot.type.should == type1
         aliquot.quantity.should == finalQuantity1
       end
       tube2.size.should == tube1.size
       tube2.each do |aliquot|
-        next if aliquot.type == Lims::Core::Laboratory::Aliquot::Solvent
         aliquot.type.should == type2
         aliquot.quantity.should == finalQuantity2
       end

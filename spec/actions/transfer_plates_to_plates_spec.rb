@@ -21,11 +21,11 @@ shared_examples_for "transfer from many plates to many gels" do
       gel1["E8"].should_not be_nil
 
       gel1["B2"].each do |aliquot|
-        aliquot.type.should == type1 unless aliquot.type == Lims::Core::Laboratory::Aliquot::Solvent
+        aliquot.type.should == type1
       end
 
       gel1["E8"].each do |aliquot|
-        aliquot.type.should == type1 unless aliquot.type == Lims::Core::Laboratory::Aliquot::Solvent
+        aliquot.type.should == type1
       end
 
       plate2["A1"].quantity.should == final_quantity_plate2_A1
@@ -35,11 +35,11 @@ shared_examples_for "transfer from many plates to many gels" do
       gel2["E8"].should_not be_nil
 
       gel2["B2"].each do |aliquot|
-        aliquot.type.should == type2 unless aliquot.type == Lims::Core::Laboratory::Aliquot::Solvent
+        aliquot.type.should == type2
       end
 
       gel2["E8"].each do |aliquot|
-        aliquot.type.should == type2 unless aliquot.type == Lims::Core::Laboratory::Aliquot::Solvent
+        aliquot.type.should == type2
       end
     end
   end
@@ -58,12 +58,12 @@ shared_examples_for "transfer from many racks to many plates" do
       plate1["E8"].should_not be_nil
 
       plate1["B2"].each do |aliquot|
-        aliquot.type.should == type1 unless aliquot.type == Lims::Core::Laboratory::Aliquot::Solvent
+        aliquot.type.should == type1
         aliquot.quantity.should == final_quantity_plate1_B2
       end
 
       plate1["E8"].each do |aliquot|
-        aliquot.type.should == type1 unless aliquot.type == Lims::Core::Laboratory::Aliquot::Solvent
+        aliquot.type.should == type1
         aliquot.quantity.should == final_quantity_plate1_E8
       end
 
@@ -73,12 +73,12 @@ shared_examples_for "transfer from many racks to many plates" do
       plate2["E8"].should_not be_nil
 
       plate2["B2"].each do |aliquot|
-        aliquot.type.should == type2 unless aliquot.type == Lims::Core::Laboratory::Aliquot::Solvent
+        aliquot.type.should == type2
         aliquot.quantity.should == final_quantity_plate2_B2
       end
 
       plate2["E8"].each do |aliquot|
-        aliquot.type.should == type2 unless aliquot.type == Lims::Core::Laboratory::Aliquot::Solvent
+        aliquot.type.should == type2
         aliquot.quantity.should == final_quantity_plate2_E8
       end
     end
