@@ -92,7 +92,7 @@
   
     <dt class="r1 last">Defined in:</dt>
     <dd class="r1 last">lib/lims-core/laboratory/plate.rb<span class="defines">,<br />
-  lib/lims-core/actions/create_plate.rb</span>
+  lib/lims-core/actions/update_plate.rb,<br /> lib/lims-core/actions/create_plate.rb</span>
 </dd>
   
 </dl>
@@ -124,6 +124,11 @@ platics with wells and some  readable labels on it. TODO add label behavior</p>
   <h2>Constant Summary</h2>
   
     <dl class="constants">
+      
+        <dt id="Update-constant" class="">Update =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>Actions</span><span class='op'>::</span><span class='const'>UpdatePlate</span></pre></dd>
       
         <dt id="Create-constant" class="">Create =
           
@@ -187,7 +192,7 @@ platics with wells and some  readable labels on it. TODO add label behavior</p>
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="../Resource.html" title="Lims::Core::Resource (module)">Resource</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../Resource.html#%3D%3D-instance_method" title="Lims::Core::Resource#== (method)">#==</a></span>, <span class='object_link'><a href="../Resource.html#included-class_method" title="Lims::Core::Resource.included (method)">included</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="../Resource.html#included-class_method" title="Lims::Core::Resource.included (method)">included</a></span></p>
 
 
   <div id="instance_method_details" class="method_details_list">
@@ -237,14 +242,14 @@ name</p>
       <pre class="lines">
 
 
-29
-30
 31
 32
-33</pre>
+33
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/laboratory/plate.rb', line 29</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/laboratory/plate.rb', line 31</span>
 
 <span class='kw'>def</span> <span class='id pools'>pools</span>
   <span class='int'>1</span><span class='period'>.</span><span class='id upto'>upto</span><span class='lparen'>(</span><span class='id number_of_columns'>number_of_columns</span><span class='rparen'>)</span><span class='period'>.</span><span class='id mash'>mash</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id c'>c</span><span class='op'>|</span>

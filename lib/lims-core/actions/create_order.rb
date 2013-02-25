@@ -15,9 +15,9 @@ module Lims::Core
       # @attribute [Hash<String, String>] sources
       # @example
       #   { "role" => "{uuid of the underlying object}"}
-      attribute :sources, Resource::HashString, :default => {}
+      attribute :sources, Base::HashString, :default => {}
       # @attribute [Hash<String, String>] targets
-      attribute :targets, Resource::HashString, :default => {}
+      attribute :targets, Base::HashString, :default => {}
       #   { "role" => "{uuid of the underlying object}",
       #     "role1" => nil}
       attribute :study, Organization::Study, :required => true

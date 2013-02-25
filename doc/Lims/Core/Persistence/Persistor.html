@@ -92,7 +92,7 @@
   
     <dt class="r1 last">Defined in:</dt>
     <dd class="r1 last">lib/lims-core/persistence/persistor.rb<span class="defines">,<br />
-  lib/lims-core/persistence/label_filter.rb,<br /> lib/lims-core/persistence/order_filter.rb,<br /> lib/lims-core/persistence/multi_criteria_filter.rb</span>
+  lib/lims-core/persistence/batch_filter.rb,<br /> lib/lims-core/persistence/label_filter.rb,<br /> lib/lims-core/persistence/order_filter.rb,<br /> lib/lims-core/persistence/multi_criteria_filter.rb</span>
 </dd>
   
 </dl>
@@ -122,7 +122,7 @@ and or parameter specific to a session/thread.</p>
 
 </div><div id="subclasses">
   <h2>Direct Known Subclasses</h2>
-  <p class="children"><span class='object_link'><a href="Aliquot.html" title="Lims::Core::Persistence::Aliquot (class)">Aliquot</a></span>, <span class='object_link'><a href="Flowcell.html" title="Lims::Core::Persistence::Flowcell (class)">Flowcell</a></span>, <span class='object_link'><a href="Flowcell/Lane.html" title="Lims::Core::Persistence::Flowcell::Lane (class)">Flowcell::Lane</a></span>, <span class='object_link'><a href="Gel.html" title="Lims::Core::Persistence::Gel (class)">Gel</a></span>, <span class='object_link'><a href="Gel/Window.html" title="Lims::Core::Persistence::Gel::Window (class)">Gel::Window</a></span>, <span class='object_link'><a href="Labellable.html" title="Lims::Core::Persistence::Labellable (class)">Labellable</a></span>, <span class='object_link'><a href="Labellable/Label.html" title="Lims::Core::Persistence::Labellable::Label (class)">Labellable::Label</a></span>, <span class='object_link'><a href="Oligo.html" title="Lims::Core::Persistence::Oligo (class)">Oligo</a></span>, <span class='object_link'><a href="Order.html" title="Lims::Core::Persistence::Order (class)">Order</a></span>, <span class='object_link'><a href="Order/Item.html" title="Lims::Core::Persistence::Order::Item (class)">Order::Item</a></span>, <span class='object_link'><a href="Plate.html" title="Lims::Core::Persistence::Plate (class)">Plate</a></span>, <span class='object_link'><a href="Plate/Well.html" title="Lims::Core::Persistence::Plate::Well (class)">Lims::Core::Persistence::Plate::Well</a></span>, <span class='object_link'><a href="Sample.html" title="Lims::Core::Persistence::Sample (class)">Sample</a></span>, <span class='object_link'><a href="Search/Persistor.html" title="Lims::Core::Persistence::Search::Persistor (class)">Search::Persistor</a></span>, <span class='object_link'><a href="SpinColumn.html" title="Lims::Core::Persistence::SpinColumn (class)">SpinColumn</a></span>, <span class='object_link'><a href="SpinColumn/SpinColumnAliquot.html" title="Lims::Core::Persistence::SpinColumn::SpinColumnAliquot (class)">SpinColumn::SpinColumnAliquot</a></span>, <span class='object_link'><a href="Study.html" title="Lims::Core::Persistence::Study (class)">Study</a></span>, <span class='object_link'><a href="TagGroup.html" title="Lims::Core::Persistence::TagGroup (class)">TagGroup</a></span>, <span class='object_link'><a href="TagGroup/Association.html" title="Lims::Core::Persistence::TagGroup::Association (class)">TagGroup::Association</a></span>, <span class='object_link'><a href="Tube.html" title="Lims::Core::Persistence::Tube (class)">Tube</a></span>, <span class='object_link'><a href="Tube/TubeAliquot.html" title="Lims::Core::Persistence::Tube::TubeAliquot (class)">Tube::TubeAliquot</a></span>, <span class='object_link'><a href="TubeRack.html" title="Lims::Core::Persistence::TubeRack (class)">TubeRack</a></span>, <span class='object_link'><a href="TubeRack/Slot.html" title="Lims::Core::Persistence::TubeRack::Slot (class)">TubeRack::Slot</a></span>, <span class='object_link'><a href="User.html" title="Lims::Core::Persistence::User (class)">User</a></span>, <span class='object_link'><a href="UuidResource.html" title="Lims::Core::Persistence::UuidResource (class)">UuidResource</a></span></p>
+  <p class="children"><span class='object_link'><a href="Aliquot.html" title="Lims::Core::Persistence::Aliquot (class)">Aliquot</a></span>, <span class='object_link'><a href="Batch.html" title="Lims::Core::Persistence::Batch (class)">Batch</a></span>, <span class='object_link'><a href="Flowcell.html" title="Lims::Core::Persistence::Flowcell (class)">Flowcell</a></span>, <span class='object_link'><a href="Flowcell/Lane.html" title="Lims::Core::Persistence::Flowcell::Lane (class)">Flowcell::Lane</a></span>, <span class='object_link'><a href="Gel.html" title="Lims::Core::Persistence::Gel (class)">Gel</a></span>, <span class='object_link'><a href="Gel/Window.html" title="Lims::Core::Persistence::Gel::Window (class)">Gel::Window</a></span>, <span class='object_link'><a href="Labellable.html" title="Lims::Core::Persistence::Labellable (class)">Labellable</a></span>, <span class='object_link'><a href="Labellable/Label.html" title="Lims::Core::Persistence::Labellable::Label (class)">Labellable::Label</a></span>, <span class='object_link'><a href="Oligo.html" title="Lims::Core::Persistence::Oligo (class)">Oligo</a></span>, <span class='object_link'><a href="Order.html" title="Lims::Core::Persistence::Order (class)">Order</a></span>, <span class='object_link'><a href="Order/Item.html" title="Lims::Core::Persistence::Order::Item (class)">Order::Item</a></span>, <span class='object_link'><a href="Plate.html" title="Lims::Core::Persistence::Plate (class)">Plate</a></span>, <span class='object_link'><a href="Plate/Well.html" title="Lims::Core::Persistence::Plate::Well (class)">Lims::Core::Persistence::Plate::Well</a></span>, <span class='object_link'><a href="Sample.html" title="Lims::Core::Persistence::Sample (class)">Sample</a></span>, <span class='object_link'><a href="Search/Persistor.html" title="Lims::Core::Persistence::Search::Persistor (class)">Search::Persistor</a></span>, <span class='object_link'><a href="SpinColumn.html" title="Lims::Core::Persistence::SpinColumn (class)">SpinColumn</a></span>, <span class='object_link'><a href="SpinColumn/SpinColumnAliquot.html" title="Lims::Core::Persistence::SpinColumn::SpinColumnAliquot (class)">SpinColumn::SpinColumnAliquot</a></span>, <span class='object_link'><a href="Study.html" title="Lims::Core::Persistence::Study (class)">Study</a></span>, <span class='object_link'><a href="TagGroup.html" title="Lims::Core::Persistence::TagGroup (class)">TagGroup</a></span>, <span class='object_link'><a href="TagGroup/Association.html" title="Lims::Core::Persistence::TagGroup::Association (class)">TagGroup::Association</a></span>, <span class='object_link'><a href="Tube.html" title="Lims::Core::Persistence::Tube (class)">Tube</a></span>, <span class='object_link'><a href="Tube/TubeAliquot.html" title="Lims::Core::Persistence::Tube::TubeAliquot (class)">Tube::TubeAliquot</a></span>, <span class='object_link'><a href="TubeRack.html" title="Lims::Core::Persistence::TubeRack (class)">TubeRack</a></span>, <span class='object_link'><a href="TubeRack/Slot.html" title="Lims::Core::Persistence::TubeRack::Slot (class)">TubeRack::Slot</a></span>, <span class='object_link'><a href="User.html" title="Lims::Core::Persistence::User (class)">User</a></span>, <span class='object_link'><a href="UuidResource.html" title="Lims::Core::Persistence::UuidResource (class)">UuidResource</a></span></p>
 </div>
 
 
@@ -163,6 +163,27 @@ and or parameter specific to a session/thread.</p>
     <span class="summary_desc"><div class='inline'>
 <p>Load a model by different criteria.</p>
 </div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#batch_filter-instance_method" title="#batch_filter (instance method)">- (Persistor) <strong>batch_filter</strong>(criteria) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -681,6 +702,71 @@ depending of the parameter. Note that loaded object are automatically
   <span class='kw'>when</span> <span class='const'>Fixnum</span> <span class='kw'>then</span> <span class='id get_or_create_single_model'>get_or_create_single_model</span><span class='lparen'>(</span><span class='id id'>id</span><span class='rparen'>)</span>
   <span class='kw'>when</span> <span class='const'>Hash</span> <span class='kw'>then</span> <span class='id find_by'>find_by</span><span class='lparen'>(</span><span class='id filter_attributes_on_save'>filter_attributes_on_save</span><span class='lparen'>(</span><span class='id id'>id</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='symbol'>:single</span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="batch_filter-instance_method">
+  
+    - (<tt><span class='object_link'><a href="" title="Lims::Core::Persistence::Persistor (class)">Persistor</a></span></tt>) <strong>batch_filter</strong>(criteria) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>criteria</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="" title="Lims::Core::Persistence::Persistor (class)">Persistor</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+27
+28
+29</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/batch_filter.rb', line 27</span>
+
+<span class='kw'>def</span> <span class='id batch_filter'>batch_filter</span><span class='lparen'>(</span><span class='id criteria'>criteria</span><span class='rparen'>)</span>
+  <span class='id raise'>raise</span> <span class='const'>NotImplementedError</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>batch_filter methods needs to be implemented for subclass of Persistor</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
