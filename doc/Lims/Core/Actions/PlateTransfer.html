@@ -84,7 +84,7 @@
   
     
       <dt class="r2">Includes:</dt>
-      <dd class="r2"><span class='object_link'><a href="Action.html" title="Lims::Core::Actions::Action (module)">Action</a></span></dd>
+      <dd class="r2"><span class='object_link'><a href="Action.html" title="Lims::Core::Actions::Action (module)">Action</a></span>, <span class='object_link'><a href="TransferAction.html" title="Lims::Core::Actions::TransferAction (module)">TransferAction</a></span></dd>
       
     
   
@@ -119,11 +119,18 @@ attributes.</p>
   
   
   
+  
+  
+  
+  
   <h3 class="inherited">Constants included from <span class='object_link'><a href="Action.html" title="Lims::Core::Actions::Action (module)">Action</a></span></h3>
   <p class="inherited"><span class='object_link'><a href="Action.html#InvalidParameters-constant" title="Lims::Core::Actions::Action::InvalidParameters (constant)">InvalidParameters</a></span>, <span class='object_link'><a href="Action.html#UnrevertableAction-constant" title="Lims::Core::Actions::Action::UnrevertableAction (constant)">UnrevertableAction</a></span></p>
 
 
 
+  
+  
+  
   
   
   
@@ -172,6 +179,16 @@ plate.</p>
   
   
   
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="TransferAction.html" title="Lims::Core::Actions::TransferAction (module)">TransferAction</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="TransferAction.html#included-class_method" title="Lims::Core::Actions::TransferAction.included (method)">included</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
   <h3 class="inherited">Methods included from <span class='object_link'><a href="Action.html" title="Lims::Core::Actions::Action (module)">Action</a></span></h3>
   <p class="inherited"><span class='object_link'><a href="Action.html#included-class_method" title="Lims::Core::Actions::Action.included (method)">included</a></span></p>
 
@@ -206,33 +223,19 @@ plate.</p>
       <pre class="lines">
 
 
-24
-25
 26
 27
 28
 29
-30
-31
-32
-33
-34
-35</pre>
+30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/actions/plate_transfer.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/actions/plate_transfer.rb', line 26</span>
 
 <span class='kw'>def</span> <span class='id _call_in_session'>_call_in_session</span><span class='lparen'>(</span><span class='id session'>session</span><span class='rparen'>)</span>
-    <span class='id transfer_map'>transfer_map</span><span class='period'>.</span><span class='id each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id from'>from</span> <span class='comma'>,</span><span class='id to'>to</span><span class='op'>|</span>
-      <span class='id target'>target</span><span class='lbracket'>[</span><span class='id to'>to</span><span class='rbracket'>]</span> <span class='op'>&lt;&lt;</span> <span class='id source'>source</span><span class='lbracket'>[</span><span class='id from'>from</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id take_fraction'>take_fraction</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>
-
-      <span class='kw'>unless</span> <span class='id aliquot_type'>aliquot_type</span><span class='period'>.</span><span class='id nil?'>nil?</span>
-        <span class='id target'>target</span><span class='lbracket'>[</span><span class='id to'>to</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id aliquot'>aliquot</span><span class='op'>|</span>
-          <span class='id aliquot'>aliquot</span><span class='period'>.</span><span class='id type'>type</span> <span class='op'>=</span> <span class='id aliquot_type'>aliquot_type</span>
-        <span class='kw'>end</span>
-      <span class='kw'>end</span>
-    <span class='kw'>end</span>
-    <span class='id target'>target</span>
+  <span class='id transfers'>transfers</span> <span class='op'>=</span> <span class='id _transfers'>_transfers</span>
+  <span class='id transfer_hash'>transfer_hash</span> <span class='op'>=</span> <span class='id _transfer'>_transfer</span><span class='lparen'>(</span><span class='id transfers'>transfers</span><span class='comma'>,</span> <span class='id _amounts'>_amounts</span><span class='lparen'>(</span><span class='id transfers'>transfers</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id session'>session</span><span class='rparen'>)</span>
+  <span class='id transfer_hash'>transfer_hash</span><span class='lbracket'>[</span><span class='symbol'>:targets</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
