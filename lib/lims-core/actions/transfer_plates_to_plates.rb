@@ -1,5 +1,6 @@
 require 'lims/core/actions/action'
 require 'lims/core/actions/transfer_action'
+require 'lims/core/actions/transfers_parameters'
 
 module Lims::Core
   module Actions
@@ -19,12 +20,13 @@ module Lims::Core
     class TransferPlatesToPlates
       include Action
       include TransferAction
+      include TransfersParameters
 
       # transfer the given fraction of aliquot from plate-like asset(s)
       # to plate-like asset(s)
       def _call_in_session(session)
 
-        _transfer(transfers, _amounts(transfers))
+        _transfer(transfers, _amounts(transfers), session)
 
       end
     end

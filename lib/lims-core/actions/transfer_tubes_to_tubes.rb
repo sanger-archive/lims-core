@@ -1,5 +1,6 @@
 require 'lims/core/actions/action'
 require 'lims/core/actions/transfer_action'
+require 'lims/core/actions/transfers_parameters'
 
 require 'lims/core/laboratory/spin_column'
 require 'lims/core/laboratory/tube'
@@ -18,12 +19,13 @@ module Lims::Core
     class TransferTubesToTubes
       include Action
       include TransferAction
+      include TransfersParameters
 
       # transfer the given fraction of aliquot from tube-like asset(s)
       # to tube-like asset(s)
       def _call_in_session(session)
 
-        _transfer(transfers, _amounts(transfers))
+        _transfer(transfers, _amounts(transfers), session)
 
       end
     end
