@@ -4,25 +4,6 @@ module Lims::Core
 
       def self.included(klass)
         klass.class_eval do
-          include Virtus
-          include Aequitas
-          attribute :transfers, Array, :required => true, :writer => :private
-
-          def _validate_parameters
-            raise ArgumentError, "The transfer array should not be null." unless transfers
-            raise ArgumentError, "You should give the fraction OR the amount of the transfer, not both." unless valid_amount_and_fraction
-          end
-
-          def valid_amount_and_fraction
-            valid = true
-            transfers.each do |transfer|
-              if (transfer["fraction"].nil? && transfer["amount"].nil?) || (transfer["fraction"] && transfer["amount"])
-                valid = false
-                break
-              end
-            end
-            valid
-          end
 
           # Converts the fraction to amount and store it in an array
           def _amounts(transfers)
@@ -40,7 +21,7 @@ module Lims::Core
               # Converts the fraction to the amount of the aliquot
               # and use it later when transfering to the target asset
               if fraction
-                amounts << source.quantity * fraction
+                amounts << (source.quantity ? source.quantity * fraction : nil)
               else
                 amounts << amount
               end
@@ -50,7 +31,7 @@ module Lims::Core
 
           # Do the transfers from source asset(s) to target asset(s)
           # It is working for tube-like and plate-like asset(s), too.
-          def _transfer(transfers, amounts)
+          def _transfer(transfers, amounts, session)
             sources = []
             targets = []
 
@@ -92,6 +73,21 @@ module Lims::Core
             end
 
             { :sources => sources.uniq, :targets => targets.uniq}
+          end
+
+          def _transfers
+            transfers = []
+            transfer_map.each do |from, to|
+              transfers <<
+                { "source" => source,
+                  "source_location" => from,
+                  "target" => target,
+                  "target_location" => to,
+                  "fraction" => 1,
+                  "aliquot_type" => aliquot_type
+                }
+            end
+            transfers
           end
 
         end
