@@ -248,7 +248,7 @@ bait library.</p>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id included'>included</span><span class='lparen'>(</span><span class='id klass'>klass</span><span class='rparen'>)</span>
   <span class='id klass'>klass</span><span class='period'>.</span><span class='id class_eval'>class_eval</span> <span class='kw'>do</span>
-    <span class='id include'>include</span> <span class='const'>Resource</span>
+    <span class='id include'>include</span> <span class='const'>Base</span>
 
     <span class='id is_array_of'>is_array_of</span><span class='lparen'>(</span><span class='const'>Aliquot</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id l'>l</span><span class='comma'>,</span><span class='id t'>t</span><span class='op'>|</span> <span class='const'>Array</span><span class='period'>.</span><span class='id new'>new</span> <span class='rbrace'>}</span>
 
@@ -290,7 +290,7 @@ bait library.</p>
 </span>    <span class='kw'>def</span> <span class='id take_amount'>take_amount</span><span class='lparen'>(</span><span class='id amount'>amount</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id dimension'>dimension</span><span class='op'>=</span><span class='const'>Aliquot</span><span class='op'>::</span><span class='const'>Volume</span><span class='rparen'>)</span>
       <span class='comment'># @todo : implement
 </span>      <span class='comment'># take_fraction
-</span>      <span class='id take_fraction'>take_fraction</span><span class='lparen'>(</span><span class='id amount'>amount</span> <span class='op'>&amp;&amp;</span> <span class='id quantity'>quantity</span><span class='lparen'>(</span><span class='id dimension'>dimension</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id amount'>amount</span><span class='op'>/</span><span class='id quantity'>quantity</span><span class='lparen'>(</span><span class='id dimension'>dimension</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+</span>      <span class='id take_fraction'>take_fraction</span><span class='lparen'>(</span><span class='id amount'>amount</span> <span class='op'>&amp;&amp;</span> <span class='id quantity'>quantity</span><span class='lparen'>(</span><span class='id dimension'>dimension</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id amount'>amount</span><span class='op'>/</span><span class='id quantity'>quantity</span><span class='lparen'>(</span><span class='id dimension'>dimension</span><span class='rparen'>)</span><span class='period'>.</span><span class='id to_f'>to_f</span> <span class='op'>:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
     <span class='kw'>end</span>
 
     <span class='comment'># Takes (removes) a specified amount of each aliquots (proportionally)
