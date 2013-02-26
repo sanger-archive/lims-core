@@ -99,8 +99,11 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>This action moves physically tubes from a source rack to a target rack
-according to a transfer map.</p>
+<p>This <span class='object_link'><a href="Action.html" title="Lims::Core::Actions::Action (module)">Action</a></span> moves physically tubes from source racks to target racks. It
+takes an array, which contains the elements of the movement. An element has
+a source, source_location, target and target_location. Source and targets
+are tube racks. The source/target_location is the tube location (like "A1")
+from move the tube and to move the tube.</p>
 
 
   </div>
@@ -151,7 +154,7 @@ according to a transfer map.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Move tubes from a source tube rack to a target tube rack.</p>
+<p>Move tubes from source tube racks to target tube racks.</p>
 </div></span>
   
 </li>
@@ -186,10 +189,10 @@ according to a transfer map.</p>
 </p><div class="docstring">
   <div class="discussion">
     
-<p>Move tubes from a source tube rack to a target tube rack. If a tube is
+<p>Move tubes from source tube racks to target tube racks. If a tube is
 already present in the target location, a RackPositionNotEmpty exception is
 raised in the Laboratory::TubeRack class. The tube is removed from the
-source tube rack.</p>
+source tube rack  after moving to its target location.</p>
 
 
   </div>
@@ -203,27 +206,45 @@ source tube rack.</p>
       <pre class="lines">
 
 
-21
-22
-23
-24
 25
 26
 27
 28
-29</pre>
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/actions/tube_rack_move.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/actions/tube_rack_move.rb', line 25</span>
 
 <span class='kw'>def</span> <span class='id _call_in_session'>_call_in_session</span><span class='lparen'>(</span><span class='id session'>session</span><span class='rparen'>)</span>
-  <span class='id move_map'>move_map</span><span class='period'>.</span><span class='id each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id from'>from</span><span class='comma'>,</span> <span class='id to'>to</span><span class='op'>|</span>
+  <span class='id targets'>targets</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='id moves'>moves</span><span class='period'>.</span><span class='id each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id move'>move</span><span class='op'>|</span>
+    <span class='id source'>source</span> <span class='op'>=</span> <span class='id move'>move</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>source</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+    <span class='id from'>from</span> <span class='op'>=</span> <span class='id move'>move</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>source_location</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+    <span class='id target'>target</span> <span class='op'>=</span> <span class='id move'>move</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>target</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+    <span class='id to'>to</span> <span class='op'>=</span> <span class='id move'>move</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>target_location</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+
     <span class='kw'>unless</span> <span class='id source'>source</span><span class='lbracket'>[</span><span class='id from'>from</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id nil?'>nil?</span>
       <span class='id target'>target</span><span class='lbracket'>[</span><span class='id to'>to</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id source'>source</span><span class='lbracket'>[</span><span class='id from'>from</span><span class='rbracket'>]</span>
       <span class='id source'>source</span><span class='lbracket'>[</span><span class='id from'>from</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>nil</span>
     <span class='kw'>end</span>
+
+    <span class='id targets'>targets</span> <span class='op'>&lt;&lt;</span> <span class='id target'>target</span>
   <span class='kw'>end</span>
-  <span class='id target'>target</span>
+
+  <span class='id targets'>targets</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
