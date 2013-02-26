@@ -44,25 +44,19 @@ module Lims::Core
               aliquot_type = transfer["aliquot_type"]
 
               # do the element transfer according to the given transfer (map)
-              if target.class == Lims::Core::Laboratory::TubeRack
-                tube = Lims::Core::Laboratory::Tube.new
-                session << tube
-                target[to] = tube
-              end
-
-              _target, _source = nil, nil
+              target_element, source_element = nil, nil
               if from
-                _source = source[from]
-                _target = target[to]
+                source_element = source[from]
+                target_element = target[to]
               else
-                _source = source
-                _target = target
+                source_element = source
+                target_element = target
               end
-              _target << _source.take_amount(amount)
+              target_element << source_element.take_amount(amount)
 
               # change the aliquot_type of the target
               unless aliquot_type.nil?
-                _target.each do |aliquot|
+                target_element.each do |aliquot|
                   aliquot.type = aliquot_type
                 end
               end
