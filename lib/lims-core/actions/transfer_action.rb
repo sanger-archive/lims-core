@@ -67,8 +67,8 @@ module Lims::Core
                 end
               end
 
-              sources << _source
-              targets << _target
+              sources << source
+              targets << target
 
             end
 
