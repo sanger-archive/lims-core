@@ -235,7 +235,7 @@ plate.</p>
 <span class='kw'>def</span> <span class='id _call_in_session'>_call_in_session</span><span class='lparen'>(</span><span class='id session'>session</span><span class='rparen'>)</span>
   <span class='id transfers'>transfers</span> <span class='op'>=</span> <span class='id _transfers'>_transfers</span>
   <span class='id transfer_hash'>transfer_hash</span> <span class='op'>=</span> <span class='id _transfer'>_transfer</span><span class='lparen'>(</span><span class='id transfers'>transfers</span><span class='comma'>,</span> <span class='id _amounts'>_amounts</span><span class='lparen'>(</span><span class='id transfers'>transfers</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id session'>session</span><span class='rparen'>)</span>
-  <span class='id transfer_hash'>transfer_hash</span><span class='lbracket'>[</span><span class='symbol'>:targets</span><span class='rbracket'>]</span>
+  <span class='id transfer_hash'>transfer_hash</span><span class='lbracket'>[</span><span class='symbol'>:targets</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id first'>first</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
