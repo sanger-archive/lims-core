@@ -38,7 +38,7 @@ module Lims::Core
           targets << target
         end
 
-        targets
+        targets.uniq
       end
 
     end
