@@ -77,10 +77,11 @@ module Lims::Core
           end
         end
 
-        context "valid transfer" do
+        context "valid transfer", :focus => true do
           let(:target_tube_rack1) { new_empty_tube_rack }
           let(:target_tube_rack2) { new_empty_tube_rack }
           before(:each) { subject.call }
+          its(:result) { subject.size.should == 2 }
           subject do
             described_class.new(:store => store, :user => user, :application => application) do |action,session|
               source_tube_rack1, source_tube_rack2 = [source1_id, source2_id].map { |uuid| session.tube_rack[uuid] }
