@@ -28,7 +28,6 @@ module Lims::Core::Persistence::Sequel::Migrations
       end
 
       create_table :lanes do
-        #primary_key :flowcell_id, :position
         primary_key :id
         foreign_key :flowcell_id, :flowcells, :key => :id
         Integer :position
