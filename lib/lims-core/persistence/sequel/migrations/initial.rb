@@ -68,19 +68,6 @@ module Lims::Core::Persistence::Sequel::Migrations
         foreign_key :aliquot_id, :aliquots, :key => :id
       end
 
-      create_table :gels do
-        primary_key :id
-        Integer :number_of_rows
-        Integer :number_of_columns
-      end
-
-      create_table :windows do
-        primary_key :id
-        foreign_key :gel_id, :gels, :key => :id
-        Integer :position
-        foreign_key :aliquot_id, :aliquots, :key => :id
-      end
-
       create_table :tube_racks do
         primary_key :id
         Integer :number_of_rows
