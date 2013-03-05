@@ -118,3 +118,4 @@ end
 end
 require 'lims/core/laboratory/barcode_2d'
 require 'lims/core/laboratory/sanger_barcode'
+require 'lims/core/laboratory/ean13_barcode'

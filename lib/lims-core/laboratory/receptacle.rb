@@ -1,7 +1,7 @@
 # vi: ts=2 sts=2 et sw=2 spell spelllang=en  
 require 'common'
 require 'lims/core/laboratory/aliquot'
-require 'lims/core/resource'
+require 'lims/core/base'
 
 require 'forwardable'
 
@@ -14,7 +14,7 @@ module Lims::Core
 
       def self.included(klass)
         klass.class_eval do
-          include Resource
+          include Base
 
           is_array_of(Aliquot) { |l,t| Array.new }
 
@@ -56,7 +56,7 @@ module Lims::Core
           def take_amount(amount=nil, dimension=Aliquot::Volume)
             # @todo : implement
             # take_fraction
-            take_fraction(amount && quantity(dimension) ? amount/quantity(dimension) : nil)
+            take_fraction(amount && quantity(dimension) ? amount/quantity(dimension).to_f : nil)
           end
 
           # Takes (removes) a specified amount of each aliquots (proportionally)

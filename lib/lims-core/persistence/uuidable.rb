@@ -20,6 +20,21 @@ module Lims::Core
         end
       end
 
+      # Retrieve  id from an object or a Hash with a uuid key
+      # A list of uuids will 
+      def id_for(object)
+        case object
+        when Array
+          object.map { |o| id_for(o) }
+        when Hash
+          id_for(object[:uuid] || object["uuid"])
+        when String 
+          # We assume it is an uuid
+          self.uuid_resource[:uuid => pack_uuid(object)].andtap {  |ur| ur.key }
+        else
+          super
+        end
+      end
       # Compute the name (string) used to be saved in the Uuid table.
       # @param [Class] model_class class of the resource
       # @return [String]
