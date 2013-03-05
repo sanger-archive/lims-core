@@ -1,6 +1,7 @@
 require 'lims/core/persistence/gel'
 require 'lims/core/persistence/sequel/persistor'
 require 'lims/core/persistence/sequel/container'
+require 'lims/core/persistence/sequel/container_element'
 
 module Lims::Core
   module Persistence

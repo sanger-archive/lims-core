@@ -28,7 +28,6 @@ module Lims::Core::Persistence::Sequel::Migrations
       end
 
       create_table :lanes do
-        #primary_key :flowcell_id, :position
         primary_key :id
         foreign_key :flowcell_id, :flowcells, :key => :id
         Integer :position
@@ -64,19 +63,6 @@ module Lims::Core::Persistence::Sequel::Migrations
       create_table :wells do
         primary_key :id
         foreign_key :plate_id, :plates, :key => :id
-        Integer :position
-        foreign_key :aliquot_id, :aliquots, :key => :id
-      end
-
-      create_table :gels do
-        primary_key :id
-        Integer :number_of_rows
-        Integer :number_of_columns
-      end
-
-      create_table :windows do
-        primary_key :id
-        foreign_key :gel_id, :gels, :key => :id
         Integer :position
         foreign_key :aliquot_id, :aliquots, :key => :id
       end
