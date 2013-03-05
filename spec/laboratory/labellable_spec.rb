@@ -62,6 +62,6 @@ module Lims::Core::Laboratory
   describe Labellable::Label do
     it_behaves_like "label creator", "sanger-barcode", SangerBarcode
     it_behaves_like "label creator", "2d-barcode", Barcode2D
-    it_behaves_like "label creator", "EAN13-barcode", EAN13Barcode
+    it_behaves_like "label creator", "ean13-barcode", EAN13Barcode
   end
 end
