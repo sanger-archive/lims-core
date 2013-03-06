@@ -220,13 +220,7 @@
 85
 86
 87
-88
-89
-90
-91
-92
-93
-94</pre>
+88</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/actions/transfer_action.rb', line 5</span>
@@ -273,25 +267,19 @@
         <span class='id aliquot_type'>aliquot_type</span> <span class='op'>=</span> <span class='id transfer'>transfer</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>aliquot_type</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
 
         <span class='comment'># do the element transfer according to the given transfer (map)
-</span>        <span class='kw'>if</span> <span class='id target'>target</span><span class='period'>.</span><span class='id class'>class</span> <span class='op'>==</span> <span class='const'>Lims</span><span class='op'>::</span><span class='const'>Core</span><span class='op'>::</span><span class='const'>Laboratory</span><span class='op'>::</span><span class='const'>TubeRack</span>
-          <span class='id tube'>tube</span> <span class='op'>=</span> <span class='const'>Lims</span><span class='op'>::</span><span class='const'>Core</span><span class='op'>::</span><span class='const'>Laboratory</span><span class='op'>::</span><span class='const'>Tube</span><span class='period'>.</span><span class='id new'>new</span>
-          <span class='id session'>session</span> <span class='op'>&lt;&lt;</span> <span class='id tube'>tube</span>
-          <span class='id target'>target</span><span class='lbracket'>[</span><span class='id to'>to</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id tube'>tube</span>
-        <span class='kw'>end</span>
-
-        <span class='id _target'>_target</span><span class='comma'>,</span> <span class='id _source'>_source</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='kw'>nil</span>
+</span>        <span class='id target_element'>target_element</span><span class='comma'>,</span> <span class='id source_element'>source_element</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='kw'>nil</span>
         <span class='kw'>if</span> <span class='id from'>from</span>
-          <span class='id _source'>_source</span> <span class='op'>=</span> <span class='id source'>source</span><span class='lbracket'>[</span><span class='id from'>from</span><span class='rbracket'>]</span>
-          <span class='id _target'>_target</span> <span class='op'>=</span> <span class='id target'>target</span><span class='lbracket'>[</span><span class='id to'>to</span><span class='rbracket'>]</span>
+          <span class='id source_element'>source_element</span> <span class='op'>=</span> <span class='id source'>source</span><span class='lbracket'>[</span><span class='id from'>from</span><span class='rbracket'>]</span>
+          <span class='id target_element'>target_element</span> <span class='op'>=</span> <span class='id target'>target</span><span class='lbracket'>[</span><span class='id to'>to</span><span class='rbracket'>]</span>
         <span class='kw'>else</span>
-          <span class='id _source'>_source</span> <span class='op'>=</span> <span class='id source'>source</span>
-          <span class='id _target'>_target</span> <span class='op'>=</span> <span class='id target'>target</span>
+          <span class='id source_element'>source_element</span> <span class='op'>=</span> <span class='id source'>source</span>
+          <span class='id target_element'>target_element</span> <span class='op'>=</span> <span class='id target'>target</span>
         <span class='kw'>end</span>
-        <span class='id _target'>_target</span> <span class='op'>&lt;&lt;</span> <span class='id _source'>_source</span><span class='period'>.</span><span class='id take_amount'>take_amount</span><span class='lparen'>(</span><span class='id amount'>amount</span><span class='rparen'>)</span>
+        <span class='id target_element'>target_element</span> <span class='op'>&lt;&lt;</span> <span class='id source_element'>source_element</span><span class='period'>.</span><span class='id take_amount'>take_amount</span><span class='lparen'>(</span><span class='id amount'>amount</span><span class='rparen'>)</span>
 
         <span class='comment'># change the aliquot_type of the target
 </span>        <span class='kw'>unless</span> <span class='id aliquot_type'>aliquot_type</span><span class='period'>.</span><span class='id nil?'>nil?</span>
-          <span class='id _target'>_target</span><span class='period'>.</span><span class='id each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id aliquot'>aliquot</span><span class='op'>|</span>
+          <span class='id target_element'>target_element</span><span class='period'>.</span><span class='id each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id aliquot'>aliquot</span><span class='op'>|</span>
             <span class='id aliquot'>aliquot</span><span class='period'>.</span><span class='id type'>type</span> <span class='op'>=</span> <span class='id aliquot_type'>aliquot_type</span>
           <span class='kw'>end</span>
         <span class='kw'>end</span>
