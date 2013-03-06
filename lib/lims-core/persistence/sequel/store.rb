@@ -2,6 +2,7 @@
 
 require 'lims/core/persistence'
 require 'lims/core/persistence/sequel/session'
+require 'lims/core/persistence/sequel/persistor'
 
 require 'sequel'
 
