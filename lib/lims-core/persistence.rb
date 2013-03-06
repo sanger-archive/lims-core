@@ -64,7 +64,7 @@ require 'lims/core/persistence/session'
 require 'lims/core/persistence/search'
 require 'lims/core/persistence/message_bus'
 
-unless  defined?(Lims::Core::Persistence::NO_AUTOLOAD)
+unless  defined?(Lims::Core::NO_AUTOLOAD)
   require 'lims/core/persistence/aliquot'
   require 'lims/core/persistence/sample'
   require 'lims/core/persistence/flowcell'
