@@ -8,26 +8,18 @@ module Lims
     #
     MINOR_DEV = %{
     --llh1
-    x
     --ke4
-    x
-    x
     --mb14
-    x
-    x
-    x
 
   }
     MAJOR_DEV = %{
     --llh1
     --ke4
-    x
-    x
     --mb14
 
 }
 
 
-    VERSION = "1.3.0.#{MAJOR_DEV.scan(/\sx/i).size}.#{MINOR_DEV.scan(/\sx/i).size}"
+    VERSION = "1.4.0.#{MAJOR_DEV.scan(/\sx/i).size}.#{MINOR_DEV.scan(/\sx/i).size}"
   end
 end
