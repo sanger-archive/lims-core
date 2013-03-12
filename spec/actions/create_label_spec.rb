@@ -35,7 +35,6 @@ module Lims::Core
       subject { result }
       it { should be_a(Lims::Core::Laboratory::Labellable) }
 
-      subject { labellable_result }
       its(:positions) { should_not be_empty }
       its(:positions) { should be_a(Array) }
       its(:labels) { should_not be_empty }
@@ -47,7 +46,7 @@ module Lims::Core
     end
 
     shared_examples_for "a labellable" do
-      subject { labellable_result }
+      subject { result }
       its(:name) { should == location }
       its(:name) { should_not be_empty }
       its(:name) { should be_a(String) }
@@ -62,7 +61,6 @@ module Lims::Core
 
     shared_context "creating a Labellable with label(s)" do
       let(:result) { created_label.call() }
-      let(:labellable_result) { result[:labellable] }
     end
 
     describe CreateLabel do
