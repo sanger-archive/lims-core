@@ -26,7 +26,7 @@ module Lims::Core
 
         session << labellable
 
-        labellable
+        {:labellable => labellable}
       end
 
     end
