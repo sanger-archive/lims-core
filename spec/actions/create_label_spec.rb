@@ -32,7 +32,7 @@ module Lims::Core
     end
 
     shared_examples_for "a label" do
-      subject { result }
+      subject { result[:labellable] }
       it { should be_a(Lims::Core::Laboratory::Labellable) }
 
       its(:positions) { should_not be_empty }
@@ -46,7 +46,7 @@ module Lims::Core
     end
 
     shared_examples_for "a labellable" do
-      subject { result }
+      subject { result[:labellable] }
       its(:name) { should == location }
       its(:name) { should_not be_empty }
       its(:name) { should be_a(String) }
