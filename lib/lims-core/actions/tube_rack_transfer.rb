@@ -32,7 +32,7 @@ module Lims::Core
             target[to] << source[from].take_fraction(1)
           end
         end
-        target
+        {:tube_rack => target}
       end
     end
   end
