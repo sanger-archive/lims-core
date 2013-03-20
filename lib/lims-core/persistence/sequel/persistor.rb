@@ -18,7 +18,7 @@ module Lims::Core
           klass.class_eval do
             # @return [String] the name of SQL table.
             def self.table_name
-              @table_name ||= name.split('::').last.pluralize.snakecase.to_sym
+              @table_name ||= name.sub('Persistor', '').split('::').last.pluralize.snakecase.to_sym
             end
             # The Sequel::Dataset.
             # Corresponds to table.
