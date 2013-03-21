@@ -31,7 +31,7 @@ module Lims::Core
           labellable_dataset = @session.labellable.__multi_criteria_filter(criteria).dataset
 
           # join labellabe request to uuid_resource
-          persistor = self.class.new(self, labellable_dataset.join("uuid_resources", :uuid => :"name"))
+          persistor = self.class.new(self, labellable_dataset.join("uuid_resources", :uuid => :"name").select(:key).qualify(:uuid_resources))
 
           # join everything to current resource table
           # Qualify method is needed to get only the fields related to the searched
