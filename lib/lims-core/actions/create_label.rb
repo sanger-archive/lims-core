@@ -26,7 +26,7 @@ module Lims::Core
 
         session << labellable
 
-        { :labellable => labellable, :uuid => session.uuid_for!(labellable) }
+        {:labellable => labellable}
       end
 
     end

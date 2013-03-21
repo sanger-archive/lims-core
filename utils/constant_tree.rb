@@ -4,7 +4,7 @@
 
 if ARGV[0]
   require 'lims-core/' +  ARGV[0].tr(?-,?/)
-else
+elsif  __FILE__ == $0  # file ran as a script, not required by another one
   require 'lims-core'
 end
 
