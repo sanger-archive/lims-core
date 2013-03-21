@@ -24,6 +24,6 @@ module Lims
 }
 
 
-    VERSION = "1.4.0.#{MAJOR_DEV.scan(/\sx/i).size}.#{MINOR_DEV.scan(/\sx/i).size}"
+    VERSION = "1.4.1.#{MAJOR_DEV.scan(/\sx/i).size}.#{MINOR_DEV.scan(/\sx/i).size}"
   end
 end
