@@ -164,19 +164,6 @@
       <span class='id foreign_key'>foreign_key</span> <span class='symbol'>:aliquot_id</span><span class='comma'>,</span> <span class='symbol'>:aliquots</span><span class='comma'>,</span> <span class='symbol'>:key</span> <span class='op'>=&gt;</span> <span class='symbol'>:id</span>
     <span class='kw'>end</span>
 
-    <span class='id create_table'>create_table</span> <span class='symbol'>:gels</span> <span class='kw'>do</span>
-      <span class='id primary_key'>primary_key</span> <span class='symbol'>:id</span>
-      <span class='const'>Integer</span> <span class='symbol'>:number_of_rows</span>
-      <span class='const'>Integer</span> <span class='symbol'>:number_of_columns</span>
-    <span class='kw'>end</span>
-
-    <span class='id create_table'>create_table</span> <span class='symbol'>:windows</span> <span class='kw'>do</span>
-      <span class='id primary_key'>primary_key</span> <span class='symbol'>:id</span>
-      <span class='id foreign_key'>foreign_key</span> <span class='symbol'>:gel_id</span><span class='comma'>,</span> <span class='symbol'>:gels</span><span class='comma'>,</span> <span class='symbol'>:key</span> <span class='op'>=&gt;</span> <span class='symbol'>:id</span>
-      <span class='const'>Integer</span> <span class='symbol'>:position</span>
-      <span class='id foreign_key'>foreign_key</span> <span class='symbol'>:aliquot_id</span><span class='comma'>,</span> <span class='symbol'>:aliquots</span><span class='comma'>,</span> <span class='symbol'>:key</span> <span class='op'>=&gt;</span> <span class='symbol'>:id</span>
-    <span class='kw'>end</span>
-
     <span class='id create_table'>create_table</span> <span class='symbol'>:tube_racks</span> <span class='kw'>do</span>
       <span class='id primary_key'>primary_key</span> <span class='symbol'>:id</span>
       <span class='const'>Integer</span> <span class='symbol'>:number_of_rows</span>
