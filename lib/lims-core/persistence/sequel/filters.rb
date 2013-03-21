@@ -60,7 +60,7 @@ module Lims::Core
           end
           
           # Join order dataset with the uuid_resources table 
-          order_dataset = order_dataset.join(:uuid_resources, :uuid => :items__uuid)            
+          order_dataset = order_dataset.join(:uuid_resources, :uuid => :items__uuid).select(:key).qualify(:uuid_resources) 
 
           # Join order dataset with the resource dataset
           # Qualify method is needed to get only the fields related
