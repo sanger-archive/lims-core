@@ -4,7 +4,7 @@ require 'lims-core/organization/batch'
 
 module Lims::Core
   module Organization
-    class Batch::BatchPersistor < Persistor
+    class Batch::BatchPersistor < Persistence::Persistor
       Model = Organization::Batch
     end
   end

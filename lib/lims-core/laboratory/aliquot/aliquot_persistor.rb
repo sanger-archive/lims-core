@@ -10,7 +10,7 @@ module Lims::Core
     # Base for all Aliquot persistor.
     # Real implementation classes (e.g. Sequel::Aliquot) should
     # include the suitable persistor.
-    class Aliquot::AliquotPersistor < Persistor
+    class Aliquot::AliquotPersistor < Persistence::Persistor
       Model = Laboratory::Aliquot
     end
   end

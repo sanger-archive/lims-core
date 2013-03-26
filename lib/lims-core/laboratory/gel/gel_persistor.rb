@@ -9,7 +9,7 @@ module Lims::Core
     # Base for all Gel persistor.
     # Real implementation classes (e.g. Sequel::Gel) should
     # include the suitable persistor.
-    class Gel::GelPersistor < Persistor
+    class Gel::GelPersistor < Persistence::Persistor
       Model = Laboratory::Gel
 
       include Container
@@ -26,7 +26,7 @@ module Lims::Core
       # Base for all Window persistor.
       # Real implementation classes (e.g. Sequel::Window) should
       # include the suitable persistor.
-      class Window < Persistor
+      class Window < Persistence::Persistor
         Model = Laboratory::Gel::Window
 
         include ContainerElement

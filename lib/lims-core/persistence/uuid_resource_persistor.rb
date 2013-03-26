@@ -6,7 +6,7 @@ require 'lims-core/persistence/uuid_resource'
 
 module Lims::Core
   module  Persistence
-    class UuidResource::UuidResourcePersistor < Persistor
+    class UuidResource::UuidResourcePersistor < Persistence::Persistor
       Model = UuidResource
 
       def filter_attributes_on_save(attributes)

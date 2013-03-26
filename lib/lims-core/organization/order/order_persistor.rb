@@ -6,7 +6,7 @@ require 'lims-core/organization/order'
 module Lims::Core
   module Organization
     # Base for all Order persistor.
-    class Order::OrderPersistor < Persistor
+    class Order::OrderPersistor < Persistence::Persistor
       Model = Organization::Order
 
       # Saves all children of the given order
@@ -43,7 +43,7 @@ module Lims::Core
         @session.send("Order::Item")
       end
 
-      class Item < Persistor
+      class Item < Persistence::Persistor
         Model = Organization::Order::Item
 
         def filter_attributes_on_save(attributes, order_id=nil, role=nil)

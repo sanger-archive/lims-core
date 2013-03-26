@@ -10,14 +10,14 @@ module Lims::Core
     # Base for all Flowcell persistor.
     # Real implementation classes (e.g. Sequel::Flowcell) should
     # include the suitable persistor.
-    class Flowcell::FlowcellPersistor < Persistor
+    class Flowcell::FlowcellPersistor < Persistence::Persistor
       Model = Laboratory::Flowcell
 
       # @abstract
       # Base for all Lane persistor.
       # Real implementation classes (e.g. Sequel::Lane) should
       # include the suitable persistor.
-      class Lane < Persistor
+      class Lane < Persistence::Persistor
         Model = Laboratory::Flowcell::Lane
         def save(lane, flowcell_id, position)
           #todo bulk save if needed

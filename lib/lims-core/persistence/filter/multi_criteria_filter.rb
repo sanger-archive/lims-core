@@ -1,6 +1,8 @@
 # vi: ts=2:sts=2:et:sw=2 spell:spelllang=en
-require 'lims-core/persistence/filter_persistor'
+
+require 'lims-core/persistence/filter'
 require 'lims-core/resource'
+
 
 module Lims::Core
   module Persistence
@@ -21,7 +23,7 @@ module Lims::Core
     #   Will look for all the orders in pending or in progress status
     #   *holding* a plate with a pending status.
     #    
-    class Filter::OrderFilterPersistor < Filter 
+    class Filter::MultiCriteriaFilter <  Filter
       include Resource
       attribute :criteria, Hash, :required => true
       # For Sequel, keys needs to be a Symbol to be seen as column.
@@ -33,15 +35,15 @@ module Lims::Core
       end
 
       def call(persistor)
-        persistor.order_filter(criteria)
+        persistor.multi_criteria_filter(criteria)
       end
     end
 
     class Persistor
       # @param [Hash] criteria a 
       # @return [Persistor] 
-      def order_filter(criteria)
-        raise NotImplementedError "order_filter methods needs to be implemented for subclass of Persistor"
+      def multi_criteria_filter(criteria)
+        raise NotImplementedError "multi_criteria_filter methods needs to be implemented for subclass of Persistor"
       end
     end
   end

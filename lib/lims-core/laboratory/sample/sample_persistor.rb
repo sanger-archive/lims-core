@@ -10,7 +10,7 @@ module Lims::Core
     # Base for all Sample persistor.
     # Real implementation classes (e.g. Sequel::Aliquot) should
     # include the suitable persistor.
-    class Sample::SamplePersistor < Persistor
+    class Sample::SamplePersistor < Persistence::Persistor
       Model = Laboratory::Sample
 
       # Doesn't update. At the moment, samples are managed as an external table

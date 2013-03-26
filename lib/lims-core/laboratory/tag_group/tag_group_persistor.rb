@@ -10,7 +10,7 @@ module Lims::Core
     # Base for all Plate persistor.
     # Real implementation classes (e.g. Sequel::Plate) should
     # include the suitable persistor.
-    class TagGroup::TagGroupPersistor < Persistor
+    class TagGroup::TagGroupPersistor < Persistence::Persistor
       Model = Laboratory::TagGroup
 
       # Save all children of the given group
@@ -45,7 +45,7 @@ module Lims::Core
       # This class doesn't exist in the model
       # but is there to modelize the association.
       # It probably correspond to one table on the database.
-      class Association < Persistor
+      class Association < Persistence::Persistor
       end
     end
   end

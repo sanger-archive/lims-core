@@ -3,7 +3,7 @@
 require 'common'
 require 'forwardable'
 
-require 'lims-core/persistence/filter_persistor'
+require 'lims-core/persistence/filter'
 
 module Lims::Core
     module  Persistence
@@ -174,7 +174,7 @@ module Lims::Core
         # This can be used to "reset" a filtered persistor to the current session.
         # @param [Persistor] persistor
         # @return [Persistor]
-        def filter_persistor(persistor)
+        def filter(persistor)
           # If the persistor session is the current session, there is nothing to do
           # just return the object as it is.
           return persistor if  persistor.instance_eval {@session} == self
@@ -203,7 +203,7 @@ module Lims::Core
         # @return [Persistor, nil]
         def persistor_for(object)
           if object.is_a?(Persistor)
-            return filter_persistor(object)
+            return filter(object)
           end
           name = persistor_name_for(object)
           @persistor_map[name]  ||= begin 

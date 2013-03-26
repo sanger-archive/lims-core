@@ -2,8 +2,8 @@
 require 'persistence/sequel/spec_helper'
 require 'persistence/sequel/page_shared'
 
-require 'lims-core/persistence/filter/multi_criteria_filter_persistor'
-require 'lims-core/persistence/filter/order_filter_persistor'
+require 'lims-core/persistence/filter/multi_criteria_filter'
+require 'lims-core/persistence/filter/order_filter'
 
 module Lims::Core
   module Persistence

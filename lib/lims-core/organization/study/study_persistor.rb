@@ -6,7 +6,7 @@ require 'lims-core/organization/study'
 module Lims::Core
   module Organization
     # Base for all Study persistors.
-    class Study::StudyPersistor < Persistor
+    class Study::StudyPersistor < Persistence::Persistor
       Model = Organization::Study
     end
   end

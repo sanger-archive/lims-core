@@ -9,7 +9,7 @@ require 'persistence/resource_shared'
 # Model requirements
 require 'lims-core/persistence/search/search_sequel_persistor'
 require 'lims-core/laboratory/plate'
-require 'lims-core/persistence/filter/order_filter_persistor'
+require 'lims-core/persistence/filter/order_filter'
 
 require 'logger'
 module Lims::Core

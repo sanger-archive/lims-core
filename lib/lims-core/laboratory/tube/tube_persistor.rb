@@ -10,7 +10,7 @@ module Lims::Core
     # Base for all Tube persistor.
     # Real implementation classes (e.g. Sequel::Tube) should
     # include the suitable persistor.
-    class Tube::TubePersistor < Persistor
+    class Tube::TubePersistor < Persistence::Persistor
       Model = Laboratory::Tube
 
       # Save all children of the given tube
@@ -28,7 +28,7 @@ module Lims::Core
         @session.send("Tube::TubeAliquot")
       end
 
-      class Tube::TubePersistorAliquot < Persistor
+      class Tube::TubePersistorAliquot < Persistence::Persistor
       end
 
       # Load all children of the given tube

@@ -10,7 +10,7 @@ module Lims::Core
     # Base for all Plate persistor.
     # Real implementation classes (e.g. Sequel::Plate) should
     # include the suitable persistor.
-    class Oligo::OligoPersistor < Persistor
+    class Oligo::OligoPersistor < Persistence::Persistor
       Model = Laboratory::Oligo
     end
   end

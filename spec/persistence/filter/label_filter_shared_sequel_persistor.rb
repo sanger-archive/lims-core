@@ -1,7 +1,7 @@
 # Spec requirements
 require 'persistence/sequel/spec_helper'
 
-require 'lims-core/persistence/filter/label_filter_persistor'
+require 'lims-core/persistence/filter/label_filter'
 
 module Lims::Core
 

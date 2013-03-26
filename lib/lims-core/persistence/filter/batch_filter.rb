@@ -1,10 +1,10 @@
 # vi: ts=2:sts=2:et:sw=2 spell:spelllang=en
-require 'lims-core/persistence/filter_persistor'
+require 'lims-core/persistence/filter'
 require 'lims-core/resource'
 
 module Lims::Core
   module Persistence
-    class Filter::BatchFilterPersistor < Filter
+    class Filter::BatchFilter < Filter
       include Resource
       attribute :criteria, Hash, :required => true
       

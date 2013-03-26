@@ -7,7 +7,7 @@ module Lims::Core
     # Base for all Spin Column persistor.
     # Real implementation classes (e.g. Sequel::SpinColumn) should
     # include the suitable persistor.
-    class SpinColumn::SpinColumnPersistor < Persistor
+    class SpinColumn::SpinColumnPersistor < Persistence::Persistor
       Model = Laboratory::SpinColumn
 
       # Save all children of the given spin column
@@ -25,7 +25,7 @@ module Lims::Core
         @session.send("SpinColumn::SpinColumnAliquot")
       end
 
-      class SpinColumn::SpinColumnPersistorAliquot < Persistor
+      class SpinColumn::SpinColumnPersistorAliquot < Persistence::Persistor
       end
 
       # Load all children of the given spin column

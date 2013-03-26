@@ -10,7 +10,7 @@ module Lims::Core
     # Base for all TubeRack persistor.
     # Real implementation classes (e.g. Sequel::TubeRack) should
     # include the suitable persistor.
-    class TubeRack::TubeRackPersistor < Persistor
+    class TubeRack::TubeRackPersistor < Persistence::Persistor
       Model = Laboratory::TubeRack
 
       # Save all children of the given tube_rack
@@ -41,7 +41,7 @@ module Lims::Core
         @session.send("TubeRack::Slot")
       end
 
-      class Slot < Persistor
+      class Slot < Persistence::Persistor
       end
     end
   end

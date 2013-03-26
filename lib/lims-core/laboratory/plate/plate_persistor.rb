@@ -11,7 +11,7 @@ module Lims::Core
     # Base for all Plate persistor.
     # Real implementation classes (e.g. Sequel::Plate) should
     # include the suitable persistor.
-    class Plate::PlatePersistor < Persistor
+    class Plate::PlatePersistor < Persistence::Persistor
       Model = Laboratory::Plate
 
       include Container
@@ -28,7 +28,7 @@ module Lims::Core
       # Base for all Well persistor.
       # Real implementation classes (e.g. Sequel::Well) should
       # include the suitable persistor.
-      class Well < Persistor
+      class Well < Persistence::Persistor
         Model = Laboratory::Plate::Well
 
         include ContainerElement
