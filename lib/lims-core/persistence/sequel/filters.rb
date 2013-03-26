@@ -4,7 +4,7 @@ require 'active_support/inflector'
 module Lims::Core
   module Persistence
     # Implementes filter methods needed by persitors.
-    module Filter::FiltersSequelPersistor
+    module Sequel::Filters
       # Implement a multicriteria filter for a Sequel::Persistor.
       # Value can be either a String, an Array  or a Hash.
       # Strings and Arrays are normal filters, whereas Hashes
