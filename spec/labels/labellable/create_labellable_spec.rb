@@ -53,7 +53,7 @@ module Lims::Core
         include_context("setup required attributes", "my test plate", "plate")
 
         context "to be valid Laballable" do
-          subject { Lims::Core::Laboratory::Labellable }
+          subject { Lims::Core::Labels::Labellable }
           specify { subject.new(required_parameters).should be_valid }
         end
 

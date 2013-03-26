@@ -29,7 +29,7 @@ module Lims::Core
       class Window < Persistence::Persistor
         Model = Laboratory::Gel::Window
 
-        include ContainerElement
+        include Container::ContainerElementPersistor
 
       end
     end

@@ -23,7 +23,7 @@ module Lims::Core
     #   Will look for all the orders in pending or in progress status
     #   *holding* a plate with a pending status.
     #    
-    class LabelFilter < Fi_persistorlter 
+    class LabelFilter < Filter 
       include Resource
       attribute :criteria, Hash, :required => true
       # For Sequel, keys needs to be a Symbol to be seen as column.

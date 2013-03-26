@@ -14,7 +14,7 @@ require 'lims-core/laboratory/tube_rack'
 
 require 'lims-core/persistence/filter/label_filter'
 require 'lims-core/labels/labellable'
-require 'lims-core/laboratory/sanger_barcode'
+require 'lims-core/labels/sanger_barcode'
 
 module Lims::Core
 

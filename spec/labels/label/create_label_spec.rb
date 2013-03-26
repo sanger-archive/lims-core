@@ -16,7 +16,7 @@ module Lims::Core
       let(:label_type) { "sanger-barcode" }
       let(:label_value) { "1234-ABC" }
       let(:labellable) {
-        Laboratory::Labellable.new({:name => location, :type => "resource"})
+        Labels::Labellable.new({:name => location, :type => "resource"})
       }
     end
 
@@ -33,7 +33,7 @@ module Lims::Core
 
     shared_examples_for "a label" do
       subject { result }
-      it { should be_a(Lims::Core::Laboratory::Labellable) }
+      it { should be_a(Lims::Core::Labels::Labellable) }
 
       its(:positions) { should_not be_empty }
       its(:positions) { should be_a(Array) }

@@ -2,12 +2,12 @@ require 'lims-core/persistence/persistor'
 require 'lims-core/labels/labellable'
 
 # needs to require all label subclasses
-require 'lims-core/laboratory/sanger_barcode'
+require 'lims-core/labels/sanger_barcode'
 
 module Lims::Core
   module Labels
     class Labellable::LabellablePersistor < Persistence::Persistor
-      Model = Laboratory::Labellable
+      Model = Labels::Labellable
 
       def label
         @session.send("Labellable::Label")
@@ -29,7 +29,7 @@ module Lims::Core
 
 
       class Label < Persistence::Persistor
-        Model = Laboratory::Labellable::Label
+        Model = Labels::Labellable::Label
       end
     end
   end

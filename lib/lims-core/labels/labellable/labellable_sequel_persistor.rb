@@ -45,7 +45,7 @@ module Lims::Core
           def load(labellable_id)
             dataset.filter(:labellable_id => labellable_id).each do |att|
               position = att.delete(:position)
-              label =  Laboratory::Labellable::Label::new(att)
+              label =  Labels::Labellable::Label::new(att)
               yield(position, label)
             end
           end

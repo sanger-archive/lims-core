@@ -116,6 +116,6 @@ module Lims::Core
   end
 end
 end
-require 'lims-core/laboratory/barcode_2d'
-require 'lims-core/laboratory/sanger_barcode'
-require 'lims-core/laboratory/ean13_barcode'
+require 'lims-core/labels/barcode_2d'
+require 'lims-core/labels/sanger_barcode'
+require 'lims-core/labels/ean13_barcode'

@@ -31,7 +31,7 @@ module Lims::Core
       class Well < Persistence::Persistor
         Model = Laboratory::Plate::Well
 
-        include ContainerElement
+        include Container::ContainerElementPersistor
 
       end
     end

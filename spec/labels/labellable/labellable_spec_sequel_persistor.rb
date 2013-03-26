@@ -4,17 +4,17 @@ require 'persistence/sequel/store_shared'
 
 # Model requirements
 require 'lims-core/labels/labellable/labellable_persistor'
-require 'lims-core/laboratory/sanger_barcode'
+require 'lims-core/labels/sanger_barcode'
 
 module Lims::Core
-  describe Laboratory::Labellable do
+  describe Labels::Labellable do
     include_context "sequel store"
 
     let(:name) { "test plate" }
     let(:type) { "plate" }
-    let(:content) { { "front barcode" => Laboratory::SangerBarcode.new({ :value =>"12345ABC" }) } }
+    let(:content) { { "front barcode" => Labels::SangerBarcode.new({ :value =>"12345ABC" }) } }
     let(:parameters) { { :name => name, :type => type, :content => content } }
-    let(:labellable) { Laboratory::Labellable.new(parameters) }
+    let(:labellable) { Labels::Labellable.new(parameters) }
     
     context "when created within a session" do
       it "should modify the labellable table" do
@@ -36,7 +36,7 @@ module Lims::Core
         loaded_labellable.name.should == labellable.name
         loaded_labellable.type.should == labellable.type
         loaded_labellable.content.should == labellable.content
-        loaded_labellable["front barcode"].should be_a(Laboratory::SangerBarcode)
+        loaded_labellable["front barcode"].should be_a(Labels::SangerBarcode)
       end
     end
 

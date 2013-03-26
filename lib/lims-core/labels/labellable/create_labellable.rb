@@ -13,11 +13,11 @@ module Lims::Core
       attribute :labels, Hash, :default => {}, :writer => :private, :initializable => true
 
       def _call_in_session(session)
-        labellable = Laboratory::Labellable.new(:name => name,
+        labellable = Labels::Labellable.new(:name => name,
                                                 :type => type)
 
         labels.each { |position, label|
-          created_label = Laboratory::Labellable::Label.new(:type => label["type"],
+          created_label = Labels::Labellable::Label.new(:type => label["type"],
                                                     :value => label["value"])
 
           labellable[position]= created_label
@@ -29,7 +29,7 @@ module Lims::Core
       end
     end
   end
-  module Laboratory
+  module Labels
     class Labellable
       Create = Actions::CreateLabellable
     end

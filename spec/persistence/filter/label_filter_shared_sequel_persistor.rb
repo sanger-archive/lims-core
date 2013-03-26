@@ -9,10 +9,10 @@ module Lims::Core
     context "with a label" do
       let(:label_position) { "front barcode" }
       let(:label_value) { "01234" }
-      let(:label) { Laboratory::SangerBarcode.new(:value => label_value) }
+      let(:label) { Labels::SangerBarcode.new(:value => label_value) }
       let!(:labellable) { 
         store.with_session do |session|
-          session << labellable = Laboratory::Labellable.new(:name => uuid, :type => "resource")
+          session << labellable = Labels::Labellable.new(:name => uuid, :type => "resource")
           labellable[label_position] = label
           labellable
         end

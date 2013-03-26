@@ -8,7 +8,7 @@ module Lims::Core
     class Label::CreateLabel
       include Action
 
-      attribute :labellable, Lims::Core::Laboratory::Labellable, :required => true, :writer => :private, :initializable => true
+      attribute :labellable, Lims::Core::Labels::Labellable, :required => true, :writer => :private, :initializable => true
       attribute :type, String, :required => true, :writer => :private, :initializable => true
       attribute :value, String, :required => true, :writer => :private, :initializable => true
       attribute :position, String, :required => true, :writer => :private, :initializable => true
@@ -19,7 +19,7 @@ module Lims::Core
       end
 
       def _call_in_session(session)
-        label = Laboratory::Labellable::Label.new(:type => type,
+        label = Labels::Labellable::Label.new(:type => type,
                                       :value => value)
 
         labellable[position] = label
@@ -32,7 +32,7 @@ module Lims::Core
     end
   end
 
-  module Laboratory
+  module Labels
     class Labellable
       Update = Actions::CreateLabel
     end
