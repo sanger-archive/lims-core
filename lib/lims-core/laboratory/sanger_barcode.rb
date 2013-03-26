@@ -1,6 +1,6 @@
 require 'common'
 
-require 'lims-core/laboratory/labellable'
+require 'lims-core/labels/labellable'
 
 module Lims::Core
   module Laboratory

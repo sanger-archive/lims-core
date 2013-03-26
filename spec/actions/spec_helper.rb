@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-require 'lims/core/persistence/store'
-require 'lims/core/persistence/session'
+require 'lims-core/persistence/store'
+require 'lims-core/persistence/session'
 
 shared_context "create object" do
   let (:uuid) { "00000000-1111-2222-3333-444444444444" }

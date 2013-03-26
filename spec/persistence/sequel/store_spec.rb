@@ -2,7 +2,7 @@
 require 'persistence/sequel/spec_helper'
 
 # Model requirements
-require 'lims/core/persistence/sequel/store'
+require 'lims-core/persistence/sequel/store'
 
 module Lims::Core::Persistence
     describe Sequel::Store do

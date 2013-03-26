@@ -3,7 +3,7 @@ require 'persistence/logger/spec_helper'
 
 # Model requirements
 require 'logger'
-require 'lims/core/persistence/logger/store'
+require 'lims-core/persistence/logger/store'
 
 module Lims::Core::Persistence
   P = self

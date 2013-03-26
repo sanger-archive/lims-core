@@ -1,8 +1,8 @@
 # vi: ts=2:sts=2:et:sw=2
 
 require 'logger'
-require 'lims/core/persistence'
-require 'lims/core/persistence/store'
+require 'lims-core/persistence'
+require 'lims-core/persistence/store'
 
 module Lims::Core
   module Persistence

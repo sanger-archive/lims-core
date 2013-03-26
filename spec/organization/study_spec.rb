@@ -3,7 +3,7 @@ require 'organization/spec_helper'
 require 'organization/releasable_examples'
 
 # Model requirements
-require 'lims/core/organization/study'
+require 'lims-core/organization/study'
 
 module Lims::Core::Organization
   describe Study do

@@ -3,7 +3,7 @@ require 'laboratory/spec_helper'
 require 'laboratory/receptacle_examples'
 
 # Model requirements
-require 'lims/core/laboratory/flowcell'
+require 'lims-core/laboratory/flowcell'
 
 module Lims::Core::Laboratory
   describe Flowcell::Lane  do

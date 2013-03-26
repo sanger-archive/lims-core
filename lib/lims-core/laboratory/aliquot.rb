@@ -2,9 +2,9 @@
 require 'common'
 
 
-require 'lims/core/laboratory/sample'
-require 'lims/core/laboratory/oligo'
-require 'lims/core/resource'
+require 'lims-core/laboratory/sample'
+require 'lims-core/laboratory/oligo'
+require 'lims-core/resource'
 
 module Lims::Core
   module Laboratory

@@ -2,7 +2,7 @@
 require 'persistence/spec_helper'
 
 # Model requirements
-require 'lims/core/persistence/identity_map'
+require 'lims-core/persistence/identity_map'
 
 
 

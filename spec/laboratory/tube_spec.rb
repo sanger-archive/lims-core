@@ -2,10 +2,10 @@
 require 'laboratory/spec_helper'
 require 'laboratory/located_examples'
 require 'laboratory/receptacle_examples'
-require 'laboratory/labellable_examples'
+require 'labels/labellable_examples'
 
 # Model requirements
-require 'lims/core/laboratory/tube'
+require 'lims-core/laboratory/tube'
 
 module Lims::Core::Laboratory
   describe Tube  do

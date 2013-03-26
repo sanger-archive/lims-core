@@ -1,12 +1,12 @@
 # Spec requirements
 require 'laboratory/located_examples'
 require 'laboratory/container_examples'
-require 'laboratory/labellable_examples'
+require 'labels/labellable_examples'
 
 require 'laboratory/receptacle_examples'
 
 # Model requirements
-require 'lims/core/laboratory/gel'
+require 'lims-core/laboratory/gel'
 
 module Lims::Core::Laboratory
   shared_examples "a valid gel" do

@@ -1,7 +1,7 @@
 # vi: ts=2:sts=2:et:sw=2 spell:spelllang=en
 require 'persistence/spec_helper'
 
-require 'lims/core/uuids/uuid_resource'
+require 'lims-core/persistence/uuid_resource'
 
 module Lims::Core
   module Uuids

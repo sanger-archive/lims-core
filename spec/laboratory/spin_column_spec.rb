@@ -1,10 +1,10 @@
 # Spec requirements
 require 'laboratory/located_examples'
 require 'laboratory/receptacle_examples'
-require 'laboratory/labellable_examples'
+require 'labels/labellable_examples'
 
 # Model requirement
-require 'lims/core/laboratory/spin_column'
+require 'lims-core/laboratory/spin_column'
 
 module Lims::Core::Laboratory
   describe SpinColumn  do

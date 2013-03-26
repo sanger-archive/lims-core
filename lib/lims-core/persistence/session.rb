@@ -3,7 +3,7 @@
 require 'common'
 require 'forwardable'
 
-require 'lims/core/persistence/filter'
+require 'lims-core/persistence/filter_persistor'
 
 module Lims::Core
     module  Persistence

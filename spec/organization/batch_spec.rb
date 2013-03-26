@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 # Model requirements
-require 'lims/core/organization/batch'
+require 'lims-core/organization/batch'
 
 module Lims::Core::Organization
   describe Batch do

@@ -1,7 +1,7 @@
 # vi: ts=2:sts=2:et:sw=2 spell:spelllang=en
 
-require 'lims/core/persistence/identity_map'
-require 'lims/core/persistence/sequel/filters'
+require 'lims-core/persistence/identity_map'
+require 'lims-core/persistence/filters_sequel_persistor'
 require 'active_support/inflector'
 
 

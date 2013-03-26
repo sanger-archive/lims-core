@@ -3,7 +3,7 @@ require 'laboratory/spec_helper'
 require 'organization/releasable_examples'
 
 # Model requirements
-require 'lims/core/laboratory/sample'
+require 'lims-core/laboratory/sample'
 
 module Lims::Core::Laboratory
   describe Sample do

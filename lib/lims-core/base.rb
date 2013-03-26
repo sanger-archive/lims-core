@@ -1,6 +1,6 @@
 # vi: ts=2 sts=2 et sw=2 spell spelllang=en  
 require 'common'
-require 'lims-core/container'
+require 'lims-core/laboratory/container'
 
 module Lims::Core
   module Base

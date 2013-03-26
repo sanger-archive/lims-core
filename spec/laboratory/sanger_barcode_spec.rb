@@ -1,9 +1,9 @@
 # Spec requirements
 require 'laboratory/spec_helper'
-require 'laboratory/label_examples'
+require 'labels/label_examples'
 
 # Model requirements
-require 'lims/core/laboratory/sanger_barcode'
+require 'lims-core/laboratory/sanger_barcode'
 
 module Lims::Core::Laboratory
 

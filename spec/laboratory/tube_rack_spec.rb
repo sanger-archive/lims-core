@@ -1,6 +1,6 @@
 require 'laboratory/container_examples'
-require 'laboratory/labellable_examples'
-require 'lims/core/laboratory/tube_rack'
+require 'labels/labellable_examples'
+require 'lims-core/laboratory/tube_rack'
 
 module Lims::Core::Laboratory
   shared_examples "a tube rack hash" do

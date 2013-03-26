@@ -3,7 +3,7 @@ require 'spec_helper'
 
 # Model requirements
 
-require 'lims/core/laboratory/flowcell'
+require 'lims-core/laboratory/flowcell'
 
 shared_context "flowcell factory" do
   def new_flowcell_with_samples(sample_nb=5)
