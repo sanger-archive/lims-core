@@ -1,4 +1,5 @@
 require 'common'
+require 'lims-core/resource'
 
 module Lims::Core
   module Labels

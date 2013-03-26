@@ -6,7 +6,7 @@ require 'lims-core/laboratory/flowcell'
 module Lims::Core
   module Laboratory
     class Flowcell::CreateFlowcell
-      include Action
+      include Actions::Action
 
       attribute :number_of_lanes, Fixnum, :required => true, :gte => 0, :writer => :private
 
@@ -30,7 +30,7 @@ module Lims::Core
   end
   module Laboratory
     class Flowcell
-      Create = Actions::CreateFlowcell
+      Create = CreateFlowcell
     end
   end
 end

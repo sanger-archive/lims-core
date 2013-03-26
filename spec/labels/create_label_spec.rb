@@ -5,7 +5,7 @@ require 'persistence/sequel/store_shared'
 
 # Model requirements
 require 'lims-core/labels/labellable/create_labellable'
-require 'lims-core/labels/label/create_label'
+require 'lims-core/labels/create_label'
 
 module Lims::Core
   module Labels

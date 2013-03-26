@@ -1,7 +1,7 @@
 require 'lims-core/labels/labellable/labellable_persistor'
 require 'lims-core/persistence/sequel/persistor'
 
-require 'lims-core/uuids/uuid_resource'
+require 'lims-core/persistence/uuid_resource'
 
 module Lims::Core
   module Labels

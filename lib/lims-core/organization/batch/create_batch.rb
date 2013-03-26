@@ -5,7 +5,7 @@ require 'lims-core/organization/batch'
 module Lims::Core
   module Organization
     class Batch::CreateBatch
-      include Action
+      include Actions::Action
 
       attribute :process, String, :required => false, :writer => :private
 
@@ -19,7 +19,7 @@ module Lims::Core
   end
   module Organization
     class Batch
-      Create = Actions::CreateBatch
+      Create = CreateBatch
     end
   end
 end

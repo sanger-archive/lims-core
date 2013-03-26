@@ -8,7 +8,7 @@ require 'lims-core/persistence/store'
 
 module Lims::Core
   module Organization
-    describe CreateBatch do
+    describe Batch::CreateBatch do
       context "with a valid store" do
         include_context "create object"
         let (:store) { Persistence::Store.new }

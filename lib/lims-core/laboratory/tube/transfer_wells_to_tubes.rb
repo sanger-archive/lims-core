@@ -11,7 +11,7 @@ module Lims::Core
     # It take a source and a target plate and a map telling which wells go in were.
     # For more details, see attributes.
     class Tube::TransferWellsToTubes
-      include Action
+      include Actions::Action
 
       attribute :plate, Laboratory::Plate, :required => true, :writer => :private
       attribute :well_to_tube_map, Hash, :required => true, :writer => :private

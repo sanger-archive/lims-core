@@ -10,7 +10,7 @@ require 'lims-core/persistence/sequel/store'
 
 module Lims::Core
   module Laboratory
-    describe TubeRackTransfer do
+    describe TubeRack::TubeRackTransfer do
       context "with a sequel store" do
         include_context "for application", "test tube rack transfer"
         include_context "prepare tables"

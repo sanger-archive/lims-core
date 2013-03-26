@@ -11,7 +11,7 @@ module Lims::Core
     # It take a source and a target plate and a map telling which wells go in were.
     # For more details, see attributes.
     class Plate::PlateTransfer
-      include Action
+      include Actions::Action
       include TransferAction
 
       attribute :source, Laboratory::Plate, :required => true, :writer => :private

@@ -8,7 +8,7 @@ require 'laboratory/receptacle_examples'
 # Model requirements
 require 'lims-core/labels/labellable'
 
-module Lims::Core::Laboratory
+module Lims::Core::Labels
   shared_examples_for "label creator" do |type, klass|
     it "should create the correct label class" do
       described_class.new(:type => type).should be_a klass

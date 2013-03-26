@@ -5,7 +5,7 @@ require 'lims-core/laboratory/tube_rack'
 module Lims::Core
   module Laboratory
     class TubeRack::CreateTubeRack
-      include Action
+      include Actions::Action
 
       %w(row column).each do |w|
         attribute :"number_of_#{w}s", Fixnum, :required => true, :gte => 0, :writer => :private
@@ -31,7 +31,7 @@ module Lims::Core
 
   module Laboratory
     class TubeRack
-      Create = Actions::CreateTubeRack
+      Create = CreateTubeRack
     end
   end
 end

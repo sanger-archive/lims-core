@@ -11,7 +11,7 @@ module Lims::Core
   module Laboratory
     shared_context "for empty plate" do
       subject do
-        CreatePlate.new(:store => store, :user => user, :application => application)  do |a,s|
+        Plate::CreatePlate.new(:store => store, :user => user, :application => application)  do |a,s|
           a.ostruct_update(dimensions)
           a.type = plate_type
         end
@@ -37,7 +37,7 @@ module Lims::Core
         end
       end
       subject do
-        CreatePlate.new(:store => store, :user => user, :application => application)  do |a,s|
+        Plate::CreatePlate.new(:store => store, :user => user, :application => application)  do |a,s|
           a.ostruct_update(dimensions)
           a.wells_description = wells_description
           a.type = plate_type
@@ -78,7 +78,7 @@ module Lims::Core
       let(:dimensions) {{ :number_of_rows => row, :number_of_columns => col }}
     end
 
-    describe CreatePlate do
+    describe Plate::CreatePlate do
       context "valid calling context" do
         let!(:store) { Persistence::Store.new() }
         include_context "plate or gel factory"

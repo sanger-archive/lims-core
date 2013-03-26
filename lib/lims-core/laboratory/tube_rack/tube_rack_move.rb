@@ -12,7 +12,7 @@ module Lims::Core
     # The source/target_location is the tube location (like "A1") from
     # move the tube and to move the tube.
     class TubeRack::TubeRackMove
-      include Action
+      include Actions::Action
 
       attribute :moves, Array, :required => true, :writer => :private
 

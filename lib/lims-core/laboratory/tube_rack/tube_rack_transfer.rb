@@ -7,7 +7,7 @@ module Lims::Core
     # This action transfers the content of a source tube rack
     # to a target tube rack according to a transfer map.
     class TubeRack::TubeRackTransfer
-      include Action
+      include Actions::Action
 
       attribute :source, Laboratory::TubeRack, :required => true, :writer => :private
       attribute :target, Laboratory::TubeRack, :required => true, :writer => :private

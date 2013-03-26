@@ -11,7 +11,7 @@ module Lims::Core
   module Laboratory
     shared_context "for empty gel" do
       subject do
-        CreateGel.new(:store => store, :user => user, :application => application)  do |a,s|
+        Gel::CreateGel.new(:store => store, :user => user, :application => application)  do |a,s|
           a.ostruct_update(dimensions)
         end
       end
@@ -36,7 +36,7 @@ module Lims::Core
         end
       end
       subject do
-        CreateGel.new(:store => store, :user => user, :application => application)  do |a,s|
+        Gel::CreateGel.new(:store => store, :user => user, :application => application)  do |a,s|
           a.ostruct_update(dimensions)
           a.windows_description = windows_description
         end
@@ -75,7 +75,7 @@ module Lims::Core
       let(:dimensions) {{ :number_of_rows => row, :number_of_columns => col }}
     end
 
-    describe CreateGel do
+    describe Gel::CreateGel do
       context "valid calling context" do
         let!(:store) { Persistence::Store.new() }
         include_context "plate or gel factory"

@@ -4,7 +4,7 @@ require 'persistence/spec_helper'
 require 'lims-core/persistence/uuid_resource'
 
 module Lims::Core
-  module Uuids
+  module Persistence
     describe UuidResource do
       context "#class" do
         subject { UuidResource }

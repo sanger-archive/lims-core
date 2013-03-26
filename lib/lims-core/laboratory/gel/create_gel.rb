@@ -6,7 +6,7 @@ require 'lims-core/laboratory/container/container'
 module Lims::Core
   module Laboratory
     class Gel::CreateGel
-      include Action
+      include Actions::Action
       include Container
 
       # @attribute [Hash<String, Array<Hash>>] windows_description
@@ -30,7 +30,7 @@ module Lims::Core
 
   module Laboratory
     class Gel
-      Create = Actions::CreateGel
+      Create = CreateGel
     end
   end
 end

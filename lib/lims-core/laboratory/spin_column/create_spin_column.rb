@@ -4,7 +4,7 @@ require 'lims-core/laboratory/spin_column'
 module Lims::Core
   module Laboratory
     class SpinColumn::CreateSpinColumn
-      include Action
+      include Actions::Action
 
       attribute :aliquots, Array, :default => []
 
@@ -26,7 +26,7 @@ module Lims::Core
 
   module Laboratory
     class SpinColumn
-      Create=Actions::CreateSpinColumn
+      Create = CreateSpinColumn
     end
   end
 end

@@ -6,7 +6,7 @@ require 'lims-core/laboratory/tube'
 module Lims::Core
   module Laboratory
     class Tube::CreateTube
-      include Action
+      include Actions::Action
 
       attribute :aliquots, Array, :default => []
       attribute :type, String, :required => false, :writer => :private
@@ -29,7 +29,7 @@ module Lims::Core
   end
   module Laboratory
     class Tube
-      Create=Actions::CreateTube
+      Create = CreateTube
     end
   end
 end

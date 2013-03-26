@@ -9,7 +9,7 @@ require 'lims-core/persistence/store'
 
 module Lims::Core
   module Laboratory
-    describe CreateTube do
+    describe Tube::CreateTube do
       context "with a valid store" do
         include_context "create object"
         let (:store) { Persistence::Store.new }
@@ -20,7 +20,7 @@ module Lims::Core
 
         context "create an empty tube" do
           subject do
-            CreateTube.new(:store => store, :user => user, :application => application)  do |a,s|
+            Tube::CreateTube.new(:store => store, :user => user, :application => application)  do |a,s|
               a.type = tube_type
               a.max_volume = tube_max_volume
             end
@@ -41,7 +41,7 @@ module Lims::Core
         context "create a tube with samples" do
           let(:sample) { new_sample(1) }
           subject do 
-            CreateTube.new(:store => store, :user => user, :application => application) do |a,s|
+            Tube::CreateTube.new(:store => store, :user => user, :application => application) do |a,s|
               a.aliquots = [{:sample => sample }] 
               a.type = tube_type
               a.max_volume = tube_max_volume

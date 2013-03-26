@@ -19,6 +19,7 @@ module Lims::Core
     # @param [Module] mod module to finalize
     # @paths [Array<String>]  paths where the persistor to finalize are defined
     def self.finalize_submodule(mod, paths=nil)
+		return # @todo remove after refactoring
       return if defined?(NO_AUTOLOAD) && !paths
       paths ||= ["#{mod.name.pathize.sub('lims-core/',"")}/*"]
       paths.map { |path| require_all(path) }

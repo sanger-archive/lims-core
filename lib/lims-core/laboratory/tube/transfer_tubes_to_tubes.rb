@@ -17,7 +17,7 @@ module Lims::Core
     # Fraction is the fraction of an aliquot to transfer.
     # Type is the type of the aliquot.
     class Tube::TransferTubesToTubes
-      include Action
+      include Actions::Action
       include TransferAction
       include TransfersParameters
 

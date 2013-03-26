@@ -7,7 +7,7 @@ require 'lims-core/laboratory/container/container'
 module Lims::Core
   module Laboratory
     class Plate::CreatePlate
-      include Action
+      include Actions::Action
       include Container
 
       # @attribute [Hash<String, Array<Hash>>] wells_description
@@ -37,7 +37,7 @@ module Lims::Core
 
   module Laboratory
     class Plate
-      Create = Actions::CreatePlate
+      Create = CreatePlate
     end
   end
 end

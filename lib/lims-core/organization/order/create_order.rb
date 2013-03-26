@@ -8,7 +8,7 @@ module Lims::Core
       # source items get a "done" status and
       # target items get a "pending" status on creation. 
     class Order::CreateOrder
-      include Action
+      include Actions::Action
 
       attribute :pipeline, String
       attribute :parameters, Hash, :default => {}
@@ -40,7 +40,7 @@ module Lims::Core
   end
   module Organization
     class Order
-      Create = Actions::CreateOrder
+      Create = CreateOrder
     end
   end
 end

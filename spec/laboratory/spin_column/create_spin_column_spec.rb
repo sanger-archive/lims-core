@@ -9,7 +9,7 @@ require 'lims-core/persistence/store'
 
 module Lims::Core
   module Laboratory
-    describe CreateSpinColumn do
+    describe SpinColumn::CreateSpinColumn do
       context "with a valid store" do
         include_context "create object"
         let (:store) { Persistence::Store.new }
@@ -17,7 +17,7 @@ module Lims::Core
 
         context "create an empty spin column" do
           subject do 
-            CreateSpinColumn.new(:store => store, :user => user, :application => application)  do |a,s|
+            SpinColumn::CreateSpinColumn.new(:store => store, :user => user, :application => application)  do |a,s|
             end
           end
           it_behaves_like "an action"
@@ -33,7 +33,7 @@ module Lims::Core
         context "create a spin column with samples" do
           let(:sample) { new_sample(1) }
           subject do 
-            CreateSpinColumn.new(:store => store, :user => user, :application => application, :aliquots => [{:sample => sample }]) do |a,s|
+            SpinColumn::CreateSpinColumn.new(:store => store, :user => user, :application => application, :aliquots => [{:sample => sample }]) do |a,s|
             end
           end
           it_behaves_like "an action"

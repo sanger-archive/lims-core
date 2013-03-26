@@ -16,7 +16,7 @@ module Lims::Core
 
     shared_context "for empty tube rack" do
       subject do
-        CreateTubeRack.new(:store => store, :user => user, :application => application) do |a,s|
+        TubeRack::CreateTubeRack.new(:store => store, :user => user, :application => application) do |a,s|
           a.ostruct_update(dimensions)
         end
       end
@@ -37,7 +37,7 @@ module Lims::Core
       }} 
 
       subject do
-        CreateTubeRack.new(:store => store, :user => user, :application => application) do |a,s|
+        TubeRack::CreateTubeRack.new(:store => store, :user => user, :application => application) do |a,s|
           a.ostruct_update(dimensions)
           a.tubes = tubes
         end
@@ -69,7 +69,7 @@ module Lims::Core
       end
     end
 
-    describe CreateTubeRack do
+    describe TubeRack::CreateTubeRack do
       context "valid calling context" do
         let!(:store) { Persistence::Store.new() }
         include_context "for application", "Test TubeRack creation"

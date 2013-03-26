@@ -18,7 +18,7 @@ module Lims::Core
     # You should give the fraction OR the amount of the transfer, not both of them.
     # Aliquot_type is the type of the aliquot (DNA, RNA, NA, sample etc...).
     class Plate::TransferPlatesToPlates
-      include Action
+      include Actions::Action
       include TransferAction
       include TransfersParameters
 

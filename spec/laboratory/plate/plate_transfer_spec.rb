@@ -11,7 +11,7 @@ require 'logger'
 
 module Lims::Core
   module Laboratory
-    describe PlateTransfer do
+    describe Plate::PlateTransfer do
       include_context "plate or gel factory"
         let(:user) { mock(:user) }
         let(:application) { "Test create plate" }

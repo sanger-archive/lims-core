@@ -9,7 +9,7 @@ require 'lims-core/persistence/search/search_persistor'
 module Lims::Core
   module Persistence
 
-    describe CreateSearch do
+    describe Search::CreateSearch do
       context "valid calling context" do
 
         include_context("for application",  "Test search creation")

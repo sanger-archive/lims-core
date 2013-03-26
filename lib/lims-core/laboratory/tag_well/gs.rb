@@ -5,8 +5,8 @@ require 'lims-core/laboratory/plate'
 
 module Lims::Core
   module Laboratory
-    class Tag::TagWells
-      include Action
+    class TagWells
+      include Actions::Action
 
       attribute :plate, Laboratory::Plate, :writer => :private
       attribute :well_to_tag_map, Hash, :writer => :private

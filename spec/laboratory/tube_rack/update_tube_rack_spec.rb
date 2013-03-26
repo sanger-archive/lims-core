@@ -9,7 +9,7 @@ require 'lims-core/laboratory/tube_rack'
 
 module Lims::Core
   module Laboratory
-    describe UpdateTubeRack do
+    describe TubeRack::UpdateTubeRack do
       include_context "for application", "test update tube rack"
       include_context "tube_rack factory"
       include_context "create object"

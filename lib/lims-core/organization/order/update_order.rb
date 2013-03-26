@@ -6,7 +6,7 @@ require 'lims-core/organization/order'
 module Lims::Core
   module Organization
     class Order::UpdateOrder
-      include Action
+      include Actions::Action
 
       #@ attribute :order
       #  The order to update.
@@ -78,7 +78,7 @@ module Lims::Core
 
   module Organization
     class Order
-      Update = Actions::UpdateOrder
+      Update = UpdateOrder
     end
   end
 end

@@ -326,7 +326,7 @@ module Lims::Core
       it_behaves_like "not changing status", :complete
     end
 
-    describe UpdateOrder do
+    describe Order::UpdateOrder do
       context "valid calling context" do
         let!(:store) { Persistence::Store.new() }
         include_context("for application",  "Test search creation")

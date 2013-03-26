@@ -5,7 +5,7 @@ require 'labels/label_examples'
 # Model requirements
 require 'lims-core/labels/sanger_barcode'
 
-module Lims::Core::Laboratory
+module Lims::Core::Labels
 
   describe SangerBarcode do
     let(:create_parameters) { {:value => "hello"} }

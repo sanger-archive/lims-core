@@ -9,7 +9,7 @@ module Lims::Core
     # Update a plate and set a new type and/or a new quantity to 
     # all its aliquots.
     class Plate::UpdatePlate
-      include Action
+      include Actions::Action
 
       # The plate to update
       attribute :plate, Laboratory::Plate, :required => true, :writer => :private
@@ -33,7 +33,7 @@ module Lims::Core
 
   module Laboratory
     class Plate
-      Update = Actions::UpdatePlate
+      Update = UpdatePlate
     end
   end
 end

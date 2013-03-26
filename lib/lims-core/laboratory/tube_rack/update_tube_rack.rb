@@ -6,7 +6,7 @@ module Lims::Core
   module Laboratory
     # Update a tube rack by updating each of its tube type or quantity.
     class TubeRack::UpdateTubeRack
-      include Action
+      include Actions::Action
 
       attribute :tube_rack, Laboratory::TubeRack, :required => true, :writer => :private
       attribute :aliquot_type, String, :required => false, :writer => :private
@@ -28,7 +28,7 @@ module Lims::Core
 
   module Laboratory
     class TubeRack
-      Update = Actions::UpdateTubeRack
+      Update = UpdateTubeRack
     end
   end
 end

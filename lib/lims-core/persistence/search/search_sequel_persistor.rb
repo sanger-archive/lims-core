@@ -1,6 +1,6 @@
 # vi: ts=2:sts=2:et:sw=2 spell:spelllang=en
 
-require 'lims-core/persistence/search_persistor'
+require 'lims-core/persistence/search/search_persistor'
 require 'lims-core/persistence/sequel/persistor'
 
 

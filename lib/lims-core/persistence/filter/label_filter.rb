@@ -5,7 +5,7 @@ require 'lims-core/resource'
 
 
 module Lims::Core
-  module Laboratory
+  module Persistence
     # Filter  performing a && between all the pairs of a map.
     # Key being the field
     # Value can be either a String, an Array  or a Hash.

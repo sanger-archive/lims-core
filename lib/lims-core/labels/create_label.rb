@@ -5,8 +5,8 @@ require 'lims-core/labels/labellable'
 
 module Lims::Core
   module Labels
-    class Label::CreateLabel
-      include Action
+    class CreateLabel
+      include Actions::Action
 
       attribute :labellable, Lims::Core::Labels::Labellable, :required => true, :writer => :private, :initializable => true
       attribute :type, String, :required => true, :writer => :private, :initializable => true
@@ -34,7 +34,7 @@ module Lims::Core
 
   module Labels
     class Labellable
-      Update = Actions::CreateLabel
+      Update = CreateLabel
     end
   end
 end

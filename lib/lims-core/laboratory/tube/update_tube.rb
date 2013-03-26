@@ -2,13 +2,14 @@
 require 'lims-core/actions/action'
 
 require 'lims-core/laboratory/tube'
+require 'lims-core/laboratory/spin_column'
 
 module Lims::Core
   module Laboratory
     # Update a tube and set a new type and/or a new quantity to 
     # all its aliquots.
     class Tube::UpdateTube
-      include Action
+      include Actions::Action
 
       # The tube to update
       attribute :tube, Laboratory::Tube, :required => true, :writer => :private
@@ -34,13 +35,13 @@ module Lims::Core
 
   module Laboratory
     class Tube
-      Update = Actions::UpdateTube
+      Update = UpdateTube
     end
 
     # As Tube and SpinColumn behave the same, update a spin column
     # redirects to update a tube action.
     class SpinColumn
-      Update = Actions::UpdateTube
+      Update = Tube::UpdateTube
     end
   end
 end

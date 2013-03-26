@@ -87,7 +87,7 @@ end
 
 module Lims::Core
   module Laboratory
-    describe TransferPlatesToPlates do
+    describe Plate::TransferPlatesToPlates do
       include_context "plate or gel factory"
       include_context "tube_rack factory"
 

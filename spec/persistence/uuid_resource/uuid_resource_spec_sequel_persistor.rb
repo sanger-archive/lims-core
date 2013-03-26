@@ -9,15 +9,13 @@ module Lims::Core
   module Persistence
     describe Sequel::UuidResource do
       include_context "sequel store"
-#      before  { Uuids::UuidResource.stub(:pack) { |s| s }  }
-#      before  { Uuids::UuidResource.stub(:unpack) { |s| s }  }
       context "#saving" do
         before (:each) {
           db[:uuid_resources].delete
         }
         let(:model) { Laboratory::Tube }
         let(:key) { 1 }
-        subject { Uuids::UuidResource.new(:model_class => model, :key => key) }
+        subject { UuidResource.new(:model_class => model, :key => key) }
         it "should modify the uuids table" do
           expect {
             store.with_session do |s|

@@ -1,7 +1,7 @@
 # vi: ts=2:sts=2:et:sw=2  spell:spelllang=en  
 require 'lims-core/actions/action'
 
-require 'lims-core/persistence/search_persistor'
+require 'lims-core/persistence/search/search_persistor'
 require 'lims-core/persistence/filter/multi_criteria_filter'
 require 'lims-core/persistence/filter/label_filter'
 require 'lims-core/persistence/filter/order_filter'
@@ -10,7 +10,7 @@ require 'lims-core/persistence/filter/batch_filter'
 module Lims::Core
   module Persistence
     class Search::CreateSearch
-      include Action
+      include Actions::Action
 
       attribute :description, String, :required => true
       attribute :model, String, :required => true
@@ -44,7 +44,7 @@ module Lims::Core
   end
   module Persistence
     class Search
-      Create = Actions::CreateSearch
+      Create = CreateSearch
     end
   end
 end

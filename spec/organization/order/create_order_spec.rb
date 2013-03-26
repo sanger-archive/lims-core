@@ -7,7 +7,7 @@ require 'lims-core/organization/order/create_order'
 
 module Lims::Core
   module Organization
-    describe CreateOrder do
+    describe Order::CreateOrder do
       shared_examples_for "creating an order" do
         include_context "create object"
         it_behaves_like "an action"
@@ -78,7 +78,7 @@ module Lims::Core
         include_context("for application",  "Test order creation")
 
         subject {
-          CreateOrder.new(:store => store, :user => user, :application => application) do |a,s|
+          Order::CreateOrder.new(:store => store, :user => user, :application => application) do |a,s|
             a.pipeline = pipeline
             a.parameters = parameters
             a.sources = sources

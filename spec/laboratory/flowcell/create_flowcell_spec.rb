@@ -12,7 +12,7 @@ module Lims::Core
 
     shared_context "for empty flowcell" do
       subject do
-        CreateFlowcell.new(:store => store, :user => user, :application => application) do |action,session|
+        Flowcell::CreateFlowcell.new(:store => store, :user => user, :application => application) do |action,session|
           action.ostruct_update(number_of_lanes_hash)
         end
       end
@@ -51,7 +51,7 @@ module Lims::Core
         end
       end
       subject do
-        CreateFlowcell.new(:store => store, :user => user, :application => application)  do |action,session|
+        Flowcell::CreateFlowcell.new(:store => store, :user => user, :application => application)  do |action,session|
           action.ostruct_update(number_of_lanes_hash)
           action.lanes_description = lanes_description
         end
@@ -80,7 +80,7 @@ module Lims::Core
       include_context("has number of lane", 8)
     end
     
-    describe CreateFlowcell do
+    describe Flowcell::CreateFlowcell do
       context "valid calling context" do
         let!(:store) { Persistence::Store.new() }
         include_context "flowcell factory"

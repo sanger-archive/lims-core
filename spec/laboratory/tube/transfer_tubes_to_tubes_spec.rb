@@ -74,7 +74,7 @@ end
 
 module Lims::Core
   module Laboratory
-    describe TransferTubesToTubes do
+    describe Tube::TransferTubesToTubes do
       include_context "spin column factory"
       include_context "tube factory"
 

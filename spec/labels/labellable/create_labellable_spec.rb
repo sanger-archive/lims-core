@@ -15,7 +15,7 @@ module Lims::Core
 
     shared_context "for Labellable (without labels)" do
       subject do
-        CreateLabellable.new(:store => store, :user => user, :application => application)  do |action, session|
+        Labellable::CreateLabellable.new(:store => store, :user => user, :application => application)  do |action, session|
           action.ostruct_update(required_parameters)
         end
       end
@@ -47,7 +47,7 @@ module Lims::Core
       end
     end
 
-    describe CreateLabellable do
+    describe Labellable::CreateLabellable do
       context "with a valid store" do
         let!(:store) { Persistence::Store.new }
         include_context("setup required attributes", "my test plate", "plate")

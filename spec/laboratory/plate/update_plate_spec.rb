@@ -9,7 +9,7 @@ require 'lims-core/laboratory/plate'
 
 module Lims::Core
   module Laboratory
-    describe UpdatePlate do
+    describe Plate::UpdatePlate do
       include_context "for application", "test update tube rack"
       include_context "plate or gel factory"
       include_context "create object"
