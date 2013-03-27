@@ -9,7 +9,7 @@ require 'lims-core/persistence/search/search_persistor'
 module Lims::Core
   module Persistence
 
-    describe Search::CreateSearch :search => true, :sequel => true do
+    describe Search::CreateSearch, :search => true, :sequel => true do
       context "valid calling context" do
 
         include_context("for application",  "Test search creation")
@@ -18,7 +18,7 @@ module Lims::Core
         let(:criteria) {{ :id => 1 }}
         let(:description) { "search description" }
 
-        subject {  CreateSearch.new(:store => store, :user => user, :application => application)  do |a,s|
+        subject {  described_class.new(:store => store, :user => user, :application => application)  do |a,s|
           a.description = description
           a.model = model_name
           a.criteria = criteria

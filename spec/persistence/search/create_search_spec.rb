@@ -26,7 +26,7 @@ module Lims::Core
       end
     end
 
-    describe Search::CreateSearch, :search => true do
+    describe Search::CreateSearch, :search => true, :persistence => true do
       context "valid calling context" do
         let!(:store) { Persistence::Store.new() }
         include_context("for application",  "Test search creation")
