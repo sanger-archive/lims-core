@@ -55,7 +55,7 @@ module Lims::Core
     end
   end
 
-  describe "Sequel#Flowcell ", :flowcell => true, :laboratory => true, :sequel => true do
+  describe "Sequel#Flowcell ", :flowcell => true, :laboratory => true, :persistence => true, :sequel => true do
     include_context "prepare tables"
     let(:db) { ::Sequel.sqlite('') }
     let(:store) { Persistence::Sequel::Store.new(db) }

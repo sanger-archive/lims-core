@@ -7,7 +7,7 @@ require 'lims-core/labels/labellable/labellable_persistor'
 require 'lims-core/labels/sanger_barcode'
 
 module Lims::Core
-  describe Labels::Labellable, :labellable => true, :labels => true, :sequel => true do
+  describe Labels::Labellable, :labellable => true, :labels => true, :persistence => true, :sequel => true do
     include_context "sequel store"
 
     let(:name) { "test plate" }

@@ -74,7 +74,7 @@ end
 
 module Lims::Core
   module Laboratory
-    describe Tube::TransferTubesToTubes, :tube => true, :transfer => true, :laboratory => true, :sequel => true do
+    describe Tube::TransferTubesToTubes, :tube => true, :transfer => true, :laboratory => true, :persistence => true, :sequel => true do
       include_context "spin column factory"
       include_context "tube factory"
 

@@ -7,7 +7,7 @@ require 'lims-core/persistence/uuid_resource_persistor'
 
 module Lims::Core
   module Persistence
-    describe Sequel::UuidResource, :uuid_resource => true, :uuid => true, :persistence => true, :sequel => true do
+    describe Sequel::UuidResource, :uuid_resource => true, :uuid => true, :persistence => true, :persistence => true, :sequel => true do
       include_context "sequel store"
       context "#saving" do
         before (:each) {

@@ -9,7 +9,7 @@ require 'lims-core/laboratory/tag_group'
 
 module Lims::Core
 
-  describe Persistence::Sequel::TagGroup, :tag_group => true, :tag => true, :laboratory => true, :sequel => true do
+  describe Persistence::Sequel::TagGroup, :tag_group => true, :tag => true, :laboratory => true, :persistence => true, :sequel => true do
     include_context "prepare tables"
     let(:db) { ::Sequel.sqlite('') }
     let(:store) { Persistence::Sequel::Store.new(db) }

@@ -17,7 +17,7 @@ PS=Lims::Core::Persistence::Sequel
 
 module Lims::Core
   module Laboratory
-    describe Tube::TransferWellsToTubes, :tube => true, :transfer => true, :laboratory => true, :sequel => true do
+    describe Tube::TransferWellsToTubes, :tube => true, :transfer => true, :laboratory => true, :persistence => true, :sequel => true do
       include_context "plate or gel factory"
       include_context "tube factory"
       let(:number_of_rows) {8}

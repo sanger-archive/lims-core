@@ -8,7 +8,7 @@ require 'persistence/sequel/label_filter_shared'
 require 'lims-core/laboratory/spin_column'
 
 module Lims::Core
-  describe Laboratory::SpinColumn, :spin_column => true, :laboratory => true, :sequel => true do
+  describe Laboratory::SpinColumn, :spin_column => true, :laboratory => true, :persistence => true, :sequel => true do
     include_context "sequel store"
     
     context "created and added to session" do

@@ -63,7 +63,7 @@ module Lims::Core
       let(:result) { created_label.call() }
     end
 
-    describe CreateLabel, :label => true, :labels => true, :sequel => true do
+    describe CreateLabel, :label => true, :labels => true, :persistence => true, :sequel => true do
       context "with a valid store" do
         include_context "sequel store"
         include_context("setup required attributes for label")

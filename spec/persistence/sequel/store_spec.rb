@@ -5,7 +5,7 @@ require 'persistence/sequel/spec_helper'
 require 'lims-core/persistence/sequel/store'
 
 module Lims::Core::Persistence
-    describe Sequel::Store, :store => true, :persistence => true, :sequel => true do
+    describe Sequel::Store, :store => true, :persistence => true, :persistence => true, :sequel => true do
       context "initialized with a valid database" do
         let(:db) { ::Sequel.sqlite('') }
         it "must  be valid" do

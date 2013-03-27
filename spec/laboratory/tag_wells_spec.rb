@@ -14,7 +14,7 @@ require 'lims-core/persistence/sequel/store'
 
 module Lims::Core
   module Laboratory
-    describe TagWells, :plate => true, :tag => true, :laboratory => true, :sequel => true do
+    describe TagWells, :plate => true, :tag => true, :laboratory => true, :persistence => true, :sequel => true do
       include_context "plate or gel factory"
 			let(:number_of_rows) {8}
 			let(:number_of_columns) {12}
