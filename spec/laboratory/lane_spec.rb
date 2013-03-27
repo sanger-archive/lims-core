@@ -6,7 +6,7 @@ require 'laboratory/receptacle_examples'
 require 'lims-core/laboratory/flowcell'
 
 module Lims::Core::Laboratory
-  describe Flowcell::Lane  do
+  describe Flowcell::Lane, :flowcell => true, :lane => true, :laboratory => true  do
     it "belongs  to a flowcell "  # contained by a flowcell
     it_behaves_like "receptacle"
   end

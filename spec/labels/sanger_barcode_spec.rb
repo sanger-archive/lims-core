@@ -7,7 +7,7 @@ require 'lims-core/labels/sanger_barcode'
 
 module Lims::Core::Labels
 
-  describe SangerBarcode do
+  describe SangerBarcode, :sanger_barcode => true, :barcode => true, :labels => true do
     let(:create_parameters) { {:value => "hello"} }
     it_behaves_like "label"
   end

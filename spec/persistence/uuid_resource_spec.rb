@@ -5,7 +5,7 @@ require 'lims-core/persistence/uuid_resource'
 
 module Lims::Core
   module Persistence
-    describe UuidResource do
+    describe UuidResource, :uuid_resource => true, :uuid => true, :persistence => true do
       context "#class" do
         subject { UuidResource }
         it "validates valid uuid" do

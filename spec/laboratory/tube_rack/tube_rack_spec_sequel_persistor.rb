@@ -18,7 +18,7 @@ require 'lims-core/labels/sanger_barcode'
 
 module Lims::Core
 
-  describe "Sequel#TubeRack " do
+  describe "Sequel#TubeRack ", :tube => true, :laboratory => true, :sequel => true do
     include_context "sequel store"
     include_context "tube_rack factory"
 

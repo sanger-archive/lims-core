@@ -9,7 +9,7 @@ require 'lims-core/laboratory/tube'
 
 module Lims::Core
   module Laboratory
-    describe Tube::UpdateTube do
+    describe Tube::UpdateTube, :tube => true, :laboratory => true, :persistence => true do
       context "valid calling context" do
         include_context "for application", "test update tube" 
         include_context "tube factory"

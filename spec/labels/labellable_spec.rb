@@ -14,7 +14,7 @@ module Lims::Core::Labels
       described_class.new(:type => type).should be_a klass
     end
   end
-  describe Labellable  do
+  describe Labellable, :labellable => true, :labels => true  do
     let(:barcode) { mock(:barcode) do |barcode| 
         barcode.stub(:value) {"12345"}
         barcode.stub(:type) { "barcode 1d" }
@@ -59,7 +59,7 @@ module Lims::Core::Labels
     end
   end
 
-  describe Labellable::Label do
+  describe Labellable::Label, :label => true, :labels => true do
     it_behaves_like "label creator", "sanger-barcode", SangerBarcode
     it_behaves_like "label creator", "2d-barcode", Barcode2D
     it_behaves_like "label creator", "ean13-barcode", EAN13Barcode

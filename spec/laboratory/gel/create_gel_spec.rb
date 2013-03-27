@@ -75,7 +75,7 @@ module Lims::Core
       let(:dimensions) {{ :number_of_rows => row, :number_of_columns => col }}
     end
 
-    describe Gel::CreateGel do
+    describe Gel::CreateGel, :gel => true, :laboratory => true, :sequel => true do
       context "valid calling context" do
         let!(:store) { Persistence::Store.new() }
         include_context "plate or gel factory"

@@ -9,7 +9,7 @@ require 'lims-core/laboratory/sample'
 
 module Lims::Core
 
-  describe Persistence::Sample do
+  describe Persistence::Sample, :sample => true, :laboratory => true, :sequel => true do
     include_context "prepare tables"
     let(:db) { ::Sequel.sqlite('') }
     let(:store) { Persistence::Sequel::Store.new(db) }

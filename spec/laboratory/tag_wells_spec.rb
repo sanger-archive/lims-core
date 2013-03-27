@@ -7,17 +7,17 @@ require 'laboratory/plate_and_gel_shared'
 require 'persistence/sequel/store_shared'
 
 #Model requirements
-require 'lims-core/laboratory/tag_well/gs'
+require 'lims-core/laboratory/tag_wells'
 
 require 'lims-core/persistence/sequel/store'
 
 
 module Lims::Core
   module Laboratory
-    describe TagWells do
+    describe TagWells, :plate => true, :tag => true, :laboratory => true, :sequel => true do
       include_context "plate or gel factory"
-      let(:number_of_rows) {8}
-      let(:number_of_columns) {12}
+			let(:number_of_rows) {8}
+			let(:number_of_columns) {12}
       context "with a sequel store" do
         include_context "sequel store"
 

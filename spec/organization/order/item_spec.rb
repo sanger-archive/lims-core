@@ -6,7 +6,7 @@ require 'lims-core/organization/order/item'
 module Lims
   module Core
     module Organization
-      describe Order::Item do
+      describe Order::Item, :item => true, :order => true, :organization => true do
         #== Macro ====
         def self.it_has_a(attribute, type=nil)
           it "responds to #{attribute}" do

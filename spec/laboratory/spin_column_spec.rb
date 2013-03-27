@@ -7,7 +7,7 @@ require 'labels/labellable_examples'
 require 'lims-core/laboratory/spin_column'
 
 module Lims::Core::Laboratory
-  describe SpinColumn  do
+  describe SpinColumn, :spin_column => true, :laboratory => true  do
     it_behaves_like "located" 
     it_behaves_like "receptacle"
     it_behaves_like "labellable"

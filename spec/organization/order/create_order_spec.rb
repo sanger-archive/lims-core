@@ -7,7 +7,7 @@ require 'lims-core/organization/order/create_order'
 
 module Lims::Core
   module Organization
-    describe Order::CreateOrder do
+    describe Order::CreateOrder, :order => true, :organization => true, :sequel => true do
       shared_examples_for "creating an order" do
         include_context "create object"
         it_behaves_like "an action"

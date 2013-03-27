@@ -5,7 +5,7 @@ require 'laboratory/spec_helper'
 require 'lims-core/laboratory/oligo'
 
 module Lims::Core::Laboratory
-  describe Oligo do
+  describe Oligo, :oligo => true, :laboratory => true do
     let(:sequence_1) { "AAA" }
     let(:sequence_2) { "CCCT" }
     context "to be valid" do

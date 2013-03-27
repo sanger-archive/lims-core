@@ -9,7 +9,7 @@ require 'lims-core/persistence/sequel/store'
 
 module Lims::Core
   module Organization
-    describe Order  do
+    describe Order, :order => true, :organization => true, :sequel => true  do
       include_context "sequel store"
 
       def load_order(order_id)

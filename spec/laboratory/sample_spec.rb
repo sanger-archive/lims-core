@@ -5,7 +5,7 @@ require 'laboratory/spec_helper'
 require 'lims-core/laboratory/sample'
 
 module Lims::Core::Laboratory
-  describe Sample do
+  describe Sample, :sample => true, :laboratory => true do
 
     context "to be valid" do
       it "requires a name" do

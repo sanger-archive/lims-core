@@ -6,7 +6,7 @@ require 'laboratory/plate_and_gel_shared'
 require 'lims-core/persistence/logger/store'
 
 module Lims::Core::Persistence
-  describe Logger::Store do
+  describe Logger::Store, :store => true, :logger => true, :persistence => true do
     include_context "plate or gel factory"
     context "initialized with a logger" do
       let(:number_of_rows) { 1 }

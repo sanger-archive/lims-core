@@ -7,7 +7,7 @@ require 'lims-core/persistence/sequel/store'
 require 'lims-core/organization/batch'
 
 module Lims::Core
-  describe Organization::Batch do
+  describe Organization::Batch, :batch => true, :organization => true,  :sequel => true  do
     include_context "prepare tables" 
     let(:db) { ::Sequel.sqlite('') }
     let(:store) { Persistence::Sequel::Store.new(db) }

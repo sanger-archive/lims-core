@@ -16,7 +16,7 @@ module Lims::Core::Laboratory
     end
   end
 
-  describe Gel do
+  describe Gel, :gel => true, :laboratory => true do
     context "with 12x8 windows" do
       let(:number_of_rows) { 8 }
       let(:number_of_columns) { 12}
@@ -37,7 +37,7 @@ module Lims::Core::Laboratory
     end
   end
 
-  describe Gel::Window do
+  describe Gel::Window, :window => true, :laboratory => true do
     it "belongs to a gel "  # contained by a gel
     it_behaves_like "receptacle"
   end

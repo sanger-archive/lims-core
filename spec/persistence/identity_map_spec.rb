@@ -12,7 +12,7 @@ module Lims::Core::Persistence
     include IdentityMap
   end
 
-  describe IdentityMapClass do
+  describe IdentityMapClass, :identity_map => true, :persistence => true do
 
     context "with a object mapped to an id" do
       let(:id) { 1 }

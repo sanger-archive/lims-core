@@ -6,7 +6,7 @@ require 'laboratory/container_examples'
 require 'lims-core/laboratory/tag_group'
 
 module Lims::Core::Laboratory
-  describe TagGroup do
+  describe TagGroup, :tag_group => true, :tag => true, :laboratory => true do
     let(:sequence_1) { "AAA" }
     let(:sequence_2) { "CCC" }
     let(:oligo_1) { Oligo.new(sequence_1) }

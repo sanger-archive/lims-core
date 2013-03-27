@@ -36,7 +36,7 @@ module Lims::Core::Laboratory
   end
 
 
-  describe TubeRack do
+  describe TubeRack, :tube_rack => true, :laboratory => true do
     context "with 12x8 available placements for tubes" do
       let(:number_of_rows) { 8 }
       let(:number_of_columns) { 12 }

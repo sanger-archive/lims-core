@@ -14,7 +14,7 @@ require 'lims-core/laboratory/plate'
 
 module Lims::Core
 
-  describe "Sequel#Plate " do
+  describe "Sequel#Plate ", :plate => true, :laboratory => true, :sequel => true do
     include_context "sequel store"
     include_context "plate or gel factory"
 

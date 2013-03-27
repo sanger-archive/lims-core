@@ -8,7 +8,7 @@ require 'labels/labellable_examples'
 require 'lims-core/laboratory/tube'
 
 module Lims::Core::Laboratory
-  describe Tube  do
+  describe Tube, :tube => true, :laboratory => true  do
 
     def self.it_can_assign(attribute)
       it "can assign #{attribute}" do

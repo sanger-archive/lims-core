@@ -13,7 +13,7 @@ module Lims::Core
 				include Logger::Persistor
 			end
 		end
-		describe Logger::Store do
+		describe Logger::Store, :store => true, :logger => true, :persistence => true do
 			def self.initialized_with_a_logger(method)
 				context "initialized with a logger" do
 					let (:logger) { ::Logger.new($stdout) }

@@ -16,7 +16,7 @@ module Lims::Core
 
   module Persistence
 
-    describe Sequel::Search  do
+    describe Sequel::Search, :search => true, :persistence => true, :sequel => true  do
       include_context "sequel store"
 
       context "holding a multi criteria filter" do

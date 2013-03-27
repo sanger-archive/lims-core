@@ -12,7 +12,7 @@ require 'lims-core/persistence/sequel/store'
 require 'lims-core/laboratory/tube'
 
 module Lims::Core
-  describe Laboratory::Tube do
+  describe Laboratory::Tube, :tube => true, :laboratory => true, :sequel => true do
     include_context "prepare tables"
     include_context "tube factory"
     let(:db) { ::Sequel.sqlite('') }

@@ -6,7 +6,7 @@ require 'lims-core/persistence/search/search_persistor'
 
 module Lims::Core
   module Persistence
-    describe Search do
+    describe Search, :search => true, :persistence => true do
       context "to be valid" do
         let(:filter) { mock(:filter) }
         let(:model) { mock(:model) }
