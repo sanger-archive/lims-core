@@ -80,7 +80,7 @@ module Lims::Core
       include_context("has number of lane", 8)
     end
     
-    describe Flowcell::CreateFlowcell, :flowcell => true,:laboratory => true, :sequel => true  do
+    describe Flowcell::CreateFlowcell, :flowcell => true,:laboratory => true, :persistence => true  do
       context "valid calling context" do
         let!(:store) { Persistence::Store.new() }
         include_context "flowcell factory"

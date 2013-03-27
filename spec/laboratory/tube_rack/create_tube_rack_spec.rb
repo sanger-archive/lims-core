@@ -69,7 +69,7 @@ module Lims::Core
       end
     end
 
-    describe TubeRack::CreateTubeRack, :tube_rack => true, :laboratory => true, :sequel => true do
+    describe TubeRack::CreateTubeRack, :tube_rack => true, :laboratory => true, :persistence => true do
       context "valid calling context" do
         let!(:store) { Persistence::Store.new() }
         include_context "for application", "Test TubeRack creation"

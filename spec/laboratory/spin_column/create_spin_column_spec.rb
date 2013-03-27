@@ -9,7 +9,7 @@ require 'lims-core/persistence/store'
 
 module Lims::Core
   module Laboratory
-    describe SpinColumn::CreateSpinColumn, :spin_column => true, :laboratory => true, :sequel => true do
+    describe SpinColumn::CreateSpinColumn, :spin_column => true, :laboratory => true, :persistence => true do
       context "with a valid store" do
         include_context "create object"
         let (:store) { Persistence::Store.new }

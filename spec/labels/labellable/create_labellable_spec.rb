@@ -47,7 +47,7 @@ module Lims::Core
       end
     end
 
-    describe Labellable::CreateLabellable, :labellable => true, :labels => true, :sequel => true   do
+    describe Labellable::CreateLabellable, :labellable => true, :labels => true, :persistence => true   do
       context "with a valid store" do
         let!(:store) { Persistence::Store.new }
         include_context("setup required attributes", "my test plate", "plate")
