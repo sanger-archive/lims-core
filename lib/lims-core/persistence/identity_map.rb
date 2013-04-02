@@ -45,6 +45,11 @@ module Lims::Core
         @id_to_object = {}
         @object_to_id = {}
       end
+
+      # Class version
+      class Class
+        include IdentityMap
+      end
     end
   end
 end
