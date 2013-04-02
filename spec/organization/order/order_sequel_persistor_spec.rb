@@ -2,7 +2,7 @@
 require 'persistence/sequel/spec_helper'
 require 'persistence/sequel/store_shared'
 
-require 'persistence/sequel/order_lookup_filter_shared'
+require 'persistence/filter/order_lookup_sequel_filter_shared'
 
 # Model requirements
 require 'lims-core/persistence/sequel/store'

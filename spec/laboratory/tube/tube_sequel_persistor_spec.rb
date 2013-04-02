@@ -3,9 +3,9 @@ require 'persistence/sequel/spec_helper'
 
 require 'persistence/sequel/store_shared'
 require 'laboratory/tube_shared'
-require 'persistence/sequel/label_filter_shared'
-require 'persistence/sequel/order_lookup_filter_shared'
-require 'persistence/sequel/batch_filter_shared'
+require 'persistence/filter/label_sequel_filter_shared'
+require 'persistence/filter/order_lookup_sequel_filter_shared'
+require 'persistence/filter/batch_sequel_filter_shared'
 
 # Model requirements
 require 'lims-core/persistence/sequel/store'

@@ -5,7 +5,7 @@ require 'laboratory/flowcell_shared'
 require 'persistence/resource_shared'
 require 'persistence/sequel/store_shared'
 require 'persistence/sequel/page_shared'
-require 'persistence/sequel/multi_criteria_filter_shared'
+require 'persistence/filter/multi_criteria_sequel_filter_shared'
 
 # Model requirements
 require 'lims-core/persistence/sequel/store'

@@ -1,6 +1,6 @@
 require 'persistence/sequel/spec_helper'
 require 'lims-core/persistence/filter/batch_filter'
-require 'persistence/sequel/order_lookup_filter_shared'
+require 'persistence/filter/order_lookup_sequel_filter_shared'
 
 module Lims::Core
   shared_examples_for "batch filtrable" do

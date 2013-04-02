@@ -2,7 +2,7 @@
 require 'persistence/sequel/store_shared'
 require 'persistence/sequel/spec_helper'
 require 'laboratory/tube_shared'
-require 'persistence/sequel/label_filter_shared'
+require 'persistence/filter/label_sequel_filter_shared'
 
 # Model requirements
 require 'lims-core/laboratory/spin_column'
