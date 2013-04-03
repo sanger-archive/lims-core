@@ -314,7 +314,7 @@ module Lims::Core
         model = self.class.model_for(object)
         @persistor_map[model]  ||= begin
           persistor_class = self.class.persistor_class_for(model)
-          raise NameError, "no persistor defined for #{object.inspect}" unless persistor_class &&  persistor_class.ancestors.include?(Persistor)
+          raise NameError, "no persistor defined for #{object.class.name}" unless persistor_class &&  persistor_class.ancestors.include?(Persistor)
           persistor_class.new(self)
         end
       end
