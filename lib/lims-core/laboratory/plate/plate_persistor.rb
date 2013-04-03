@@ -27,16 +27,16 @@ module Lims::Core
         end
       end
 
-      # Base for all Well persistor.
-      # Real implementation classes (e.g. Sequel::Well) should
-      # include the suitable persistor.
-      class Well
-        class WellPersistor < Persistence::Persistor
+        # Base for all Well persistor.
+        # Real implementation classes (e.g. Sequel::Well) should
+        # include the suitable persistor.
+        class Well
+         class WellPersistor < Persistence::Persistor
           Model = Laboratory::Plate::Well
 
           include Container::ContainerElementPersistor
-        end
 
+        end
       end
     end
   end

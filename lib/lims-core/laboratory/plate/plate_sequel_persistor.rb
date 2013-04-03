@@ -9,13 +9,15 @@ module Lims::Core
   module Laboratory
     # Not a plate but a plate persistor.
     class Plate
-      class PlateSequelPersistor < PlatePersistor
-        include Persistence::Sequel::Persistor
-        include Container
+      # Not a well but a well {Persistor}.
+      class Well
+        class WellSequelPersistor < Plate::Well::WellPersistor
+          include Persistence::Sequel::Persistor
+          include Container::ContainerElementSequelPersistor
 
-        module Plate::PlateContainerElementSequelPersistor
-          include ContainerElement
-
+          def self.table_name
+            :wells
+          end
           def element_dataset
             Lims::Core::Persistence::Sequel::Plate::Well::dataset(@session)
           end
@@ -25,17 +27,11 @@ module Lims::Core
           end
 
         end
+      end #class Well
 
-        # Not a well but a well {Persistor}.
-        class Well < Persistence::Plate::Well
-          include Persistence::Sequel::Persistor
-          include PlateContainerElement
-
-          def self.table_name
-            :wells
-          end
-
-        end #class Well
+      class PlateSequelPersistor < PlatePersistor
+        include Persistence::Sequel::Persistor
+        include Container
 
         def self.table_name
           :plates
