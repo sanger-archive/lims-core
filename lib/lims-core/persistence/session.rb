@@ -17,7 +17,10 @@ module Lims::Core
 
       UnmanagedObjectError = Class.new(RuntimeError)
       # The map name <=> model class is shared between all type of session
-      @@model_map = IdentityMap::Class.new
+      #
+      def self.model_map()
+      @@model_map ||= IdentityMap::Class.new
+    end
       # The map of peristor classes depends of the session type (sequel, log, etc ..)
       # As they will be different classes
 
@@ -201,14 +204,14 @@ module Lims::Core
       # @param [String, Symbol] name
       # @return [Class]
       def self.name_to_model(name)
-        @@model_map.object_for(name.to_s)
+        model_map.object_for(name.to_s)
       end
 
       # Find the registered name of a given class
       # @param[Class] model
       # @return [Symbol]
       def self.model_to_name(model)
-        @@model_map.id_for(model)
+        model_map.id_for(model)
       end
 
       # Register a model for a given name.
@@ -218,9 +221,8 @@ module Lims::Core
       def self.register_model(name, model)
         name = name.to_s.downcase
         # skip if name already registered with the same object
-        return if @@model_map.object_for(name) == model
-        debugger if name == 'tube'
-        @@model_map.map_id_object(name, model)
+        return if model_map.object_for(name) == model
+        model_map.map_id_object(name, model)
       end
 
 
@@ -277,7 +279,8 @@ module Lims::Core
         # find the persistor within the class
         # other corresponding to the current session type
         return nil unless model
-        session_persistor_class = self.class.const_get(:Persistor)
+        debugger
+        session_persistor_class = parent_scope.const_get(:Persistor)
         model.constants(false).each do |name|
           klass = model.const_get(name)
           if  klass.ancestors.include?(session_persistor_class)
@@ -287,13 +290,13 @@ module Lims::Core
         end
         # not found, we need to create it
         # First we look for the base persistor to inherit from
-        parent_persistor_class = parent_scope.persistor_class_for(object)
+        parent_persistor_class = parent_scope.persistor_class_for(model)
 
         # if the current persistor (ex Sequel::Persistor) is the same  as the base one
         # there is nothing else to do
         return parent_persistor_class unless self::const_get(:Persistor, false)
 
-        raise  "no Persistor defined for #{object.class.name}" unless parent_persistor_class
+        raise  "no Persistor defined for #{model.name}" unless parent_persistor_class
         module_name = self.name.sub(/.*Persistence::/,'')
         model_name = model.name.split('::').pop
         # the we create a new Persistor class including the Persistor mixin
