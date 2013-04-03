@@ -10,7 +10,7 @@ require 'persistence/filter/order_lookup_sequel_filter_shared'
 require 'persistence/filter/batch_sequel_filter_shared'
 
 # Model requirements
-require 'lims-core/laboratory/plate'
+require 'lims-core/laboratory/plate/all'
 
 module Lims::Core
 

@@ -7,7 +7,7 @@ module Lims::Core
   module Organization
     class Batch
       class BatchSequelPersistor < BatchPersistor
-        include Sequel::Persistor
+        include Persistence::Sequel::Persistor
 
         def self.table_name
           :batches

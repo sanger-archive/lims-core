@@ -6,11 +6,11 @@ module Lims::Core
     # a spin column persistor.
     class SpinColumn
       class SpinColumnSequelPersistor < SpinColumnPersistor
-        include Sequel::Persistor
+        include Persistence::Sequel::Persistor
 
         class SpinColumn
           class SpinColumnSequelAliquotPersistor < SpinColumnPersistor::SpinColumnAliquot
-            include Sequel::Persistor
+            include Persistence::Sequel::Persistor
 
             # Do a bulk load of aliquot and pass each to a block
             # @param spin_column_id the id of the spin column to load.

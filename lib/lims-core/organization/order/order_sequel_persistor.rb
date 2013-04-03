@@ -8,7 +8,7 @@ module Lims::Core
     # Not a order but a order persistor.
     class Order
       class OrderSequelPersistor < OrderPersistor
-        include Sequel::Persistor
+        include Persistence::Sequel::Persistor
         def self.table_name
           :orders
         end
@@ -38,7 +38,7 @@ module Lims::Core
         end
 
         class Item < Persistence::Order::Item
-          include Sequel::Persistor
+          include Persistence::Sequel::Persistor
 
           def self.table_name
             :items

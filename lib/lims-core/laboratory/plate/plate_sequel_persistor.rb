@@ -10,7 +10,7 @@ module Lims::Core
     # Not a plate but a plate persistor.
     class Plate
       class PlateSequelPersistor < PlatePersistor
-        include Sequel::Persistor
+        include Persistence::Sequel::Persistor
         include Container
 
         module Plate::PlateContainerElementSequelPersistor
@@ -28,7 +28,7 @@ module Lims::Core
 
         # Not a well but a well {Persistor}.
         class Well < Persistence::Plate::Well
-          include Sequel::Persistor
+          include Persistence::Sequel::Persistor
           include PlateContainerElement
 
           def self.table_name

@@ -8,11 +8,11 @@ module Lims::Core
     # Not a flowcell but a flowcell persistor.
     class Flowcell
       class FlowcellSequelPersistor < FlowcellPersistor
-        include Sequel::Persistor
+        include Persistence::Sequel::Persistor
 
       # Not a lane but a lane {Persistor}.
         class Lane < Persistence::Flowcell::Lane
-          include Sequel::Persistor
+          include Persistence::Sequel::Persistor
           def self.table_name
             :lanes
           end

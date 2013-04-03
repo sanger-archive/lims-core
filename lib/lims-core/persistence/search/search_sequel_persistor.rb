@@ -9,7 +9,7 @@ module Lims::Core
     # Not a search but a search persistor.
     class Search
       class SearchSequelPersistor < Search::SearchPersistor
-        include Sequel::Persistor
+        include Persistence::Sequel::Persistor
 
         def self.table_name
           :searches

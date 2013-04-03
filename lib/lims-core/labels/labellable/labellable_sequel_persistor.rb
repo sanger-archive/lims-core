@@ -7,7 +7,7 @@ module Lims::Core
   module Labels
     class Labellable
       class LabellableSequelPersistor < LabellablePersistor
-        include Sequel::Persistor
+        include Persistence::Sequel::Persistor
 
         def self.table_name
           :labellables
@@ -37,7 +37,7 @@ module Lims::Core
 
           # Mixin to be included by classes of Labellable::Labels
           class Label  < Persistence::Labellable::Label
-            include Sequel::Persistor
+            include Persistence::Sequel::Persistor
 
             def self.table_name
               :labels

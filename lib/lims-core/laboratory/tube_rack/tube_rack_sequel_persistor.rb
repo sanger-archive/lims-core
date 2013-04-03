@@ -8,11 +8,11 @@ module Lims::Core
     # Not a tube_rack but a tube_rack persistor.
     class TubeRack
       class TubeRackSequelPersistor < TubeRackPersistor
-        include Sequel::Persistor
+        include Persistence::Sequel::Persistor
 
       # Not a well but a well {Persistor}.
         class Slot < Persistence::TubeRack::Slot
-          include Sequel::Persistor
+          include Persistence::Sequel::Persistor
           def self.table_name
             :tube_rack_slots
           end

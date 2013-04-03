@@ -8,11 +8,11 @@ module Lims::Core
     # Not a tube but a tube persistor.
     class Tube
       class TubeSequelPersistor < TubePersistor
-        include Sequel::Persistor
+        include Persistence::Sequel::Persistor
 
         class Tube
           class TubeSequelAliquotPersistor < TubePersistor::TubeAliquot
-            include Sequel::Persistor
+            include Persistence::Sequel::Persistor
 
             # Do a bulk load of aliquot and pass each to a block
             # @param tube_id the id of the tube to load.

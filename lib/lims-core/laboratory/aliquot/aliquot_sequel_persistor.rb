@@ -8,7 +8,7 @@ module Lims::Core
     # Not a aliquot but a aliquot persistor.
     class Aliquot
       class AliquotSequelPersistor < AliquotPersistor
-        include Sequel::Persistor
+        include Persistence::Sequel::Persistor
         def self.table_name
           :aliquots
         end

@@ -8,7 +8,7 @@ module Lims::Core
     # Not a tag_group but a tag_group persistor.
     class TagGroup
       class TagGroupSequelPersistor < TagGroupPersistor
-        include Sequel::Persistor
+        include Persistence::Sequel::Persistor
 
 
          def save_raw_association(tag_group_id, oligo_id, position)
@@ -24,7 +24,7 @@ module Lims::Core
 
 
          class Association < Persistence::TagGroup::Association
-           include Sequel::Persistor
+           include Persistence::Sequel::Persistor
            def self.table_name
              :tag_group_associations
            end

@@ -8,7 +8,7 @@ module Lims::Core
     # A gel persistor. It saves the gel's data to the DB.
     class Gel
       class GelSequelPersistor < GelPersistor
-        include Sequel::Persistor
+        include Persistence::Sequel::Persistor
         include Container
 
         module Gel::GelContainerElementSequelPersistor
@@ -26,7 +26,7 @@ module Lims::Core
 
         # A window persistor. It saves the window's data to the DB.
         class Window < Persistence::Gel::Window
-          include Sequel::Persistor
+          include Persistence::Sequel::Persistor
           include GelContainerElement
 
           def self.table_name
