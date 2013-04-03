@@ -10,25 +10,27 @@ module Lims::Core
     # At the moment there are no quantity associated  to the transfer.
     # It take a source and a target plate and a map telling which wells go in were.
     # For more details, see attributes.
-    class Plate::PlateTransfer
-      include Actions::Action
-      include TransferAction
+    class Plate
+      class PlateTransfer
+        include Actions::Action
+        include TransferAction
 
-      attribute :source, Laboratory::Plate, :required => true, :writer => :private
-      attribute :target, Laboratory::Plate, :required => true, :writer => :private
-      attribute :transfer_map, Hash, :required => true, :writer => :private
-      attribute :aliquot_type, String, :required => false, :writer => :private
+        attribute :source, Laboratory::Plate, :required => true, :writer => :private
+        attribute :target, Laboratory::Plate, :required => true, :writer => :private
+        attribute :transfer_map, Hash, :required => true, :writer => :private
+        attribute :aliquot_type, String, :required => false, :writer => :private
 
 
-      # transfer the content of from source to target according to map
-      # If aliquot_type is given, it sets the type on all the aliquots
-      # of the target plate.
-      def _call_in_session(session)
-        transfers = _transfers
-        transfer_hash = _transfer(transfers, _amounts(transfers), session)
-        transfer_hash[:targets].first
+        # transfer the content of from source to target according to map
+        # If aliquot_type is given, it sets the type on all the aliquots
+        # of the target plate.
+        def _call_in_session(session)
+          transfers = _transfers
+          transfer_hash = _transfer(transfers, _amounts(transfers), session)
+          transfer_hash[:targets].first
+        end
+
       end
-
     end
   end
 end

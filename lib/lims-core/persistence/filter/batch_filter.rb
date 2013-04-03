@@ -4,20 +4,22 @@ require 'lims-core/resource'
 
 module Lims::Core
   module Persistence
-    class Filter::BatchFilter < Filter
-      include Resource
-      attribute :criteria, Hash, :required => true
-      
-      # For Sequel, keys needs to be a Symbol to be seen as column.
-      # String are seen as 'value'
-      def initialize(criteria)
-        criteria = { :criteria => criteria } unless criteria.include?(:criteria)
-        criteria[:criteria].rekey!{ |k| k.to_sym }
-        super(criteria)
-      end
+    class Filter
+      class BatchFilter < Filter
+        include Resource
+        attribute :criteria, Hash, :required => true
+        
+        # For Sequel, keys needs to be a Symbol to be seen as column.
+        # String are seen as 'value'
+        def initialize(criteria)
+          criteria = { :criteria => criteria } unless criteria.include?(:criteria)
+          criteria[:criteria].rekey!{ |k| k.to_sym }
+          super(criteria)
+        end
 
-      def call(persistor)
-        persistor.batch_filter(criteria)
+        def call(persistor)
+          persistor.batch_filter(criteria)
+        end
       end
     end
 

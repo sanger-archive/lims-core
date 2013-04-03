@@ -10,21 +10,23 @@ module Lims::Core
     # At the moment there are no quantity associated  to the transfer.
     # It take a source and a target plate and a map telling which wells go in were.
     # For more details, see attributes.
-    class Tube::TransferWellsToTubes
-      include Actions::Action
+    class Tube
+      class TransferWellsToTubes
+        include Actions::Action
 
-      attribute :plate, Laboratory::Plate, :required => true, :writer => :private
-      attribute :well_to_tube_map, Hash, :required => true, :writer => :private
+        attribute :plate, Laboratory::Plate, :required => true, :writer => :private
+        attribute :well_to_tube_map, Hash, :required => true, :writer => :private
 
-      def _validate_parameters
-        tubes = well_to_tube_map.values
-        raise InvalidParameters, "Many wells go in the same tube" if tubes.uniq.size != tubes.size
-      end
-      # transfer the content of  from source to target according to map
-      def _call_in_session(session)
-          well_to_tube_map.each do |well , tube|
-            tube << plate[well].take_fraction(1)
-          end
+        def _validate_parameters
+          tubes = well_to_tube_map.values
+          raise InvalidParameters, "Many wells go in the same tube" if tubes.uniq.size != tubes.size
+        end
+        # transfer the content of  from source to target according to map
+        def _call_in_session(session)
+            well_to_tube_map.each do |well , tube|
+              tube << plate[well].take_fraction(1)
+            end
+        end
       end
     end
   end

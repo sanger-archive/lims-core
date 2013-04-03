@@ -4,17 +4,19 @@ require 'lims-core/organization/batch'
 
 module Lims::Core
   module Organization
-    class Batch::CreateBatch
-      include Actions::Action
+    class Batch
+      class CreateBatch
+        include Actions::Action
 
-      attribute :process, String, :required => false, :writer => :private
+        attribute :process, String, :required => false, :writer => :private
 
-      def _call_in_session(session)
-        batch = Organization::Batch.new(:process => process)
-        session << batch
-        {:batch => batch, :uuid => session.uuid_for!(batch)}
+        def _call_in_session(session)
+          batch = Organization::Batch.new(:process => process)
+          session << batch
+          {:batch => batch, :uuid => session.uuid_for!(batch)}
+        end
+
       end
-
     end
   end
   module Organization

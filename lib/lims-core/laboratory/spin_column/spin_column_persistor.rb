@@ -7,36 +7,40 @@ module Lims::Core
     # Base for all Spin Column persistor.
     # Real implementation classes (e.g. Sequel::SpinColumn) should
     # include the suitable persistor.
-    class SpinColumn::SpinColumnPersistor < Persistence::Persistor
-      Model = Laboratory::SpinColumn
+    class SpinColumn
+      class SpinColumnPersistor < Persistence::Persistor
+        Model = Laboratory::SpinColumn
 
-      # Save all children of the given spin column
-      # @param  id object identifier
-      # @param [Laboratory::SpinColumn] spin column
-      # @return [Boolean]
-      def save_children(id, spin_column)
-        # we use values here, so position is a number
-        spin_column.each do |aliquot|
-          spin_column_aliquot.save_as_aggregation(id, aliquot)
+        # Save all children of the given spin column
+        # @param  id object identifier
+        # @param [Laboratory::SpinColumn] spin column
+        # @return [Boolean]
+        def save_children(id, spin_column)
+          # we use values here, so position is a number
+          spin_column.each do |aliquot|
+            spin_column_aliquot.save_as_aggregation(id, aliquot)
+          end
         end
-      end
 
-      def  spin_column_aliquot
-        @session.send("SpinColumn::SpinColumnAliquot")
-      end
+        def  spin_column_aliquot
+          @session.send("SpinColumn::SpinColumnAliquot")
+        end
 
-      class SpinColumn::SpinColumnPersistorAliquot < Persistence::Persistor
-      end
+        class SpinColumn
+          class SpinColumnPersistorAliquot < Persistence::Persistor
+          end
+        end
 
-      # Load all children of the given spin column
-      # Loaded object are automatically added to the session.
-      # @param  id object identifier
-      # @param [Laboratory::SpinColumn] spin column
-      # @return [Laboratory::SpinColumn, nil] 
-      #
-      def load_children(id, spin_column)
-        spin_column_aliquot.load_aliquots(id) do |aliquot|
-          spin_column << aliquot
+        # Load all children of the given spin column
+        # Loaded object are automatically added to the session.
+        # @param  id object identifier
+        # @param [Laboratory::SpinColumn] spin column
+        # @return [Laboratory::SpinColumn, nil] 
+        #
+        def load_children(id, spin_column)
+          spin_column_aliquot.load_aliquots(id) do |aliquot|
+            spin_column << aliquot
+          end
         end
       end
     end

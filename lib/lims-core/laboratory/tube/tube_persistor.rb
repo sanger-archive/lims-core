@@ -10,36 +10,40 @@ module Lims::Core
     # Base for all Tube persistor.
     # Real implementation classes (e.g. Sequel::Tube) should
     # include the suitable persistor.
-    class Tube::TubePersistor < Persistence::Persistor
-      Model = Laboratory::Tube
+    class Tube
+      class TubePersistor < Persistence::Persistor
+        Model = Laboratory::Tube
 
-      # Save all children of the given tube
-      # @param  id object identifier
-      # @param [Laboratory::Tube] tube
-      # @return [Boolean]
-      def save_children(id, tube)
-        # we use values here, so position is a number
-        tube.each do |aliquot|
-          tube_aliquot.save_as_aggregation(id, aliquot)
+        # Save all children of the given tube
+        # @param  id object identifier
+        # @param [Laboratory::Tube] tube
+        # @return [Boolean]
+        def save_children(id, tube)
+          # we use values here, so position is a number
+          tube.each do |aliquot|
+            tube_aliquot.save_as_aggregation(id, aliquot)
+          end
         end
-      end
 
-      def  tube_aliquot
-        @session.send("Tube::TubeAliquot")
-      end
+        def  tube_aliquot
+          @session.send("Tube::TubeAliquot")
+        end
 
-      class Tube::TubePersistorAliquot < Persistence::Persistor
-      end
+        class Tube
+          class TubePersistorAliquot < Persistence::Persistor
+          end
+        end
 
-      # Load all children of the given tube
-      # Loaded object are automatically added to the session.
-      # @param  id object identifier
-      # @param [Laboratory::Tube] tube
-      # @return [Laboratory::Tube, nil] 
-      #
-      def load_children(id, tube)
-        tube_aliquot.load_aliquots(id) do |aliquot|
-          tube << aliquot
+        # Load all children of the given tube
+        # Loaded object are automatically added to the session.
+        # @param  id object identifier
+        # @param [Laboratory::Tube] tube
+        # @return [Laboratory::Tube, nil] 
+        #
+        def load_children(id, tube)
+          tube_aliquot.load_aliquots(id) do |aliquot|
+            tube << aliquot
+          end
         end
       end
     end

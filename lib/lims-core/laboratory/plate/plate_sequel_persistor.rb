@@ -8,44 +8,46 @@ require 'lims-core/laboratory/container/container_element_sequel_persistor'
 module Lims::Core
   module Laboratory
     # Not a plate but a plate persistor.
-    class Plate::PlateSequelPersistor < PlatePersistor
-      include Sequel::Persistor
-      include Container
+    class Plate
+      class PlateSequelPersistor < PlatePersistor
+        include Sequel::Persistor
+        include Container
 
-      module Plate::PlateSequelPersistorContainerElement
-        include ContainerElement
+        module Plate::PlateSequelPersistorContainerElement
+          include ContainerElement
 
-        def element_dataset
-          Lims::Core::Persistence::Sequel::Plate::Well::dataset(@session)
+          def element_dataset
+            Lims::Core::Persistence::Sequel::Plate::Well::dataset(@session)
+          end
+
+          def container_id_sym
+            :plate_id
+          end
+
+        end
+
+        # Not a well but a well {Persistor}.
+        class Well < Persistence::Plate::Well
+          include Sequel::Persistor
+          include PlateContainerElement
+
+          def self.table_name
+            :wells
+          end
+
+        end #class Well
+
+        def self.table_name
+          :plates
         end
 
         def container_id_sym
           :plate_id
         end
 
-      end
-
-      # Not a well but a well {Persistor}.
-      class Well < Persistence::Plate::Well
-        include Sequel::Persistor
-        include PlateContainerElement
-
-        def self.table_name
-          :wells
+        def element_dataset
+          Well::dataset(@session)
         end
-
-      end #class Well
-
-      def self.table_name
-        :plates
-      end
-
-      def container_id_sym
-        :plate_id
-      end
-
-      def element_dataset
-        Well::dataset(@session)
       end
     end
   end

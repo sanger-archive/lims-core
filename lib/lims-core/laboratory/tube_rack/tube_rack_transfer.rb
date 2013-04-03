@@ -6,33 +6,35 @@ module Lims::Core
   module Laboratory
     # This action transfers the content of a source tube rack
     # to a target tube rack according to a transfer map.
-    class TubeRack::TubeRackTransfer
-      include Actions::Action
+    class TubeRack
+      class TubeRackTransfer
+        include Actions::Action
 
-      attribute :source, Laboratory::TubeRack, :required => true, :writer => :private
-      attribute :target, Laboratory::TubeRack, :required => true, :writer => :private
-      attribute :transfer_map, Hash, :required => true, :writer => :private
+        attribute :source, Laboratory::TubeRack, :required => true, :writer => :private
+        attribute :target, Laboratory::TubeRack, :required => true, :writer => :private
+        attribute :transfer_map, Hash, :required => true, :writer => :private
 
-      # Exception raised after an attempt to transfer
-      # the content of a tube to an empty rack location.
-      class NoTubeInTargetLocation < StandardError
-      end
-
-      # Transfer the content from a source tube rack to a target
-      # tube rack according to a transfer map. If the transfer
-      # map specifies a target location which is actually empty
-      # (no tube), a NoTubeInTargetLocation exception is raised.
-      # If the transfer map specifies a source location which is 
-      # empty (no tube), nothing happens.
-      def _call_in_session(session)
-        transfer_map.each do |from, to|
-          raise NoTubeInTargetLocation, "#{to} location is empty" unless target[to].is_a? Laboratory::Tube
-
-          unless source[from].nil?
-            target[to] << source[from].take_fraction(1)
-          end
+        # Exception raised after an attempt to transfer
+        # the content of a tube to an empty rack location.
+        class NoTubeInTargetLocation < StandardError
         end
-        target
+
+        # Transfer the content from a source tube rack to a target
+        # tube rack according to a transfer map. If the transfer
+        # map specifies a target location which is actually empty
+        # (no tube), a NoTubeInTargetLocation exception is raised.
+        # If the transfer map specifies a source location which is 
+        # empty (no tube), nothing happens.
+        def _call_in_session(session)
+          transfer_map.each do |from, to|
+            raise NoTubeInTargetLocation, "#{to} location is empty" unless target[to].is_a? Laboratory::Tube
+
+            unless source[from].nil?
+              target[to] << source[from].take_fraction(1)
+            end
+          end
+          target
+        end
       end
     end
   end

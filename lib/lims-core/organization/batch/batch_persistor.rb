@@ -4,8 +4,10 @@ require 'lims-core/organization/batch'
 
 module Lims::Core
   module Organization
-    class Batch::BatchPersistor < Persistence::Persistor
-      Model = Organization::Batch
+    class Batch
+      class BatchPersistor < Persistence::Persistor
+        Model = Organization::Batch
+      end
     end
   end
 end

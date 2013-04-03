@@ -88,7 +88,6 @@ module Lims::Core
         # This is the main method of an action,
         # called to effectively perform an action.
         def _call_in_session(session)
-          debugger
           raise NotImplementedError
         end
 

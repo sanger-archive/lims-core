@@ -6,8 +6,10 @@ require 'lims-core/organization/user'
 module Lims::Core
   module Organization
     # Base for all User persistors.
-    class User::UserPersistor < Persistence::Persistor
-      Model = Organization::User
+    class User
+      class UserPersistor < Persistence::Persistor
+        Model = Organization::User
+      end
     end
   end
 end

@@ -16,17 +16,19 @@ module Lims::Core
     # Amount is an amount of an aliquot to transfer.
     # Fraction is the fraction of an aliquot to transfer.
     # Type is the type of the aliquot.
-    class Tube::TransferTubesToTubes
-      include Actions::Action
-      include TransferAction
-      include TransfersParameters
+    class Tube
+      class TransferTubesToTubes
+        include Actions::Action
+        include TransferAction
+        include TransfersParameters
 
-      # transfer the given fraction of aliquot from tube-like asset(s)
-      # to tube-like asset(s)
-      def _call_in_session(session)
+        # transfer the given fraction of aliquot from tube-like asset(s)
+        # to tube-like asset(s)
+        def _call_in_session(session)
 
-        _transfer(transfers, _amounts(transfers), session)
+          _transfer(transfers, _amounts(transfers), session)
 
+        end
       end
     end
   end

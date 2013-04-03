@@ -10,38 +10,40 @@ module Lims::Core
     # Base for all TubeRack persistor.
     # Real implementation classes (e.g. Sequel::TubeRack) should
     # include the suitable persistor.
-    class TubeRack::TubeRackPersistor < Persistence::Persistor
-      Model = Laboratory::TubeRack
+    class TubeRack
+      class TubeRackPersistor < Persistence::Persistor
+        Model = Laboratory::TubeRack
 
-      # Save all children of the given tube_rack
-      # @param  id object identifier
-      # @param [Laboratory::TubeRack] tube_rack
-      # @return [Boolean]
-      def save_children(id, tube_rack)
-        # we use values here, so position is a number
-        tube_rack.values.each_with_index do |tube, position|
-          next if nil
-          slot.save_as_association(id, tube, position)
+        # Save all children of the given tube_rack
+        # @param  id object identifier
+        # @param [Laboratory::TubeRack] tube_rack
+        # @return [Boolean]
+        def save_children(id, tube_rack)
+          # we use values here, so position is a number
+          tube_rack.values.each_with_index do |tube, position|
+            next if nil
+            slot.save_as_association(id, tube, position)
+          end
         end
-      end
 
-      # Load all children of the given tube_rack
-      # Loaded object are automatically added to the session.
-      # @param  id object identifier
-      # @param [Laboratory::TubeRack] tube_rack
-      # @return [Laboratory::TubeRack, nil] 
-      #
-      def load_children(id, tube_rack)
-        slot.load_tubes(id) do |position, tube|
-          tube_rack[position]= tube
+        # Load all children of the given tube_rack
+        # Loaded object are automatically added to the session.
+        # @param  id object identifier
+        # @param [Laboratory::TubeRack] tube_rack
+        # @return [Laboratory::TubeRack, nil] 
+        #
+        def load_children(id, tube_rack)
+          slot.load_tubes(id) do |position, tube|
+            tube_rack[position]= tube
+          end
         end
-      end
 
-      def slot
-        @session.send("TubeRack::Slot")
-      end
+        def slot
+          @session.send("TubeRack::Slot")
+        end
 
-      class Slot < Persistence::Persistor
+        class Slot < Persistence::Persistor
+        end
       end
     end
   end

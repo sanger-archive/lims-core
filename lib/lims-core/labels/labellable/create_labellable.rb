@@ -5,27 +5,29 @@ require 'lims-core/labels/labellable'
 
 module Lims::Core
   module Labels
-    class Labellable::CreateLabellable
-      include Actions::Action
+    class Labellable
+      class CreateLabellable
+        include Actions::Action
 
-      attribute :name, String, :required => true, :writer => :private, :initializable => true
-      attribute :type, String, :required => true, :writer => :private, :initializable => true
-      attribute :labels, Hash, :default => {}, :writer => :private, :initializable => true
+        attribute :name, String, :required => true, :writer => :private, :initializable => true
+        attribute :type, String, :required => true, :writer => :private, :initializable => true
+        attribute :labels, Hash, :default => {}, :writer => :private, :initializable => true
 
-      def _call_in_session(session)
-        labellable = Labels::Labellable.new(:name => name,
-                                                :type => type)
+        def _call_in_session(session)
+          labellable = Labels::Labellable.new(:name => name,
+                                                  :type => type)
 
-        labels.each { |position, label|
-          created_label = Labels::Labellable::Label.new(:type => label["type"],
-                                                    :value => label["value"])
+          labels.each { |position, label|
+            created_label = Labels::Labellable::Label.new(:type => label["type"],
+                                                      :value => label["value"])
 
-          labellable[position]= created_label
-        }
+            labellable[position]= created_label
+          }
 
-        session << labellable
+          session << labellable
 
-        { :labellable => labellable, :uuid => session.uuid_for!(labellable) }
+          { :labellable => labellable, :uuid => session.uuid_for!(labellable) }
+        end
       end
     end
   end
