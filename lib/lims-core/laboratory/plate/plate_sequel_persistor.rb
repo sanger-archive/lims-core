@@ -31,7 +31,7 @@ module Lims::Core
 
       class PlateSequelPersistor < PlatePersistor
         include Persistence::Sequel::Persistor
-        include Container
+        include Container::ContainerSequelPersistor
 
         def self.table_name
           :plates

@@ -44,6 +44,7 @@ module Lims::Core
             super(session, *args, &block)
             @id_to_object , @object_to_id = identity_map_parameters
           else Session
+            debugger
             super(session_or_persistor, *args, &block)
           end
 

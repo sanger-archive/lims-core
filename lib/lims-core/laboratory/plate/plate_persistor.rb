@@ -15,7 +15,7 @@ module Lims::Core
       class PlatePersistor < Persistence::Persistor
         Model = Laboratory::Plate
 
-        include Container
+        include Container::ContainerPersistor
 
         # calls the correct element method
         def element

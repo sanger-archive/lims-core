@@ -86,6 +86,7 @@ module Lims::Core
         begin
           persistor_for(name)
         rescue NameError
+          debugger
           # No persistor found for the given name
           # Call the normal method_missing
           super(name, *args, &block)
