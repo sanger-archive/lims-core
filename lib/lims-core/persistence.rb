@@ -2,6 +2,7 @@
 require 'common'
 require 'facets/string'
 
+require 'lims-core/persistence/session'
 
 module Lims::Core
   # Generic persistence layer.
@@ -56,26 +57,4 @@ module Lims::Core
         generate_missing_classes(klass, generated_class, persistor)
     end
   end
-end
-
-require 'lims-core/persistence/store'
-require 'lims-core/persistence/persistor'
-require 'lims-core/persistence/uuid_resource_persistor'
-require 'lims-core/persistence/session'
-require 'lims-core/persistence/search/search_persistor'
-require 'lims-core/persistence/message_bus'
-
-unless  defined?(Lims::Core::NO_AUTOLOAD)
-  require 'lims-core/laboratory/aliquot/aliquot_persistor'
-  require 'lims-core/laboratory/sample/sample_persistor'
-  require 'lims-core/laboratory/flowcell/flowcell_persistor'
-  require 'lims-core/laboratory/oligo/oligo_persistor'
-  require 'lims-core/laboratory/plate/plate_persistor'
-  require 'lims-core/labels/labellable/labellable_persistor'
-  require 'lims-core/organization/order/order_persistor'
-  require 'lims-core/organization/user/user_persistor'
-  require 'lims-core/organization/study/study_persistor'
-  require 'lims-core/laboratory/tag_group/tag_group_persistor'
-  require 'lims-core/laboratory/tube/tube_persistor'
-  require 'lims-core/laboratory/spin_column/spin_column_persistor'
 end

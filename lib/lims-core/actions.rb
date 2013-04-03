@@ -8,7 +8,3 @@ module Lims::Core
   module Actions
   end
 end
-
-unless defined?(Lims::Core::NO_AUTOLOAD)
-  require_all('actions/*')
-end
