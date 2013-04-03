@@ -30,7 +30,7 @@ module Lims::Core
         end
 
         class Tube
-          class TubePersistorAliquot < Persistence::Persistor
+          class TubeAliquotPersistor < Persistence::Persistor
           end
         end
 

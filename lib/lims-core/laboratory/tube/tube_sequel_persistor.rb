@@ -11,7 +11,7 @@ module Lims::Core
         include Sequel::Persistor
 
         class Tube
-          class TubeSequelPersistorAliquot < TubePersistor::TubeAliquot
+          class TubeSequelAliquotPersistor < TubePersistor::TubeAliquot
             include Sequel::Persistor
 
             # Do a bulk load of aliquot and pass each to a block

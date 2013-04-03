@@ -11,7 +11,7 @@ module Lims::Core
         include Sequel::Persistor
         include Container
 
-        module Gel::GelSequelPersistorContainerElement
+        module Gel::GelContainerElementSequelPersistor
           include ContainerElement
 
           def element_dataset

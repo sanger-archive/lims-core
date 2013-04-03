@@ -27,7 +27,7 @@ module Lims::Core
         end
 
         class SpinColumn
-          class SpinColumnPersistorAliquot < Persistence::Persistor
+          class SpinColumnAliquotPersistor < Persistence::Persistor
           end
         end
 

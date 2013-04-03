@@ -23,7 +23,7 @@ module Lims::Core
 
       def self.register_model(subclass)
         model = subclass.parent_scope
-        return if model::const_get :NO_AUTO_REGISTRATION
+        return if model::const_defined? :NO_AUTO_REGISTRATION
         name = model.name.split('::').pop
         Session::register_model(name, model)
       end

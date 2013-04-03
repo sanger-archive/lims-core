@@ -13,7 +13,7 @@ module Lims::Core
         include Sequel::Persistor
         include Container
 
-        module Plate::PlateSequelPersistorContainerElement
+        module Plate::PlateContainerElementSequelPersistor
           include ContainerElement
 
           def element_dataset

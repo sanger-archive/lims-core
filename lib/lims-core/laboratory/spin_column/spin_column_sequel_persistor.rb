@@ -9,7 +9,7 @@ module Lims::Core
         include Sequel::Persistor
 
         class SpinColumn
-          class SpinColumnSequelPersistorAliquot < SpinColumnPersistor::SpinColumnAliquot
+          class SpinColumnSequelAliquotPersistor < SpinColumnPersistor::SpinColumnAliquot
             include Sequel::Persistor
 
             # Do a bulk load of aliquot and pass each to a block
