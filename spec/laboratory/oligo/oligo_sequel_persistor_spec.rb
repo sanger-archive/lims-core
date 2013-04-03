@@ -5,11 +5,11 @@ require 'persistence/sequel/store_shared'
 
 # Model requirements
 require 'lims-core/persistence/sequel/store'
-require 'lims-core/laboratory/oligo'
+require 'lims-core/laboratory/oligo/oligo_persistor'
 
 module Lims::Core
 
-  describe Persistence::Sequel::Oligo, :oligo => true, :laboratory => true, :persistence => true, :sequel => true do
+  describe "Laboratory::Oligo::OligoSequelPersistor", :oligo => true, :laboratory => true, :persistence => true, :sequel => true do
     include_context "prepare tables"
     let(:db) { ::Sequel.sqlite('') }
     let(:store) { Persistence::Sequel::Store.new(db) }
