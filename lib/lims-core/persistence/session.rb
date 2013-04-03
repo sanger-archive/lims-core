@@ -80,7 +80,6 @@ module Lims::Core
       end
 
       def method_missing(name, *args, &block)
-        debugger
         begin
           persistor_for(name)
         rescue NameError
@@ -263,7 +262,6 @@ module Lims::Core
       def self.persistor_class_for(object)
         model = model_for(object)
 
-        debugger
         persistor_class_map[model] ||= find_or_create_persistor_for(model)
       end
 
