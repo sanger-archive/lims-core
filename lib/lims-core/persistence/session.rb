@@ -216,7 +216,11 @@ module Lims::Core
       # @param [String, Symbol] name
       # @parm [Class] model
       def self.register_model(name, model)
-        @@model_map.map_id_object(name.to_s, model)
+        name = name.to_s.downcase
+        # skip if name already registered with the same object
+        return if @@model_map.object_for(name) == model
+        debugger if name == 'tube'
+        @@model_map.map_id_object(name, model)
       end
 
 

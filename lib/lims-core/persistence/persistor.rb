@@ -16,6 +16,18 @@ module Lims::Core
     class Persistor
       include IdentityMap
 
+      # Performs an autoregistration if needed
+      def self.inherited(subclass)
+        register_model(subclass)
+      end
+
+      def self.register_model(subclass)
+        model = subclass.parent_scope
+        return if model::const_get :NO_AUTO_REGISTRATION
+        name = model.name.split('::').pop
+        Session::register_model(name, model)
+      end
+
       def initialize (session, *args, &block)
         @session = session
         super(*args, &block)
