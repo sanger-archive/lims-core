@@ -20,7 +20,6 @@ module Lims::Core
       @@model_map = IdentityMap::Class.new
       # The map of peristor classes depends of the session type (sequel, log, etc ..)
       # As they will be different classes
-      @persistor_class_map = {}
 
 
       extend Forwardable
@@ -81,11 +80,12 @@ module Lims::Core
       end
 
       def method_missing(name, *args, &block)
-        raise 'Loop on '+name if name == @__current_method_missing
-        @__current_method_missing = name
+        debugger
         begin
           persistor_for(name)
         rescue NameError
+          # No persistor found for the given name
+          # Call the normal method_missing
           super(name, *args, &block)
         end
       end
@@ -227,6 +227,7 @@ module Lims::Core
       # @return [Symbol]
       def  self.model_for(object)
         case object
+        when nil then nil
         when String then name_to_model(object)
         when Symbol then name_to_model(object)
         when Class then
@@ -239,6 +240,7 @@ module Lims::Core
           }
 
           # Check the owner
+          return nil unless object.respond_to? :parent_scope
           model_for(object.parent_scope).andtap { |model|
             return model
           }
@@ -261,12 +263,18 @@ module Lims::Core
       def self.persistor_class_for(object)
         model = model_for(object)
 
-        @persistor_class_map[model] ||= self.find_or_create_persistor_for(model)
+        debugger
+        persistor_class_map[model] ||= find_or_create_persistor_for(model)
       end
 
-      def find_or_create_persistor_for(model)
+      def self.persistor_class_map()
+        @persistor_class_map ||={}
+      end
+
+      def self.find_or_create_persistor_for(model)
         # find the persistor within the class
         # other corresponding to the current session type
+        return nil unless model
         session_persistor_class = self.class.const_get(:Persistor)
         model.constants(false).each do |name|
           klass = model.const_get(name)
@@ -288,7 +296,6 @@ module Lims::Core
         model_name = model.name.split('::').pop
         # the we create a new Persistor class including the Persistor mixin
         # corresponding to the session
-        debugger
         model.class_eval <<-EOV
         class #{model_name}#{module_name}Persistor < #{parent_persistor_class.name}
           include #{self::Persistor}
@@ -307,9 +314,9 @@ module Lims::Core
         end
 
         model = self.class.model_for(object)
-        @persistor_map[name]  ||= begin
-          persistor_class = self.persistor_class_for(model)
-          raise NameError, "Persistor #{name} not defined for #{@store.base_module.name}" unless persistor_class &&  persistor_class.ancestors.include?(Persistor)
+        @persistor_map[model]  ||= begin
+          persistor_class = self.class.persistor_class_for(model)
+          raise NameError, "no persistor defined for #{object.inspect}" unless persistor_class &&  persistor_class.ancestors.include?(Persistor)
           persistor_class.new(self)
         end
       end
