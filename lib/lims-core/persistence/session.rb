@@ -221,7 +221,7 @@ module Lims::Core
       # @param [String, Symbol] name
       # @parm [Class] model
       def self.register_model(name, model)
-        name = name.to_s.downcase
+        name = name.to_s.snakecase
         # skip if name already registered with the same object
         return if model_map.object_for(name) == model
         model_map.map_id_object(name, model)
@@ -338,3 +338,4 @@ module Lims::Core
   end
 end
 
+require 'lims-core/persistence/uuid_resource_persistor'

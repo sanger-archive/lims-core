@@ -2,6 +2,7 @@
 
 require 'sequel'
 require 'lims-core/persistence'
+require 'lims-core/persistence/uuid_resource_persistor'
 
 module Lims::Core
   module Persistence
@@ -12,7 +13,7 @@ module Lims::Core
       # @return [Resource, nil, Array<Resource>]
       def [](args)
         case args
-        when Uuids::UuidResource then for_uuid_resource(args)
+        when UuidResource then for_uuid_resource(args)
         when String then for_uuid(args)
         when Array then for_uuids(args)
         else
@@ -50,7 +51,7 @@ module Lims::Core
       def new_uuid_resource_for(object)
         object_id =  id_for(object)
         key  = object_id ? object_id : lambda { self.id_for(object) }
-        Uuids::UuidResource.new(:key => key, :model_class => object.class).tap do |r|
+        UuidResource.new(:key => key, :model_class => object.class).tap do |r|
           self << r
         end
       end
