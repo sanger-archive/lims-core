@@ -3,6 +3,7 @@
 
 require 'lims-core/persistence/persistor'
 require 'lims-core/laboratory/aliquot'
+require 'lims-core/laboratory/sample/sample_persistor'
 
 module Lims::Core
   module Laboratory

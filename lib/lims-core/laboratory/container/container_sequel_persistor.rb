@@ -1,3 +1,5 @@
+require 'lims-core/laboratory/aliquot/aliquot_sequel_persistor'
+
 module Lims::Core
   module Laboratory
     module Container::ContainerSequelPersistor

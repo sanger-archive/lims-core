@@ -1,4 +1,5 @@
 require 'lims-core/laboratory/container'
+require 'lims-core/laboratory/aliquot/aliquot_persistor'
 
 module Lims::Core
   module Laboratory

@@ -13,7 +13,7 @@ class Object
   end
 
   def self.parent_scope()
-    eval self.name.split('::').tap { |_| _.pop }.join('::')
+    @__parent_scope ||= eval self.name.split('::').tap { |_| _.pop }.join('::')
   end
 end
 
