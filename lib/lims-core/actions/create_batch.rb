@@ -8,9 +8,13 @@ module Lims::Core
       include Action
 
       attribute :process, String, :required => false, :writer => :private
+      attribute :kit, String, :required => false, :writer => :private
 
       def _call_in_session(session)
-        batch = Organization::Batch.new(:process => process)
+        batch = Organization::Batch.new({
+          :process => process,
+          :kit => kit 
+        })
         session << batch
         {:batch => batch, :uuid => session.uuid_for!(batch)}
       end
