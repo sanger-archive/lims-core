@@ -28,8 +28,33 @@ module Lims::Core
           batch.should eq(session.batch[batch_id])
         end
       end
-    end
 
+      context "with a process" do
+        let(:process) { "process" }
+        subject { described_class.new(:process => process) }
+
+        it "can be saved and reloaded" do
+          batch_id = save(subject)
+          store.with_session do |session|
+            batch = session.batch[batch_id]
+            batch.process.should == process
+          end
+        end
+      end
+
+      context "with a kit" do
+        let(:kit) { "kit" }
+        subject { described_class.new(:kit => kit) }
+
+        it "can be saved and reloaded" do
+          batch_id = save(subject)
+          store.with_session do |session|
+            batch = session.batch[batch_id]
+            batch.kit.should == kit 
+          end
+        end       
+      end
+    end
 
     context "create a batch but don't add it to a session" do
       it "is not saved" do
