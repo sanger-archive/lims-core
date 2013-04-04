@@ -15,7 +15,9 @@ module Lims::Core
     # Session information (user, time) are also associated to the modifications of those objects.
     class Session
 
-      UnmanagedObjectError = Class.new(RuntimeError)
+      class UnmanagedObjectError < RuntimeError
+      end
+
       # The map name <=> model class is shared between all type of session
       #
       def self.model_map()
@@ -86,7 +88,6 @@ module Lims::Core
         begin
           persistor_for(name)
         rescue NameError
-          debugger
           # No persistor found for the given name
           # Call the normal method_missing
           super(name, *args, &block)
@@ -280,7 +281,6 @@ module Lims::Core
         # find the persistor within the class
         # other corresponding to the current session type
         return nil unless model
-        debugger
         session_persistor_class = parent_scope.const_get(:Persistor)
         model.constants(false).each do |name|
           klass = model.const_get(name)
@@ -291,22 +291,23 @@ module Lims::Core
         end
         # not found, we need to create it
         # First we look for the base persistor to inherit from
-        parent_persistor_class = parent_scope.persistor_class_for(model)
+        parent_persistor_class = superclass.persistor_class_for(model)
 
         # if the current persistor (ex Sequel::Persistor) is the same  as the base one
         # there is nothing else to do
-        return parent_persistor_class unless self::const_get(:Persistor, false)
+        return parent_persistor_class unless parent_scope::const_defined?(:Persistor, false)
 
         raise  "no Persistor defined for #{model.name}" unless parent_persistor_class
-        module_name = self.name.sub(/.*Persistence::/,'')
+        module_name = parent_scope.name.sub(/.*Persistence::/,'')
         model_name = model.name.split('::').pop
         # the we create a new Persistor class including the Persistor mixin
         # corresponding to the session
-        model.class_eval <<-EOV
+        class_declaration = <<-EOV
         class #{model_name}#{module_name}Persistor < #{parent_persistor_class.name}
-          include #{self::Persistor}
+          include #{parent_scope::Persistor}
         end
         EOV
+        model.class_eval class_declaration
 
       end
 
