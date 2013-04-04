@@ -15,11 +15,13 @@ module Lims::Core
         let(:user) { mock(:user) }
         let(:application) { "Test create batch" }
         let(:process) { mock(:process) }
+        let(:kit) { mock(:kit) }
 
         context "create a batch" do
           subject do
             described_class.new(:store => store, :user => user, :application => application)  do |a,s|
               a.process = process
+              a.kit = kit
             end
           end 
 
@@ -31,6 +33,7 @@ module Lims::Core
             result.should be_a(Hash)
             result[:batch].should be_a(Organization::Batch)
             result[:batch][:process].should == process
+            result[:batch][:kit].should == kit
             result[:uuid].should == uuid
           end
         end
