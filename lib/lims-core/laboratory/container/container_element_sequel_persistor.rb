@@ -13,14 +13,13 @@ module Lims::Core
       # @yieldparam [Integer] position
       # @yieldparam [Aliquot] aliquot
       def load_aliquots(container_id)
-        element_dataset.join(Aliquot::dataset(@session), :id => :aliquot_id).filter(container_id_sym => container_id).each do |att|
+       dataset.join(@session.aliquot::dataset, :id => :aliquot_id).filter(container_id_sym => container_id).each do |att|
           position = att.delete(:position)
           att.delete(:id)
           aliquot  = @session.aliquot.get_or_create_single_model(att[:aliquot_id], att)
           yield(position, aliquot)
         end
       end
-
     end
   end
 end

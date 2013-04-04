@@ -23,15 +23,16 @@ module Lims::Core
         end
 
         def well
-          @session.send("Plate::Well")
+          @session.plate_well
         end
       end
 
-        # Base for all Well persistor.
-        # Real implementation classes (e.g. Sequel::Well) should
-        # include the suitable persistor.
-        class Well
-         class WellPersistor < Persistence::Persistor
+      # Base for all Well persistor.
+      # Real implementation classes (e.g. Sequel::Well) should
+      # include the suitable persistor.
+      class Well
+        SESSION_NAME = :plate_well
+        class WellPersistor < Persistence::Persistor
           Model = Laboratory::Plate::Well
 
           include Container::ContainerElementPersistor

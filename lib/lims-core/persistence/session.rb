@@ -284,6 +284,7 @@ module Lims::Core
         session_persistor_class = parent_scope.const_get(:Persistor)
         model.constants(false).each do |name|
           klass = model.const_get(name)
+          next unless klass.is_a? Class
           if  klass.ancestors.include?(session_persistor_class)
             # found
             return klass

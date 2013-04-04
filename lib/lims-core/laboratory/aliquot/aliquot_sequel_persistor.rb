@@ -1,6 +1,7 @@
 # vi: ts=2:sts=2:et:sw=2 spell:spelllang=en
 
 require 'lims-core/laboratory/aliquot/aliquot_persistor'
+require 'lims-core/laboratory/oligo/oligo_persistor'
 require 'lims-core/persistence/sequel/persistor'
 
 module Lims::Core

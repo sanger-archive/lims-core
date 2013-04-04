@@ -15,7 +15,7 @@ module Lims::Core
       # and return the proper dataset of the element of the container
       # i.e. in the case of Gel: Window::dataset(@session)
       def element_dataset
-        raise NotImplementedError
+        element.dataset
       end
 
       # Delete all children of the given container

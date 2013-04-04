@@ -18,9 +18,6 @@ module Lims::Core
           def self.table_name
             :wells
           end
-          def element_dataset
-            Lims::Core::Persistence::Sequel::Plate::Well::dataset(@session)
-          end
 
           def container_id_sym
             :plate_id
@@ -39,10 +36,6 @@ module Lims::Core
 
         def container_id_sym
           :plate_id
-        end
-
-        def element_dataset
-          Well::dataset(@session)
         end
       end
     end

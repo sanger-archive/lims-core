@@ -14,10 +14,6 @@ module Lims::Core
         module Gel::GelContainerElementSequelPersistor
           include ContainerElement
 
-          def element_dataset
-            Lims::Core::Persistence::Sequel::Gel::Window::dataset(@session)
-          end
-
           def container_id_sym
             :gel_id
           end
@@ -42,10 +38,6 @@ module Lims::Core
 
         def container_id_sym
           :gel_id
-        end
-
-        def element_dataset
-          Window::dataset(@session)
         end
       end
     end
