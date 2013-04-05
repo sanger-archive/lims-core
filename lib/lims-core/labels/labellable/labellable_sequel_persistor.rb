@@ -15,7 +15,7 @@ module Lims::Core
 
 
         def save_raw_association(labellables_id, labels_id)
-            dataset.insert(:labellables_id => labellables_id, :labels_id  => labels_id)
+          dataset.insert(:labellables_id => labellables_id, :labels_id  => labels_id)
         end
 
         def filter_attributes_on_save(attributes, *params)
@@ -34,31 +34,33 @@ module Lims::Core
           end
           attributes
         end
+      end
 
-          # Mixin to be included by classes of Labellable::Labels
-          class Label  < Persistence::Labellable::Label
-            include Persistence::Sequel::Persistor
+      # Mixin to be included by classes of Labellable::Labels
+      module Label  
+        class LabelSequelPersistor < Label::LabelPersistor
+          include Persistence::Sequel::Persistor
 
-            def self.table_name
-              :labels
+          def self.table_name
+            :labels
+          end
+
+          def load(labellable_id)
+            dataset.filter(:labellable_id => labellable_id).each do |att|
+              position = att.delete(:position)
+              label =  Labels::Labellable::Label::new(att)
+              yield(position, label)
             end
+          end
 
-            def load(labellable_id)
-              dataset.filter(:labellable_id => labellable_id).each do |att|
-                position = att.delete(:position)
-                label =  Labels::Labellable::Label::new(att)
-                yield(position, label)
-              end
-            end
-
-            def filter_attributes_on_save(attributes, labellable_id=nil, position=nil)
-              attributes.tap do
-                attributes[:labellable_id]= labellable_id if labellable_id
-                attributes[:position] = position if position
-              end
+          def filter_attributes_on_save(attributes, labellable_id=nil, position=nil)
+            attributes.tap do
+              attributes[:labellable_id]= labellable_id if labellable_id
+              attributes[:position] = position if position
             end
           end
         end
       end
     end
   end
+end

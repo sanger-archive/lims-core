@@ -11,7 +11,7 @@ module Lims::Core
         Model = Labels::Labellable
 
         def label
-          @session.send("Labellable::Label")
+          @session.labellable_label
         end
 
         # Saves all children of a given Labellable
@@ -27,9 +27,10 @@ module Lims::Core
             labellable[position]=label
           end
         end
-
-
-        class Label < Persistence::Persistor
+      end
+      module Label 
+        SESSION_NAME=:labellable_label
+        class LabelPersistor < Persistence::Persistor
           Model = Labels::Labellable::Label
         end
       end

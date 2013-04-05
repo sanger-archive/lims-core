@@ -237,6 +237,7 @@ module Lims::Core
         when nil then nil
         when String then name_to_model(object)
         when Symbol then name_to_model(object)
+        when Module then object
         when Class then
           # check if the class has been registered
           return object if model_to_name(object)
@@ -258,7 +259,7 @@ module Lims::Core
 
       def self.persistor_name_for(object)
         model = model_for(object)
-        name_to_model(model)
+        model_to_name(model)
       end
 
       def persistor_name_for(object)
@@ -284,7 +285,7 @@ module Lims::Core
         session_persistor_class = parent_scope.const_get(:Persistor)
         model.constants(false).each do |name|
           klass = model.const_get(name)
-          next unless klass.is_a? Class
+          next unless klass.is_a? Module
           if  klass.ancestors.include?(session_persistor_class)
             # found
             return klass
