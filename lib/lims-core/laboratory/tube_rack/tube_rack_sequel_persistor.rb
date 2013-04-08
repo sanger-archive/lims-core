@@ -17,7 +17,7 @@ module Lims::Core
 
         # Delete the tube, rack association, but doesn't delete the tube.
         def delete_children(id, tube_rack)
-          Slot.dataset(@session).filter(:tube_rack_id => id).delete
+          @session.tube_rack_slot.dataset.filter(:tube_rack_id => id).delete
         end
       end
       # Not a slot but a slot {Persistor}.
@@ -39,7 +39,7 @@ module Lims::Core
           # @yieldparam [Integer] position
           # @yieldparam [Aliquot] aliquot
           def load_tubes(tube_rack_id)
-            dataset.join(TubeRackSequelPersistor::dataset(@session), :id => :tube_id).filter(:tube_rack_id => tube_rack_id).each do |att|
+            dataset.join(@session.tube.dataset, :id => :tube_id).filter(:tube_rack_id => tube_rack_id).each do |att|
               position = att.delete(:position)
               att.delete(:id)
               tube  = @session.tube.get_or_create_single_model(att[:tube_id], att)

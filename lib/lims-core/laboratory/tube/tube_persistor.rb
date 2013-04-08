@@ -3,6 +3,7 @@
 
 require 'lims-core/persistence/persistor'
 require 'lims-core/laboratory/tube'
+require 'lims-core/laboratory/aliquot/all'
 
 module Lims::Core
   module Laboratory
