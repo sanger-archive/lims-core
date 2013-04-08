@@ -3,7 +3,7 @@ require 'lims-core/persistence/filter'
 require 'lims-core/resource'
 
 module Lims::Core
-  module Persistence
+  module Organization
     # Filter  performing a && between all the pairs of a map.
     # Key being the field
     # Value can be either a String, an Array  or a Hash.
@@ -21,8 +21,8 @@ module Lims::Core
     #   Will look for all the orders in pending or in progress status
     #   *holding* a plate with a pending status.
     #    
-    class Filter
-      class OrderFilter < Filter 
+    class Order
+      class OrderFilter < Persistence::Filter 
         include Resource
         attribute :criteria, Hash, :required => true
         # For Sequel, keys needs to be a Symbol to be seen as column.

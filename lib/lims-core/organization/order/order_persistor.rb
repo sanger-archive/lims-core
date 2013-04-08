@@ -43,11 +43,12 @@ module Lims::Core
         end
 
         def item
-          @session.send("Order::Item")
+          @session.order_item
         end
       end
 
       class Item
+        SESSION_NAME = :order_item
         class ItemPersistor < Persistence::Persistor
           Model = Organization::Order::Item
 

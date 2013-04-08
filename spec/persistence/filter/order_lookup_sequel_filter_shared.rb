@@ -138,7 +138,7 @@ module Lims::Core
     shared_examples_for "orders filtrable" do
       include_context "with saved orders"
       let(:description) { "lookup by order" }
-      let(:filter) { Persistence::OrderFilter.new(criteria) }
+      let(:filter) { Organization::Order::OrderFilter.new(criteria) }
       let(:search) { Persistence::Search.new(:model => model, :filter => filter, :description => description) }
 
       context "by order pipeline" do
