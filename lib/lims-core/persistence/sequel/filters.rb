@@ -1,4 +1,4 @@
-require 'lims-core/persistence/sequel/persistor'
+require 'lims-core/persistence/sequel'
 require 'active_support/inflector'
 
 module Lims::Core
