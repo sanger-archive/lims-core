@@ -16,7 +16,7 @@ module Lims::Core
         # @param [Fixnum] id the id in the database
         # @param [Laboratory::Tube] tube
         def delete_children(id, tube)
-          TubeSequelAliquotPersistor::dataset(@session).filter(:tube_id => id).delete
+          TubeAliquot::TubeSequelAliquotPersistor::dataset(@session).filter(:tube_id => id).delete
         end
       end
       module TubeAliquot
