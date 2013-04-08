@@ -2,6 +2,8 @@
 
 require 'lims-core/persistence/persistor'
 require 'lims-core/organization/order'
+require 'lims-core/organization/study/all'
+require 'lims-core/organization/user/all'
 
 module Lims::Core
   module Organization
