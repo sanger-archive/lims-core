@@ -8,6 +8,11 @@ module Lims::Core
     # Real implementation classes (e.g. Sequel::SpinColumn) should
     # include the suitable persistor.
     class SpinColumn
+      module SpinColumnAliquot
+        SESSION_NAME = :spin_column_persistor_aliquot
+        class SpinColumnAliquotPersistor < Persistence::Persistor
+        end
+      end
       class SpinColumnPersistor < Persistence::Persistor
         Model = Laboratory::SpinColumn
 
@@ -23,13 +28,9 @@ module Lims::Core
         end
 
         def  spin_column_aliquot
-          @session.send("SpinColumn::SpinColumnAliquot")
+          @session.spin_column_persistor_aliquot
         end
 
-        class SpinColumn
-          class SpinColumnAliquotPersistor < Persistence::Persistor
-          end
-        end
 
         # Load all children of the given spin column
         # Loaded object are automatically added to the session.
