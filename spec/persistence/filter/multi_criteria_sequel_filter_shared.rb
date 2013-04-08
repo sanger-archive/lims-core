@@ -2,7 +2,7 @@
 require 'persistence/sequel/spec_helper'
 require 'persistence/sequel/page_shared'
 
-require 'lims-core/persistence/filter/multi_criteria_filter'
+require 'lims-core/persistence/multi_criteria_filter'
 
 module Lims::Core
 
