@@ -3,7 +3,7 @@ require 'persistence/sequel/spec_helper'
 require 'persistence/sequel/page_shared'
 
 require 'lims-core/persistence/filter/multi_criteria_filter'
-require 'lims-core/persistence/filter/order_filter'
+require 'lims-core/organization/order/all'
 
 module Lims::Core
   module Persistence

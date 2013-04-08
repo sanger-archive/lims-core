@@ -36,8 +36,10 @@ module Lims::Core
             end
           end
         end
+      end
 
-        class Item < Persistence::Order::Item
+      class Item
+        class ItemSequelPersistor < ItemPersistor
           include Persistence::Sequel::Persistor
 
           def self.table_name

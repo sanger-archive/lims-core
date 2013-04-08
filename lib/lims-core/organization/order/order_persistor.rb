@@ -43,8 +43,10 @@ module Lims::Core
         def item
           @session.send("Order::Item")
         end
+      end
 
-        class Item < Persistence::Persistor
+      class Item
+        class ItemPersistor < Persistence::Persistor
           Model = Organization::Order::Item
 
           def filter_attributes_on_save(attributes, order_id=nil, role=nil)
