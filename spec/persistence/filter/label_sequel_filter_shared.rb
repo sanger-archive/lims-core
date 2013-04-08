@@ -3,6 +3,7 @@ require 'persistence/sequel/spec_helper'
 
 require 'lims-core/persistence/filter/label_filter'
 require 'lims-core/labels/labellable/all'
+require 'lims-core/persistence/search'
 
 module Lims::Core
 
