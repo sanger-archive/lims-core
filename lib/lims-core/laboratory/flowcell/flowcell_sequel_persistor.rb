@@ -7,11 +7,9 @@ module Lims::Core
   module Laboratory
     # Not a flowcell but a flowcell persistor.
     class Flowcell
-      class FlowcellSequelPersistor < FlowcellPersistor
-        include Persistence::Sequel::Persistor
-
       # Not a lane but a lane {Persistor}.
-        class Lane < Persistence::Flowcell::Lane
+      class Lane 
+        class LaneSequelPersistor < LanePersistor
           include Persistence::Sequel::Persistor
           def self.table_name
             :lanes
@@ -19,8 +17,8 @@ module Lims::Core
 
           def save_raw_association(flowcell_id, aliquot_id, position)
             dataset.insert(:flowcell_id => flowcell_id,
-                           :position => position,
-                           :aliquot_id  => aliquot_id)
+              :position => position,
+              :aliquot_id  => aliquot_id)
           end
 
           # Do a bulk load of aliquot and pass each of a block
@@ -28,7 +26,7 @@ module Lims::Core
           # @yieldparam [Integer] position
           # @yieldparam [Aliquot] aliquot
           def load_aliquots(flowcell_id)
-            Lane::dataset(@session).join(Aliquot::dataset(@session), :id => :aliquot_id).filter(:flowcell_id => flowcell_id).each do |att|
+            dataset.join(@session.aliquot.dataset, :id => :aliquot_id).filter(:flowcell_id => flowcell_id).each do |att|
               position = att.delete(:position)
               att.delete(:id)
               aliquot  = @session.aliquot.get_or_create_single_model(att[:aliquot_id],  att )
@@ -36,6 +34,10 @@ module Lims::Core
             end
           end
         end #class Lane
+      end
+      class FlowcellSequelPersistor < FlowcellPersistor
+        include Persistence::Sequel::Persistor
+
 
         def self.table_name
           :flowcells
@@ -56,11 +58,11 @@ module Lims::Core
         # @param [Fixnum] id the id in the database
         # @param [Laboratory::Flowcell] flowcell
         def delete_children(id, flowcell)
-          Lane::dataset(@session).filter(:flowcell_id => id).delete
+          @session.flowcell_lane.dataset.filter(:flowcell_id => id).delete
         end
 
         def lane
-          @session.send("Flowcell::Lane")
+          @session.flowcell_lane
         end
 
         # Load all children of the given flowcell

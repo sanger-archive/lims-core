@@ -3,6 +3,7 @@
 
 require 'lims-core/persistence/persistor'
 require 'lims-core/laboratory/flowcell'
+require 'lims-core/laboratory/aliquot/all'
 
 module Lims::Core
   module Laboratory
@@ -13,12 +14,15 @@ module Lims::Core
     class Flowcell
       class FlowcellPersistor < Persistence::Persistor
         Model = Laboratory::Flowcell
+      end
 
-        # @abstract
-        # Base for all Lane persistor.
-        # Real implementation classes (e.g. Sequel::Lane) should
-        # include the suitable persistor.
-        class Lane < Persistence::Persistor
+      # @abstract
+      # Base for all Lane persistor.
+      # Real implementation classes (e.g. Sequel::Lane) should
+      # include the suitable persistor.
+      class Lane 
+        SESSION_NAME = :flowcell_lane
+        class LanePersistor < Persistence::Persistor
           Model = Laboratory::Flowcell::Lane
           def save(lane, flowcell_id, position)
             #todo bulk save if needed

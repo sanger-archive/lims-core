@@ -9,7 +9,7 @@ require 'persistence/filter/multi_criteria_sequel_filter_shared'
 
 # Model requirements
 require 'lims-core/persistence/sequel/store'
-require 'lims-core/laboratory/flowcell'
+require 'lims-core/laboratory/flowcell/all'
 
 module Lims::Core
   shared_context "already created flowcell" do

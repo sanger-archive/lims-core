@@ -12,9 +12,7 @@ require 'persistence/filter/label_sequel_filter_shared'
 # Model requirements
 require 'lims-core/laboratory/tube_rack'
 
-require 'lims-core/persistence/filter/label_filter'
-require 'lims-core/labels/labellable'
-require 'lims-core/labels/sanger_barcode'
+require 'lims-core/labels/labellable/all'
 
 module Lims::Core
 
