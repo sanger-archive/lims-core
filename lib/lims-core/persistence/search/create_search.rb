@@ -3,9 +3,6 @@ require 'lims-core/actions/action'
 
 require 'lims-core/persistence/search/search_persistor'
 require 'lims-core/persistence/filter/multi_criteria_filter'
-require 'lims-core/persistence/filter/label_filter'
-require 'lims-core/persistence/filter/order_filter'
-require 'lims-core/persistence/filter/batch_filter'
 
 module Lims::Core
   module Persistence
@@ -19,6 +16,7 @@ module Lims::Core
 
         def _call_in_session(session)
           # Create the appropriate filter depending on the criteria
+          # @tod remove hardcoded class
           filter = case [criteria.size, criteria.keys.first.to_s]
                    when [1, "label"] then Persistence::LabelFilter.new(:criteria => criteria)
                    when [1, "order"] then Persistence::OrderFilter.new(:criteria => criteria)
