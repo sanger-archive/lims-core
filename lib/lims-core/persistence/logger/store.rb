@@ -3,6 +3,8 @@
 require 'logger'
 require 'lims-core/persistence'
 require 'lims-core/persistence/store'
+require 'lims-core/persistence/logger/session'
+require 'lims-core/persistence/logger/persistor'
 
 module Lims::Core
   module Persistence
