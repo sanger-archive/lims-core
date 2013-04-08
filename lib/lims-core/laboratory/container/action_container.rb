@@ -1,6 +1,6 @@
 module Lims::Core
   module Laboratory
-    module Container::Container
+    module Container::ActionContainer
 
       def self.included(klass)
         klass.class_eval do

@@ -8,7 +8,7 @@ module Lims::Core
     class Gel
       class CreateGel
         include Actions::Action
-        include Container
+        include Container::ActionContainer
 
         # @attribute [Hash<String, Array<Hash>>] windows_description
         # @example

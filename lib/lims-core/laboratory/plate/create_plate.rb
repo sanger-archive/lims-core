@@ -2,14 +2,14 @@
 require 'lims-core/actions/action'
 
 require 'lims-core/laboratory/plate'
-require 'lims-core/laboratory/container/container'
+require 'lims-core/laboratory/container/action_container'
 
 module Lims::Core
   module Laboratory
     class Plate
       class CreatePlate
         include Actions::Action
-        include Container
+        include Container::ActionContainer
 
         # @attribute [Hash<String, Array<Hash>>] wells_description
         # @example
