@@ -4,26 +4,24 @@ require 'lims/core/organization/batch'
 
 module Lims::Core
   module Actions
-    class CreateBatch
+    class UpdateBatch
       include Action
 
+      attribute :batch, Organization::Batch, :required => true, :writer => :private
       attribute :process, String, :required => false, :writer => :private
       attribute :kit, String, :required => false, :writer => :private
 
       def _call_in_session(session)
-        batch = Organization::Batch.new({
-          :process => process,
-          :kit => kit 
-        })
-        session << batch
-        {:batch => batch, :uuid => session.uuid_for!(batch)}
+        batch.process = process if process
+        batch.kit = kit if kit
+        {:batch => batch}
       end
-
     end
   end
+
   module Organization
     class Batch
-      Create = Actions::CreateBatch
+      Update = Actions::UpdateBatch
     end
   end
 end
