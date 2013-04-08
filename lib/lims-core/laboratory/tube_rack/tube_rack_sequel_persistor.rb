@@ -10,32 +10,6 @@ module Lims::Core
       class TubeRackSequelPersistor < TubeRackPersistor
         include Persistence::Sequel::Persistor
 
-      # Not a well but a well {Persistor}.
-        class Slot < Persistence::TubeRack::Slot
-          include Persistence::Sequel::Persistor
-          def self.table_name
-            :tube_rack_slots
-          end
-
-          def save_raw_association(tube_rack_id, tube_id, position)
-              dataset.insert(:tube_rack_id => tube_rack_id,
-                             :position => position,
-                             :tube_id  => tube_id)
-          end
-
-          # Do a bulk load of aliquot and pass each to a block
-          # @param tube_rack_id the id of the tube_rack to load.
-          # @yieldparam [Integer] position
-          # @yieldparam [Aliquot] aliquot
-          def load_tubes(tube_rack_id)
-            dataset.join(Tube::dataset(@session), :id => :tube_id).filter(:tube_rack_id => tube_rack_id).each do |att|
-              position = att.delete(:position)
-              att.delete(:id)
-              tube  = @session.tube.get_or_create_single_model(att[:tube_id], att)
-              yield(position, tube)
-            end
-          end
-        end #class Well
 
         def self.table_name
           :tube_racks
@@ -46,6 +20,34 @@ module Lims::Core
           Slot.dataset(@session).filter(:tube_rack_id => id).delete
         end
       end
+      # Not a slot but a slot {Persistor}.
+      class Slot 
+        class SlotSequelPersitor < SlotPersistor
+          include Persistence::Sequel::Persistor
+          def self.table_name
+            :tube_rack_slots
+          end
+
+          def save_raw_association(tube_rack_id, tube_id, position)
+            dataset.insert(:tube_rack_id => tube_rack_id,
+              :position => position,
+              :tube_id  => tube_id)
+          end
+
+          # Do a bulk load of aliquot and pass each to a block
+          # @param tube_rack_id the id of the tube_rack to load.
+          # @yieldparam [Integer] position
+          # @yieldparam [Aliquot] aliquot
+          def load_tubes(tube_rack_id)
+            dataset.join(TubeRackSequelPersistor::dataset(@session), :id => :tube_id).filter(:tube_rack_id => tube_rack_id).each do |att|
+              position = att.delete(:position)
+              att.delete(:id)
+              tube  = @session.tube.get_or_create_single_model(att[:tube_id], att)
+              yield(position, tube)
+            end
+          end
+        end
+      end #class Slot
     end
   end
 end

@@ -157,7 +157,7 @@ module Lims::Core
               it_behaves_like "transfer from many plates to many gels"
             end
 
-            context "transfer from 2 racks to 2 plates", :focus => true do
+            context "transfer from 2 racks to 2 plates", :tube_rack => true,  :focus => true do
               let(:quantity1) { 1000 }
               let(:quantity2) { 1000 }
               let(:final_quantity_rack1_A1) { 940 }

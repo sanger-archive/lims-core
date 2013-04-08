@@ -3,6 +3,7 @@
 
 require 'lims-core/persistence/persistor'
 require 'lims-core/laboratory/tube_rack'
+require 'lims-core/laboratory/tube/all'
 
 module Lims::Core
   module Laboratory
@@ -39,10 +40,14 @@ module Lims::Core
         end
 
         def slot
-          @session.send("TubeRack::Slot")
+          @session.tube_rack_slot
         end
 
-        class Slot < Persistence::Persistor
+      end
+
+      class Slot
+        SESSION_NAME = :tube_rack_slot
+        class SlotPersistor < Persistence::Persistor
         end
       end
     end

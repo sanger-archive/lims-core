@@ -11,7 +11,14 @@ module Lims::Core
     # Real implementation classes (e.g. Sequel::Tube) should
     # include the suitable persistor.
     class Tube
+      module TubeAliquot
+        SESSION_NAME = :tube_persistor_aliquot
+        class TubeAliquotPersistor < Persistence::Persistor
+        end
+      end
       class TubePersistor < Persistence::Persistor
+        # this module is here only to give 'parent' class for the persistor
+        # to be associated 
         Model = Laboratory::Tube
 
         # Save all children of the given tube
@@ -26,13 +33,9 @@ module Lims::Core
         end
 
         def  tube_aliquot
-          @session.send("Tube::TubeAliquot")
+          @session.tube_persistor_aliquot
         end
 
-        class Tube
-          class TubeAliquotPersistor < Persistence::Persistor
-          end
-        end
 
         # Load all children of the given tube
         # Loaded object are automatically added to the session.

@@ -31,6 +31,7 @@ module Lims::Core
           else
             name = model.name.split('::').pop
           end
+
           Session::register_model(name, model)
         end
 
