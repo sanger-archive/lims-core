@@ -10,6 +10,7 @@ module Lims::Core
       # Store the process that the batch is going through.
       # Ex: 8 tubes might go through the process "manual extraction".
       attribute :process, String, :required => false
+      attribute :kit, String, :required => false
     end
   end
 end

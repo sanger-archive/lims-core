@@ -28,11 +28,19 @@ module Lims::Core::Organization
 
     it_can_assign :process
     it_has_a :process
+    it_can_assign :kit
+    it_has_a :kit
 
     it "sets a process" do
       process = mock(:process)
       subject.process = process
       subject.process.should == process
+    end
+
+    it "sets a kit" do
+      kit = mock(:kit)
+      subject.kit = kit
+      subject.kit.should == kit
     end
   end
 end

@@ -59,10 +59,9 @@ end
 
 require 'lims/core/persistence/store'
 require 'lims/core/persistence/persistor'
-require 'lims/core/persistence/uuid_resource'
 require 'lims/core/persistence/session'
-require 'lims/core/persistence/search'
 require 'lims/core/persistence/message_bus'
+require 'lims/core/persistence/uuid_resource'
 
 unless  defined?(Lims::Core::NO_AUTOLOAD)
   require 'lims/core/persistence/aliquot'
@@ -77,4 +76,6 @@ unless  defined?(Lims::Core::NO_AUTOLOAD)
   require 'lims/core/persistence/tag_group'
   require 'lims/core/persistence/tube'
   require 'lims/core/persistence/spin_column'
+
+  require 'lims/core/persistence/search'
 end
