@@ -60,7 +60,7 @@ module Lims::Core
           end
 
           it "fails" do
-            expect { subject.call }.to raise_error(TubeRackTransfer::NoTubeInTargetLocation)
+            expect { subject.call }.to raise_error(TubeRack::TubeRackTransfer::NoTubeInTargetLocation)
           end
         end
 
