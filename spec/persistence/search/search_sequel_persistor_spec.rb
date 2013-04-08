@@ -8,15 +8,15 @@ require 'persistence/resource_shared'
 
 # Model requirements
 require 'lims-core/persistence/search/search_sequel_persistor'
-require 'lims-core/laboratory/plate'
-require 'lims-core/persistence/filter/order_filter'
+require 'lims-core/laboratory/plate/all'
+require 'lims-core/organization/order/all'
 
 require 'logger'
 module Lims::Core
 
   module Persistence
 
-    describe Sequel::Search, :search => true, :persistence => true, :persistence => true, :sequel => true  do
+    describe Search::SearchSequelPersistor, :search => true, :persistence => true, :persistence => true, :sequel => true  do
       include_context "sequel store"
 
       context "holding a multi criteria filter" do
@@ -32,7 +32,7 @@ module Lims::Core
         let(:criteria) { {:order => {:item => {:status => "in_progress"}, :status => "pending"}} }
         let(:filter) { OrderFilter.new(criteria) }
         let(:model) { Laboratory::Plate }
-        subject { Persistence::Search.new(:model => model, :filter => filter) }
+        subject { Search.new(:model => model, :filter => filter) }
         
         it_behaves_like "storable resource", :search, {:searches => 1}
       end

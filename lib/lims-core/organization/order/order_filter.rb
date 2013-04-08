@@ -3,7 +3,7 @@ require 'lims-core/persistence/filter'
 require 'lims-core/resource'
 
 module Lims::Core
-  module Organization
+  module Persistence
     # Filter  performing a && between all the pairs of a map.
     # Key being the field
     # Value can be either a String, an Array  or a Hash.
@@ -12,33 +12,30 @@ module Lims::Core
     # joined object corresponding to the key.
     # @example
     #   {
-    #     :status => [:pending, :in_progress],
-    #     :item => {
-    #       :status => [:pending],
-    #       :uuid => <plate_uuid>
-    #     }
-    #    }
+      #     :status => [:pending, :in_progress],
+      #     :item => {
+        #       :status => [:pending],
+        #       :uuid => <plate_uuid>
+        #     }
+      #    }
     #   Will look for all the orders in pending or in progress status
     #   *holding* a plate with a pending status.
     #    
-    class Order
-      class OrderFilter < Persistence::Filter 
-        include Resource
-        attribute :criteria, Hash, :required => true
-        # For Sequel, keys needs to be a Symbol to be seen as column.
-        # String are seen as 'value'
-        def initialize(criteria)
-          criteria = { :criteria => criteria } unless criteria.include?(:criteria)
-          criteria[:criteria].rekey!{ |k| k.to_sym }
-          super(criteria)
-        end
+    class OrderFilter < Persistence::Filter 
+      include Resource
+      attribute :criteria, Hash, :required => true
+      # For Sequel, keys needs to be a Symbol to be seen as column.
+      # String are seen as 'value'
+      def initialize(criteria)
+        criteria = { :criteria => criteria } unless criteria.include?(:criteria)
+        criteria[:criteria].rekey!{ |k| k.to_sym }
+        super(criteria)
+      end
 
-        def call(persistor)
-          persistor.order_filter(criteria)
-        end
+      def call(persistor)
+        persistor.order_filter(criteria)
       end
     end
-
     class Persistor
       # @param [Hash] criteria a 
       # @return [Persistor] 

@@ -7,6 +7,7 @@ require 'actions/action_examples'
 require 'lims-core/persistence/search/create_search'
 require 'lims-core/persistence/search/search_persistor'
 require 'lims-core/laboratory/plate'
+require 'lims-core/labels/labellable/all'
 
 module Lims::Core
   module Persistence
