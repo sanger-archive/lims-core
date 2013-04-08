@@ -13,7 +13,7 @@ module Lims::Core
       class GelPersistor < Persistence::Persistor
         Model = Laboratory::Gel
 
-        include Container
+        include Container::ContainerPersistor
 
         # calls the correct element method
         def element
@@ -21,13 +21,16 @@ module Lims::Core
         end
 
         def window
-          @session.send("Gel::Window")
+          @session.gel_window
         end
+      end
 
         # Base for all Window persistor.
         # Real implementation classes (e.g. Sequel::Window) should
         # include the suitable persistor.
-        class Window < Persistence::Persistor
+      class Window 
+        SESSION_NAME = :gel_window
+        class WindowPersistor < Persistence::Persistor
           Model = Laboratory::Gel::Window
 
           include Container::ContainerElementPersistor

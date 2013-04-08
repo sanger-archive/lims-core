@@ -7,30 +7,27 @@ module Lims::Core
   module Laboratory
     # A gel persistor. It saves the gel's data to the DB.
     class Gel
-      class GelSequelPersistor < GelPersistor
-        include Persistence::Sequel::Persistor
-        include Container
-
-        module Gel::GelContainerElementSequelPersistor
-          include ContainerElement
-
-          def container_id_sym
-            :gel_id
-          end
-
-        end
-
-        # A window persistor. It saves the window's data to the DB.
-        class Window < Persistence::Gel::Window
+      # A window persistor. It saves the window's data to the DB.
+      class Window
+        class WindowSequelPersistor< WindowPersistor
           include Persistence::Sequel::Persistor
-          include GelContainerElement
+          include Container::ContainerElementSequelPersistor
 
           def self.table_name
             :windows
           end
 
+          def container_id_sym
+            :gel_id
+          end
+
         end 
-        #class Window
+      end
+      #class Window
+
+      class GelSequelPersistor < GelPersistor
+        include Persistence::Sequel::Persistor
+        include Container::ContainerSequelPersistor
 
         def self.table_name
           :gels

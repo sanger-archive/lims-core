@@ -1,7 +1,7 @@
 require 'lims-core/actions/action'
 
 require 'lims-core/laboratory/gel'
-require 'lims-core/laboratory/container/container'
+require 'lims-core/laboratory/container/action_container'
 
 module Lims::Core
   module Laboratory
