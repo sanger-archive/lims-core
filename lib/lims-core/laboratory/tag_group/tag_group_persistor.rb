@@ -3,6 +3,7 @@
 
 require 'lims-core/persistence/persistor'
 require 'lims-core/laboratory/tag_group'
+require 'lims-core/laboratory/oligo/all'
 
 module Lims::Core
   module Laboratory
@@ -40,13 +41,16 @@ module Lims::Core
 
 
         def association
-          @session.send("TagGroup::Association")
+          @session.tag_group_assocation
         end
+      end
 
-        # This class doesn't exist in the model
-        # but is there to modelize the association.
-        # It probably correspond to one table on the database.
-        class Association < Persistence::Persistor
+      # This class doesn't exist in the model
+      # but is there to modelize the association.
+      # It probably correspond to one table on the database.
+      module Association
+        SESSION_NAME = :tag_group_assocation
+        class AssociationPersistor < Persistence::Persistor
         end
       end
     end

@@ -1,6 +1,2 @@
 require('lims-core/laboratory/tag_group/tag_group_persistor')
 require('lims-core/laboratory/tag_group/tag_group_sequel_persistor')
-require('lims-core/laboratory/tag_group')
-require('lims-core/laboratory/tag_wells')
-require('lims-core/laboratory/transfer_action')
-require('lims-core/laboratory/transfers_parameters')

@@ -5,11 +5,11 @@ require 'persistence/sequel/store_shared'
 
 # Model requirements
 require 'lims-core/persistence/sequel/store'
-require 'lims-core/laboratory/tag_group'
+require 'lims-core/laboratory/tag_group/all'
 
 module Lims::Core
 
-  describe Laboratory:TagGroup::TagGroupSequelPersistor, :tag_group => true, :tag => true, :laboratory => true, :persistence => true, :sequel => true do
+  describe Laboratory::TagGroup::TagGroupSequelPersistor, :tag_group => true, :tag => true, :laboratory => true, :persistence => true, :sequel => true do
     include_context "prepare tables"
     let(:db) { ::Sequel.sqlite('') }
     let(:store) { Persistence::Sequel::Store.new(db) }

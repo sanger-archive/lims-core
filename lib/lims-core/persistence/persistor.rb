@@ -299,3 +299,4 @@ module Lims::Core
       end
     end
   end
+require 'lims-core/persistence/Session'
