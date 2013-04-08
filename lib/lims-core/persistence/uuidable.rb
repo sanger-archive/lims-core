@@ -40,7 +40,6 @@ module Lims::Core
       # @param [Class] model_class class of the resource
       # @return [String]
       def model_name_for(model_class)
-        debugger
         persistor_name_for(model_class)
       end
 
