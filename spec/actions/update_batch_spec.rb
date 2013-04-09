@@ -3,11 +3,10 @@ require 'actions/spec_helper'
 require 'actions/action_examples'
 
 # Model requirements
-require 'lims/core/actions/update_batch'
-require 'lims/core/organization/batch'
+require 'lims-core/organization/batch/all'
 
 module Lims::Core
-  module Actions
+  class Organization::Batch
     describe UpdateBatch do
       context "valid calling context" do
         include_context "for application", "test update batch"

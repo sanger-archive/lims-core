@@ -1,6 +1,6 @@
 # vi: ts=2 sts=2 et sw=2 spell spelllang=en  
 require 'common'
-require 'lims-core/container'
+require 'lims-core/laboratory/container'
 
 module Lims::Core
   module Base
@@ -57,7 +57,7 @@ module Lims::Core
         element_name = child_klass.name.split('::').last.downcase
         class_eval do
           is_array_of(child_klass, options, &initializer)
-          include Container
+          include Laboratory::Container
 
           define_method "get_#{element_name}" do |*args|
             get_element(*args)

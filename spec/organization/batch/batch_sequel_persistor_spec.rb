@@ -1,0 +1,67 @@
+# Spec requirements
+require 'persistence/sequel/spec_helper'
+require 'persistence/sequel/store_shared'
+
+# Model requirements
+require 'lims-core/persistence/sequel/store'
+require 'lims-core/organization/batch'
+
+module Lims::Core
+  describe Organization::Batch, :batch => true, :organization => true,  :persistence => true, :sequel => true  do
+    include_context "prepare tables" 
+    let(:db) { ::Sequel.sqlite('') }
+    let(:store) { Persistence::Sequel::Store.new(db) }
+    before(:each) { prepare_table(db) }
+
+
+    context "create a batch and add it to session" do
+      it "modifies the batches table" do
+        expect do
+          store.with_session { |s| s << subject }
+        end.to change { db[:batches].count }.by(1)
+      end
+
+      it "reloads the batch" do
+        batch_id = save(subject)
+        store.with_session do |session|
+          batch = session.batch[batch_id]
+          batch.should eq(session.batch[batch_id])
+        end
+      end
+
+      context "with a process" do
+        let(:process) { "process" }
+        subject { described_class.new(:process => process) }
+
+        it "can be saved and reloaded" do
+          batch_id = save(subject)
+          store.with_session do |session|
+            batch = session.batch[batch_id]
+            batch.process.should == process
+          end
+        end
+      end
+
+      context "with a kit" do
+        let(:kit) { "kit" }
+        subject { described_class.new(:kit => kit) }
+
+        it "can be saved and reloaded" do
+          batch_id = save(subject)
+          store.with_session do |session|
+            batch = session.batch[batch_id]
+            batch.kit.should == kit 
+          end
+        end       
+      end
+    end
+
+    context "create a batch but don't add it to a session" do
+      it "is not saved" do
+        expect do 
+          store.with_session { |_| subject }
+        end.to change{ db[:batches].count }.by(0)
+      end 
+    end
+  end
+end

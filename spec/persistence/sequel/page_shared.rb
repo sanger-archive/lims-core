@@ -1,6 +1,6 @@
 # Spec requirements
 require 'persistence/sequel/spec_helper'
-  require 'lims/core/persistence/multi_criteria_filter'
+  require 'lims-core/persistence/multi_criteria_filter'
 
 
 shared_examples_for "paginable resource" do |persistor_name|

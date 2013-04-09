@@ -1,6 +1,6 @@
 require 'common'
 
-require 'lims/core/resource'
+require 'lims-core/resource'
 require 'forwardable'
 
 module Lims::Core

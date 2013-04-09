@@ -2,13 +2,13 @@
 require 'persistence/sequel/spec_helper'
 
 # Model requirements
-require 'lims/core/persistence/sequel/store'
-require 'lims/core/persistence/sequel/session'
+require 'lims-core/persistence/sequel/store'
+require 'lims-core/persistence/sequel/session'
 
 
 module Lims::Core::Persistence
   module Sequel
-    describe Session do
+    describe Session, :session => true, :persistence => true, :persistence => true, :sequel => true do
       context "with sqlite underlying" do
         let(:db) { ::Sequel.sqlite('') }
         let(:store) { Store.new(db) }

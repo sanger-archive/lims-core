@@ -1,6 +1,6 @@
 # vi: ts=2:sts=2:et:sw=2 spell:spelllang=en
 
-require 'lims/core/persistence/filter'
+require 'lims-core/persistence/filter'
 require 'lims-core/resource'
 
 
@@ -14,12 +14,12 @@ module Lims::Core
     # joined object corresponding to the key.
     # @example
     #   {
-    #     :status => [:pending, :in_progress],
-    #     :item => {
-    #       :status => [:pending],
-    #       :uuid => <plate_uuid>
-    #     }
-    #    }
+      #     :status => [:pending, :in_progress],
+      #     :item => {
+        #       :status => [:pending],
+        #       :uuid => <plate_uuid>
+        #     }
+      #    }
     #   Will look for all the orders in pending or in progress status
     #   *holding* a plate with a pending status.
     #    
@@ -38,14 +38,13 @@ module Lims::Core
         persistor.multi_criteria_filter(criteria)
       end
     end
+  end
 
-    class Persistor
-      # @param [Hash] criteria a 
-      # @return [Persistor] 
-      def multi_criteria_filter(criteria)
-        raise NotImplementedError "multi_criteria_filter methods needs to be implemented for subclass of Persistor"
-      end
+  class Persistor
+    # @param [Hash] criteria a 
+    # @return [Persistor] 
+    def multi_criteria_filter(criteria)
+      raise NotImplementedError "multi_criteria_filter methods needs to be implemented for subclass of Persistor"
     end
   end
 end
-
