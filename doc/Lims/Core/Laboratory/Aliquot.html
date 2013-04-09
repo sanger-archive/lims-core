@@ -91,7 +91,9 @@
   
   
     <dt class="r1 last">Defined in:</dt>
-    <dd class="r1 last">lib/lims-core/laboratory/aliquot.rb</dd>
+    <dd class="r1 last">lib/lims-core/laboratory/aliquot.rb<span class="defines">,<br />
+  lib/lims-core/laboratory/aliquot/aliquot_persistor.rb,<br /> lib/lims-core/laboratory/aliquot/aliquot_sequel_persistor.rb</span>
+</dd>
   
 </dl>
 <div class="clear"></div>
@@ -99,38 +101,7 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>An aliquot represent the fraction of identical chemical substance inside a
-receptacle. it should have:</p>
-<ol><li>
-<p>A receptacle</p>
-</li><li>
-<p>A quantity  =&gt; volume, weight, moles?</p>
-</li><li>
-<p>An owner (Order?)</p>
-</li><li>
-<p>One or more constituents (sample, tags).</p>
-</li><li>
-<p>A type/shape (gel, library, sample  etc...)</p>
-</li></ol>
-
-<p>Constituents inside an aliquot are bound together, i.e. :</p>
-<ul><li>
-<p>"mixing" sample and tag in a tube without any processing will probably
-results</p>
-</li></ul>
-
-<p>in a receptacle containing two aliquots, one representing the tag and the
-other one the sample.</p>
-<ul><li>
-<p>"tagging" a sample with a oligo will result in a receptacle containing one
-aliquot representing the tagged sample (the oligo and the sample are bound
-together).</p>
-</li></ul>
-
-<p>At the moment, rather than allowing an aliquot to have many constituents
-(in a free form way), an aliquot can be formed of at least a
-<span class='object_link'><a href="Sample.html" title="Lims::Core::Laboratory::Sample (class)">sample</a></span>, a <span class='object_link'><a href="Oligo.html" title="Lims::Core::Laboratory::Oligo (class)">tag</a></span> and  or a
-bait library.</p>
+<p>Not a aliquot but a aliquot persistor.</p>
 
 
   </div>
@@ -145,6 +116,8 @@ bait library.</p>
       <strong class="modules">Modules:</strong> <span class='object_link'><a href="Aliquot/Dimension.html" title="Lims::Core::Laboratory::Aliquot::Dimension (module)">Dimension</a></span>
     
    
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Aliquot/AliquotPersistor.html" title="Lims::Core::Laboratory::Aliquot::AliquotPersistor (class)">AliquotPersistor</a></span>, <span class='object_link'><a href="Aliquot/AliquotSequelPersistor.html" title="Lims::Core::Laboratory::Aliquot::AliquotSequelPersistor (class)">AliquotSequelPersistor</a></span>
     
   
 </p>

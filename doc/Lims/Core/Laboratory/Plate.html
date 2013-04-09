@@ -92,7 +92,7 @@
   
     <dt class="r1 last">Defined in:</dt>
     <dd class="r1 last">lib/lims-core/laboratory/plate.rb<span class="defines">,<br />
-  lib/lims-core/actions/create_plate.rb,<br /> lib/lims-core/actions/update_plate.rb</span>
+  lib/lims-core/laboratory/plate/create_plate.rb,<br /> lib/lims-core/laboratory/plate/create_plate.rb,<br /> lib/lims-core/laboratory/plate/update_plate.rb,<br /> lib/lims-core/laboratory/plate/update_plate.rb,<br /> lib/lims-core/laboratory/plate/plate_transfer.rb,<br /> lib/lims-core/laboratory/plate/plate_persistor.rb,<br /> lib/lims-core/laboratory/plate/plate_sequel_persistor.rb,<br /> lib/lims-core/laboratory/plate/transfer_plates_to_plates.rb</span>
 </dd>
   
 </dl>
@@ -101,8 +101,17 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>A plate is a plate as seen in a laboratory, .i.e a rectangular bits of
-platics with wells and some  readable labels on it. TODO add label behavior</p>
+<p>This <span class='object_link'><a href="../Action.html" title="Lims::Core::Action (module)">Action</a></span> transfers the given fraction and type of aliquot from
+plate-like asset(s) to plate-like asset(s). It takes an array, which
+contains transfer elements. An element has a source, source_location,
+target, target_location, amount/fraction and aliquot_type parameters.
+Source and targets are plate-like assets (plates, gel plates or tube
+racks). The source/target_location is the well/window/tube location (like
+"A1") from transfer the aliquots and to transfer the aliquots. Amount is an
+amount of an aliquot to transfer. Fraction is the fraction of an aliquot to
+transfer. You should give the fraction OR the amount of the transfer, not
+both of them. Aliquot_type is the type of the aliquot (DNA, RNA, NA, sample
+etc...).</p>
 
 
   </div>
@@ -116,7 +125,7 @@ platics with wells and some  readable labels on it. TODO add label behavior</p>
     
    
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Plate/Well.html" title="Lims::Core::Laboratory::Plate::Well (class)">Well</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Plate/CreatePlate.html" title="Lims::Core::Laboratory::Plate::CreatePlate (class)">CreatePlate</a></span>, <span class='object_link'><a href="Plate/PlatePersistor.html" title="Lims::Core::Laboratory::Plate::PlatePersistor (class)">PlatePersistor</a></span>, <span class='object_link'><a href="Plate/PlateSequelPersistor.html" title="Lims::Core::Laboratory::Plate::PlateSequelPersistor (class)">PlateSequelPersistor</a></span>, <span class='object_link'><a href="Plate/PlateTransfer.html" title="Lims::Core::Laboratory::Plate::PlateTransfer (class)">PlateTransfer</a></span>, <span class='object_link'><a href="Plate/TransferPlatesToPlates.html" title="Lims::Core::Laboratory::Plate::TransferPlatesToPlates (class)">TransferPlatesToPlates</a></span>, <span class='object_link'><a href="Plate/UpdatePlate.html" title="Lims::Core::Laboratory::Plate::UpdatePlate (class)">UpdatePlate</a></span>, <span class='object_link'><a href="Plate/Well.html" title="Lims::Core::Laboratory::Plate::Well (class)">Well</a></span>
     
   
 </p>
@@ -128,12 +137,12 @@ platics with wells and some  readable labels on it. TODO add label behavior</p>
         <dt id="Create-constant" class="">Create =
           
         </dt>
-        <dd><pre class="code"><span class='const'>Actions</span><span class='op'>::</span><span class='const'>CreatePlate</span></pre></dd>
+        <dd><pre class="code"><span class='const'>CreatePlate</span></pre></dd>
       
         <dt id="Update-constant" class="">Update =
           
         </dt>
-        <dd><pre class="code"><span class='const'>Actions</span><span class='op'>::</span><span class='const'>UpdatePlate</span></pre></dd>
+        <dd><pre class="code"><span class='const'>UpdatePlate</span></pre></dd>
       
     </dl>
   
@@ -202,7 +211,7 @@ platics with wells and some  readable labels on it. TODO add label behavior</p>
       <div class="method_details first">
   <p class="signature first" id="pools-instance_method">
   
-    - (<tt>Hash&lt;String, Array&lt;String&gt;] pools pool name =&gt; list of wells name</tt>) <strong>pools</strong> 
+    - (<tt>Hash&lt;String, <span class='object_link'><a href="../../../Array.html" title="Array (class)">Array</a></span>&lt;String&gt;] pools pool name =&gt; list of wells name</tt>) <strong>pools</strong> 
   
 
   
@@ -222,7 +231,7 @@ platics with wells and some  readable labels on it. TODO add label behavior</p>
     <li>
       
       
-        <span class='type'>(<tt>Hash&lt;String, Array&lt;String&gt;] pools pool name =&gt; list of wells name</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;String, <span class='object_link'><a href="../../../Array.html" title="Array (class)">Array</a></span>&lt;String&gt;] pools pool name =&gt; list of wells name</tt>)</span>
       
       
       

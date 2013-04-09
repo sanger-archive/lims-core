@@ -92,7 +92,7 @@
   
     <dt class="r1 last">Defined in:</dt>
     <dd class="r1 last">lib/lims-core/organization/order.rb<span class="defines">,<br />
-  lib/lims-core/actions/create_order.rb,<br /> lib/lims-core/actions/update_order.rb,<br /> lib/lims-core/organization/order/item.rb</span>
+  lib/lims-core/organization/order/item.rb,<br /> lib/lims-core/organization/order/update_order.rb,<br /> lib/lims-core/organization/order/update_order.rb,<br /> lib/lims-core/organization/order/create_order.rb,<br /> lib/lims-core/organization/order/create_order.rb,<br /> lib/lims-core/organization/order/order_persistor.rb,<br /> lib/lims-core/organization/order/order_sequel_persistor.rb</span>
 </dd>
   
 </dl>
@@ -101,26 +101,7 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>An order represents the idea of 'work to be done'. However, an order
-focuses more on the final outcomes than the steps to achieve it. The way to
-fulfil this order is specified via a `pipeline` and its `parameters`, which
-*<b>knows</b>* how to do it. This allows the flexibility for a pipeline to
-adapt its process without having to modify the corresponding order. The
-current <b>progress</b> of the order - what has been done so far - is then
-no stored as "what steps have been done", but more as "which <b>items</b>
-exits". To make this work ,we also needs to know how each items
-participates in the order, meaning its `role`. For example, in the case
-that user U needs sample S to be sequenced, what we need to know is we
-<b>have</b> sample S as a *<b>source</b>* and want we want a
-<b>sequence</b> as <b>result</b>. To do so, we need to create a library
-from the sample. Once this library is created, it becomes part of the order
-as *<b>library</b>*. The pipeline will then know that the *<b>library</b>*
-has been created and that the next step can start. Note, there is no
-relation at a core level between this sample and this library. The pipeline
-<b>knows</b> that this *<b>sample</b>* is linked to that *<b>library</b>*.
-Ultimately, someone wanted to sequence an existing library, can create an
-order with the same parameters, with the *<b>library</b>* given instead of
-the *<b>sample</b>*.</p>
+<p>Not a order but a order persistor.</p>
 
 
   </div>
@@ -147,7 +128,7 @@ This class contains 1 state machine managed by the state_machine gem.
     
    
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Order/Item.html" title="Lims::Core::Organization::Order::Item (class)">Item</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Order/CreateOrder.html" title="Lims::Core::Organization::Order::CreateOrder (class)">CreateOrder</a></span>, <span class='object_link'><a href="Order/Item.html" title="Lims::Core::Organization::Order::Item (class)">Item</a></span>, <span class='object_link'><a href="Order/OrderPersistor.html" title="Lims::Core::Organization::Order::OrderPersistor (class)">OrderPersistor</a></span>, <span class='object_link'><a href="Order/OrderSequelPersistor.html" title="Lims::Core::Organization::Order::OrderSequelPersistor (class)">OrderSequelPersistor</a></span>, <span class='object_link'><a href="Order/UpdateOrder.html" title="Lims::Core::Organization::Order::UpdateOrder (class)">UpdateOrder</a></span>
     
   
 </p>
@@ -156,15 +137,15 @@ This class contains 1 state machine managed by the state_machine gem.
   
     <dl class="constants">
       
-        <dt id="Create-constant" class="">Create =
-          
-        </dt>
-        <dd><pre class="code"><span class='const'>Actions</span><span class='op'>::</span><span class='const'>CreateOrder</span></pre></dd>
-      
         <dt id="Update-constant" class="">Update =
           
         </dt>
-        <dd><pre class="code"><span class='const'>Actions</span><span class='op'>::</span><span class='const'>UpdateOrder</span></pre></dd>
+        <dd><pre class="code"><span class='const'>UpdateOrder</span></pre></dd>
+      
+        <dt id="Create-constant" class="">Create =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>CreateOrder</span></pre></dd>
       
     </dl>
   
@@ -549,7 +530,7 @@ by the pipeline to fulfil the order it needs an underlying object.</p>
         <span class='name'>uuids</span>
       
       
-        <span class='type'>(<tt>Array</tt>, <tt>String</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="../../../Array.html" title="Array (class)">Array</a></span></tt>, <tt>String</tt>)</span>
       
       
       

@@ -301,17 +301,17 @@
       <pre class="lines">
 
 
-20
-21
 22
 23
 24
 25
 26
-27</pre>
+27
+28
+29</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/logger/store.rb', line 20</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/logger/store.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='id initialize'>initialize</span><span class='lparen'>(</span><span class='id logger'>logger</span><span class='comma'>,</span> <span class='id method'>method</span><span class='op'>=</span><span class='symbol'>:info</span><span class='comma'>,</span> <span class='op'>*</span><span class='id args'>args</span><span class='rparen'>)</span>
   <span class='ivar'>@logger</span> <span class='op'>=</span> <span class='kw'>case</span> <span class='id logger'>logger</span>
@@ -358,12 +358,12 @@
       <pre class="lines">
 
 
-13
-14
-15</pre>
+15
+16
+17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/logger/store.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/logger/store.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id logger'>logger</span>
   <span class='ivar'>@logger</span>
@@ -400,12 +400,12 @@
       <pre class="lines">
 
 
-14
-15
-16</pre>
+16
+17
+18</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/logger/store.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/logger/store.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id method'>method</span>
   <span class='ivar'>@method</span>
@@ -435,12 +435,12 @@
       <pre class="lines">
 
 
-29
-30
-31</pre>
+31
+32
+33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/logger/store.rb', line 29</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/logger/store.rb', line 31</span>
 
 <span class='kw'>def</span> <span class='id log'>log</span><span class='lparen'>(</span><span class='id msg'>msg</span><span class='rparen'>)</span>
   <span class='ivar'>@logger</span><span class='period'>.</span><span class='id send'>send</span><span class='lparen'>(</span><span class='ivar'>@method</span><span class='comma'>,</span> <span class='id msg'>msg</span><span class='rparen'>)</span>

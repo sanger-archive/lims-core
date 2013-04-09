@@ -101,32 +101,15 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>Filter  performing a &amp;&amp; between all the pairs of a map. Key being
-the field Value can be either a String, an Array  or a Hash. Strings and
-Arrays are normal filters, whereas Hashes correspond to a joined search.
-The criteria will apply to the  joined object corresponding to the key.</p>
+<p>Will look for all the orders in pending or in progress status</p>
+
+<pre class="code">*holding* a plate with a pending status.</pre>
 
 
   </div>
 </div>
 <div class="tags">
   
-  <div class="examples">
-    <h3>Examples:</h3>
-    
-      <h4><div class='inline'></div></h4>
-      <pre class="example code">{
-  :status =&gt; [:pending, :in_progress],
-  :item =&gt; {
-    :status =&gt; [:pending],
-    :uuid =&gt; &lt;plate_uuid&gt;
-  }
- }
-Will look for all the orders in pending or in progress status
-*holding* a plate with a pending status.</pre>
-    
-  </div>
-
 
 </div>
 

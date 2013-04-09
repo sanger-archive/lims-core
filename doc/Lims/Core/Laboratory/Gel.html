@@ -92,7 +92,7 @@
   
     <dt class="r1 last">Defined in:</dt>
     <dd class="r1 last">lib/lims-core/laboratory/gel.rb<span class="defines">,<br />
-  lib/lims-core/actions/create_gel.rb</span>
+  lib/lims-core/laboratory/gel/create_gel.rb,<br /> lib/lims-core/laboratory/gel/create_gel.rb,<br /> lib/lims-core/laboratory/gel/gel_persistor.rb,<br /> lib/lims-core/laboratory/gel/gel_sequel_persistor.rb</span>
 </dd>
   
 </dl>
@@ -101,9 +101,7 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>Gel is a labware as seen in a laboratory. It has a number of rows and
-number of columns property. Gel contains Windows and has some readable
-labels on it (i.e. barcode).</p>
+<p>A gel persistor. It saves the gel's data to the DB.</p>
 
 
   </div>
@@ -117,7 +115,7 @@ labels on it (i.e. barcode).</p>
     
    
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Gel/Window.html" title="Lims::Core::Laboratory::Gel::Window (class)">Window</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Gel/CreateGel.html" title="Lims::Core::Laboratory::Gel::CreateGel (class)">CreateGel</a></span>, <span class='object_link'><a href="Gel/GelPersistor.html" title="Lims::Core::Laboratory::Gel::GelPersistor (class)">GelPersistor</a></span>, <span class='object_link'><a href="Gel/GelSequelPersistor.html" title="Lims::Core::Laboratory::Gel::GelSequelPersistor (class)">GelSequelPersistor</a></span>, <span class='object_link'><a href="Gel/Window.html" title="Lims::Core::Laboratory::Gel::Window (class)">Window</a></span>
     
   
 </p>
@@ -129,7 +127,7 @@ labels on it (i.e. barcode).</p>
         <dt id="Create-constant" class="">Create =
           
         </dt>
-        <dd><pre class="code"><span class='const'>Actions</span><span class='op'>::</span><span class='const'>CreateGel</span></pre></dd>
+        <dd><pre class="code"><span class='const'>CreateGel</span></pre></dd>
       
     </dl>
   

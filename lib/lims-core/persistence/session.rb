@@ -220,7 +220,7 @@ module Lims::Core
       # This name will be looked up when calling session.<name>
       # Persistors need to be registered.
       # @param [String, Symbol] name
-      # @parm [Class] model
+      # @param [Class] model
       def self.register_model(name, model)
         name = name.to_s.snakecase
         # skip if name already registered with the same object
