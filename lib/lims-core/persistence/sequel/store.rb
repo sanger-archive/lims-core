@@ -28,6 +28,5 @@ module Lims::Core
         end
       end
     end
-    finalize_submodule(Sequel)
   end
 end

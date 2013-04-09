@@ -33,6 +33,5 @@ module Lims::Core
         end
       end
     end
-      finalize_submodule(Logger)
   end
 end

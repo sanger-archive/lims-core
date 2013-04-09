@@ -217,7 +217,8 @@ module Lims::Core
       end
 
       # Register a model for a given name.
-      # This name will be looked up when calling session.<model_name>
+      # This name will be looked up when calling session.<name>
+      # Persistors need to be registered.
       # @param [String, Symbol] name
       # @parm [Class] model
       def self.register_model(name, model)

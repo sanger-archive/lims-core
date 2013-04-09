@@ -9,18 +9,45 @@ module Lims::Core
     # returning the class to persist.
     # A persistor , is used to save and load it's cousin class.
     # The specific code of a persistor should be extended by writting
-    # a persistor module in the sub-persistence module. This module will be 
-    # automatically included to generated class. See {Persistence.finalize_submodule}.
+    # a persistor class within the class to persist and module corresponding to the store.
+    # The common Persistor architecture would be like this (let's consider we have a Plate class and a Sequel Persistor).
+    # @code
+    # module SequelPersistor
+    # end
+    # Class Plate
+    #    Common to all store
+    #    class PlatePersistor < Persistence::Persistor
+    #    end
+    #
+    #    class PlateSequelPersistor < PlatePersistor
+    #      include SequelPersistor
+    #    end
+    # end
+    # if a base persistor exists for a class but not the store specific one (PlatePersistor exists
+    # but PlateSequelPersistor not). If there is a store pecific Persistor module (like SequelPersistor).
+    # The equivalent of PlateSequelPersistor will be generated on the fly by deriving the base one and including the mixin.
+    # Persistor needs to be registered to be accessible form the session.
+    # However, if NO_AUTO_REGISTRATION is not enabled persistors will register themselves. In that case,
+    # they will need to be defined in class to persist see {register_model}.
+    # If a base peristor for exists for a class but there is no
     # Each instance can get an identity map, and or parameter
     # specific to a session/thread.
     class Persistor
       include IdentityMap
 
-      # Performs an autoregistration if needed
+      # Performs an autoregistration if needed.
+      # Autoregistration can be skipped by defined NO_AUTO_REGISTRATION
+      # on the model class.
+      # See {Persistor::register_model}.
       def self.inherited(subclass)
         register_model(subclass)
       end
 
+      # Register a sub-persistor to the {Session}.
+      # The name used to register the persistor would be
+      # either the name of the model (parent) class
+      # or if SESSION_NAME is specified on the model : SESSION_NAME
+      # @param [Class] subclass
       def self.register_model(subclass)
         model = subclass.parent_scope
         return if model::const_defined? :NO_AUTO_REGISTRATION
