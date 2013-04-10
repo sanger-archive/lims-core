@@ -6,7 +6,7 @@ module Lims::Core
   shared_examples_for "batch filtrable" do
     include_context "with saved orders"
     let(:description) { "lookup resources by batch" }
-    let(:filter) { Organization::Batch::BatchFilter.new(criteria) }
+    let(:filter) { Persistence::BatchFilter.new(criteria) }
     let(:search) { Persistence::Search.new(:model => model, :filter => filter, :description => description) }
 
     context "get resources by batch uuid criteria" do
