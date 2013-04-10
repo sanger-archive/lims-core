@@ -238,10 +238,18 @@ module Lims::Core
         when nil then nil
         when String then name_to_model(object)
         when Symbol then name_to_model(object)
-        when Module then object
         when Class then
           # check if the class has been registered
+          # IMPORTANT needs to be done before 'when module'
+          # because object can class and module at the same time.
           return object if model_to_name(object)
+
+          # if it's already persistor find the associate model
+          persistor_class_map.id_for(object) do |model|
+            return model
+          end
+
+
 
           # check the super class
           model_for(object.superclass).andtap { |model|
@@ -253,6 +261,7 @@ module Lims::Core
           model_for(object.parent_scope).andtap { |model|
             return model
           }
+        when Module then object
         else
           model_for(object.class)
         end
@@ -272,11 +281,16 @@ module Lims::Core
       def self.persistor_class_for(object)
         model = model_for(object)
 
-        persistor_class_map[model] ||= find_or_create_persistor_for(model)
+        persistor = persistor_class_map.object_for(model)
+        unless persistor
+        persistor = find_or_create_persistor_for(model)
+        persistor_class_map.map_id_object(model, persistor)
+        end
+        persistor
       end
 
       def self.persistor_class_map()
-        @persistor_class_map ||={}
+        @persistor_class_map ||= IdentityMap::Class.new
       end
 
       def self.find_or_create_persistor_for(model)
@@ -294,6 +308,7 @@ module Lims::Core
         end
         # not found, we need to create it
         # First we look for the base persistor to inherit from
+        debugger unless superclass.respond_to? :persistor_class_for
         raise "Can't find base persistor for #{model.inspect}"  unless superclass.respond_to? :persistor_class_for
          
         parent_persistor_class = superclass.persistor_class_for(model)
