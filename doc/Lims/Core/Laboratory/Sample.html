@@ -57,7 +57,7 @@
     <iframe id="search_frame"></iframe>
     
     <div id="content"><h1>Class: Lims::Core::Laboratory::Sample
-  
+  <span class="abstract note title">Abstract</span>
   
   
 </h1>
@@ -91,17 +91,22 @@
   
   
     <dt class="r1 last">Defined in:</dt>
-    <dd class="r1 last">lib/lims-core/laboratory/sample.rb</dd>
+    <dd class="r1 last">lib/lims-core/laboratory/sample.rb<span class="defines">,<br />
+  lib/lims-core/laboratory/sample/sample_persistor.rb</span>
+</dd>
   
 </dl>
 <div class="clear"></div>
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>A sample is a constituant of an aliquot. It refers to a sample of DNA of an
-'individual' at a particular time. The core doesn't need to care about
-'individual', it just store metadata (like organism, gender, etc ...).</p>
+    <div class="note abstract">
+  <strong>This class is abstract.</strong> 
+  <div class='inline'></div>
+</div>
+
+<p>Base for all Sample persistor. Real implementation classes (e.g.
+Sequel::Aliquot) should include the suitable persistor.</p>
 
 
   </div>
@@ -109,7 +114,17 @@
 <div class="tags">
   
 
-</div>
+</div><h2>Defined Under Namespace</h2>
+<p class="children">
+   
+    
+   
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Sample/SamplePersistor.html" title="Lims::Core::Laboratory::Sample::SamplePersistor (class)">SamplePersistor</a></span>
+    
+  
+</p>
+
 
   
   

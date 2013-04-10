@@ -1,0 +1,6 @@
+require('lims-core/laboratory/container/container')
+require('lims-core/laboratory/container/container_element_persistor')
+require('lims-core/laboratory/container/container_element_sequel_persistor')
+require('lims-core/laboratory/container/container_persistor')
+require('lims-core/laboratory/container/container_sequel_persistor')
+require('lims-core/laboratory/container')

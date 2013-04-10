@@ -91,8 +91,8 @@
   
   
     <dt class="r1 last">Defined in:</dt>
-    <dd class="r1 last">lib/lims-core/actions/update_tube.rb<span class="defines">,<br />
-  lib/lims-core/laboratory/spin_column.rb,<br /> lib/lims-core/actions/create_spin_column.rb</span>
+    <dd class="r1 last">lib/lims-core/laboratory/spin_column.rb<span class="defines">,<br />
+  lib/lims-core/laboratory/tube/update_tube.rb,<br /> lib/lims-core/laboratory/spin_column/create_spin_column.rb,<br /> lib/lims-core/laboratory/spin_column/create_spin_column.rb,<br /> lib/lims-core/laboratory/spin_column/spin_column_persistor.rb,<br /> lib/lims-core/laboratory/spin_column/spin_column_sequel_persistor.rb</span>
 </dd>
   
 </dl>
@@ -101,8 +101,7 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>Piece of labware.  Can have something on it. It can have a label (barcode)
-to identify it.</p>
+<p>a spin column persistor.</p>
 
 
   </div>
@@ -110,7 +109,19 @@ to identify it.</p>
 <div class="tags">
   
 
-</div>
+</div><h2>Defined Under Namespace</h2>
+<p class="children">
+   
+    
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="SpinColumn/SpinColumnAliquot.html" title="Lims::Core::Laboratory::SpinColumn::SpinColumnAliquot (module)">SpinColumnAliquot</a></span>
+    
+   
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="SpinColumn/CreateSpinColumn.html" title="Lims::Core::Laboratory::SpinColumn::CreateSpinColumn (class)">CreateSpinColumn</a></span>, <span class='object_link'><a href="SpinColumn/SpinColumnPersistor.html" title="Lims::Core::Laboratory::SpinColumn::SpinColumnPersistor (class)">SpinColumnPersistor</a></span>, <span class='object_link'><a href="SpinColumn/SpinColumnSequelPersistor.html" title="Lims::Core::Laboratory::SpinColumn::SpinColumnSequelPersistor (class)">SpinColumnSequelPersistor</a></span>
+    
+  
+</p>
+
   <h2>Constant Summary</h2>
   
     <dl class="constants">
@@ -118,12 +129,12 @@ to identify it.</p>
         <dt id="Update-constant" class="">Update =
           
         </dt>
-        <dd><pre class="code"><span class='const'>Actions</span><span class='op'>::</span><span class='const'>UpdateTube</span></pre></dd>
+        <dd><pre class="code"><span class='const'>Tube</span><span class='op'>::</span><span class='const'>UpdateTube</span></pre></dd>
       
         <dt id="Create-constant" class="">Create =
           
         </dt>
-        <dd><pre class="code"><span class='const'>Actions</span><span class='op'>::</span><span class='const'>CreateSpinColumn</span></pre></dd>
+        <dd><pre class="code"><span class='const'>CreateSpinColumn</span></pre></dd>
       
     </dl>
   

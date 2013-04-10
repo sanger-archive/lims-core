@@ -73,7 +73,7 @@
   
     <dt class="r1 last">Defined in:</dt>
     <dd class="r1 last">lib/lims-core/organization.rb<span class="defines">,<br />
-  spec/organization/study_spec.rb,<br /> spec/organization/order_spec.rb,<br /> spec/organization/batch_spec.rb,<br /> lib/lims-core/organization/user.rb,<br /> lib/lims-core/organization/order.rb,<br /> lib/lims-core/organization/batch.rb,<br /> lib/lims-core/organization/study.rb,<br /> spec/organization/order/item_spec.rb,<br /> lib/lims-core/actions/create_order.rb,<br /> lib/lims-core/actions/create_batch.rb,<br /> spec/persistence/sequel/order_spec.rb,<br /> lib/lims-core/actions/update_order.rb,<br /> lib/lims-core/organization/project.rb,<br /> lib/lims-core/organization/releasable.rb,<br /> lib/lims-core/organization/order/item.rb</span>
+  spec/organization/study_spec.rb,<br /> spec/organization/order_spec.rb,<br /> spec/organization/batch_spec.rb,<br /> lib/lims-core/organization/user.rb,<br /> lib/lims-core/organization/order.rb,<br /> lib/lims-core/organization/batch.rb,<br /> lib/lims-core/organization/study.rb,<br /> spec/organization/order/item_spec.rb,<br /> lib/lims-core/organization/order/item.rb,<br /> spec/organization/order/create_order_spec.rb,<br /> spec/organization/order/update_order_spec.rb,<br /> spec/organization/batch/create_batch_spec.rb,<br /> lib/lims-core/organization/order/update_order.rb,<br /> lib/lims-core/organization/order/update_order.rb,<br /> lib/lims-core/organization/order/create_order.rb,<br /> lib/lims-core/organization/order/create_order.rb,<br /> lib/lims-core/organization/batch/create_batch.rb,<br /> lib/lims-core/organization/batch/batch_filter.rb,<br /> lib/lims-core/organization/batch/update_batch.rb,<br /> lib/lims-core/organization/user/user_persistor.rb,<br /> lib/lims-core/organization/study/study_persistor.rb,<br /> lib/lims-core/organization/order/order_persistor.rb,<br /> lib/lims-core/organization/batch/batch_persistor.rb,<br /> spec/organization/order/order_sequel_persistor_spec.rb,<br /> lib/lims-core/organization/batch/batch_sequel_persistor.rb,<br /> lib/lims-core/organization/order/order_sequel_persistor.rb</span>
 </dd>
   
 </dl>
@@ -95,11 +95,9 @@ funding, ordering etc.</p>
 <p class="children">
    
     
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Organization/Releasable.html" title="Lims::Core::Organization::Releasable (module)">Releasable</a></span>
-    
    
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Organization/Batch.html" title="Lims::Core::Organization::Batch (class)">Batch</a></span>, <span class='object_link'><a href="Organization/Order.html" title="Lims::Core::Organization::Order (class)">Order</a></span>, <span class='object_link'><a href="Organization/Project.html" title="Lims::Core::Organization::Project (class)">Project</a></span>, <span class='object_link'><a href="Organization/Study.html" title="Lims::Core::Organization::Study (class)">Study</a></span>, <span class='object_link'><a href="Organization/User.html" title="Lims::Core::Organization::User (class)">User</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Organization/Batch.html" title="Lims::Core::Organization::Batch (class)">Batch</a></span>, <span class='object_link'><a href="Organization/Order.html" title="Lims::Core::Organization::Order (class)">Order</a></span>, <span class='object_link'><a href="Organization/Persistor.html" title="Lims::Core::Organization::Persistor (class)">Persistor</a></span>, <span class='object_link'><a href="Organization/Study.html" title="Lims::Core::Organization::Study (class)">Study</a></span>, <span class='object_link'><a href="Organization/User.html" title="Lims::Core::Organization::User (class)">User</a></span>
     
   
 </p>
@@ -450,7 +448,7 @@ funding, ordering etc.</p>
 19</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'spec/persistence/sequel/order_spec.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'spec/organization/order/order_sequel_persistor_spec.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id load_order'>load_order</span><span class='lparen'>(</span><span class='id order_id'>order_id</span><span class='rparen'>)</span>
   <span class='id store'>store</span><span class='period'>.</span><span class='id with_session'>with_session</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id session'>session</span><span class='op'>|</span>

@@ -1,8 +1,7 @@
 # vi: ts=2:sts=2:et:sw=2 spell:spelllang=en 
 require 'common'
 
-require 'lims/core/resource'
-require 'lims/core/organization/releasable'
+require 'lims-core/resource'
 
 module Lims::Core
   module Organization
@@ -10,7 +9,6 @@ module Lims::Core
     # Correspond roughly to a published paper.
     class Study
       include Resource
-      include Releasable
     end
   end
 end

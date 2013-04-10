@@ -93,7 +93,7 @@
   
   
     <dt class="r1 last">Defined in:</dt>
-    <dd class="r1 last">lib/lims-core/persistence/label_filter.rb</dd>
+    <dd class="r1 last">lib/lims-core/labels/labellable/label_filter.rb</dd>
   
 </dl>
 <div class="clear"></div>
@@ -254,7 +254,7 @@ as 'value'</p>
 35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/label_filter.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/labels/labellable/label_filter.rb', line 31</span>
 
 <span class='kw'>def</span> <span class='id initialize'>initialize</span><span class='lparen'>(</span><span class='id criteria'>criteria</span><span class='rparen'>)</span>
   <span class='id criteria'>criteria</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='symbol'>:criteria</span> <span class='op'>=&gt;</span> <span class='id criteria'>criteria</span> <span class='rbrace'>}</span> <span class='kw'>unless</span> <span class='id criteria'>criteria</span><span class='period'>.</span><span class='id include?'>include?</span><span class='lparen'>(</span><span class='symbol'>:criteria</span><span class='rparen'>)</span>
@@ -291,7 +291,7 @@ as 'value'</p>
 40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/label_filter.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/labels/labellable/label_filter.rb', line 38</span>
 
 <span class='kw'>def</span> <span class='id call'>call</span><span class='lparen'>(</span><span class='id persistor'>persistor</span><span class='rparen'>)</span>
   <span class='id persistor'>persistor</span><span class='period'>.</span><span class='id label_filter'>label_filter</span><span class='lparen'>(</span><span class='id criteria'>criteria</span><span class='rparen'>)</span>

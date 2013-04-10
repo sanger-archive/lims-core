@@ -1,12 +1,12 @@
 # Spec requirements
 require 'laboratory/located_examples'
 require 'laboratory/container_examples'
-require 'laboratory/labellable_examples'
+require 'labels/labellable_examples'
 
 require 'laboratory/receptacle_examples'
 
 # Model requirements
-require 'lims/core/laboratory/gel'
+require 'lims-core/laboratory/gel'
 
 module Lims::Core::Laboratory
   shared_examples "a valid gel" do
@@ -16,7 +16,7 @@ module Lims::Core::Laboratory
     end
   end
 
-  describe Gel do
+  describe Gel, :gel => true, :laboratory => true do
     context "with 12x8 windows" do
       let(:number_of_rows) { 8 }
       let(:number_of_columns) { 12}
@@ -37,7 +37,7 @@ module Lims::Core::Laboratory
     end
   end
 
-  describe Gel::Window do
+  describe Gel::Window, :window => true, :laboratory => true do
     it "belongs to a gel "  # contained by a gel
     it_behaves_like "receptacle"
   end

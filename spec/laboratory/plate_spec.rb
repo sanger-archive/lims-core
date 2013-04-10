@@ -2,11 +2,11 @@
 require 'laboratory/spec_helper'
 require 'laboratory/located_examples'
 require 'laboratory/container_examples'
-require 'laboratory/labellable_examples'
+require 'labels/labellable_examples'
 
 require 'laboratory/receptacle_examples'
 # Model requirements
-require 'lims/core/laboratory/plate'
+require 'lims-core/laboratory/plate'
 
 module Lims::Core::Laboratory
   shared_examples "a valid plate" do
@@ -16,7 +16,7 @@ module Lims::Core::Laboratory
     end
   end
 
-  describe Plate  do
+  describe Plate, :plate => true, :laboratory => true  do
     context "with 12x8 wells" do
       let(:number_of_rows) { 8 }
       let(:number_of_columns) { 12}
@@ -75,7 +75,7 @@ module Lims::Core::Laboratory
     end
   end
 
-  describe Plate::Well  do
+  describe Plate::Well, :well => true, :plate => true, :laboratory => true  do
     it "belongs  to a plate "  # contained by a plate
     it_behaves_like "receptacle"
   end

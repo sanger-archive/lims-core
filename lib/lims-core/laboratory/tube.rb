@@ -1,6 +1,6 @@
 require 'common'
-require 'lims/core/resource'
-require 'lims/core/laboratory/receptacle.rb'
+require 'lims-core/resource'
+require 'lims-core/laboratory/receptacle.rb'
 
 module Lims::Core
   module Laboratory

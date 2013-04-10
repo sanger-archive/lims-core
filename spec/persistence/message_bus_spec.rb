@@ -2,7 +2,7 @@ require 'lims-core/persistence/message_bus'
 
 module Lims::Core
   module Persistence
-    describe MessageBus do
+    describe MessageBus, :message_bus => true do
       context "to be valid" do
         let(:url) { "amqp://user:password@localhost:55672" }
         let(:exchange_name) { "exchange_name" }

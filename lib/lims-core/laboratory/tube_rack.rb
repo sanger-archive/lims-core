@@ -1,5 +1,5 @@
-require 'lims/core/resource'
-require 'lims/core/laboratory/tube'
+require 'lims-core/resource'
+require 'lims-core/laboratory/tube'
 
 module Lims::Core
   module Laboratory

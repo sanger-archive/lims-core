@@ -1,5 +1,5 @@
-require 'lims/core/resource'
-require 'lims/core/laboratory/receptacle'
+require 'lims-core/resource'
+require 'lims-core/laboratory/receptacle'
 
 require 'facets/hash'
 require 'facets/array'

@@ -4,7 +4,7 @@ require 'spec_helper'
 
 # Model requirements
 require 'sequel'
-require 'lims/core/persistence/sequel/store'
+require 'lims-core/persistence/sequel/store'
 Sequel.extension :migration
 
 shared_context "prepare tables" do

@@ -2,10 +2,10 @@
 require 'spec_helper'
 
 # Model requirements
-require 'lims/core/organization/batch'
+require 'lims-core/organization/batch'
 
 module Lims::Core::Organization
-  describe Batch do
+  describe Batch, :batch => true, :organization => true do
     def self.it_has_a(attribute, type=nil)
       it "responds to #{attribute}" do
         subject.should respond_to(attribute)

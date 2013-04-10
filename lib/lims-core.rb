@@ -1,10 +1,10 @@
 # vi: spell:spelllang=en ts=2:sts=2:sw=2:et
 require "lims-core/version"
 
-require 'lims/core/actions'
-require 'lims/core/laboratory'
-require 'lims/core/organization'
- require 'lims/core/persistence'
+require 'lims-core/actions'
+require 'lims-core/laboratory'
+require 'lims-core/organization'
+ require 'lims-core/persistence'
 # Persistence submodules need to be required manually. This is to avoid
 # having to require and install all the store dependency (mysql, postgres) etc ...
 
@@ -25,7 +25,7 @@ module Lims
   # 3. {LabProcess}
   #    Related to the work people/robot do in the laboratories.
   # 5. {Organization}
-  #    Related to {Organization::User users}, data release ({Organization::Study studies}) and ordering ({Organization::Order orders}) and funding ({Organization::Project projects}) etc.
+  #    Related to {Organization::User users}, data release ({Organization::Study studies}) and ordering ({Organization::Order orders}).
   # 10. {Actions}
   #     High level {Actions::Action actions} that can be performed on things (mostly laboratory).
   #   

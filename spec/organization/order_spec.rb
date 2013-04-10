@@ -31,7 +31,7 @@ end
 module Lims
   module Core
     module Organization
-      describe Order do
+      describe Order, :order => true, :organization => true do
         #== Macro ====
         def self.it_has_a(attribute, type=nil)
           it "responds to #{attribute}" do

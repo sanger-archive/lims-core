@@ -1,0 +1,686 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Class: Lims::Core::Labels::Labellable
+  
+    &mdash; Documentation by YARD 0.7.3
+  
+</title>
+
+  <link rel="stylesheet" href="../../../css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="../../../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '../../..';
+  if (relpath != '') relpath += '/';
+</script>
+
+  <script type="text/javascript" charset="utf-8" src="../../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../../../_index.html">Index (L)</a> &raquo; 
+    <span class='title'><span class='object_link'><a href="../../../Lims.html" title="Lims (module)">Lims</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../../Core.html" title="Lims::Core (module)">Core</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Labels.html" title="Lims::Core::Labels (module)">Labels</a></span></span>
+     &raquo; 
+    <span class="title">Labellable</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a id="class_list_link" href="#">Class List</a>
+  
+    <a id="method_list_link" href="#">Method List</a>
+  
+    <a id="file_list_link" href="#">File List</a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Class: Lims::Core::Labels::Labellable
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName"><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></span>
+      
+        <ul class="fullTree">
+          <li><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></li>
+          
+            <li class="next">Lims::Core::Labels::Labellable</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+      <dt class="r2">Includes:</dt>
+      <dd class="r2">Enumerable, <span class='object_link'><a href="../Resource.html" title="Lims::Core::Resource (module)">Resource</a></span></dd>
+      
+    
+  
+  
+  
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/lims-core/labels/labellable.rb<span class="defines">,<br />
+  lib/lims-core/labels/create_label.rb,<br /> lib/lims-core/labels/labellable/create_labellable.rb,<br /> lib/lims-core/labels/labellable/create_labellable.rb,<br /> lib/lims-core/labels/labellable/labellable_persistor.rb,<br /> lib/lims-core/labels/labellable/labellable_sequel_persistor.rb</span>
+</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>A labellable is something which can have one or more labels. By labels we
+mean any readable information found on a physical oblect. This can be
+serial number, stick label with barcode etc. <span class='object_link'><a href="Labellable/Label.html" title="Lims::Core::Labels::Labellable::Label (module)">Label</a></span> can eventually be
+identified by a position : an a arbitray string (not a Symbol). The
+semantic of the position is left to pipeline. A label as a name , unique
+identifier and a type, which should indicate if it's a resource (plate,
+tube) an equipment a user etc ... Labellable acts mainly has a hash of
+location =&gt; labels</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><h2>Defined Under Namespace</h2>
+<p class="children">
+   
+    
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Labellable/Label.html" title="Lims::Core::Labels::Labellable::Label (module)">Label</a></span>
+    
+   
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Labellable/CreateLabellable.html" title="Lims::Core::Labels::Labellable::CreateLabellable (class)">CreateLabellable</a></span>, <span class='object_link'><a href="Labellable/LabellablePersistor.html" title="Lims::Core::Labels::Labellable::LabellablePersistor (class)">LabellablePersistor</a></span>, <span class='object_link'><a href="Labellable/LabellableSequelPersistor.html" title="Lims::Core::Labels::Labellable::LabellableSequelPersistor (class)">LabellableSequelPersistor</a></span>
+    
+  
+</p>
+
+  <h2>Constant Summary</h2>
+  
+    <dl class="constants">
+      
+        <dt id="Update-constant" class="">Update =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>CreateLabel</span></pre></dd>
+      
+        <dt id="Create-constant" class="">Create =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>CreateLabellable</span></pre></dd>
+      
+    </dl>
+  
+
+
+  
+  
+  
+  
+  
+
+
+  
+  
+  
+  
+
+  
+    <h2>
+      Class Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#type_to_class-class_method" title="type_to_class (class method)">+ (Object) <strong>type_to_class</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#%5B%5D-instance_method" title="#[] (instance method)">- (Object) <strong>[]</strong>(key) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>We need to redefine [] and []= as Virtus it to computes attributes
+Therefore, we use the Virtus method for Symbols.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#%5B%5D%3D-instance_method" title="#[]= (instance method)">- (Object) <strong>[]=</strong>(key, value) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#empty%3F-instance_method" title="#empty? (instance method)">- (Boolean) <strong>empty?</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Labellable) <strong>initialize</strong>(*args, &amp;block) </a>
+    
+
+    
+  </span>
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>A new instance of Labellable.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#labels-instance_method" title="#labels (instance method)">- (Array&lt;Label&gt;) <strong>labels</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#positions-instance_method" title="#positions (instance method)">- (Array&lt;String&gt;) <strong>positions</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Return all positions.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../Resource.html" title="Lims::Core::Resource (module)">Resource</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Resource.html#included-class_method" title="Lims::Core::Resource.included (method)">included</a></span></p>
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <p class="signature first" id="initialize-instance_method">
+  
+    - (<tt><span class='object_link'><a href="" title="Lims::Core::Labels::Labellable (class)">Labellable</a></span></tt>) <strong>initialize</strong>(*args, &amp;block) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>A new instance of Labellable</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+20
+21
+22</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/labels/labellable.rb', line 20</span>
+
+<span class='kw'>def</span> <span class='id initialize'>initialize</span><span class='lparen'>(</span><span class='op'>*</span><span class='id args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id block'>block</span><span class='rparen'>)</span>
+  <span class='kw'>super</span><span class='lparen'>(</span><span class='op'>*</span><span class='id args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id block'>block</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="type_to_class-class_method">
+  
+    + (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>type_to_class</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+71
+72
+73
+74
+75</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/labels/labellable.rb', line 71</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id type_to_class'>type_to_class</span>
+    <span class='cvar'>@@type_to_class</span> <span class='op'>||=</span> <span class='kw'>begin</span>
+
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="[]-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>[]</strong>(key) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>We need to redefine [] and []= as Virtus it to computes attributes
+Therefore, we use the Virtus method for Symbols. Everything else, is
+redirected to content. i.e.</p>
+
+<pre class="code"><span class='id labellable'>labellable</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span>  <span class='comment'># == labellable.name
+</span><span class='id labellable'>labellable</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>name</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='comment'># label in position &quot;name&quot;.</span></pre>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+37
+38
+39
+40
+41
+42
+43
+44</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/labels/labellable.rb', line 37</span>
+
+<span class='kw'>def</span> <span class='op'>[]</span><span class='lparen'>(</span><span class='id key'>key</span><span class='rparen'>)</span>
+  <span class='kw'>case</span> <span class='id key'>key</span>
+  <span class='kw'>when</span> <span class='const'>Symbol</span>
+    <span class='kw'>super</span><span class='lparen'>(</span><span class='id key'>key</span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='id content'>content</span><span class='lbracket'>[</span><span class='id key'>key</span><span class='rbracket'>]</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="[]=-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>[]=</strong>(key, value) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+46
+47
+48
+49
+50
+51
+52
+53</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/labels/labellable.rb', line 46</span>
+
+<span class='kw'>def</span> <span class='op'>[]=</span><span class='lparen'>(</span><span class='id key'>key</span><span class='comma'>,</span> <span class='id value'>value</span><span class='rparen'>)</span>
+  <span class='kw'>case</span> <span class='id key'>key</span>
+  <span class='kw'>when</span> <span class='const'>Symbol</span>
+    <span class='kw'>super</span><span class='lparen'>(</span><span class='id key'>key</span><span class='comma'>,</span> <span class='id value'>value</span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='id content'>content</span><span class='lbracket'>[</span><span class='id key'>key</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id value'>value</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="empty?-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>empty?</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+55
+56
+57</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/labels/labellable.rb', line 55</span>
+
+<span class='kw'>def</span> <span class='id empty?'>empty?</span>
+  <span class='kw'>false</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="labels-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../../../Array.html" title="Array (class)">Array</a></span>&lt;<span class='object_link'><a href="Labellable/Label.html" title="Lims::Core::Labels::Labellable::Label (module)">Label</a></span>&gt;</tt>) <strong>labels</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../../../Array.html" title="Array (class)">Array</a></span>&lt;<span class='object_link'><a href="Labellable/Label.html" title="Lims::Core::Labels::Labellable::Label (module)">Label</a></span>&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+67
+68
+69</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/labels/labellable.rb', line 67</span>
+
+<span class='kw'>def</span> <span class='id labels'>labels</span>
+  <span class='id content'>content</span><span class='period'>.</span><span class='id values'>values</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="positions-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../../../Array.html" title="Array (class)">Array</a></span>&lt;String&gt;</tt>) <strong>positions</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>Return all positions</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../../../Array.html" title="Array (class)">Array</a></span>&lt;String&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+61
+62
+63</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/labels/labellable.rb', line 61</span>
+
+<span class='kw'>def</span> <span class='id positions'>positions</span>
+  <span class='id content'>content</span><span class='period'>.</span><span class='id keys'>keys</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    
+  </body>
+</html>
