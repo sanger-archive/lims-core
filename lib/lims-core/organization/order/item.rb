@@ -18,7 +18,7 @@ module Lims::Core
       # initial order.
       # The status represents the *progress* of the item.
       class Item
-        include Resource
+        include Base
 
         attribute :iteration, Fixnum, :writer => :private, :default => 0
         attribute :uuid, String
