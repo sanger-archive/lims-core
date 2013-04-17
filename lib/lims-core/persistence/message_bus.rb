@@ -15,6 +15,7 @@ module Lims
         attribute :exchange_name, String, :required => true, :writer => :private
         attribute :durable, Boolean, :required => true, :writer => :private
         attribute :prefetch_number, Integer, :required => true, :writer => :private
+        attribute :heart_beat, Integer, :required => true, :writer => :private
 
         # Exception ConnectionError raised after a failed connection
         # to RabbitMQ server.
@@ -29,6 +30,7 @@ module Lims
         # are passed as parameters.
         # @param [Hash] settings
         def initialize(settings = {})
+          @heart_beat = settings["heart_beat"]
           @connection_uri = settings["url"]
           @exchange_name = settings["exchange_name"]
           @durable = settings["durable"]
@@ -49,7 +51,7 @@ module Lims
         def connect
           begin
             if valid?
-              @connection = Bunny.new(connection_uri)
+              @connection = Bunny.new(connection_uri, :heartbeat => heart_beat)
               @connection.start
               @channel = @connection.create_channel
               set_prefetch_number(prefetch_number)
