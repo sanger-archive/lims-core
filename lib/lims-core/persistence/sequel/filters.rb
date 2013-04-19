@@ -34,7 +34,7 @@ module Lims::Core
         # the searched resource is a labellable. Then the joint with
         # uuid_resources is made between uuid_resources#key and
         # labellables#id.
-        uuid_resources_joint = self.class == Labels::Labellable::LabellableSequelPersistor ? {:key => :"id"} : {:uuid => :"name"}
+        uuid_resources_joint = (self.class == Labels::Labellable::LabellableSequelPersistor) ? {:key => :"id"} : {:uuid => :"name"}
         persistor = self.class.new(self, labellable_dataset.join("uuid_resources", uuid_resources_joint).select(:key).qualify(:uuid_resources))
 
         # join everything to current resource table
