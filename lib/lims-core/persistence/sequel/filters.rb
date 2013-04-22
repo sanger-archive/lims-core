@@ -30,8 +30,12 @@ module Lims::Core
         labellable_dataset = @session.labellable.__multi_criteria_filter(criteria).dataset
 
         # join labellabe request to uuid_resource
-        persistor = self.class.new(self, labellable_dataset.join("uuid_resources", :uuid => :"name"))
-          persistor = self.class.new(self, labellable_dataset.join("uuid_resources", :uuid => :"name").select(:key).qualify(:uuid_resources))
+        # If the persistor class is a Sequel::Labellable, it means
+        # the searched resource is a labellable. Then the joint with
+        # uuid_resources is made between uuid_resources#key and
+        # labellables#id.
+        uuid_resources_joint = (self.class == Labels::Labellable::LabellableSequelPersistor) ? {:key => :"id"} : {:uuid => :"name"}
+        persistor = self.class.new(self, labellable_dataset.join("uuid_resources", uuid_resources_joint).select(:key).qualify(:uuid_resources))
 
         # join everything to current resource table
         # Qualify method is needed to get only the fields related to the searched
