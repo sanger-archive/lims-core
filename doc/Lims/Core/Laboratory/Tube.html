@@ -92,7 +92,7 @@
   
     <dt class="r1 last">Defined in:</dt>
     <dd class="r1 last">lib/lims-core/laboratory/tube.rb<span class="defines">,<br />
-  lib/lims-core/actions/create_tube.rb,<br /> lib/lims-core/actions/update_tube.rb</span>
+  lib/lims-core/laboratory/tube/update_tube.rb,<br /> lib/lims-core/laboratory/tube/update_tube.rb,<br /> lib/lims-core/laboratory/tube/create_tube.rb,<br /> lib/lims-core/laboratory/tube/create_tube.rb,<br /> lib/lims-core/laboratory/tube/tube_persistor.rb,<br /> lib/lims-core/laboratory/tube/tube_sequel_persistor.rb,<br /> lib/lims-core/laboratory/tube/transfer_wells_to_tubes.rb,<br /> lib/lims-core/laboratory/tube/transfer_tubes_to_tubes.rb</span>
 </dd>
   
 </dl>
@@ -101,8 +101,12 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>Piece of laboratory.  Can have something in it and probably a label or
-something to identifiy it.</p>
+<p>This <span class='object_link'><a href="../Action.html" title="Lims::Core::Action (module)">Action</a></span> transfers the given fraction and type of aliquot from
+tube-like asset(s) to tube-like asset(s). It takes an array, which contains
+transfer elements.  An element has a source, target, amount, fraction and
+type parameter. Source and targets are tube-like assets (a tube or spin
+column). Amount is an amount of an aliquot to transfer. Fraction is the
+fraction of an aliquot to transfer. Type is the type of the aliquot.</p>
 
 
   </div>
@@ -110,20 +114,32 @@ something to identifiy it.</p>
 <div class="tags">
   
 
-</div>
+</div><h2>Defined Under Namespace</h2>
+<p class="children">
+   
+    
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Tube/TubeAliquot.html" title="Lims::Core::Laboratory::Tube::TubeAliquot (module)">TubeAliquot</a></span>
+    
+   
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Tube/CreateTube.html" title="Lims::Core::Laboratory::Tube::CreateTube (class)">CreateTube</a></span>, <span class='object_link'><a href="Tube/TransferTubesToTubes.html" title="Lims::Core::Laboratory::Tube::TransferTubesToTubes (class)">TransferTubesToTubes</a></span>, <span class='object_link'><a href="Tube/TransferWellsToTubes.html" title="Lims::Core::Laboratory::Tube::TransferWellsToTubes (class)">TransferWellsToTubes</a></span>, <span class='object_link'><a href="Tube/TubePersistor.html" title="Lims::Core::Laboratory::Tube::TubePersistor (class)">TubePersistor</a></span>, <span class='object_link'><a href="Tube/TubeSequelPersistor.html" title="Lims::Core::Laboratory::Tube::TubeSequelPersistor (class)">TubeSequelPersistor</a></span>, <span class='object_link'><a href="Tube/UpdateTube.html" title="Lims::Core::Laboratory::Tube::UpdateTube (class)">UpdateTube</a></span>
+    
+  
+</p>
+
   <h2>Constant Summary</h2>
   
     <dl class="constants">
       
-        <dt id="Create-constant" class="">Create =
-          
-        </dt>
-        <dd><pre class="code"><span class='const'>Actions</span><span class='op'>::</span><span class='const'>CreateTube</span></pre></dd>
-      
         <dt id="Update-constant" class="">Update =
           
         </dt>
-        <dd><pre class="code"><span class='const'>Actions</span><span class='op'>::</span><span class='const'>UpdateTube</span></pre></dd>
+        <dd><pre class="code"><span class='const'>UpdateTube</span></pre></dd>
+      
+        <dt id="Create-constant" class="">Create =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>CreateTube</span></pre></dd>
       
     </dl>
   

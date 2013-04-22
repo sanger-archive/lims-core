@@ -1,5 +1,5 @@
 # Model requirements
-require 'lims/core/laboratory/spin_column'
+require 'lims-core/laboratory/spin_column/all'
 
 module Lims::Core
   module Laboratory

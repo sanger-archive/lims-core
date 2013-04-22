@@ -3,7 +3,7 @@ require 'spec_helper'
 
 # Model requirements
 
-require 'lims/core/laboratory/flowcell'
+require 'lims-core/laboratory/flowcell'
 require 'facets/array'
 
 module Lims::Core

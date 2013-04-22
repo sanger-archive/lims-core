@@ -1,4 +1,5 @@
 require 'bunny'
+require 'bunny/exchange'
 require 'common'
 
 module Lims
@@ -53,20 +54,19 @@ module Lims
             if valid?
               @connection = Bunny.new(connection_uri, :heartbeat => heart_beat)
               @connection.start
-              @channel = @connection.create_channel
               set_prefetch_number(prefetch_number)
               set_exchange(exchange_name, :durable => durable)
             else
               raise InvalidSettingsError, "settings are invalid"
             end
-          rescue Bunny::TCPConnectionFailed, Bunny::PossibleAuthenticationFailureError => e
+          rescue Bunny::ConnectionError => e
             connection_failure_handler.call
           end
         end  
 
         # Close the connection
         def close
-          @connection.close 
+          @connection.close
         end
 
         # Create (or get if it already exists) a new topic
@@ -76,14 +76,14 @@ module Lims
         # @param [String] name
         # @param [Hash] exchange options
         def set_exchange(exchange_name, options = {})
-          @exchange = @channel.topic(exchange_name, options)
+          @exchange = @connection.exchange(exchange_name, options)
         end
         private :set_exchange
 
         # Specifies the number of messages to prefetch.
         # @param [int] number of messages to prefetch
         def set_prefetch_number(number)
-          @channel.prefetch(number)
+          @connection.qos(:prefetch_count => number)
         end
         private :set_prefetch_number
 

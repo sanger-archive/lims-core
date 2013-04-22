@@ -93,7 +93,7 @@
   
   
     <dt class="r1 last">Defined in:</dt>
-    <dd class="r1 last">lib/lims-core/persistence/order_filter.rb</dd>
+    <dd class="r1 last">lib/lims-core/organization/order/order_filter.rb</dd>
   
 </dl>
 <div class="clear"></div>
@@ -101,32 +101,15 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>Filter  performing a &amp;&amp; between all the pairs of a map. Key being
-the field Value can be either a String, an Array  or a Hash. Strings and
-Arrays are normal filters, whereas Hashes correspond to a joined search.
-The criteria will apply to the  joined object corresponding to the key.</p>
+<p>Will look for all the orders in pending or in progress status</p>
+
+<pre class="code">*holding* a plate with a pending status.</pre>
 
 
   </div>
 </div>
 <div class="tags">
   
-  <div class="examples">
-    <h3>Examples:</h3>
-    
-      <h4><div class='inline'></div></h4>
-      <pre class="example code">{
-  :status =&gt; [:pending, :in_progress],
-  :item =&gt; {
-    :status =&gt; [:pending],
-    :uuid =&gt; &lt;plate_uuid&gt;
-  }
- }
-Will look for all the orders in pending or in progress status
-*holding* a plate with a pending status.</pre>
-    
-  </div>
-
 
 </div>
 
@@ -254,7 +237,7 @@ as 'value'</p>
 33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/order_filter.rb', line 29</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/organization/order/order_filter.rb', line 29</span>
 
 <span class='kw'>def</span> <span class='id initialize'>initialize</span><span class='lparen'>(</span><span class='id criteria'>criteria</span><span class='rparen'>)</span>
   <span class='id criteria'>criteria</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='symbol'>:criteria</span> <span class='op'>=&gt;</span> <span class='id criteria'>criteria</span> <span class='rbrace'>}</span> <span class='kw'>unless</span> <span class='id criteria'>criteria</span><span class='period'>.</span><span class='id include?'>include?</span><span class='lparen'>(</span><span class='symbol'>:criteria</span><span class='rparen'>)</span>
@@ -291,7 +274,7 @@ as 'value'</p>
 37</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/order_filter.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/organization/order/order_filter.rb', line 35</span>
 
 <span class='kw'>def</span> <span class='id call'>call</span><span class='lparen'>(</span><span class='id persistor'>persistor</span><span class='rparen'>)</span>
   <span class='id persistor'>persistor</span><span class='period'>.</span><span class='id order_filter'>order_filter</span><span class='lparen'>(</span><span class='id criteria'>criteria</span><span class='rparen'>)</span>

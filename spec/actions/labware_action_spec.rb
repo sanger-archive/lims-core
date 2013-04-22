@@ -3,7 +3,7 @@ require 'actions/spec_helper'
 require 'actions/action_examples'
 
 module Lims::Core::Action
-  describe "Plate::Stamping" do
+  describe "Plate::Stamping", :plate => true, :laboratory => true do
     pending "Not Implemented" do
       it_behaves_like "an action"
       context "from a plate to another plate" do
@@ -18,7 +18,7 @@ module Lims::Core::Action
     end
   end
 
-  describe "Plate::Pooling" do
+  describe "Plate::Pooling", :plate => true, :laboratory => true do
     pending "Not implemented" do
       it_behaves_like "an action"
       context "from a plate to another plate" do
@@ -27,7 +27,7 @@ module Lims::Core::Action
     end
   end
 
-  describe "Plate::Rotating" do
+  describe "Plate::Rotating", :plate => true, :laboratory => true do
     pending "Not implemented" do
       it_behaves_like "an action"
       context "from a plate to another plate" do
@@ -41,7 +41,7 @@ module Lims::Core::Action
       pending "Not implemented" do
       end
 
-      describe "Plate::Cherrypicking" do
+      describe "Plate::Cherrypicking", :plate => true, :laboratory => true do
         pending "Not implemented" do
           context "from many plates to one plate" do
             it "transfers some wells to the destination plate"
@@ -49,7 +49,7 @@ module Lims::Core::Action
         end
       end
 
-      describe "Plate::Tagging" do
+      describe "Plate::Tagging", :plate => true, :laboratory => true do
       end
 
       describe "plate to tubes" do

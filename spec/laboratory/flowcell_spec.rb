@@ -2,12 +2,12 @@
 require 'laboratory/spec_helper'
 require 'laboratory/located_examples'
 require 'laboratory/container_examples'
-require 'laboratory/labellable_examples'
+require 'labels/labellable_examples'
 
 require 'laboratory/receptacle_examples'
 
 # Model requirements
-require 'lims/core/laboratory/flowcell'
+require 'lims-core/laboratory/flowcell'
 
 module Lims::Core::Laboratory
   shared_examples "contains lanes" do
@@ -26,7 +26,7 @@ module Lims::Core::Laboratory
     end
   end
 
-  describe Flowcell  do
+  describe Flowcell, :flowcell => true, :laboratory => true  do
     subject {described_class.new(:number_of_lanes => number_of_lanes)}
     
     context "of type MiSeq" do
@@ -44,7 +44,7 @@ module Lims::Core::Laboratory
     end
   end
   
-  describe Flowcell::Lane  do
+  describe Flowcell::Lane, :lane => true, :laboratory => true  do
     it "belongs  to a flowcell "  # contained by a flowcell
     it_behaves_like "receptacle"
   end

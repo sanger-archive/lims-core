@@ -1,6 +1,6 @@
 # vi: ts=2:sts=2:et:sw=2 spell:spelllang=en 
 require 'common'
-require 'lims/core/resource'
+require 'lims-core/resource'
 require 'lims-core/organization/user'
 require 'lims-core/organization/study'
 require 'lims-core/organization/batch'
@@ -18,7 +18,7 @@ module Lims::Core
       # initial order.
       # The status represents the *progress* of the item.
       class Item
-        include Resource
+        include Base
 
         attribute :iteration, Fixnum, :writer => :private, :default => 0
         attribute :uuid, String

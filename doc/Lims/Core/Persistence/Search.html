@@ -91,8 +91,8 @@
   
   
     <dt class="r1 last">Defined in:</dt>
-    <dd class="r1 last">lib/lims-core/persistence/search.rb<span class="defines">,<br />
-  lib/lims-core/actions/create_search.rb</span>
+    <dd class="r1 last">lib/lims-core/persistence/search/search_persistor.rb<span class="defines">,<br />
+  lib/lims-core/persistence/search/create_search.rb,<br /> lib/lims-core/persistence/search/create_search.rb,<br /> lib/lims-core/persistence/search/search_sequel_persistor.rb</span>
 </dd>
   
 </dl>
@@ -101,9 +101,7 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>base class handling searches. A Search represent a set of parameters  which
-when executed returns a set of similar object (.i.e the same class). A
-search is savable.</p>
+<p>Not a search but a search persistor.</p>
 
 
   </div>
@@ -117,7 +115,7 @@ search is savable.</p>
     
    
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Search/Persistor.html" title="Lims::Core::Persistence::Search::Persistor (class)">Persistor</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Search/CreateSearch.html" title="Lims::Core::Persistence::Search::CreateSearch (class)">CreateSearch</a></span>, <span class='object_link'><a href="Search/SearchPersistor.html" title="Lims::Core::Persistence::Search::SearchPersistor (class)">SearchPersistor</a></span>, <span class='object_link'><a href="Search/SearchSequelPersistor.html" title="Lims::Core::Persistence::Search::SearchSequelPersistor (class)">SearchSequelPersistor</a></span>
     
   
 </p>
@@ -129,7 +127,7 @@ search is savable.</p>
         <dt id="Create-constant" class="">Create =
           
         </dt>
-        <dd><pre class="code"><span class='const'>Actions</span><span class='op'>::</span><span class='const'>CreateSearch</span></pre></dd>
+        <dd><pre class="code"><span class='const'>CreateSearch</span></pre></dd>
       
     </dl>
   
@@ -198,7 +196,7 @@ search is savable.</p>
       <div class="method_details first">
   <p class="signature first" id="call-instance_method">
   
-    - (<tt><span class='object_link'><a href="Search/Persistor.html" title="Lims::Core::Persistence::Search::Persistor (class)">Persistor</a></span></tt>) <strong>call</strong>(session) 
+    - (<tt><span class='object_link'><a href="Persistor.html" title="Lims::Core::Persistence::Persistor (class)">Persistor</a></span></tt>) <strong>call</strong>(session) 
   
 
   
@@ -233,7 +231,7 @@ search is savable.</p>
     <li>
       
       
-        <span class='type'>(<tt><span class='object_link'><a href="Search/Persistor.html" title="Lims::Core::Persistence::Search::Persistor (class)">Persistor</a></span></tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="Persistor.html" title="Lims::Core::Persistence::Persistor (class)">Persistor</a></span></tt>)</span>
       
       
       
@@ -252,7 +250,7 @@ search is savable.</p>
 27</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/search.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/search/search_persistor.rb', line 25</span>
 
 <span class='kw'>def</span> <span class='id call'>call</span><span class='lparen'>(</span><span class='id session'>session</span><span class='rparen'>)</span>
   <span class='id filter'>filter</span><span class='period'>.</span><span class='id call'>call</span><span class='lparen'>(</span><span class='id session'>session</span><span class='period'>.</span><span class='id persistor_for'>persistor_for</span><span class='lparen'>(</span><span class='ivar'>@model</span><span class='rparen'>)</span><span class='rparen'>)</span>

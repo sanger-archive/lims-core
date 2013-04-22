@@ -362,6 +362,7 @@ ignored</p>
       <pre class="lines">
 
 
+29
 30
 31
 32
@@ -377,13 +378,14 @@ ignored</p>
 42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/filters.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/filters.rb', line 29</span>
 
 <span class='kw'>def</span> <span class='id label_filter'>label_filter</span><span class='lparen'>(</span><span class='id criteria'>criteria</span><span class='rparen'>)</span>
   <span class='id labellable_dataset'>labellable_dataset</span> <span class='op'>=</span> <span class='ivar'>@session</span><span class='period'>.</span><span class='id labellable'>labellable</span><span class='period'>.</span><span class='id __multi_criteria_filter'>__multi_criteria_filter</span><span class='lparen'>(</span><span class='id criteria'>criteria</span><span class='rparen'>)</span><span class='period'>.</span><span class='id dataset'>dataset</span>
 
   <span class='comment'># join labellabe request to uuid_resource
 </span>  <span class='id persistor'>persistor</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id class'>class</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id labellable_dataset'>labellable_dataset</span><span class='period'>.</span><span class='id join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>uuid_resources</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:uuid</span> <span class='op'>=&gt;</span> <span class='symbol'>:name</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
+    <span class='id persistor'>persistor</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id class'>class</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id labellable_dataset'>labellable_dataset</span><span class='period'>.</span><span class='id join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>uuid_resources</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:uuid</span> <span class='op'>=&gt;</span> <span class='symbol'>:name</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id select'>select</span><span class='lparen'>(</span><span class='symbol'>:key</span><span class='rparen'>)</span><span class='period'>.</span><span class='id qualify'>qualify</span><span class='lparen'>(</span><span class='symbol'>:uuid_resources</span><span class='rparen'>)</span><span class='rparen'>)</span>
 
   <span class='comment'># join everything to current resource table
 </span>  <span class='comment'># Qualify method is needed to get only the fields related to the searched
@@ -457,16 +459,16 @@ apply to the  joined object corresponding to the key.</p>
       <pre class="lines">
 
 
+15
 16
 17
 18
 19
 20
-21
-22</pre>
+21</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/filters.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/filters.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id multi_criteria_filter'>multi_criteria_filter</span><span class='lparen'>(</span><span class='id criteria'>criteria</span><span class='rparen'>)</span>
   <span class='comment'># We need to create the adequat dataset.
@@ -569,7 +571,7 @@ with a pending item status.
   <span class='kw'>end</span>
   
   <span class='comment'># Join order dataset with the uuid_resources table 
-</span>  <span class='id order_dataset'>order_dataset</span> <span class='op'>=</span> <span class='id order_dataset'>order_dataset</span><span class='period'>.</span><span class='id join'>join</span><span class='lparen'>(</span><span class='symbol'>:uuid_resources</span><span class='comma'>,</span> <span class='symbol'>:uuid</span> <span class='op'>=&gt;</span> <span class='symbol'>:items__uuid</span><span class='rparen'>)</span>            
+</span>  <span class='id order_dataset'>order_dataset</span> <span class='op'>=</span> <span class='id order_dataset'>order_dataset</span><span class='period'>.</span><span class='id join'>join</span><span class='lparen'>(</span><span class='symbol'>:uuid_resources</span><span class='comma'>,</span> <span class='symbol'>:uuid</span> <span class='op'>=&gt;</span> <span class='symbol'>:items__uuid</span><span class='rparen'>)</span><span class='period'>.</span><span class='id select'>select</span><span class='lparen'>(</span><span class='symbol'>:key</span><span class='rparen'>)</span><span class='period'>.</span><span class='id qualify'>qualify</span><span class='lparen'>(</span><span class='symbol'>:uuid_resources</span><span class='rparen'>)</span> 
 
   <span class='comment'># Join order dataset with the resource dataset
 </span>  <span class='comment'># Qualify method is needed to get only the fields related

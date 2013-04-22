@@ -1,0 +1,5 @@
+require('lims-core/persistence/logger/persistor')
+require('lims-core/persistence/logger/session')
+require('lims-core/persistence/logger/store')
+require('lims-core/persistence/message_bus')
+require('lims-core/persistence/persistor')

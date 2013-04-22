@@ -1,0 +1,8 @@
+require('lims-core/laboratory/tube_rack/create_tube_rack')
+require('lims-core/laboratory/tube_rack/tube_rack_move')
+require('lims-core/laboratory/tube_rack/tube_rack_persistor')
+require('lims-core/laboratory/tube_rack/tube_rack_sequel_persistor')
+require('lims-core/laboratory/tube_rack/tube_rack_transfer')
+require('lims-core/laboratory/tube_rack/update_tube_rack')
+require('lims-core/laboratory/tube_rack')
+require('lims-core/laboratory')

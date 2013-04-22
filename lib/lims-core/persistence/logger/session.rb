@@ -1,7 +1,7 @@
 # vi: ts=2:sts=2:et:sw=2 spell:spelllang=en
 
 require 'logger'
-require 'lims/core/persistence/session'
+require 'lims-core/persistence/session'
 
 module Lims::Core
   module Persistence

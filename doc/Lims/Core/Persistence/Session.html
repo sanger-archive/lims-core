@@ -116,18 +116,16 @@ modifications of those objects.</p>
   <h2>Direct Known Subclasses</h2>
   <p class="children"><span class='object_link'><a href="Logger/Session.html" title="Lims::Core::Persistence::Logger::Session (class)">Logger::Session</a></span>, <span class='object_link'><a href="Sequel/Session.html" title="Lims::Core::Persistence::Sequel::Session (class)">Lims::Core::Persistence::Sequel::Session</a></span></p>
 </div>
-
-  <h2>Constant Summary</h2>
+<h2>Defined Under Namespace</h2>
+<p class="children">
+   
+    
+   
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Session/UnmanagedObjectError.html" title="Lims::Core::Persistence::Session::UnmanagedObjectError (class)">UnmanagedObjectError</a></span>
+    
   
-    <dl class="constants">
-      
-        <dt id="UnmanagedObjectError-constant" class="">UnmanagedObjectError =
-          
-        </dt>
-        <dd><pre class="code"><span class='const'>Class</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='const'>RuntimeError</span><span class='rparen'>)</span></pre></dd>
-      
-    </dl>
-  
+</p>
 
 
   
@@ -142,6 +140,121 @@ modifications of those objects.</p>
     </h2>
 
     <ul class="summary">
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#find_or_create_persistor_for-class_method" title="find_or_create_persistor_for (class method)">+ (Object) <strong>find_or_create_persistor_for</strong>(model) </a>
+    
+
+    
+  </span>
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#model_for-class_method" title="model_for (class method)">+ (Symbol) <strong>model_for</strong>(object) </a>
+    
+
+    
+  </span>
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Find the model corresponding to an object Takes many type of input.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#model_map-class_method" title="model_map (class method)">+ (Object) <strong>model_map</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The map name &lt;=&gt; model class is shared between all type of session.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#model_to_name-class_method" title="model_to_name (class method)">+ (Symbol) <strong>model_to_name</strong>(model) </a>
+    
+
+    
+  </span>
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Find the registered name of a given class @<a href="http://Class">param</a>
+model.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#name_to_model-class_method" title="name_to_model (class method)">+ (Class) <strong>name_to_model</strong>(name) </a>
+    
+
+    
+  </span>
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Find the model class for a registered name registered name are used when
+doing session.model.</p>
+</div></span>
+  
+</li>
+
       
         <li class="public ">
   <span class="summary_signature">
@@ -162,6 +275,92 @@ modifications of those objects.</p>
     <span class="summary_desc"><div class='inline'>
 <p>Pack if needed an uuid to its store representation This method is need to
 lookup an uuid by name.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#persistor_class_for-class_method" title="persistor_class_for (class method)">+ (Class) <strong>persistor_class_for</strong>(object) </a>
+    
+
+    
+  </span>
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#persistor_class_map-class_method" title="persistor_class_map (class method)">+ (Object) <strong>persistor_class_map</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#persistor_name_for-class_method" title="persistor_name_for (class method)">+ (Object) <strong>persistor_name_for</strong>(object) </a>
+    
+
+    
+  </span>
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#register_model-class_method" title="register_model (class method)">+ (Object) <strong>register_model</strong>(name, model) </a>
+    
+
+    
+  </span>
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Register a model for a given name.</p>
 </div></span>
   
 </li>
@@ -271,7 +470,7 @@ lookup an uuid by name.</p>
         <li class="private ">
   <span class="summary_signature">
     
-      <a href="#filter_persistor-instance_method" title="#filter_persistor (instance method)">- (Persistor) <strong>filter_persistor</strong>(persistor) </a>
+      <a href="#filter-instance_method" title="#filter (instance method)">- (Persistor) <strong>filter</strong>(persistor) </a>
     
 
     
@@ -477,7 +676,7 @@ lookup an uuid by name.</p>
         <li class="private ">
   <span class="summary_signature">
     
-      <a href="#persistor_for_persistor_class-instance_method" title="#persistor_for_persistor_class (instance method)">- (Persistor) <strong>persistor_for_persistor_class</strong>(klass) </a>
+      <a href="#persistor_name_for-instance_method" title="#persistor_name_for (instance method)">- (Object) <strong>persistor_name_for</strong>(object) </a>
     
 
     
@@ -490,32 +689,7 @@ lookup an uuid by name.</p>
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Find the first persistor of the specified class.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="private ">
-  <span class="summary_signature">
-    
-      <a href="#persistor_name_for-instance_method" title="#persistor_name_for (instance method)">- (String) <strong>persistor_name_for</strong>(object) </a>
-    
-
-    
-  </span>
-  
-  
-  <span class="note title private">private</span>
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>Compute the class name of the persistor corresponding to the argument.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -604,7 +778,7 @@ lookup an uuid by name.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Execute a block and save every 'marked' object in a transaction at the end.</p>
+<p>Execute a block and save every 'marked' object in a transaction at the End.</p>
 </div></span>
   
 </li>
@@ -641,17 +815,17 @@ lookup an uuid by name.</p>
       <pre class="lines">
 
 
-21
-22
-23
-24
-25
-26
-27
-28</pre>
+32
+33
+34
+35
+36
+37
+38
+39</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 32</span>
 
 <span class='kw'>def</span> <span class='id initialize'>initialize</span><span class='lparen'>(</span><span class='id store'>store</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
   <span class='ivar'>@store</span> <span class='op'>=</span> <span class='id store'>store</span>
@@ -687,23 +861,27 @@ lookup an uuid by name.</p>
       <pre class="lines">
 
 
-73
-74
-75
-76
-77
-78
-79</pre>
+87
+88
+89
+90
+91
+92
+93
+94
+95</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 73</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 87</span>
 
 <span class='kw'>def</span> <span class='id method_missing'>method_missing</span><span class='lparen'>(</span><span class='id name'>name</span><span class='comma'>,</span> <span class='op'>*</span><span class='id args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id block'>block</span><span class='rparen'>)</span>
   <span class='kw'>begin</span>
     <span class='id persistor_for'>persistor_for</span><span class='lparen'>(</span><span class='id name'>name</span><span class='rparen'>)</span>
   <span class='kw'>rescue</span> <span class='const'>NameError</span>
-    <span class='kw'>super</span><span class='lparen'>(</span><span class='id name'>name</span><span class='comma'>,</span> <span class='op'>*</span><span class='id args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id block'>block</span><span class='rparen'>)</span>         
-  <span class='kw'>end</span> 
+    <span class='comment'># No persistor found for the given name
+</span>    <span class='comment'># Call the normal method_missing
+</span>    <span class='kw'>super</span><span class='lparen'>(</span><span class='id name'>name</span><span class='comma'>,</span> <span class='op'>*</span><span class='id args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id block'>block</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -718,7 +896,370 @@ lookup an uuid by name.</p>
     
     
       <div class="method_details first">
-  <p class="signature first" id="pack_uuid-class_method">
+  <p class="signature first" id="find_or_create_persistor_for-class_method">
+  
+    + (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>find_or_create_persistor_for</strong>(model)  <span class="extras">(private)</span>
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 282</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id find_or_create_persistor_for'>find_or_create_persistor_for</span><span class='lparen'>(</span><span class='id model'>model</span><span class='rparen'>)</span>
+  <span class='comment'># find the persistor within the class
+</span>  <span class='comment'># other corresponding to the current session type
+</span>  <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>unless</span> <span class='id model'>model</span>
+  <span class='id session_persistor_class'>session_persistor_class</span> <span class='op'>=</span> <span class='id parent_scope'>parent_scope</span><span class='period'>.</span><span class='id const_get'>const_get</span><span class='lparen'>(</span><span class='symbol'>:Persistor</span><span class='rparen'>)</span>
+  <span class='id model'>model</span><span class='period'>.</span><span class='id constants'>constants</span><span class='lparen'>(</span><span class='kw'>false</span><span class='rparen'>)</span><span class='period'>.</span><span class='id each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id name'>name</span><span class='op'>|</span>
+    <span class='id klass'>klass</span> <span class='op'>=</span> <span class='id model'>model</span><span class='period'>.</span><span class='id const_get'>const_get</span><span class='lparen'>(</span><span class='id name'>name</span><span class='rparen'>)</span>
+    <span class='kw'>next</span> <span class='kw'>unless</span> <span class='id klass'>klass</span><span class='period'>.</span><span class='id is_a?'>is_a?</span> <span class='const'>Module</span>
+    <span class='kw'>if</span>  <span class='id klass'>klass</span><span class='period'>.</span><span class='id ancestors'>ancestors</span><span class='period'>.</span><span class='id include?'>include?</span><span class='lparen'>(</span><span class='id session_persistor_class'>session_persistor_class</span><span class='rparen'>)</span>
+      <span class='comment'># found
+</span>      <span class='kw'>return</span> <span class='id klass'>klass</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+  <span class='comment'># not found, we need to create it
+</span>  <span class='comment'># First we look for the base persistor to inherit from
+</span>  <span class='id raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Can't find base persistor for </span><span class='embexpr_beg'>#{</span><span class='id model'>model</span><span class='period'>.</span><span class='id inspect'>inspect</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>  <span class='kw'>unless</span> <span class='id superclass'>superclass</span><span class='period'>.</span><span class='id respond_to?'>respond_to?</span> <span class='symbol'>:persistor_class_for</span>
+   
+  <span class='id parent_persistor_class'>parent_persistor_class</span> <span class='op'>=</span> <span class='id superclass'>superclass</span><span class='period'>.</span><span class='id persistor_class_for'>persistor_class_for</span><span class='lparen'>(</span><span class='id model'>model</span><span class='rparen'>)</span>
+
+  <span class='comment'># if the current persistor (ex Sequel::Persistor) is the same  as the base one
+</span>  <span class='comment'># there is nothing else to do
+</span>  <span class='kw'>return</span> <span class='id parent_persistor_class'>parent_persistor_class</span> <span class='kw'>unless</span> <span class='id parent_scope'>parent_scope</span><span class='op'>::</span><span class='id const_defined?'>const_defined?</span><span class='lparen'>(</span><span class='symbol'>:Persistor</span><span class='comma'>,</span> <span class='kw'>false</span><span class='rparen'>)</span>
+
+  <span class='id raise'>raise</span>  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>no Persistor defined for </span><span class='embexpr_beg'>#{</span><span class='id model'>model</span><span class='period'>.</span><span class='id name'>name</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id parent_persistor_class'>parent_persistor_class</span>
+  <span class='id module_name'>module_name</span> <span class='op'>=</span> <span class='id parent_scope'>parent_scope</span><span class='period'>.</span><span class='id name'>name</span><span class='period'>.</span><span class='id sub'>sub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>.*Persistence::</span><span class='regexp_end'>/</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
+  <span class='id model_name'>model_name</span> <span class='op'>=</span> <span class='id model'>model</span><span class='period'>.</span><span class='id name'>name</span><span class='period'>.</span><span class='id split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>::</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id pop'>pop</span>
+  <span class='comment'># the we create a new Persistor class including the Persistor mixin
+</span>  <span class='comment'># corresponding to the session
+</span>  <span class='id class_declaration'>class_declaration</span> <span class='op'>=</span> <span class='heredoc_beg'>&lt;&lt;-EOV</span>
+<span class='tstring_content'>  class </span><span class='embexpr_beg'>#{</span><span class='id model_name'>model_name</span><span class='rbrace'>}</span><span class='embexpr_beg'>#{</span><span class='id module_name'>module_name</span><span class='rbrace'>}</span><span class='tstring_content'>Persistor &lt; </span><span class='embexpr_beg'>#{</span><span class='id parent_persistor_class'>parent_persistor_class</span><span class='period'>.</span><span class='id name'>name</span><span class='rbrace'>}</span><span class='tstring_content'>
+</span><span class='embexpr_beg'>    include #{</span><span class='id parent_scope'>parent_scope</span><span class='op'>::</span><span class='const'>Persistor</span><span class='rbrace'>}</span><span class='tstring_content'>
+  end
+</span><span class='heredoc_end'>  EOV
+</span>  <span class='id model'>model</span><span class='period'>.</span><span class='id class_eval'>class_eval</span> <span class='id class_declaration'>class_declaration</span>
+
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="model_for-class_method">
+  
+    + (<tt>Symbol</tt>) <strong>model_for</strong>(object)  <span class="extras">(private)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>Find the model corresponding to an object Takes many type of input</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>object</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>, <tt><span class='object_link'><a href="../Resource.html" title="Lims::Core::Resource (module)">Resource</a></span></tt>, <tt><span class='object_link'><a href="Persistor.html" title="Lims::Core::Persistence::Persistor (class)">Persistor</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 236</span>
+
+<span class='kw'>def</span>  <span class='kw'>self</span><span class='period'>.</span><span class='id model_for'>model_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
+  <span class='kw'>case</span> <span class='id object'>object</span>
+  <span class='kw'>when</span> <span class='kw'>nil</span> <span class='kw'>then</span> <span class='kw'>nil</span>
+  <span class='kw'>when</span> <span class='const'>String</span> <span class='kw'>then</span> <span class='id name_to_model'>name_to_model</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='const'>Symbol</span> <span class='kw'>then</span> <span class='id name_to_model'>name_to_model</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='const'>Module</span> <span class='kw'>then</span> <span class='id object'>object</span>
+  <span class='kw'>when</span> <span class='const'>Class</span> <span class='kw'>then</span>
+    <span class='comment'># check if the class has been registered
+</span>    <span class='kw'>return</span> <span class='id object'>object</span> <span class='kw'>if</span> <span class='id model_to_name'>model_to_name</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
+
+    <span class='comment'># check the super class
+</span>    <span class='id model_for'>model_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='period'>.</span><span class='id superclass'>superclass</span><span class='rparen'>)</span><span class='period'>.</span><span class='id andtap'>andtap</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id model'>model</span><span class='op'>|</span>
+      <span class='kw'>return</span> <span class='id model'>model</span>
+    <span class='rbrace'>}</span>
+
+    <span class='comment'># Check the owner
+</span>    <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>unless</span> <span class='id object'>object</span><span class='period'>.</span><span class='id respond_to?'>respond_to?</span> <span class='symbol'>:parent_scope</span>
+    <span class='id model_for'>model_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='period'>.</span><span class='id parent_scope'>parent_scope</span><span class='rparen'>)</span><span class='period'>.</span><span class='id andtap'>andtap</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id model'>model</span><span class='op'>|</span>
+      <span class='kw'>return</span> <span class='id model'>model</span>
+    <span class='rbrace'>}</span>
+  <span class='kw'>else</span>
+    <span class='id model_for'>model_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='period'>.</span><span class='id class'>class</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="model_map-class_method">
+  
+    + (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>model_map</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>The map name &lt;=&gt; model class is shared between all type of session</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+23
+24
+25</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 23</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id model_map'>model_map</span><span class='lparen'>(</span><span class='rparen'>)</span>
+  <span class='cvar'>@@model_map</span> <span class='op'>||=</span> <span class='const'>IdentityMap</span><span class='op'>::</span><span class='const'>Class</span><span class='period'>.</span><span class='id new'>new</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="model_to_name-class_method">
+  
+    + (<tt>Symbol</tt>) <strong>model_to_name</strong>(model)  <span class="extras">(private)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>Find the registered name of a given class @<a href="http://Class">param</a>
+model</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+215
+216
+217</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 215</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id model_to_name'>model_to_name</span><span class='lparen'>(</span><span class='id model'>model</span><span class='rparen'>)</span>
+  <span class='id model_map'>model_map</span><span class='period'>.</span><span class='id id_for'>id_for</span><span class='lparen'>(</span><span class='id model'>model</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="name_to_model-class_method">
+  
+    + (<tt>Class</tt>) <strong>name_to_model</strong>(name)  <span class="extras">(private)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>Find the model class for a registered name registered name are used when
+doing session.model</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Class</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+208
+209
+210</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 208</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id name_to_model'>name_to_model</span><span class='lparen'>(</span><span class='id name'>name</span><span class='rparen'>)</span>
+  <span class='id model_map'>model_map</span><span class='period'>.</span><span class='id object_for'>object_for</span><span class='lparen'>(</span><span class='id name'>name</span><span class='period'>.</span><span class='id to_s'>to_s</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="pack_uuid-class_method">
   
     + (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>pack_uuid</strong>(uuid) 
   
@@ -770,15 +1311,214 @@ lookup an uuid by name</p>
       <pre class="lines">
 
 
-128
-129
-130</pre>
+144
+145
+146</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 128</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 144</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id pack_uuid'>pack_uuid</span><span class='lparen'>(</span><span class='id uuid'>uuid</span><span class='rparen'>)</span>
   <span class='id uuid'>uuid</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="persistor_class_for-class_method">
+  
+    + (<tt>Class</tt>) <strong>persistor_class_for</strong>(object)  <span class="extras">(private)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>object</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>, <tt><span class='object_link'><a href="../Resource.html" title="Lims::Core::Resource (module)">Resource</a></span></tt>, <tt><span class='object_link'><a href="Persistor.html" title="Lims::Core::Persistence::Persistor (class)">Persistor</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Class</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+272
+273
+274
+275
+276</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 272</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id persistor_class_for'>persistor_class_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
+  <span class='id model'>model</span> <span class='op'>=</span> <span class='id model_for'>model_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
+
+  <span class='id persistor_class_map'>persistor_class_map</span><span class='lbracket'>[</span><span class='id model'>model</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='id find_or_create_persistor_for'>find_or_create_persistor_for</span><span class='lparen'>(</span><span class='id model'>model</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="persistor_class_map-class_method">
+  
+    + (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>persistor_class_map</strong>  <span class="extras">(private)</span>
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+278
+279
+280</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 278</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id persistor_class_map'>persistor_class_map</span><span class='lparen'>(</span><span class='rparen'>)</span>
+  <span class='ivar'>@persistor_class_map</span> <span class='op'>||=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="persistor_name_for-class_method">
+  
+    + (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>persistor_name_for</strong>(object)  <span class="extras">(private)</span>
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+261
+262
+263
+264</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 261</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id persistor_name_for'>persistor_name_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
+  <span class='id model'>model</span> <span class='op'>=</span> <span class='id model_for'>model_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
+  <span class='id model_to_name'>model_to_name</span><span class='lparen'>(</span><span class='id model'>model</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="register_model-class_method">
+  
+    + (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>register_model</strong>(name, model)  <span class="extras">(private)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>Register a model for a given name. This name will be looked up when calling
+session.&lt;name&gt; Persistors need to be registered.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>model</span>
+      
+      
+        <span class='type'>(<tt>Class</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+224
+225
+226
+227
+228
+229</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 224</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id register_model'>register_model</span><span class='lparen'>(</span><span class='id name'>name</span><span class='comma'>,</span> <span class='id model'>model</span><span class='rparen'>)</span>
+  <span class='id name'>name</span> <span class='op'>=</span> <span class='id name'>name</span><span class='period'>.</span><span class='id to_s'>to_s</span><span class='period'>.</span><span class='id snakecase'>snakecase</span>
+  <span class='comment'># skip if name already registered with the same object
+</span>  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id model_map'>model_map</span><span class='period'>.</span><span class='id object_for'>object_for</span><span class='lparen'>(</span><span class='id name'>name</span><span class='rparen'>)</span> <span class='op'>==</span> <span class='id model'>model</span>
+  <span class='id model_map'>model_map</span><span class='period'>.</span><span class='id map_id_object'>map_id_object</span><span class='lparen'>(</span><span class='id name'>name</span><span class='comma'>,</span> <span class='id model'>model</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -837,12 +1577,12 @@ lookup an uuid by name</p>
       <pre class="lines">
 
 
-139
-140
-141</pre>
+155
+156
+157</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 139</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 155</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id unpack_uuid'>unpack_uuid</span><span class='lparen'>(</span><span class='id puuid'>puuid</span><span class='rparen'>)</span>
   <span class='id puuid'>puuid</span>
@@ -931,13 +1671,13 @@ at the end of the session.</p>
       <pre class="lines">
 
 
-55
-56
-57
-58</pre>
+69
+70
+71
+72</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 55</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 69</span>
 
 <span class='kw'>def</span> <span class='op'>&lt;&lt;</span> <span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
   <span class='ivar'>@objects</span> <span class='op'>&lt;&lt;</span> <span class='id object'>object</span>
@@ -974,7 +1714,7 @@ delete is made by calling the <span class='object_link'><a href="#delete_in_real
     <li>
       
       
-        <span class='type'>(<tt><span class='object_link'><a href="#UnmanagedObjectError-constant" title="Lims::Core::Persistence::Session::UnmanagedObjectError (constant)">UnmanagedObjectError</a></span></tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="Session/UnmanagedObjectError.html" title="Lims::Core::Persistence::Session::UnmanagedObjectError (class)">UnmanagedObjectError</a></span></tt>)</span>
       
       
       
@@ -988,13 +1728,13 @@ delete is made by calling the <span class='object_link'><a href="#delete_in_real
       <pre class="lines">
 
 
-119
-120
-121
-122</pre>
+135
+136
+137
+138</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 119</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 135</span>
 
 <span class='kw'>def</span> <span class='id delete'>delete</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
   <span class='id raise'>raise</span> <span class='const'>UnmanagedObjectError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>can't delete </span><span class='embexpr_beg'>#{</span><span class='id object'>object</span><span class='period'>.</span><span class='id inspect'>inspect</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id managed?'>managed?</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
@@ -1042,16 +1782,16 @@ delete is made by calling the <span class='object_link'><a href="#delete_in_real
       <pre class="lines">
 
 
-164
-165
-166
-167
-168
-169
-170</pre>
+180
+181
+182
+183
+184
+185
+186</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 164</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 180</span>
 
 <span class='kw'>def</span> <span class='id delete_in_real'>delete_in_real</span><span class='lparen'>(</span><span class='id object'>object</span><span class='comma'>,</span> <span class='op'>*</span><span class='id options'>options</span><span class='rparen'>)</span>
   <span class='id raise'>raise</span> <span class='const'>RuntimeError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Can't delete an object inside a session. Please considere the 'delete' method instead.</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='ivar'>@save_in_progress</span>
@@ -1066,9 +1806,9 @@ delete is made by calling the <span class='object_link'><a href="#delete_in_real
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="filter_persistor-instance_method">
+  <p class="signature " id="filter-instance_method">
   
-    - (<tt><span class='object_link'><a href="Persistor.html" title="Lims::Core::Persistence::Persistor (class)">Persistor</a></span></tt>) <strong>filter_persistor</strong>(persistor)  <span class="extras">(private)</span>
+    - (<tt><span class='object_link'><a href="Persistor.html" title="Lims::Core::Persistence::Persistor (class)">Persistor</a></span></tt>) <strong>filter</strong>(persistor)  <span class="extras">(private)</span>
   
 
   
@@ -1119,21 +1859,21 @@ persistor to the current session.</p>
       <pre class="lines">
 
 
-177
-178
-179
-180
-181
-182
-183
-184
-185
-186</pre>
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 177</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 193</span>
 
-<span class='kw'>def</span> <span class='id filter_persistor'>filter_persistor</span><span class='lparen'>(</span><span class='id persistor'>persistor</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id filter'>filter</span><span class='lparen'>(</span><span class='id persistor'>persistor</span><span class='rparen'>)</span>
   <span class='comment'># If the persistor session is the current session, there is nothing to do
 </span>  <span class='comment'># just return the object as it is.
 </span>  <span class='kw'>return</span> <span class='id persistor'>persistor</span> <span class='kw'>if</span>  <span class='id persistor'>persistor</span><span class='period'>.</span><span class='id instance_eval'>instance_eval</span> <span class='lbrace'>{</span><span class='ivar'>@session</span><span class='rbrace'>}</span> <span class='op'>==</span> <span class='kw'>self</span>
@@ -1205,15 +1945,15 @@ persistor to the current session.</p>
       <pre class="lines">
 
 
-91
-92
-93
-94
-95
-96</pre>
+107
+108
+109
+110
+111
+112</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 91</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 107</span>
 
 <span class='kw'>def</span> <span class='id id_for'>id_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
   <span class='kw'>case</span> <span class='id object'>object</span>
@@ -1283,13 +2023,13 @@ persistor to the current session.</p>
       <pre class="lines">
 
 
-101
-102
-103
-104</pre>
+117
+118
+119
+120</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 101</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 117</span>
 
 <span class='kw'>def</span> <span class='id id_for!'>id_for!</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>unless</span> <span class='id object'>object</span>
@@ -1353,12 +2093,12 @@ loaded or meant to be saved</p>
       <pre class="lines">
 
 
-110
-111
-112</pre>
+126
+127
+128</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 110</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 126</span>
 
 <span class='kw'>def</span> <span class='id managed?'>managed?</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
   <span class='ivar'>@objects</span><span class='period'>.</span><span class='id include?'>include?</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
@@ -1393,12 +2133,12 @@ MUST be called by persistors creating Resources.</p>
       <pre class="lines">
 
 
-84
-85
-86</pre>
+100
+101
+102</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 84</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 100</span>
 
 <span class='kw'>def</span> <span class='id on_object_load'>on_object_load</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
   <span class='kw'>self</span> <span class='op'>&lt;&lt;</span> <span class='id object'>object</span>
@@ -1421,12 +2161,12 @@ MUST be called by persistors creating Resources.</p>
       <pre class="lines">
 
 
-132
-133
-134</pre>
+148
+149
+150</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 132</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 148</span>
 
 <span class='kw'>def</span> <span class='id pack_uuid'>pack_uuid</span><span class='lparen'>(</span><span class='id uuid'>uuid</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id class'>class</span><span class='period'>.</span><span class='id pack_uuid'>pack_uuid</span><span class='lparen'>(</span><span class='id uuid'>uuid</span><span class='rparen'>)</span>
@@ -1488,103 +2228,32 @@ MUST be called by persistors creating Resources.</p>
       <pre class="lines">
 
 
-204
-205
-206
-207
-208
-209
-210
-211
-212
-213
-214
-215</pre>
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 204</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 323</span>
 
 <span class='kw'>def</span> <span class='id persistor_for'>persistor_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
-    <span class='kw'>if</span> <span class='id object'>object</span><span class='period'>.</span><span class='id is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Persistor</span><span class='rparen'>)</span>
-      <span class='kw'>return</span> <span class='id filter_persistor'>filter_persistor</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
-    <span class='kw'>end</span>
-    <span class='id name'>name</span> <span class='op'>=</span> <span class='id persistor_name_for'>persistor_name_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
-    <span class='ivar'>@persistor_map</span><span class='lbracket'>[</span><span class='id name'>name</span><span class='rbracket'>]</span>  <span class='op'>||=</span> <span class='kw'>begin</span> 
-    <span class='id persistor_class'>persistor_class</span> <span class='op'>=</span> <span class='ivar'>@store</span><span class='period'>.</span><span class='id base_module'>base_module</span><span class='period'>.</span><span class='id constant'>constant</span><span class='lparen'>(</span><span class='id name'>name</span><span class='rparen'>)</span>
-    <span class='id raise'>raise</span> <span class='const'>NameError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Persistor </span><span class='embexpr_beg'>#{</span><span class='id name'>name</span><span class='rbrace'>}</span><span class='tstring_content'> not defined for </span><span class='embexpr_beg'>#{</span><span class='ivar'>@store</span><span class='period'>.</span><span class='id base_module'>base_module</span><span class='period'>.</span><span class='id name'>name</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id persistor_class'>persistor_class</span> <span class='op'>&amp;&amp;</span>  <span class='id persistor_class'>persistor_class</span><span class='period'>.</span><span class='id ancestors'>ancestors</span><span class='period'>.</span><span class='id include?'>include?</span><span class='lparen'>(</span><span class='const'>Persistor</span><span class='rparen'>)</span>
-    <span class='id persistor_class'>persistor_class</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id object'>object</span><span class='period'>.</span><span class='id is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Persistor</span><span class='rparen'>)</span>
+    <span class='kw'>return</span> <span class='id filter'>filter</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <p class="signature " id="persistor_for_persistor_class-instance_method">
-  
-    - (<tt><span class='object_link'><a href="Persistor.html" title="Lims::Core::Persistence::Persistor (class)">Persistor</a></span></tt>) <strong>persistor_for_persistor_class</strong>(klass)  <span class="extras">(private)</span>
-  
-
-  
-</p><div class="docstring">
-  <div class="discussion">
-    
-<p>Find the first persistor of the specified class. Optimize if needed.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <h3>Parameters:</h3>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'></span>
-      
-      
-        <span class='type'>(<tt>Class</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-<h3>Returns:</h3>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="Persistor.html" title="Lims::Core::Persistence::Persistor (class)">Persistor</a></span></tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-192
-193
-194
-195
-196</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 192</span>
-
-<span class='kw'>def</span> <span class='id persistor_for_persistor_class'>persistor_for_persistor_class</span><span class='lparen'>(</span><span class='id klass'>klass</span><span class='rparen'>)</span>
-  <span class='ivar'>@persistor_map</span><span class='period'>.</span><span class='id each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id name'>name</span><span class='comma'>,</span> <span class='id persistor'>persistor</span><span class='op'>|</span>
-    <span class='kw'>return</span> <span class='id persistor'>persistor</span> <span class='kw'>if</span> <span class='id persistor'>persistor</span><span class='period'>.</span><span class='id is_a?'>is_a?</span><span class='lparen'>(</span><span class='id klass'>klass</span><span class='rparen'>)</span>
+  <span class='id model'>model</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id class'>class</span><span class='period'>.</span><span class='id model_for'>model_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
+  <span class='ivar'>@persistor_map</span><span class='lbracket'>[</span><span class='id model'>model</span><span class='rbracket'>]</span>  <span class='op'>||=</span> <span class='kw'>begin</span>
+    <span class='id persistor_class'>persistor_class</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id class'>class</span><span class='period'>.</span><span class='id persistor_class_for'>persistor_class_for</span><span class='lparen'>(</span><span class='id model'>model</span><span class='rparen'>)</span>
+    <span class='id raise'>raise</span> <span class='const'>NameError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>no persistor defined for </span><span class='embexpr_beg'>#{</span><span class='id object'>object</span><span class='period'>.</span><span class='id class'>class</span><span class='period'>.</span><span class='id name'>name</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id persistor_class'>persistor_class</span> <span class='op'>&amp;&amp;</span>  <span class='id persistor_class'>persistor_class</span><span class='period'>.</span><span class='id ancestors'>ancestors</span><span class='period'>.</span><span class='id include?'>include?</span><span class='lparen'>(</span><span class='const'>Persistor</span><span class='rparen'>)</span>
+    <span class='id persistor_class'>persistor_class</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1595,84 +2264,25 @@ MUST be called by persistors creating Resources.</p>
       <div class="method_details ">
   <p class="signature " id="persistor_name_for-instance_method">
   
-    - (<tt>String</tt>) <strong>persistor_name_for</strong>(object)  <span class="extras">(private)</span>
+    - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>persistor_name_for</strong>(object)  <span class="extras">(private)</span>
   
 
   
-</p><div class="docstring">
-  <div class="discussion">
-    
-<p>Compute the class name of the persistor corresponding to the argument</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <h3>Parameters:</h3>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>object</span>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="../Resource.html" title="Lims::Core::Resource (module)">Resource</a></span></tt>, <tt>String</tt>, <tt>Symbol</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-<h3>Returns:</h3>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
+</p><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-221
-222
-223
-224
-225
-226
-227
-228
-229
-230
-231
-232
-233</pre>
+266
+267
+268</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 221</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 266</span>
 
-<span class='kw'>def</span>  <span class='id persistor_name_for'>persistor_name_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
-  <span class='kw'>case</span> <span class='id object'>object</span>
-  <span class='kw'>when</span> <span class='const'>String</span> <span class='kw'>then</span> <span class='id object'>object</span>
-  <span class='kw'>when</span> <span class='const'>Symbol</span> <span class='kw'>then</span> <span class='id object'>object</span><span class='period'>.</span><span class='id to_s'>to_s</span>
-  <span class='kw'>when</span> <span class='const'>Class</span><span class='comma'>,</span><span class='const'>Module</span>
-    <span class='kw'>if</span> <span class='id object'>object</span><span class='period'>.</span><span class='id respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:base_class</span><span class='rparen'>)</span>
-      <span class='kw'>return</span> <span class='id persistor_name_for'>persistor_name_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='period'>.</span><span class='id base_class'>base_class</span><span class='rparen'>)</span>
-    <span class='kw'>else</span>
-      <span class='id object'>object</span><span class='period'>.</span><span class='id name'>name</span><span class='period'>.</span><span class='id sub'>sub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^Lims::Core::(Persistence::)?\w+::</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
-    <span class='kw'>end</span>
-  <span class='kw'>else</span> <span class='id persistor_name_for'>persistor_name_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='period'>.</span><span class='id class'>class</span><span class='rparen'>)</span>
-  <span class='kw'>end</span><span class='period'>.</span><span class='id upper_camelcase'>upper_camelcase</span>
+<span class='kw'>def</span> <span class='id persistor_name_for'>persistor_name_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id class'>class</span><span class='period'>.</span><span class='id persistor_name_for'>persistor_name_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1732,16 +2342,16 @@ inside a sess</p>
       <pre class="lines">
 
 
-65
-66
-67
-68
-69
-70
-71</pre>
+79
+80
+81
+82
+83
+84
+85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 65</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 79</span>
 
 <span class='kw'>def</span> <span class='id save'>save</span><span class='lparen'>(</span><span class='id object'>object</span><span class='comma'>,</span> <span class='op'>*</span><span class='id options'>options</span><span class='rparen'>)</span>
   <span class='id raise'>raise</span> <span class='const'>RuntimeError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Can't save object inside a session. Please considere the &lt;&lt; method.</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='ivar'>@save_in_progress</span>
@@ -1779,22 +2389,22 @@ inside a sess</p>
       <pre class="lines">
 
 
-149
-150
-151
-152
-153
-154
-155
-156
-157
-158
-159
-160
-161</pre>
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 149</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 165</span>
 
 <span class='kw'>def</span> <span class='id save_all'>save_all</span><span class='lparen'>(</span><span class='rparen'>)</span>
   <span class='ivar'>@store</span><span class='period'>.</span><span class='id transaction'>transaction</span> <span class='kw'>do</span>
@@ -1827,12 +2437,12 @@ inside a sess</p>
       <pre class="lines">
 
 
-143
-144
-145</pre>
+159
+160
+161</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 143</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 159</span>
 
 <span class='kw'>def</span> <span class='id unpack_uuid'>unpack_uuid</span><span class='lparen'>(</span><span class='id uuid'>uuid</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id class'>class</span><span class='period'>.</span><span class='id unpack_uuid'>unpack_uuid</span><span class='lparen'>(</span><span class='id uuid'>uuid</span><span class='rparen'>)</span>
@@ -1852,7 +2462,7 @@ inside a sess</p>
 </p><div class="docstring">
   <div class="discussion">
     
-<p>Execute a block and save every 'marked' object in a transaction at the end.</p>
+<p>Execute a block and save every 'marked' object in a transaction at the End.</p>
 
 
   </div>
@@ -1904,27 +2514,31 @@ inside a sess</p>
       <pre class="lines">
 
 
-36
-37
-38
-39
-40
-41
-42
-43
-44</pre>
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 48</span>
 
 <span class='kw'>def</span> <span class='id with_session'>with_session</span><span class='lparen'>(</span><span class='op'>*</span><span class='id params'>params</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id block'>block</span><span class='rparen'>)</span>
-  <span class='ivar'>@in_session</span> <span class='op'>=</span> <span class='kw'>true</span>
-  <span class='id to_return'>to_return</span> <span class='op'>=</span> <span class='id block'>block</span><span class='lbracket'>[</span><span class='kw'>self</span><span class='rbracket'>]</span>
-  <span class='ivar'>@in_session</span> <span class='op'>=</span> <span class='kw'>false</span>
-  <span class='id save_all'>save_all</span>
-  <span class='kw'>return</span> <span class='id to_return'>to_return</span>
-<span class='kw'>ensure</span>
-  <span class='ivar'>@in_session</span> <span class='op'>=</span> <span class='kw'>false</span>
+  <span class='kw'>begin</span>
+    <span class='ivar'>@in_session</span> <span class='op'>=</span> <span class='kw'>true</span>
+    <span class='id to_return'>to_return</span> <span class='op'>=</span> <span class='id block'>block</span><span class='lbracket'>[</span><span class='kw'>self</span><span class='rbracket'>]</span>
+    <span class='ivar'>@in_session</span> <span class='op'>=</span> <span class='kw'>false</span>
+    <span class='id save_all'>save_all</span>
+    <span class='kw'>return</span> <span class='id to_return'>to_return</span>
+  <span class='kw'>ensure</span>
+    <span class='ivar'>@in_session</span> <span class='op'>=</span> <span class='kw'>false</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
