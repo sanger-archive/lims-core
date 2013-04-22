@@ -3,7 +3,7 @@
 require 'sequel'
 require 'lims-core/persistence'
 require 'lims-core/persistence/uuidable'
-require 'lims-core/persistence/Session'
+require 'lims-core/persistence/session'
 
 module Lims::Core
   module Persistence

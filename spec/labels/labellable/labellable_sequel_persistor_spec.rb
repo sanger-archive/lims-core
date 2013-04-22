@@ -12,7 +12,9 @@ module Lims::Core
 
     let(:name) { "test plate" }
     let(:type) { "plate" }
-    let(:content) { { "front barcode" => Labels::SangerBarcode.new({ :value =>"12345ABC" }) } }
+    let(:label_position) { "front barcode" }
+    let(:label_value) { "12345ABC" }
+    let(:content) { { label_position => Labels::SangerBarcode.new({:value => label_value}) } }
     let(:parameters) { { :name => name, :type => type, :content => content } }
     let(:labellable) { Labels::Labellable.new(parameters) }
     
@@ -46,6 +48,37 @@ module Lims::Core
       end
       it "modifies the labels table" do
         expect { save(labellable) }.to change { db[:labels].count}.by(1)
+      end
+    end
+
+    context "lookup", :focus => true do
+      before do
+        store.with_session do |session|
+          session << labellable
+          session.uuid_for!(labellable)
+        end
+      end
+
+      it "finds the labellable by label value" do
+        filter = Persistence::LabelFilter.new(:label => {:value => label_value})
+        search = Persistence::Search.new(:model => Labels::Labellable, :filter => filter, :description => "search")
+        store.with_session do |session|
+          results = search.call(session)
+          all = results.slice(0, 1000).to_a
+          all.size.should == 1
+          all.first.should == labellable
+        end
+      end
+
+      it "finds the labellable by label position" do
+        filter = Persistence::LabelFilter.new(:label => {:position => label_position})
+        search = Persistence::Search.new(:model => Labels::Labellable, :filter => filter, :description => "search")
+        store.with_session do |session|
+          results = search.call(session)
+          all = results.slice(0, 1000).to_a
+          all.size.should == 1
+          all.first.should == labellable
+        end
       end
     end
   end
