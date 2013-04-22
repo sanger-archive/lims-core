@@ -308,7 +308,7 @@ module Lims::Core
         end
         # not found, we need to create it
         # First we look for the base persistor to inherit from
-        debugger unless superclass.respond_to? :persistor_class_for
+        #debugger unless superclass.respond_to? :persistor_class_for
         raise "Can't find base persistor for #{model.inspect}"  unless superclass.respond_to? :persistor_class_for
          
         parent_persistor_class = superclass.persistor_class_for(model)
