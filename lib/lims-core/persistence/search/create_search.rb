@@ -3,6 +3,7 @@ require 'lims-core/actions/action'
 
 require 'lims-core/persistence/search/search_persistor'
 require 'lims-core/persistence/multi_criteria_filter'
+require 'lims-core/persistence/comparison_filter'
 
 module Lims::Core
   module Persistence
@@ -21,6 +22,7 @@ module Lims::Core
                    when [1, "label"] then Persistence::LabelFilter.new(:criteria => criteria)
                    when [1, "order"] then Persistence::OrderFilter.new(:criteria => criteria)
                    when [1, "batch"] then Persistence::BatchFilter.new(:criteria => criteria)
+                   when [1, "comparison"] then Persistence::ComparisonFilter.new(:criteria => criteria, :model => model)
                    else Persistence::MultiCriteriaFilter.new(:criteria => criteria)
                    end
 

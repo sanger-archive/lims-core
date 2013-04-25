@@ -20,6 +20,28 @@ module Lims::Core
         self.class.new(self, dataset.qualify(table_name).distinct())
       end
 
+      # Implement a comparison filter for a Sequel::Persistor.
+      # Key being the name of the resource's field and the value is a Hash.
+      # The key of the hash is a comparison operator
+      # and the value is the given value the filter do the comparison against.
+      # @param [Hash<String, Object>] criteria
+      # @param [String] model
+      # @return [Persistor]
+      def comparison_filter(criteria, model)
+        model_persistor = @session.send(model)
+        model_dataset = model_persistor.dataset
+
+        clause = ""
+        criteria.each do |field, comparison_expression|
+          comparison_expression.each do |operator, value|
+            clause = clause + ') & (' unless clause == ""
+            clause = clause + field + operator + "'" + value.to_s + "'"
+          end
+        end
+
+        self.class.new(self, dataset.where(clause).qualify)
+      end
+
       # Implements a label filter for a Sequel::Persistor.
       # Nil value would be ignored
       # @param [String, Nil] position of the label 
