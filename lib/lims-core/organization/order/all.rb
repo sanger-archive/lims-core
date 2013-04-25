@@ -1,7 +1,0 @@
-require('lims-core/organization/order/create_order')
-require('lims-core/organization/order/item')
-require('lims-core/organization/order/order_persistor')
-require('lims-core/organization/order/order_sequel_persistor')
-require('lims-core/organization/order/update_order')
-require('lims-core/organization/order')
-require('lims-core/organization/order/order_filter')
