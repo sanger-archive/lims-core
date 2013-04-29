@@ -24,6 +24,7 @@ module Lims::Core
     class OrderFilter < Persistence::Filter 
       include Resource
       attribute :criteria, Hash, :required => true
+      attribute :model, String, :required => true
       # For Sequel, keys needs to be a Symbol to be seen as column.
       # String are seen as 'value'
       def initialize(criteria)
@@ -33,7 +34,7 @@ module Lims::Core
       end
 
       def call(persistor)
-        persistor.order_filter(criteria)
+        persistor.order_filter(criteria, model)
       end
     end
     class Persistor

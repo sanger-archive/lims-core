@@ -8,6 +8,7 @@ require 'persistence/filter/multi_criteria_sequel_filter_shared'
 require 'persistence/filter/label_sequel_filter_shared'
 require 'persistence/filter/order_lookup_sequel_filter_shared'
 require 'persistence/filter/batch_sequel_filter_shared'
+require 'persistence/filter/comparison_lookup_sequel_filter_shared'
 
 # Model requirements
 require 'lims-core/laboratory/plate/all'
@@ -133,6 +134,10 @@ module Lims::Core
              end
           }
 
+          context "by comparison", :focus => true do
+            it_behaves_like "comparison filter for plate"
+          end
+
           context "by label" do
             let!(:uuid) {
               store.with_session do |session|
@@ -150,6 +155,7 @@ module Lims::Core
           context "by batch" do
             it_behaves_like "batch filtrable"
           end
+
         end
       end
 

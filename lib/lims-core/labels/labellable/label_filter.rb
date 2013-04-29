@@ -26,6 +26,7 @@ module Lims::Core
     class LabelFilter < Filter 
       include Resource
       attribute :criteria, Hash, :required => true
+      attribute :model, String, :required => true
       # For Sequel, keys needs to be a Symbol to be seen as column.
       # String are seen as 'value'
       def initialize(criteria)
@@ -36,7 +37,7 @@ module Lims::Core
 
 
       def call(persistor)
-        persistor.label_filter(criteria)
+        persistor.label_filter(criteria, model)
       end
     end
 

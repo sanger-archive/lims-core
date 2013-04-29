@@ -5,6 +5,9 @@ module Lims::Core
   module Persistence
     # Implementes filter methods needed by persitors.
     module Sequel::Filters
+
+      COMPARISON_OPERATORS = ["<", "<=", "=", ">=", ">"]
+
       # Implement a multicriteria filter for a Sequel::Persistor.
       # Value can be either a String, an Array  or a Hash.
       # Strings and Arrays are normal filters, whereas Hashes
@@ -34,6 +37,8 @@ module Lims::Core
         clause = ""
         criteria.each do |field, comparison_expression|
           comparison_expression.each do |operator, value|
+            raise ArgumentError, "Not supported comparison operator has been given: '#{operator}'" unless COMPARISON_OPERATORS.include?(operator) 
+
             clause = clause + ') & (' unless clause == ""
             clause = clause + field + operator + "'" + value.to_s + "'"
           end
@@ -42,13 +47,24 @@ module Lims::Core
         self.class.new(self, dataset.where(clause).qualify)
       end
 
+      # Joins the comparison filter to the existing persistor.
+      # @param [Dataset] dataset
+      # @param [Hash<String, Object>] criteria for the comparison
+      # @param [String] model
+      # @return [Persistor]
+      def add_comparison_filter(dataset, comparison_criteria, model)
+        comparison_persistor = comparison_filter(comparison_criteria, model)
+        self.class.new(self, dataset.join(comparison_persistor.dataset, :id => :key).qualify)
+      end
+
       # Implements a label filter for a Sequel::Persistor.
       # Nil value would be ignored
       # @param [String, Nil] position of the label 
       # @param [String, Nil] value of the label
       # @param [String, Nil] type fo the label
       # @return [Persistor]
-      def label_filter(criteria)
+      def label_filter(criteria, model)
+        comparison_criteria = criteria.delete(:comparison)
         labellable_dataset = @session.labellable.__multi_criteria_filter(criteria).dataset
 
         # join labellabe request to uuid_resource
@@ -58,6 +74,9 @@ module Lims::Core
         # labellables#id.
         uuid_resources_joint = (self.class == Labels::Labellable::LabellableSequelPersistor) ? {:key => :"id"} : {:uuid => :"name"}
         persistor = self.class.new(self, labellable_dataset.join("uuid_resources", uuid_resources_joint).select(:key).qualify(:uuid_resources))
+
+        # add comparison criteria if exists
+        persistor = add_comparison_filter(persistor.dataset, comparison_criteria, model) if comparison_criteria
 
         # join everything to current resource table
         # Qualify method is needed to get only the fields related to the searched
@@ -74,7 +93,8 @@ module Lims::Core
       #     Create a request to get the resources in a draft order
       #     with a pending item status.
       #     @return [Persistor]
-      def order_filter(criteria)
+      def order_filter(criteria, model)
+        comparison_criteria = criteria.delete(:comparison)
         criteria = criteria[:order] if criteria.keys.first.to_s == "order"
         order_persistor = @session.order.__multi_criteria_filter(criteria)
         order_dataset = order_persistor.dataset
@@ -84,9 +104,12 @@ module Lims::Core
         unless criteria.has_key?("item") or criteria.has_key?(:item)
           order_dataset = order_dataset.join(:items, :order_id => order_persistor.primary_key)
         end
-        
+
         # Join order dataset with the uuid_resources table 
-        order_dataset = order_dataset.join(:uuid_resources, :uuid => :items__uuid).select(:key).qualify(:uuid_resources) 
+        order_dataset = order_dataset.join(:uuid_resources, :uuid => :items__uuid).select(:key).qualify(:uuid_resources)
+
+        # add comparison criteria if exists
+        order_dataset = add_comparison_filter(order_dataset, comparison_criteria, model).dataset if comparison_criteria
 
         # Join order dataset with the resource dataset
         # Qualify method is needed to get only the fields related
@@ -106,8 +129,8 @@ module Lims::Core
       #   an order item assigned to a batch with the given uuid.
       #   Is equivalent to the criteria:
       #   {:order => {:item => {:batch => {:uuid => '11111111-2222-3333-4444-555555555555'}}}}
-      def batch_filter(criteria)
-        order_filter({:order => {:item => criteria } })
+      def batch_filter(criteria, model)
+        order_filter({:order => {:item => criteria } }, model)
       end
 
       protected
