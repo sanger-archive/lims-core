@@ -15,14 +15,17 @@ module Lims::Core
         attribute :criteria, Hash, :required => true
 
         def _call_in_session(session)
-          # Create the appropriate filter depending on the criteria
-          # @tod remove hardcoded class
-          filter = case [criteria.size, criteria.keys.first.to_s]
-                   when [1, "label"] then Persistence::LabelFilter.new(:criteria => criteria)
-                   when [1, "order"] then Persistence::OrderFilter.new(:criteria => criteria)
-                   when [1, "batch"] then Persistence::BatchFilter.new(:criteria => criteria)
-                   else Persistence::MultiCriteriaFilter.new(:criteria => criteria)
-                   end
+          # Use the appropriate filter if needed.
+          filter = null
+          if criteria.size == 1 
+            criteria.keys.first.andtap do |model|
+              filter_class_name = "#{model.capitalize}Filter"
+              if Persistence::const_defined? filter_class_name
+                filter = Persistence::get_const(filter_class_name).new(:criteria => criteria)
+              end
+            end
+          end
+          filter ||= Persistence::MultiCriteriaFilter.new(:criteria => criteria)
 
           search = Persistence::Search.new(:description => description, 
                                            :model => session.send(model).model, 
