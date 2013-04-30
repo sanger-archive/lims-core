@@ -7,6 +7,7 @@ module Lims::Core
   module Persistence
     class BatchFilter < Persistence::Filter
       include Resource
+
       attribute :criteria, Hash, :required => true
 
       # For Sequel, keys needs to be a Symbol to be seen as column.
