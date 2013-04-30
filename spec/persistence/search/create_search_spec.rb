@@ -6,7 +6,7 @@ require 'actions/action_examples'
 #Model requirements
 require 'lims-core/persistence/search/create_search'
 require 'lims-core/persistence/search/search_persistor'
-require 'lims-core/laboratory/plate'
+require 'lims-core/laboratory/plate/all'
 require 'lims-core/labels/labellable/all'
 
 module Lims::Core
@@ -42,16 +42,16 @@ module Lims::Core
           end
         end
 
-        context "valid" do
+        context "valid plate" do
           let(:model_name) { "plate" }
           let(:model) { Laboratory::Plate }
           let(:criteria) {{ :id => 1 }}
           let(:description) { "search description" }
 
-          subject {  Search::CreateSearch.new(:store => store, :user => user, :application => application)  do |a,s|
-            a.description = description
-            a.model = model_name
-            a.criteria = criteria
+          subject {  Search::CreateSearch.new(:store => store, :user => user, :application => application)  do |action,s|
+            action.description = description
+            action.model = model_name
+            action.criteria = criteria
           end
           }
 
@@ -78,6 +78,18 @@ module Lims::Core
               search = result[:search]
               search.should be_a Persistence::Search
               search.filter.should be_a(Persistence::OrderFilter)
+            end
+          end
+
+          context "with comparison criteria" do
+            include_context "create object"
+            let(:criteria) { {:comparison => {:number_of_rows => { "=" => 8} }} }
+            it "uses an ComparisonFilter" do
+              result = subject.call
+              result.should be_a Hash
+              search = result[:search]
+              search.should be_a Persistence::Search
+              search.filter.should be_a(Persistence::ComparisonFilter)
             end
           end
         end
