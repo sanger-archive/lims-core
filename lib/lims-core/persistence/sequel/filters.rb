@@ -20,31 +20,6 @@ module Lims::Core
         self.class.new(self, dataset.qualify(table_name).distinct())
       end
 
-      # Implements a label filter for a Sequel::Persistor.
-      # Nil value would be ignored
-      # @param [String, Nil] position of the label 
-      # @param [String, Nil] value of the label
-      # @param [String, Nil] type fo the label
-      # @return [Persistor]
-      def label_filter(criteria)
-        labellable_dataset = @session.labellable.__multi_criteria_filter(criteria).dataset
-
-        # join labellabe request to uuid_resource
-        # If the persistor class is a Sequel::Labellable, it means
-        # the searched resource is a labellable. Then the joint with
-        # uuid_resources is made between uuid_resources#key and
-        # labellables#id.
-        uuid_resources_joint = (self.class == Labels::Labellable::LabellableSequelPersistor) ? {:key => :"id"} : {:uuid => :"name"}
-        persistor = self.class.new(self, labellable_dataset.join("uuid_resources", uuid_resources_joint).select(:key).qualify(:uuid_resources))
-
-        # join everything to current resource table
-        # Qualify method is needed to get only the fields related to the searched
-        # resource. Otherwise, multiple id columns are returned which lead to a
-        # ambiguous situation when we try to get the id of the resource. 
-        # This leads to an incorrect uuid for the found resources.
-        self.class.new(self, dataset.join(persistor.dataset, :key => primary_key).qualify)
-      end
-
       # Implement an order filter for a Sequel::Persistor.
       # @param [Hash<String, Object>] criteria
       # @example
@@ -74,18 +49,6 @@ module Lims::Core
         # As a same resource could belong to multiple orders, distinct
         # is used to get only one copy of each resource.
         self.class.new(self, dataset.join(order_dataset, :key => primary_key).qualify.distinct)
-      end
-
-      # Implement a batch filter for a Sequel::Persistor.
-      # @param [Hash<String, Object>] criteria
-      # @example
-      #   {:batch => {:uuid => '11111111-2222-3333-4444-555555555555'}}
-      #   Create a request to get the resources which are referenced by
-      #   an order item assigned to a batch with the given uuid.
-      #   Is equivalent to the criteria:
-      #   {:order => {:item => {:batch => {:uuid => '11111111-2222-3333-4444-555555555555'}}}}
-      def batch_filter(criteria)
-        order_filter({:order => {:item => criteria } })
       end
 
       protected
