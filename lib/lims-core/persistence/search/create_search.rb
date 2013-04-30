@@ -24,10 +24,10 @@ module Lims::Core
           keys = criteria.keys
           keys.delete("comparison") if criteria.keys.size > 1
           filter = case [keys.size, keys.first.to_s]
-                   when [1, "label"] then Persistence::LabelFilter.new(:criteria => criteria, :model => model)
-                   when [1, "order"] then Persistence::OrderFilter.new(:criteria => criteria, :model => model)
-                   when [1, "batch"] then Persistence::BatchFilter.new(:criteria => criteria, :model => model)
-                   when [1, "comparison"] then Persistence::ComparisonFilter.new(:criteria => criteria, :model => model)
+                   when [1, "label"] then Persistence::LabelFilter.new(:criteria => criteria)
+                   when [1, "order"] then Persistence::OrderFilter.new(:criteria => criteria)
+                   when [1, "batch"] then Persistence::BatchFilter.new(:criteria => criteria)
+                   when [1, "comparison"] then Persistence::ComparisonFilter.new(:criteria => criteria)
                    else Persistence::MultiCriteriaFilter.new(:criteria => criteria)
                    end
 

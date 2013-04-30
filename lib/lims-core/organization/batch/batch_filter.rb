@@ -9,7 +9,6 @@ module Lims::Core
       include Resource
 
       attribute :criteria, Hash, :required => true
-      attribute :model, String, :required => true
 
       # For Sequel, keys needs to be a Symbol to be seen as column.
       # String are seen as 'value'
@@ -20,7 +19,7 @@ module Lims::Core
       end
 
       def call(persistor)
-        persistor.batch_filter(criteria, model)
+        persistor.batch_filter(criteria)
       end
     end
   end

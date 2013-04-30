@@ -28,10 +28,9 @@ module Lims::Core
       # The key of the hash is a comparison operator
       # and the value is the given value the filter do the comparison against.
       # @param [Hash<String, Object>] criteria
-      # @param [String] model
       # @return [Persistor]
-      def comparison_filter(criteria, model)
-        model_persistor = @session.send(model)
+      def comparison_filter(criteria)
+        model_persistor = @session.send(table_name.to_s.singularize)
         model_dataset = model_persistor.dataset
 
         clause = ""
@@ -50,10 +49,9 @@ module Lims::Core
       # Joins the comparison filter to the existing persistor.
       # @param [Dataset] dataset
       # @param [Hash<String, Object>] criteria for the comparison
-      # @param [String] model
       # @return [Persistor]
-      def add_comparison_filter(dataset, comparison_criteria, model)
-        comparison_persistor = comparison_filter(comparison_criteria, model)
+      def add_comparison_filter(dataset, comparison_criteria)
+        comparison_persistor = comparison_filter(comparison_criteria)
         self.class.new(self, dataset.join(comparison_persistor.dataset, :id => :key).qualify)
       end
 
@@ -63,7 +61,7 @@ module Lims::Core
       # @param [String, Nil] value of the label
       # @param [String, Nil] type fo the label
       # @return [Persistor]
-      def label_filter(criteria, model)
+      def label_filter(criteria)
         comparison_criteria = criteria.delete(:comparison)
         labellable_dataset = @session.labellable.__multi_criteria_filter(criteria).dataset
 
@@ -76,7 +74,7 @@ module Lims::Core
         persistor = self.class.new(self, labellable_dataset.join("uuid_resources", uuid_resources_joint).select(:key).qualify(:uuid_resources))
 
         # add comparison criteria if exists
-        persistor = add_comparison_filter(persistor.dataset, comparison_criteria, model) if comparison_criteria
+        persistor = add_comparison_filter(persistor.dataset, comparison_criteria) if comparison_criteria
 
         # join everything to current resource table
         # Qualify method is needed to get only the fields related to the searched
@@ -93,7 +91,7 @@ module Lims::Core
       #     Create a request to get the resources in a draft order
       #     with a pending item status.
       #     @return [Persistor]
-      def order_filter(criteria, model)
+      def order_filter(criteria)
         comparison_criteria = criteria.delete(:comparison)
         criteria = criteria[:order] if criteria.keys.first.to_s == "order"
         order_persistor = @session.order.__multi_criteria_filter(criteria)
@@ -109,7 +107,7 @@ module Lims::Core
         order_dataset = order_dataset.join(:uuid_resources, :uuid => :items__uuid).select(:key).qualify(:uuid_resources)
 
         # add comparison criteria if exists
-        order_dataset = add_comparison_filter(order_dataset, comparison_criteria, model).dataset if comparison_criteria
+        order_dataset = add_comparison_filter(order_dataset, comparison_criteria).dataset if comparison_criteria
 
         # Join order dataset with the resource dataset
         # Qualify method is needed to get only the fields related
@@ -129,8 +127,8 @@ module Lims::Core
       #   an order item assigned to a batch with the given uuid.
       #   Is equivalent to the criteria:
       #   {:order => {:item => {:batch => {:uuid => '11111111-2222-3333-4444-555555555555'}}}}
-      def batch_filter(criteria, model)
-        order_filter({:order => {:item => criteria } }, model)
+      def batch_filter(criteria)
+        order_filter({:order => {:item => criteria } })
       end
 
       protected

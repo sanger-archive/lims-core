@@ -29,7 +29,7 @@ module Lims::Core
       NOT_IN_ROOT = 1
 
       attribute :criteria, Hash, :required => true
-      attribute :model, String, :required => true
+
       # For Sequel, keys needs to be a Symbol to be seen as column.
       # String are seen as 'value'
       def initialize(criteria)
@@ -39,7 +39,7 @@ module Lims::Core
       end
 
       def call(persistor)
-        persistor.comparison_filter(criteria[:comparison], model)
+        persistor.comparison_filter(criteria[:comparison])
       end
     end
   end
@@ -47,7 +47,7 @@ module Lims::Core
   class Persistor
     # @param [Hash] criteria a 
     # @return [Persistor] 
-    def comparison_filter(criteria, model)
+    def comparison_filter(criteria)
       raise NotImplementedError, "comparison_filter methods needs to be implemented for subclass of Persistor"
     end
   end
