@@ -16,7 +16,7 @@ module Lims::Core
     # "criteria": {
     #     "comparison": {
     #         "expires": {
-    #             "greater_or_equal": "2013-04-24"
+    #             ">=": "2013-04-24"
     #         }
     #     }
     # }
