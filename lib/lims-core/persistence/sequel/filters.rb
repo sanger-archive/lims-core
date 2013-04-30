@@ -30,9 +30,6 @@ module Lims::Core
       # @param [Hash<String, Object>] criteria
       # @return [Persistor]
       def comparison_filter(criteria)
-        model_persistor = @session.send(table_name.to_s.singularize)
-        model_dataset = model_persistor.dataset
-
         clause = ""
         criteria.each do |field, comparison_expression|
           comparison_expression.each do |operator, value|
