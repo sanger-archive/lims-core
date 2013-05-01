@@ -16,7 +16,7 @@ module Lims::Core
 
         def _call_in_session(session)
           # Use the appropriate filter if needed.
-          filter = null
+          filter = nil
           if criteria.size == 1 
             criteria.keys.first.andtap do |model|
               filter_class_name = "#{model.capitalize}Filter"
