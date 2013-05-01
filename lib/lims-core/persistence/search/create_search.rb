@@ -21,7 +21,7 @@ module Lims::Core
             criteria.keys.first.andtap do |model|
               filter_class_name = "#{model.capitalize}Filter"
               if Persistence::const_defined? filter_class_name
-                filter = Persistence::get_const(filter_class_name).new(:criteria => criteria)
+                filter = Persistence::const_get(filter_class_name).new(:criteria => criteria)
               end
             end
           end
