@@ -3,6 +3,7 @@ require 'common'
 require 'facets/string'
 
 require 'lims-core/persistence/session'
+require 'lims-core/persistence/search/all'
 
 module Lims::Core
   # Generic persistence layer.
