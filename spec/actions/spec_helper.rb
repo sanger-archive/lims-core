@@ -1,6 +1,5 @@
 require 'spec_helper'
 
-require 'lims-core/persistence/store'
 require 'lims-core/persistence/session'
 
 shared_context "create object" do

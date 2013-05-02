@@ -3,7 +3,8 @@ require 'actions/spec_helper'
 require 'actions/action_examples'
 
 # Model requirements
-require 'lims-core/organization/batch/all'
+require 'lims-core/organization/batch/update_batch'
+require 'lims-core/organization/batch'
 
 module Lims::Core
   class Organization::Batch
