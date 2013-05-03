@@ -51,7 +51,8 @@ module Lims
         def connect
           begin
             if valid?
-              @connection = Bunny.new(connection_uri, :heartbeat => heart_beat)
+              opts = @heart_beat ? { :heartbeat => heart_beat } : {}
+              @connection = Bunny.new(connection_uri, opts)
               @connection.start
               @channel = @connection.create_channel
               set_prefetch_number(prefetch_number)
