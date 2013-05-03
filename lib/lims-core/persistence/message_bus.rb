@@ -15,7 +15,7 @@ module Lims
         attribute :exchange_name, String, :required => true, :writer => :private
         attribute :durable, Boolean, :required => true, :writer => :private
         attribute :prefetch_number, Integer, :required => true, :writer => :private
-        attribute :heart_beat, Integer, :required => true, :writer => :private
+        attribute :heart_beat, Integer, :required => false, :writer => :private
 
         # Exception ConnectionError raised after a failed connection
         # to RabbitMQ server.
