@@ -5,6 +5,9 @@ module Lims::Core
   module Persistence
     # Implementes filter methods needed by persitors.
     module Sequel::Filters
+
+      COMPARISON_OPERATORS = ["<", "<=", "=", ">=", ">"]
+
       # Implement a multicriteria filter for a Sequel::Persistor.
       # Value can be either a String, an Array  or a Hash.
       # Strings and Arrays are normal filters, whereas Hashes
@@ -20,35 +23,33 @@ module Lims::Core
         self.class.new(self, dataset.qualify(table_name).distinct())
       end
 
-      # Implement an order filter for a Sequel::Persistor.
+      # Implement a comparison filter for a Sequel::Persistor.
+      # Key being the name of the resource's field and the value is a Hash.
+      # The key of the hash is a comparison operator
+      # and the value is the given value the filter do the comparison against.
       # @param [Hash<String, Object>] criteria
-      # @example
-      #     {:order => {:item => {:status => "pending"}, :status => "draft"}}
-      #     Create a request to get the resources in a draft order
-      #     with a pending item status.
-      #     @return [Persistor]
-      def order_filter(criteria)
-        criteria = criteria[:order] if criteria.keys.first.to_s == "order"
-        order_persistor = @session.order.__multi_criteria_filter(criteria)
-        order_dataset = order_persistor.dataset
+      # @return [Persistor]
+      def comparison_filter(criteria)
+        clause = ""
+        criteria.each do |field, comparison_expression|
+          comparison_expression.each do |operator, value|
+            raise ArgumentError, "Not supported comparison operator has been given: '#{operator}'" unless COMPARISON_OPERATORS.include?(operator) 
 
-        # If criteria doesn't include an item key, we need 
-        # to make the join with the table items here.
-        unless criteria.has_key?("item") or criteria.has_key?(:item)
-          order_dataset = order_dataset.join(:items, :order_id => order_persistor.primary_key)
+            clause = clause + ') & (' unless clause == ""
+            clause = clause + field + operator + "'" + value.to_s + "'"
+          end
         end
-        
-        # Join order dataset with the uuid_resources table 
-        order_dataset = order_dataset.join(:uuid_resources, :uuid => :items__uuid).select(:key).qualify(:uuid_resources) 
 
-        # Join order dataset with the resource dataset
-        # Qualify method is needed to get only the fields related
-        # to the resource table. Otherwise, id could be confused.
-        # The expected request would be for example something like
-        # select plates.* from ...
-        # As a same resource could belong to multiple orders, distinct
-        # is used to get only one copy of each resource.
-        self.class.new(self, dataset.join(order_dataset, :key => primary_key).qualify.distinct)
+        self.class.new(self, dataset.where(clause).qualify)
+      end
+
+      # Joins the comparison filter to the existing persistor.
+      # @param [Dataset] dataset
+      # @param [Hash<String, Object>] criteria for the comparison
+      # @return [Persistor]
+      def add_comparison_filter(dataset, comparison_criteria)
+        comparison_persistor = comparison_filter(comparison_criteria)
+        self.class.new(self, dataset.join(comparison_persistor.dataset, :id => :key).qualify)
       end
 
       protected

@@ -3,6 +3,7 @@ require 'lims-core/actions/action'
 
 require 'lims-core/persistence/search/search_persistor'
 require 'lims-core/persistence/multi_criteria_filter'
+require 'lims-core/persistence/comparison_filter'
 
 module Lims::Core
   module Persistence
@@ -26,7 +27,6 @@ module Lims::Core
             end
           end
           filter ||= Persistence::MultiCriteriaFilter.new(:criteria => criteria)
-
           search = Persistence::Search.new(:description => description, 
                                            :model => session.send(model).model, 
                                            :filter => filter)

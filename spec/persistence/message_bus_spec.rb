@@ -27,8 +27,8 @@ module Lims::Core
           described_class.new(bus_settings - ["prefetch_number"]).valid?.should == false
         end
 
-        it "requires a heart_beat value" do
-          described_class.new(bus_settings - ["heart_beat"]).valid?.should == false
+        it "not requires a heart_beat value" do
+          described_class.new(bus_settings - ["heart_beat"]).valid?.should == true
         end
 
         it "requires correct settings" do
