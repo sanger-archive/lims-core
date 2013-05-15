@@ -18,8 +18,10 @@ module Lims::Core
         def _call_in_session(session)
           # Use the appropriate filter if needed.
           filter = nil
-          if criteria.size == 1 
-            criteria.keys.first.andtap do |model|
+          keys = criteria.keys
+          keys.delete("comparison") if criteria.keys.size > 1
+          if keys.size == 1
+            keys.first.andtap do |model|
               filter_class_name = "#{model.capitalize}Filter"
               if Persistence::const_defined? filter_class_name
                 filter = Persistence::const_get(filter_class_name).new(:criteria => criteria)
