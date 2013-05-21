@@ -6,15 +6,22 @@ require 'lims-core/persistence/store'
 require 'lims-core/persistence/session'
 
 
+class Model
+  attr_accessor :value
+  def initialize(value)
+    @value = value
+  end
+end
+
 module Lims::Core::Persistence
   module Sequel
     describe Session, :session => true, :persistence => true, :persistence => true do
       let(:store) { Store.new() }
 
       context "#transaction" do
-        let(:a) { "A" }
-        let(:b) { "B" }
-        let(:c) { "C" }
+        let(:a) { Model.new("A") }
+        let(:b) { Model.new("B") }
+        let(:c) { Model.new("C") }
 
         it "save the 2 if no problem" do
           store.with_session do |session|
@@ -25,10 +32,30 @@ module Lims::Core::Persistence
         end
 
         context "#dirty attribute strategy" do
+          # Mock session and persistor to load object
+          let!(:persistor) {
+            Session.stub(:model_for).with(:model) { Model }
+            Session.stub(:persistor_class_for).with(Model) do 
+              class ModelPersistor < Persistor
+                @@objects ={}
+                def self.register(key, value)
+                  @@objects[key] =  value
+                end
+                def load_single_model(id, *args)
+                  @@objects[id]
+                end
+              end
+              ModelPersistor::register(1, a)
+              ModelPersistor::register(2, b)
+              ModelPersistor
+            end
+          }
           context "no strategy" do
-            it "save read object" do
+            it "save read objects" do
               store.with_session do |session|
-                session.should_not_receive(:save).with(a)
+                loaded = session.model[1];
+                loaded.should == a # test the test works !
+                session.should_receive(:save).with(a)
                 session.should_receive(:save).with(b)
                 session << a << b
               end
