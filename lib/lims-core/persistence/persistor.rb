@@ -64,6 +64,7 @@ module Lims::Core
 
         def initialize (session, *args, &block)
           @session = session
+          @id_to_dirty_key = IdentityMap::Class.new()
           super(*args, &block)
         end
 
@@ -93,6 +94,7 @@ module Lims::Core
         # @return [Fixnum, nil]
         def save(object, *params)
           return nil if object.nil?
+          # check if the object has been modified or not
           id_for(object) { |id| update(object, id, *params) } ||
           map_id_object(save_new(object, *params) , object)
         end
@@ -153,6 +155,10 @@ module Lims::Core
         def get_or_create_single_model(id, raw_attributes=nil)
           object_for(id) || load_single_model(id, raw_attributes).tap do |m|
             map_id_object(id, m)
+            if @session.dirty_attribute_strategy
+              dirty_key = @session.dirty_key_for(filter_attributes_on_save(m.attributes))
+              @id_to_dirty_key.map_id_object(id, dirty_key)
+            end
             @session.on_object_load(m)
           end
         end
@@ -268,12 +274,30 @@ module Lims::Core
         # @param [Fixum] id id in the database
         # @return [Fixnum, nil] the Id if save successful.
         def update(object, id, *params)
+          # Check if 
           # naive version , update everything.
           # Probably quicker than trying to guess what has changed
           id.tap do
-            update_raw(object, id, *params)
+            if dirty?(object, id)
+              update_raw(object, id, *params)
+            end  
             update_children(id, object)
           end
+        end
+
+        # @param[Resource] object
+        # @param[Fixum] id 
+        # @return [Bool] true if the object is dirty (needs saving)
+        def dirty?(object, id, *params)
+            attributes = filter_attributes_on_save(object.attributes, *params)
+            # check if the object is dirty on note.
+            # In fact, we only cares about the attributes
+            # because a dirty attribute which is not saved doesn't really matter
+            if @session.dirty_attribute_strategy
+              old_dirty_key = key_for_id(id)
+              new_dirty_key = @session.dirty_key_for(attributes)
+              old_dirty_key && old_dirty_key == new_dirty_key
+            end
         end
 
         def delete_raw(object, id)

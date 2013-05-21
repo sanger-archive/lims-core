@@ -11,6 +11,8 @@ module Lims::Core
       # using the sequel gem
       class Store < Persistence::Store
         attr_reader :database
+        # @attribute
+        attr_accessor :dirty_attribute_strategy
 
         # Create a store with a Sequel::Database
         # We don't wrap for now the creation  of the database
