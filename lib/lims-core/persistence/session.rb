@@ -168,7 +168,8 @@ module Lims::Core
 
       def dirty_key_for(object) 
         case @dirty_attribute_strategy
-        when Store::DIRTY_ATTRIBUTE_STRATEGY_DEEP_COPY then object.hash
+        when Store::DIRTY_ATTRIBUTE_STRATEGY_DEEP_COPY then Marshal.dump(object)
+        when Store::DIRTY_ATTRIBUTE_STRATEGY_SHA1
         end
       end
 

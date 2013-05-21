@@ -294,9 +294,11 @@ module Lims::Core
             # In fact, we only cares about the attributes
             # because a dirty attribute which is not saved doesn't really matter
             if @session.dirty_attribute_strategy
-              old_dirty_key = key_for_id(id)
+              old_dirty_key = @id_to_dirty_key.object_for(id)
               new_dirty_key = @session.dirty_key_for(attributes)
-              old_dirty_key && old_dirty_key == new_dirty_key
+              !(old_dirty_key && old_dirty_key == new_dirty_key)
+            else
+              true
             end
         end
 

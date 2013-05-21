@@ -19,6 +19,7 @@ module Lims::Core
         attr_accessor :dirty_attribute_strategy
         DIRTY_ATTRIBUTE_STRATEGY_DEEP_COPY = 1
         DIRTY_ATTRIBUTE_STRATEGY_SHA1 = 2
+        DIRTY_ATTRIBUTE_STRATEGY_MD5 = 3
 
         # Retrieves the effective module of a class
         # Useful to call "sibling" classes.
