@@ -61,6 +61,27 @@ module Lims::Core::Persistence
               end
             end
           end
+
+          context "deep copy strategy" do
+            it "doesn't save read objects" do
+              store.with_session do |session|
+                loaded = session.model[1];
+                loaded.should == a # test the test works !
+                session.should_not_receive(:save).with(a)
+                session.should_receive(:save).with(b)
+                session << a << b
+              end
+            end
+            it "save updated objects" do
+              store.with_session do |session|
+                loaded = session.model[1];
+                loaded.value = "new value"
+                session.should_receive(:save).with(a)
+                session.should_receive(:save).with(b)
+                session << a << b
+              end
+            end
+          end
         end
       end
     end
