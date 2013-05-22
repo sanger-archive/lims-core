@@ -2,6 +2,7 @@
 
 require 'common'
 require 'forwardable'
+require 'digest/md5'
 
 require 'lims-core/persistence/filter'
 require 'lims-core/persistence/identity_map'
@@ -169,7 +170,9 @@ module Lims::Core
       def dirty_key_for(object) 
         case @dirty_attribute_strategy
         when Store::DIRTY_ATTRIBUTE_STRATEGY_DEEP_COPY then Marshal.dump(object)
-        when Store::DIRTY_ATTRIBUTE_STRATEGY_SHA1
+        when Store::DIRTY_ATTRIBUTE_STRATEGY_SHA1 then Digest::SHA1.hexdigest(Marshal.dump(object))
+        when Store::DIRTY_ATTRIBUTE_STRATEGY_MD5 then Digest::MD5.hexdigest(Marshal.dump(object))
+
         end
       end
 

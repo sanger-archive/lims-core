@@ -14,7 +14,7 @@ class Model
   end
 
   def attributes
-    {:value => @value }
+    {:nesting => {:value => @value} }
   end
 
   class ModelPersistor < Lims::Core::Persistence::Persistor
