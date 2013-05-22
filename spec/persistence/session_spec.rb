@@ -36,17 +36,17 @@ end
 shared_examples "doesn't save 'clean' objects" do
   it "doesn't save read objects" do
     store.with_session do |session|
-      loaded = session.model[1];
+      loaded = session.model[1]
       loaded.should == a # test the test works !
-      Model::ModelPersistor.any_instance.should_not_receive(:update_raw).with(a)
+      Model::ModelPersistor.any_instance.should_not_receive(:update_raw).with(a, anything())
       Model::ModelPersistor.any_instance.should_not_receive(:save_raw).with(a)
       Model::ModelPersistor.any_instance.should_receive(:save_raw).with(b)
       session << a << b
     end
   end
-  it "save updated objects", :focus => true do
+  it "updates 'dirty' objects" do
     store.with_session do |session|
-      loaded = session.model[1];
+      loaded = session.model[1]
       loaded.value = "new value"
       Model::ModelPersistor.any_instance.should_not_receive(:save_raw).with(a)
       Model::ModelPersistor.any_instance.should_receive(:update_raw).with(a, 1)
@@ -106,8 +106,8 @@ module Lims::Core::Persistence
           before(:each) { store.dirty_attribute_strategy = Store::DIRTY_ATTRIBUTE_STRATEGY_SHA1 }
           include_context "doesn't save 'clean' objects"
         end
-        context "md5 strategy" do
-          before(:each) { store.dirty_attribute_strategy = nil }
+        context "md5 strategy", :focus => true do
+          before(:each) { store.dirty_attribute_strategy = Store::DIRTY_ATTRIBUTE_STRATEGY_MD5 }
           include_context "doesn't save 'clean' objects"
         end
       end
