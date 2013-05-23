@@ -81,21 +81,23 @@ module Lims::Core
               @initializer = nil
             end
 
-            # A begin/rescue block is used here for the valid?
-            # method which can raise an exception due to a bug
-            # in Aequitas gem. For an attribute which needs to 
-            # be required and greater than 0, the greater than 0 
-            # is tested first and the required after.
-            # So if the parameter is not set, nil >= 0 is evaluated
-            # by Aequitas and it blows up.
-            begin
-              if valid?
-                block.call(session)
-              else
-                raise InvalidParameters
+            # Note: there is a bug in Aequitas gem on the valid?
+            # method call. For an attribute which needs to be required
+            # and greater than 0, the greater than 0 is tested first
+            # and the required after. So if the parameter is not set, 
+            # nil >= 0 is evaluated by Aequitas and an exception is 
+            # raised...
+            if valid?
+              block.call(session)
+            else
+              error_message = "".tap do |m|
+                errors.each do |violations|
+                  violations.each do |violation|
+                    m << "#{violation.message}, "
+                  end
+                end
               end
-            rescue
-              raise InvalidParameters
+              raise InvalidParameters, error_message[0..error_message.size-3]
             end
           end
         end
