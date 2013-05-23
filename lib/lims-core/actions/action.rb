@@ -27,7 +27,7 @@ module Lims::Core
 
       class InvalidParameters < RuntimeError
         attr_reader :errors
-        def initialize(errors)
+        def initialize(errors = {})
           @errors = errors
         end
       end
@@ -91,8 +91,14 @@ module Lims::Core
             # and greater than 0, the greater than 0 is tested first
             # and the required after. So if the parameter is not set, 
             # nil >= 0 is evaluated by Aequitas and an exception is 
-            # raised (catch later in sinatra server as a general error).
-            if valid?
+            # raised. We catch it here and raise an InvalidParameters error.
+            is_valid = begin 
+                         valid?
+                       rescue
+                         raise InvalidParameters.new
+                       end
+
+            if is_valid
               block.call(session)
             else
               invalid_parameters = {}.tap do |hash|
@@ -105,7 +111,6 @@ module Lims::Core
                   end
                 end
               end
-
               raise InvalidParameters.new(invalid_parameters)
             end
           end
