@@ -257,12 +257,12 @@
       <pre class="lines">
 
 
-83
-84
-85</pre>
+87
+88
+89</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/filters.rb', line 83</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/filters.rb', line 87</span>
 
 <span class='kw'>def</span> <span class='id batch_filter'>batch_filter</span><span class='lparen'>(</span><span class='id criteria'>criteria</span><span class='rparen'>)</span>
   <span class='id order_filter'>order_filter</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='symbol'>:order</span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span><span class='symbol'>:item</span> <span class='op'>=&gt;</span> <span class='id criteria'>criteria</span> <span class='rbrace'>}</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
@@ -375,7 +375,11 @@ ignored</p>
 39
 40
 41
-42</pre>
+42
+43
+44
+45
+46</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/filters.rb', line 29</span>
@@ -384,8 +388,12 @@ ignored</p>
   <span class='id labellable_dataset'>labellable_dataset</span> <span class='op'>=</span> <span class='ivar'>@session</span><span class='period'>.</span><span class='id labellable'>labellable</span><span class='period'>.</span><span class='id __multi_criteria_filter'>__multi_criteria_filter</span><span class='lparen'>(</span><span class='id criteria'>criteria</span><span class='rparen'>)</span><span class='period'>.</span><span class='id dataset'>dataset</span>
 
   <span class='comment'># join labellabe request to uuid_resource
-</span>  <span class='id persistor'>persistor</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id class'>class</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id labellable_dataset'>labellable_dataset</span><span class='period'>.</span><span class='id join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>uuid_resources</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:uuid</span> <span class='op'>=&gt;</span> <span class='symbol'>:name</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
-    <span class='id persistor'>persistor</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id class'>class</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id labellable_dataset'>labellable_dataset</span><span class='period'>.</span><span class='id join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>uuid_resources</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:uuid</span> <span class='op'>=&gt;</span> <span class='symbol'>:name</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id select'>select</span><span class='lparen'>(</span><span class='symbol'>:key</span><span class='rparen'>)</span><span class='period'>.</span><span class='id qualify'>qualify</span><span class='lparen'>(</span><span class='symbol'>:uuid_resources</span><span class='rparen'>)</span><span class='rparen'>)</span>
+</span>  <span class='comment'># If the persistor class is a Sequel::Labellable, it means
+</span>  <span class='comment'># the searched resource is a labellable. Then the joint with
+</span>  <span class='comment'># uuid_resources is made between uuid_resources#key and
+</span>  <span class='comment'># labellables#id.
+</span>  <span class='id uuid_resources_joint'>uuid_resources_joint</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id class'>class</span> <span class='op'>==</span> <span class='const'>Labels</span><span class='op'>::</span><span class='const'>Labellable</span><span class='op'>::</span><span class='const'>LabellableSequelPersistor</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='lbrace'>{</span><span class='symbol'>:key</span> <span class='op'>=&gt;</span> <span class='symbol'>:id</span><span class='tstring_end'>&quot;</span></span><span class='rbrace'>}</span> <span class='op'>:</span> <span class='lbrace'>{</span><span class='symbol'>:uuid</span> <span class='op'>=&gt;</span> <span class='symbol'>:name</span><span class='tstring_end'>&quot;</span></span><span class='rbrace'>}</span>
+  <span class='id persistor'>persistor</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id class'>class</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id labellable_dataset'>labellable_dataset</span><span class='period'>.</span><span class='id join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>uuid_resources</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id uuid_resources_joint'>uuid_resources_joint</span><span class='rparen'>)</span><span class='period'>.</span><span class='id select'>select</span><span class='lparen'>(</span><span class='symbol'>:key</span><span class='rparen'>)</span><span class='period'>.</span><span class='id qualify'>qualify</span><span class='lparen'>(</span><span class='symbol'>:uuid_resources</span><span class='rparen'>)</span><span class='rparen'>)</span>
 
   <span class='comment'># join everything to current resource table
 </span>  <span class='comment'># Qualify method is needed to get only the fields related to the searched
@@ -532,10 +540,6 @@ with a pending item status.
       <pre class="lines">
 
 
-51
-52
-53
-54
 55
 56
 57
@@ -554,10 +558,14 @@ with a pending item status.
 70
 71
 72
-73</pre>
+73
+74
+75
+76
+77</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/filters.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/filters.rb', line 55</span>
 
 <span class='kw'>def</span> <span class='id order_filter'>order_filter</span><span class='lparen'>(</span><span class='id criteria'>criteria</span><span class='rparen'>)</span>
   <span class='id criteria'>criteria</span> <span class='op'>=</span> <span class='id criteria'>criteria</span><span class='lbracket'>[</span><span class='symbol'>:order</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id criteria'>criteria</span><span class='period'>.</span><span class='id keys'>keys</span><span class='period'>.</span><span class='id first'>first</span><span class='period'>.</span><span class='id to_s'>to_s</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>order</span><span class='tstring_end'>&quot;</span></span>

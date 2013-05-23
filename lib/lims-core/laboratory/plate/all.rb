@@ -1,8 +1,0 @@
-require('lims-core/laboratory/plate/create_plate')
-require('lims-core/laboratory/plate/plate_persistor')
-require('lims-core/laboratory/plate/plate_sequel_persistor')
-require('lims-core/laboratory/plate/plate_transfer')
-require('lims-core/laboratory/plate/transfer_plates_to_plates')
-require('lims-core/laboratory/plate/update_plate')
-require('lims-core/laboratory/plate')
-require('lims-core/laboratory/receptacle')
