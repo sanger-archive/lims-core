@@ -25,7 +25,12 @@ module Lims::Core
         end
       end
 
-      InvalidParameters = Class.new(RuntimeError)
+      class InvalidParameters < RuntimeError
+        attr_reader :errors
+        def initialize(errors)
+          @errors = errors
+        end
+      end
 
       module AfterEval
         # Initialize a new actions
@@ -86,18 +91,22 @@ module Lims::Core
             # and greater than 0, the greater than 0 is tested first
             # and the required after. So if the parameter is not set, 
             # nil >= 0 is evaluated by Aequitas and an exception is 
-            # raised...
+            # raised (catch later in sinatra server as a general error).
             if valid?
               block.call(session)
             else
-              error_message = "".tap do |m|
-                errors.each do |violations|
-                  violations.each do |violation|
-                    m << "#{violation.message}, "
+              invalid_parameters = {}.tap do |hash|
+                errors.keys.each do |key|
+                  hash[key] = [].tap do |array|
+                    # errors[key] returns an array of Aequitas::Violation
+                    errors[key].each do |error|
+                      array << error.message
+                    end
                   end
                 end
               end
-              raise InvalidParameters, error_message[0..error_message.size-3]
+
+              raise InvalidParameters.new(invalid_parameters)
             end
           end
         end
