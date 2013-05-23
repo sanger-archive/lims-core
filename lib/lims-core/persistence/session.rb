@@ -172,7 +172,7 @@ module Lims::Core
         when Store::DIRTY_ATTRIBUTE_STRATEGY_DEEP_COPY then Marshal.dump(object)
         when Store::DIRTY_ATTRIBUTE_STRATEGY_SHA1 then Digest::SHA1.hexdigest(Marshal.dump(object))
         when Store::DIRTY_ATTRIBUTE_STRATEGY_MD5 then Digest::MD5.hexdigest(Marshal.dump(object))
-
+        when Store::DIRTY_ATTRIBUTE_STRATEGY_QUICK_HASH then object.hash
         end
       end
 

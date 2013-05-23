@@ -64,7 +64,7 @@ module Lims::Core
 
         def initialize (session, *args, &block)
           @session = session
-          @id_to_dirty_key = IdentityMap::Class.new()
+          @id_to_dirty_key = {}
           super(*args, &block)
         end
 
@@ -157,7 +157,7 @@ module Lims::Core
             map_id_object(id, m)
             if @session.dirty_attribute_strategy
               dirty_key = @session.dirty_key_for(filter_attributes_on_save(m.attributes))
-              @id_to_dirty_key.map_id_object(id, dirty_key)
+              @id_to_dirty_key[id]= dirty_key
             end
             @session.on_object_load(m)
           end
@@ -285,6 +285,8 @@ module Lims::Core
           end
         end
 
+        # Check if an item is dirty and update
+        # its dirty key
         # @param[Resource] object
         # @param[Fixum] id 
         # @return [Bool] true if the object is dirty (needs saving)
@@ -294,8 +296,10 @@ module Lims::Core
             # In fact, we only cares about the attributes
             # because a dirty attribute which is not saved doesn't really matter
             if @session.dirty_attribute_strategy
-              old_dirty_key = @id_to_dirty_key.object_for(id)
+              old_dirty_key = @id_to_dirty_key[id]
               new_dirty_key = @session.dirty_key_for(attributes)
+
+              @id_to_dirty_key[id] = new_dirty_key
               !(old_dirty_key && old_dirty_key == new_dirty_key)
             else
               true
