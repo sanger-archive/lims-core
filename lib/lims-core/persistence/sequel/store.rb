@@ -1,9 +1,7 @@
 # vi: ts=2:sts=2:et:sw=2
 
-require 'lims/core/persistence'
-require 'lims/core/persistence/sequel/session'
-require 'lims/core/persistence/sequel/persistor'
-
+require 'lims-core/persistence/store'
+require 'lims-core/persistence/sequel/session'
 require 'sequel'
 
 module Lims::Core
@@ -31,6 +29,5 @@ module Lims::Core
         end
       end
     end
-    finalize_submodule(Sequel)
   end
 end

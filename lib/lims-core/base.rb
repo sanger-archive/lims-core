@@ -1,6 +1,5 @@
 # vi: ts=2 sts=2 et sw=2 spell spelllang=en  
 require 'common'
-require 'lims-core/container'
 
 module Lims::Core
   module Base
@@ -53,18 +52,6 @@ module Lims::Core
         end
       end
 
-      def is_matrix_of(child_klass, options = {},  &initializer)
-        element_name = child_klass.name.split('::').last.downcase
-        class_eval do
-          is_array_of(child_klass, options, &initializer)
-          include Container
-
-          define_method "get_#{element_name}" do |*args|
-            get_element(*args)
-          end
-
-        end
-      end
     end
 
 
