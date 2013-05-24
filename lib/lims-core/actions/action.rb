@@ -25,7 +25,12 @@ module Lims::Core
         end
       end
 
-      InvalidParameters = Class.new(RuntimeError)
+      class InvalidParameters < RuntimeError
+        attr_reader :errors
+        def initialize(errors = {})
+          @errors = errors
+        end
+      end
 
       module AfterEval
         # Initialize a new actions
@@ -81,7 +86,33 @@ module Lims::Core
               @initializer = nil
             end
 
-            block.call(session) if valid?
+            # Note: there is a bug in Aequitas gem on the valid?
+            # method call. For an attribute which needs to be required
+            # and greater than 0, the greater than 0 is tested first
+            # and the required after. So if the parameter is not set, 
+            # nil >= 0 is evaluated by Aequitas and an exception is 
+            # raised. We catch it here and raise an InvalidParameters error.
+            is_valid = begin 
+                         valid?
+                       rescue
+                         raise InvalidParameters.new
+                       end
+
+            if is_valid
+              block.call(session)
+            else
+              invalid_parameters = {}.tap do |hash|
+                errors.keys.each do |key|
+                  hash[key] = [].tap do |array|
+                    # errors[key] returns an array of Aequitas::Violation
+                    errors[key].each do |error|
+                      array << error.message
+                    end
+                  end
+                end
+              end
+              raise InvalidParameters.new(invalid_parameters)
+            end
           end
         end
 
