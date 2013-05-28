@@ -13,6 +13,16 @@ module Lims::Core
           super(name)
         end
 
+        # The dirty-attribute strategy decides
+        # how object modification is detected
+        # to avoid saved unmodified object.
+        attr_accessor :dirty_attribute_strategy
+        DIRTY_ATTRIBUTE_STRATEGY_DEEP_COPY = 1
+        DIRTY_ATTRIBUTE_STRATEGY_SHA1 = 2
+        DIRTY_ATTRIBUTE_STRATEGY_MD5 = 3
+        DIRTY_ATTRIBUTE_STRATEGY_QUICK_HASH = 4
+        attr_accessor :dirty_attribute_strategy
+
         # Retrieves the effective module of a class
         # Useful to call "sibling" classes.
         # @example

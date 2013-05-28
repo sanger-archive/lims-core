@@ -11,6 +11,7 @@ module Lims::Core
       # using the sequel gem
       class Store < Persistence::Store
         attr_reader :database
+        # @attribute
 
         # Create a store with a Sequel::Database
         # We don't wrap for now the creation  of the database
@@ -19,6 +20,7 @@ module Lims::Core
           raise RuntimeError unless database.is_a?(::Sequel::Database)
           @database = database
           super(*args)
+          @dirty_attribute_strategy = DIRTY_ATTRIBUTE_STRATEGY_SHA1
         end
 
         # Execute given block within a transaction
