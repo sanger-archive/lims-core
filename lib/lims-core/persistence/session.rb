@@ -2,6 +2,7 @@
 
 require 'common'
 require 'forwardable'
+require 'digest/md5'
 
 require 'lims-core/persistence/filter'
 require 'lims-core/persistence/identity_map'
@@ -15,14 +16,19 @@ module Lims::Core
     # Session information (user, time) are also associated to the modifications of those objects.
     class Session
 
+      # The dirty-attribute strategy decides
+      # how object modification is detected
+      # to avoid saved unmodified object.
+      # The default value comes from the session.
+      attr_accessor :dirty_attribute_strategy
       class UnmanagedObjectError < RuntimeError
       end
 
       # The map name <=> model class is shared between all type of session
       #
       def self.model_map()
-      @@model_map ||= IdentityMap::Class.new
-    end
+        @@model_map ||= IdentityMap::Class.new
+      end
       # The map of peristor classes depends of the session type (sequel, log, etc ..)
       # As they will be different classes
 
@@ -36,6 +42,7 @@ module Lims::Core
         @in_session = false
         @saved = Set.new
         @persistor_map = {}
+        @dirty_attribute_strategy = @store.dirty_attribute_strategy
       end
 
 
@@ -158,6 +165,15 @@ module Lims::Core
 
       def unpack_uuid(uuid)
         self.class.unpack_uuid(uuid)
+      end
+
+      def dirty_key_for(object) 
+        case @dirty_attribute_strategy
+        when Store::DIRTY_ATTRIBUTE_STRATEGY_DEEP_COPY then Marshal.dump(object)
+        when Store::DIRTY_ATTRIBUTE_STRATEGY_SHA1 then Digest::SHA1.hexdigest(Marshal.dump(object))
+        when Store::DIRTY_ATTRIBUTE_STRATEGY_MD5 then Digest::MD5.hexdigest(Marshal.dump(object))
+        when Store::DIRTY_ATTRIBUTE_STRATEGY_QUICK_HASH then object.hash
+        end
       end
 
       private
