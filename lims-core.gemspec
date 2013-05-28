@@ -34,7 +34,7 @@ Gem::Specification.new do |s|
 
 
   #development
-  s.add_development_dependency('rspec', '~> 2.8.0')
+  s.add_development_dependency('rspec', '~> 2')
   s.add_development_dependency('yard', '>= 0.7.0')
   s.add_development_dependency('yard-rspec', '0.1')
   s.add_development_dependency('sqlite3')
