@@ -129,6 +129,38 @@ modifications of those objects.</p>
 
 
   
+  <h2>Instance Attribute Summary <small>(<a href="#" class="summary_toggle">collapse</a>)</small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#dirty_attribute_strategy-instance_method" title="#dirty_attribute_strategy (instance method)">- (Object) <strong>dirty_attribute_strategy</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The dirty-attribute strategy decides how object modification is detected to
+avoid saved unmodified object.</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
 
 
   
@@ -463,6 +495,27 @@ lookup an uuid by name.</p>
     <span class="summary_desc"><div class='inline'>
 <p>Call to.</p>
 </div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#dirty_key_for-instance_method" title="#dirty_key_for (instance method)">- (Object) <strong>dirty_key_for</strong>(object) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -815,17 +868,18 @@ lookup an uuid by name.</p>
       <pre class="lines">
 
 
-32
-33
-34
-35
-36
-37
 38
-39</pre>
+39
+40
+41
+42
+43
+44
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 38</span>
 
 <span class='kw'>def</span> <span class='id initialize'>initialize</span><span class='lparen'>(</span><span class='id store'>store</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
   <span class='ivar'>@store</span> <span class='op'>=</span> <span class='id store'>store</span>
@@ -834,6 +888,7 @@ lookup an uuid by name.</p>
   <span class='ivar'>@in_session</span> <span class='op'>=</span> <span class='kw'>false</span>
   <span class='ivar'>@saved</span> <span class='op'>=</span> <span class='const'>Set</span><span class='period'>.</span><span class='id new'>new</span>
   <span class='ivar'>@persistor_map</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='ivar'>@dirty_attribute_strategy</span> <span class='op'>=</span> <span class='ivar'>@store</span><span class='period'>.</span><span class='id dirty_attribute_strategy'>dirty_attribute_strategy</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -861,18 +916,18 @@ lookup an uuid by name.</p>
       <pre class="lines">
 
 
-87
-88
-89
-90
-91
-92
-93
 94
-95</pre>
+95
+96
+97
+98
+99
+100
+101
+102</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 87</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 94</span>
 
 <span class='kw'>def</span> <span class='id method_missing'>method_missing</span><span class='lparen'>(</span><span class='id name'>name</span><span class='comma'>,</span> <span class='op'>*</span><span class='id args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id block'>block</span><span class='rparen'>)</span>
   <span class='kw'>begin</span>
@@ -889,6 +944,54 @@ lookup an uuid by name.</p>
 </div>
   
 </div>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id="dirty_attribute_strategy=-instance_method"></span>
+      <span id="dirty_attribute_strategy-instance_method"></span>
+      <div class="method_details first">
+  <p class="signature first" id="dirty_attribute_strategy-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>dirty_attribute_strategy</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>The dirty-attribute strategy decides how object modification is detected to
+avoid saved unmodified object. The default value comes from the session.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+23
+24
+25</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 23</span>
+
+<span class='kw'>def</span> <span class='id dirty_attribute_strategy'>dirty_attribute_strategy</span>
+  <span class='ivar'>@dirty_attribute_strategy</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
 
 
   <div id="class_method_details" class="method_details_list">
@@ -908,22 +1011,6 @@ lookup an uuid by name.</p>
       <pre class="lines">
 
 
-296
-297
-298
-299
-300
-301
-302
-303
-304
-305
-306
-307
-308
-309
-310
-311
 312
 313
 314
@@ -944,10 +1031,26 @@ lookup an uuid by name.</p>
 329
 330
 331
-332</pre>
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 296</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 312</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id find_or_create_persistor_for'>find_or_create_persistor_for</span><span class='lparen'>(</span><span class='id model'>model</span><span class='rparen'>)</span>
   <span class='comment'># find the persistor within the class
@@ -1043,22 +1146,6 @@ lookup an uuid by name.</p>
       <pre class="lines">
 
 
-236
-237
-238
-239
-240
-241
-242
-243
-244
-245
-246
-247
-248
-249
-250
-251
 252
 253
 254
@@ -1075,10 +1162,26 @@ lookup an uuid by name.</p>
 265
 266
 267
-268</pre>
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 236</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 252</span>
 
 <span class='kw'>def</span>  <span class='kw'>self</span><span class='period'>.</span><span class='id model_for'>model_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
   <span class='kw'>case</span> <span class='id object'>object</span>
@@ -1142,12 +1245,12 @@ lookup an uuid by name.</p>
       <pre class="lines">
 
 
-23
-24
-25</pre>
+29
+30
+31</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 23</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 29</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id model_map'>model_map</span><span class='lparen'>(</span><span class='rparen'>)</span>
   <span class='cvar'>@@model_map</span> <span class='op'>||=</span> <span class='const'>IdentityMap</span><span class='op'>::</span><span class='const'>Class</span><span class='period'>.</span><span class='id new'>new</span>
@@ -1195,12 +1298,12 @@ model</p>
       <pre class="lines">
 
 
-215
-216
-217</pre>
+231
+232
+233</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 215</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 231</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id model_to_name'>model_to_name</span><span class='lparen'>(</span><span class='id model'>model</span><span class='rparen'>)</span>
   <span class='id model_map'>model_map</span><span class='period'>.</span><span class='id id_for'>id_for</span><span class='lparen'>(</span><span class='id model'>model</span><span class='rparen'>)</span>
@@ -1263,12 +1366,12 @@ doing session.model</p>
       <pre class="lines">
 
 
-208
-209
-210</pre>
+224
+225
+226</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 208</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 224</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id name_to_model'>name_to_model</span><span class='lparen'>(</span><span class='id name'>name</span><span class='rparen'>)</span>
   <span class='id model_map'>model_map</span><span class='period'>.</span><span class='id object_for'>object_for</span><span class='lparen'>(</span><span class='id name'>name</span><span class='period'>.</span><span class='id to_s'>to_s</span><span class='rparen'>)</span>
@@ -1331,12 +1434,12 @@ lookup an uuid by name</p>
       <pre class="lines">
 
 
-144
-145
-146</pre>
+151
+152
+153</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 144</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 151</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id pack_uuid'>pack_uuid</span><span class='lparen'>(</span><span class='id uuid'>uuid</span><span class='rparen'>)</span>
   <span class='id uuid'>uuid</span>
@@ -1396,19 +1499,19 @@ lookup an uuid by name</p>
       <pre class="lines">
 
 
-281
-282
-283
-284
-285
-286
-287
-288
-289
-290</pre>
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 281</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 297</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id persistor_class_for'>persistor_class_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
   <span class='id model'>model</span> <span class='op'>=</span> <span class='id model_for'>model_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
@@ -1438,12 +1541,12 @@ lookup an uuid by name</p>
       <pre class="lines">
 
 
-292
-293
-294</pre>
+308
+309
+310</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 292</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 308</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id persistor_class_map'>persistor_class_map</span><span class='lparen'>(</span><span class='rparen'>)</span>
   <span class='ivar'>@persistor_class_map</span> <span class='op'>||=</span> <span class='const'>IdentityMap</span><span class='op'>::</span><span class='const'>Class</span><span class='period'>.</span><span class='id new'>new</span>
@@ -1466,13 +1569,13 @@ lookup an uuid by name</p>
       <pre class="lines">
 
 
-270
-271
-272
-273</pre>
+286
+287
+288
+289</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 270</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 286</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id persistor_name_for'>persistor_name_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
   <span class='id model'>model</span> <span class='op'>=</span> <span class='id model_for'>model_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
@@ -1534,15 +1637,15 @@ session.&lt;name&gt; Persistors need to be registered.</p>
       <pre class="lines">
 
 
-224
-225
-226
-227
-228
-229</pre>
+240
+241
+242
+243
+244
+245</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 224</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 240</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id register_model'>register_model</span><span class='lparen'>(</span><span class='id name'>name</span><span class='comma'>,</span> <span class='id model'>model</span><span class='rparen'>)</span>
   <span class='id name'>name</span> <span class='op'>=</span> <span class='id name'>name</span><span class='period'>.</span><span class='id to_s'>to_s</span><span class='period'>.</span><span class='id snakecase'>snakecase</span>
@@ -1607,12 +1710,12 @@ session.&lt;name&gt; Persistors need to be registered.</p>
       <pre class="lines">
 
 
-155
-156
-157</pre>
+162
+163
+164</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 155</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 162</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id unpack_uuid'>unpack_uuid</span><span class='lparen'>(</span><span class='id puuid'>puuid</span><span class='rparen'>)</span>
   <span class='id puuid'>puuid</span>
@@ -1701,13 +1804,13 @@ at the end of the session.</p>
       <pre class="lines">
 
 
-69
-70
-71
-72</pre>
+76
+77
+78
+79</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 69</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 76</span>
 
 <span class='kw'>def</span> <span class='op'>&lt;&lt;</span> <span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
   <span class='ivar'>@objects</span> <span class='op'>&lt;&lt;</span> <span class='id object'>object</span>
@@ -1758,13 +1861,13 @@ delete is made by calling the <span class='object_link'><a href="#delete_in_real
       <pre class="lines">
 
 
-135
-136
-137
-138</pre>
+142
+143
+144
+145</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 135</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 142</span>
 
 <span class='kw'>def</span> <span class='id delete'>delete</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
   <span class='id raise'>raise</span> <span class='const'>UnmanagedObjectError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>can't delete </span><span class='embexpr_beg'>#{</span><span class='id object'>object</span><span class='period'>.</span><span class='id inspect'>inspect</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id managed?'>managed?</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
@@ -1812,16 +1915,16 @@ delete is made by calling the <span class='object_link'><a href="#delete_in_real
       <pre class="lines">
 
 
-180
-181
-182
-183
-184
-185
-186</pre>
+196
+197
+198
+199
+200
+201
+202</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 180</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 196</span>
 
 <span class='kw'>def</span> <span class='id delete_in_real'>delete_in_real</span><span class='lparen'>(</span><span class='id object'>object</span><span class='comma'>,</span> <span class='op'>*</span><span class='id options'>options</span><span class='rparen'>)</span>
   <span class='id raise'>raise</span> <span class='const'>RuntimeError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Can't delete an object inside a session. Please considere the 'delete' method instead.</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='ivar'>@save_in_progress</span>
@@ -1829,6 +1932,44 @@ delete is made by calling the <span class='object_link'><a href="#delete_in_real
   <span class='ivar'>@saved</span> <span class='op'>&lt;&lt;</span> <span class='id object'>object</span>
 
   <span class='id persistor_for'>persistor_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span><span class='period'>.</span><span class='id delete'>delete</span><span class='lparen'>(</span><span class='id object'>object</span><span class='comma'>,</span> <span class='op'>*</span><span class='id options'>options</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="dirty_key_for-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>dirty_key_for</strong>(object) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+170
+171
+172
+173
+174
+175
+176
+177</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 170</span>
+
+<span class='kw'>def</span> <span class='id dirty_key_for'>dirty_key_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span> 
+  <span class='kw'>case</span> <span class='ivar'>@dirty_attribute_strategy</span>
+  <span class='kw'>when</span> <span class='const'>Store</span><span class='op'>::</span><span class='const'>DIRTY_ATTRIBUTE_STRATEGY_DEEP_COPY</span> <span class='kw'>then</span> <span class='const'>Marshal</span><span class='period'>.</span><span class='id dump'>dump</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='const'>Store</span><span class='op'>::</span><span class='const'>DIRTY_ATTRIBUTE_STRATEGY_SHA1</span> <span class='kw'>then</span> <span class='const'>Digest</span><span class='op'>::</span><span class='const'>SHA1</span><span class='period'>.</span><span class='id hexdigest'>hexdigest</span><span class='lparen'>(</span><span class='const'>Marshal</span><span class='period'>.</span><span class='id dump'>dump</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='const'>Store</span><span class='op'>::</span><span class='const'>DIRTY_ATTRIBUTE_STRATEGY_MD5</span> <span class='kw'>then</span> <span class='const'>Digest</span><span class='op'>::</span><span class='const'>MD5</span><span class='period'>.</span><span class='id hexdigest'>hexdigest</span><span class='lparen'>(</span><span class='const'>Marshal</span><span class='period'>.</span><span class='id dump'>dump</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='const'>Store</span><span class='op'>::</span><span class='const'>DIRTY_ATTRIBUTE_STRATEGY_QUICK_HASH</span> <span class='kw'>then</span> <span class='id object'>object</span><span class='period'>.</span><span class='id hash'>hash</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1889,19 +2030,19 @@ persistor to the current session.</p>
       <pre class="lines">
 
 
-193
-194
-195
-196
-197
-198
-199
-200
-201
-202</pre>
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 193</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 209</span>
 
 <span class='kw'>def</span> <span class='id filter'>filter</span><span class='lparen'>(</span><span class='id persistor'>persistor</span><span class='rparen'>)</span>
   <span class='comment'># If the persistor session is the current session, there is nothing to do
@@ -1975,15 +2116,15 @@ persistor to the current session.</p>
       <pre class="lines">
 
 
-107
-108
-109
-110
-111
-112</pre>
+114
+115
+116
+117
+118
+119</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 107</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 114</span>
 
 <span class='kw'>def</span> <span class='id id_for'>id_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
   <span class='kw'>case</span> <span class='id object'>object</span>
@@ -2053,13 +2194,13 @@ persistor to the current session.</p>
       <pre class="lines">
 
 
-117
-118
-119
-120</pre>
+124
+125
+126
+127</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 117</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 124</span>
 
 <span class='kw'>def</span> <span class='id id_for!'>id_for!</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>unless</span> <span class='id object'>object</span>
@@ -2123,12 +2264,12 @@ loaded or meant to be saved</p>
       <pre class="lines">
 
 
-126
-127
-128</pre>
+133
+134
+135</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 126</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 133</span>
 
 <span class='kw'>def</span> <span class='id managed?'>managed?</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
   <span class='ivar'>@objects</span><span class='period'>.</span><span class='id include?'>include?</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
@@ -2163,12 +2304,12 @@ MUST be called by persistors creating Resources.</p>
       <pre class="lines">
 
 
-100
-101
-102</pre>
+107
+108
+109</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 100</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 107</span>
 
 <span class='kw'>def</span> <span class='id on_object_load'>on_object_load</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
   <span class='kw'>self</span> <span class='op'>&lt;&lt;</span> <span class='id object'>object</span>
@@ -2191,12 +2332,12 @@ MUST be called by persistors creating Resources.</p>
       <pre class="lines">
 
 
-148
-149
-150</pre>
+155
+156
+157</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 148</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 155</span>
 
 <span class='kw'>def</span> <span class='id pack_uuid'>pack_uuid</span><span class='lparen'>(</span><span class='id uuid'>uuid</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id class'>class</span><span class='period'>.</span><span class='id pack_uuid'>pack_uuid</span><span class='lparen'>(</span><span class='id uuid'>uuid</span><span class='rparen'>)</span>
@@ -2258,21 +2399,21 @@ MUST be called by persistors creating Resources.</p>
       <pre class="lines">
 
 
-338
-339
-340
-341
-342
-343
-344
-345
-346
-347
-348
-349</pre>
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 338</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 354</span>
 
 <span class='kw'>def</span> <span class='id persistor_for'>persistor_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id object'>object</span><span class='period'>.</span><span class='id is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Persistor</span><span class='rparen'>)</span>
@@ -2304,12 +2445,12 @@ MUST be called by persistors creating Resources.</p>
       <pre class="lines">
 
 
-275
-276
-277</pre>
+291
+292
+293</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 275</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 291</span>
 
 <span class='kw'>def</span> <span class='id persistor_name_for'>persistor_name_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id class'>class</span><span class='period'>.</span><span class='id persistor_name_for'>persistor_name_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
@@ -2372,16 +2513,16 @@ inside a sess</p>
       <pre class="lines">
 
 
-79
-80
-81
-82
-83
-84
-85</pre>
+86
+87
+88
+89
+90
+91
+92</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 79</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 86</span>
 
 <span class='kw'>def</span> <span class='id save'>save</span><span class='lparen'>(</span><span class='id object'>object</span><span class='comma'>,</span> <span class='op'>*</span><span class='id options'>options</span><span class='rparen'>)</span>
   <span class='id raise'>raise</span> <span class='const'>RuntimeError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Can't save object inside a session. Please considere the &lt;&lt; method.</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='ivar'>@save_in_progress</span>
@@ -2419,22 +2560,22 @@ inside a sess</p>
       <pre class="lines">
 
 
-165
-166
-167
-168
-169
-170
-171
-172
-173
-174
-175
-176
-177</pre>
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 165</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 181</span>
 
 <span class='kw'>def</span> <span class='id save_all'>save_all</span><span class='lparen'>(</span><span class='rparen'>)</span>
   <span class='ivar'>@store</span><span class='period'>.</span><span class='id transaction'>transaction</span> <span class='kw'>do</span>
@@ -2467,12 +2608,12 @@ inside a sess</p>
       <pre class="lines">
 
 
-159
-160
-161</pre>
+166
+167
+168</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 159</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 166</span>
 
 <span class='kw'>def</span> <span class='id unpack_uuid'>unpack_uuid</span><span class='lparen'>(</span><span class='id uuid'>uuid</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id class'>class</span><span class='period'>.</span><span class='id unpack_uuid'>unpack_uuid</span><span class='lparen'>(</span><span class='id uuid'>uuid</span><span class='rparen'>)</span>
@@ -2544,20 +2685,20 @@ inside a sess</p>
       <pre class="lines">
 
 
-48
-49
-50
-51
-52
-53
-54
 55
 56
 57
-58</pre>
+58
+59
+60
+61
+62
+63
+64
+65</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 48</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/session.rb', line 55</span>
 
 <span class='kw'>def</span> <span class='id with_session'>with_session</span><span class='lparen'>(</span><span class='op'>*</span><span class='id params'>params</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id block'>block</span><span class='rparen'>)</span>
   <span class='kw'>begin</span>
