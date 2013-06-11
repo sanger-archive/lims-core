@@ -55,7 +55,10 @@ module Lims::Core
 
 
         # Create a session
+        # If a session is given a parameter
+        # return in instead of creating a new one.
         def create_session(*params)
+          return params.first if(params.size >= 1 && params.first.is_a?(Session))
           base_module::Session.new(self, *params)
         end
 

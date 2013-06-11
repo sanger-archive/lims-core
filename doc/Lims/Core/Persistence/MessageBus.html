@@ -429,12 +429,12 @@ parameters.</p>
       <pre class="lines">
 
 
-68
 69
-70</pre>
+70
+71</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/message_bus.rb', line 68</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/message_bus.rb', line 69</span>
 
 <span class='kw'>def</span> <span class='id close'>close</span>
   <span class='ivar'>@connection</span><span class='period'>.</span><span class='id close'>close</span>
@@ -483,7 +483,8 @@ a channel and setup a new exchange.</p>
 62
 63
 64
-65</pre>
+65
+66</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/message_bus.rb', line 51</span>
@@ -491,7 +492,8 @@ a channel and setup a new exchange.</p>
 <span class='kw'>def</span> <span class='id connect'>connect</span>
   <span class='kw'>begin</span>
     <span class='kw'>if</span> <span class='id valid?'>valid?</span>
-      <span class='ivar'>@connection</span> <span class='op'>=</span> <span class='const'>Bunny</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='id connection_uri'>connection_uri</span><span class='comma'>,</span> <span class='symbol'>:heartbeat</span> <span class='op'>=&gt;</span> <span class='id heart_beat'>heart_beat</span><span class='rparen'>)</span>
+      <span class='id options'>options</span> <span class='op'>=</span> <span class='ivar'>@heart_beat</span> <span class='op'>?</span> <span class='lbrace'>{</span> <span class='symbol'>:heartbeat</span> <span class='op'>=&gt;</span> <span class='id heart_beat'>heart_beat</span> <span class='rbrace'>}</span> <span class='op'>:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+      <span class='ivar'>@connection</span> <span class='op'>=</span> <span class='const'>Bunny</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='id connection_uri'>connection_uri</span><span class='comma'>,</span> <span class='id options'>options</span><span class='rparen'>)</span>
       <span class='ivar'>@connection</span><span class='period'>.</span><span class='id start'>start</span>
       <span class='ivar'>@channel</span> <span class='op'>=</span> <span class='ivar'>@connection</span><span class='period'>.</span><span class='id create_channel'>create_channel</span>
       <span class='id set_prefetch_number'>set_prefetch_number</span><span class='lparen'>(</span><span class='id prefetch_number'>prefetch_number</span><span class='rparen'>)</span>
@@ -626,15 +628,15 @@ passed in the options.</p>
       <pre class="lines">
 
 
-107
 108
 109
 110
 111
-112</pre>
+112
+113</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/message_bus.rb', line 107</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/message_bus.rb', line 108</span>
 
 <span class='kw'>def</span> <span class='id publish'>publish</span><span class='lparen'>(</span><span class='id message'>message</span><span class='comma'>,</span> <span class='id options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id raise'>raise</span> <span class='const'>ConnectionError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>exchange is not reachable</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='ivar'>@exchange</span><span class='period'>.</span><span class='id instance_of?'>instance_of?</span><span class='lparen'>(</span><span class='const'>Bunny</span><span class='op'>::</span><span class='const'>Exchange</span><span class='rparen'>)</span>
@@ -704,12 +706,12 @@ exchange as durable (survive a server restart)</p>
       <pre class="lines">
 
 
-78
 79
-80</pre>
+80
+81</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/message_bus.rb', line 78</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/message_bus.rb', line 79</span>
 
 <span class='kw'>def</span> <span class='id set_exchange'>set_exchange</span><span class='lparen'>(</span><span class='id exchange_name'>exchange_name</span><span class='comma'>,</span> <span class='id options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='ivar'>@exchange</span> <span class='op'>=</span> <span class='ivar'>@channel</span><span class='period'>.</span><span class='id topic'>topic</span><span class='lparen'>(</span><span class='id exchange_name'>exchange_name</span><span class='comma'>,</span> <span class='id options'>options</span><span class='rparen'>)</span>
@@ -769,12 +771,12 @@ restart, if the queue and the exchange are durable.</p>
       <pre class="lines">
 
 
-99
 100
-101</pre>
+101
+102</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/message_bus.rb', line 99</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/message_bus.rb', line 100</span>
 
 <span class='kw'>def</span> <span class='id set_message_persistence'>set_message_persistence</span><span class='lparen'>(</span><span class='id persistent'>persistent</span><span class='rparen'>)</span>
   <span class='ivar'>@message_persistence</span> <span class='op'>=</span> <span class='id persistent'>persistent</span> 
@@ -828,12 +830,12 @@ restart, if the queue and the exchange are durable.</p>
       <pre class="lines">
 
 
-85
 86
-87</pre>
+87
+88</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/message_bus.rb', line 85</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/message_bus.rb', line 86</span>
 
 <span class='kw'>def</span> <span class='id set_prefetch_number'>set_prefetch_number</span><span class='lparen'>(</span><span class='id number'>number</span><span class='rparen'>)</span>
   <span class='ivar'>@channel</span><span class='period'>.</span><span class='id prefetch'>prefetch</span><span class='lparen'>(</span><span class='id number'>number</span><span class='rparen'>)</span>
