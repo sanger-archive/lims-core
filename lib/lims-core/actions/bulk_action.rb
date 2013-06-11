@@ -39,7 +39,6 @@ module Lims::Core
           super(*args) do |a,s|
             initializer.call(a,s) if initializer
             parameter_list = a[group_name]
-            debugger
             a.actions = parameter_list.map do |parameters|
               action_class.new do |action, session|
                   # We copy the parameters to action class.
