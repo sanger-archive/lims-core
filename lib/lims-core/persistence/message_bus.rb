@@ -30,6 +30,7 @@ module Lims
         # are passed as parameters.
         # @param [Hash] settings
         def initialize(settings = {})
+          raise InvalidSettingsError, "MessageBug settings are empty" if settings == nil
           @heart_beat = settings["heart_beat"]
           @connection_uri = settings["url"]
           @exchange_name = settings["exchange_name"]
