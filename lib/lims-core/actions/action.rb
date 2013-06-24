@@ -87,8 +87,36 @@ module Lims::Core
             # initialize action
             if @initializer
               params = OpenStruct.new
+
               @initializer[params, session]
-              set_attributes(params)
+
+              # We want to catch ALL attributes errors
+              # therefore We need to iterate on each attributes
+              # and catch the potentiel exception raised by each
+              # assignment.
+
+
+              attribute_errors = []
+              params.each do |key, value|
+                begin
+                  send("#{key}=", value)
+                rescue NoMethodError => e
+                  attribute_errors << [key, value]
+                end
+              end  
+
+              unless attribute_errors.empty?
+                # An error occured.
+                # We need to check if set attributes are valid
+                # and add the attributes errors to the general error message.
+                valid?
+                invalid_parameters = errors_to_hash
+
+                attribute_errors.each do |key, value|
+                  invalid_parameters[key] = ["field :#{key} doesn't exist or value '#{value}' is invalid"]
+                end
+                raise InvalidParameters.new(invalid_parameters)
+              end
               @initializer = nil
             end
 
@@ -100,49 +128,53 @@ module Lims::Core
             # raised. We catch it here and raise an InvalidParameters error.
             is_valid = begin 
             valid?
-          rescue
-            raise InvalidParameters.new
-          end
+            rescue
+              raise InvalidParameters.new
+            end
 
-          if is_valid
-            block.call(session)
-          else
-            invalid_parameters = {}.tap do |hash|
-              errors.keys.each do |key|
-                hash[key] = [].tap do |array|
-                  # errors[key] returns an array of Aequitas::Violation
-                  errors[key].each do |error|
-                    array << error.message
-                  end
+            if is_valid
+              block.call(session)
+            else
+              invalid_parameters = errors_to_hash
+              raise InvalidParameters.new(invalid_parameters)
+            end
+          end
+        end
+
+        def errors_to_hash()
+          {}.tap do |hash|
+            errors.keys.each do |key|
+              hash[key] = [].tap do |array|
+                # errors[key] returns an array of Aequitas::Violation
+                errors[key].each do |error|
+                  array << error.message
                 end
               end
             end
-            raise InvalidParameters.new(invalid_parameters)
           end
         end
-      end
 
-      # This is the main method of an action,
-      # called to effectively perform an action.
-      def _call_in_session(session)
-        raise NotImplementedError
-      end
+        # This is the main method of an action,
+        # called to effectively perform an action.
+        def _call_in_session(session)
+          raise NotImplementedError
+        end
 
-      # how to revert the action,
-      # if possible.
-      def _revert_in_session(session)
-        raise UnrevertableAction(self)
-      end
+        # how to revert the action,
+        # if possible.
+        def _revert_in_session(session)
+          raise UnrevertableAction(self)
+        end
 
-      # List of objects to save (add to the session).
-      # By default get all attributes and the resulth.
-      # Override if need (to add a created resource for example).
-      # @return a list of object to save
-      def _objects_to_save
-        [result, *attributes.map { |a| a[1] }].select { |o| o.is_a?(Resource) }
+        # List of objects to save (add to the session).
+        # By default get all attributes and the resulth.
+        # Override if need (to add a created resource for example).
+        # @return a list of object to save
+        def _objects_to_save
+          [result, *attributes.map { |a| a[1] }].select { |o| o.is_a?(Resource) }
+        end
+        private :_call_in_session, :_revert_in_session, :_objects_to_save
       end
-      private :_call_in_session, :_revert_in_session, :_objects_to_save
     end
   end
-end
 end
