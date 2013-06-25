@@ -34,6 +34,10 @@ module Lims::Core
         it "requires correct settings" do
           described_class.new(bus_settings).valid?.should == true
         end
+  
+        it "sets the exchange type to topic by default" do
+          described_class.new(bus_settings).exchange_type.should == "topic"
+        end
 
         it "requires correct settings to connect to the message bus" do
           expect do
