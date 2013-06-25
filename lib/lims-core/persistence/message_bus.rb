@@ -13,6 +13,8 @@ module Lims
         include Aequitas 
         attribute :connection_uri, String, :required => true, :writer => :private
         attribute :exchange_name, String, :required => true, :writer => :private
+        # By default, exchange_type is topic
+        attribute :exchange_type, String, :required => true, :writer => :private
         attribute :durable, Boolean, :required => true, :writer => :private
         attribute :prefetch_number, Integer, :required => true, :writer => :private
         attribute :heart_beat, Integer, :required => false, :writer => :private
@@ -34,6 +36,7 @@ module Lims
           @heart_beat = settings["heart_beat"]
           @connection_uri = settings["url"]
           @exchange_name = settings["exchange_name"]
+          @exchange_type = settings["exchange_type"] || "topic"
           @durable = settings["durable"]
           @prefetch_number = settings["prefetch_number"]
         end
@@ -78,7 +81,7 @@ module Lims
         # @param [String] name
         # @param [Hash] exchange options
         def set_exchange(exchange_name, options = {})
-          @exchange = @channel.topic(exchange_name, options)
+          @exchange = Bunny::Exchange.new(@channel, exchange_type.to_sym, exchange_name , options)
         end
         private :set_exchange
 
