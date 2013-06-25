@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    lims-core (2.2.0)
+    lims-core (2.3.0)
       active_support
       aequitas
       bunny (= 0.9.0.pre10)
