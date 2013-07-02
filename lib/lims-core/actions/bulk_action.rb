@@ -53,7 +53,11 @@ module Lims::Core
 
         def _call_in_session(session)
           super(session)
+          if element_name
             {group_name=> actions.map { |a| a.result[element_name] }}
+          else
+            {group_name=> actions.map { |a| a.result }}
+          end
         end
       end
     end
