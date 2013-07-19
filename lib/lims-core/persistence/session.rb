@@ -83,7 +83,7 @@ module Lims::Core
       # Note we can't make this method private because, the persistor
       # need it to save their children. To solve this, we raise an exception if it's inside a sess
       # @return [Boolean]
-      def save(object, *options)
+      def saveX(object, *options)
         raise RuntimeError, "Can't save object inside a session. Please considere the << method." unless @save_in_progress
         return id_for(object) if @saved.include?(object)
         @saved << object
@@ -139,7 +139,7 @@ module Lims::Core
       # For most object you don't need to load it to delete it
       # but some needs (to delete the appropriate children).
       # The real delete is made by calling the {#delete_in_real} method.
-      def delete(object)
+      def deleteM(object)
         raise UnmanagedObjectError, "can't delete #{object.inspect}" unless managed?(object)
         @to_delete << object
       end
@@ -178,7 +178,7 @@ module Lims::Core
 
       private
       # save all objects which needs to be
-      def save_all()
+      def save_allM()
         @store.transaction do
           @save_in_progress = true # allows saving
           @objects.each do |object|
@@ -193,7 +193,7 @@ module Lims::Core
       end
 
       # Call to
-      def delete_in_real(object, *options)
+      def delete_in_realX(object, *options)
         raise RuntimeError, "Can't delete an object inside a session. Please considere the 'delete' method instead." unless @save_in_progress
         return id_for(object) if @saved.include?(object)
         @saved << object

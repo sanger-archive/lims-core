@@ -92,7 +92,7 @@ module Lims::Core
 
         # save an object and return is id or nil if failure
         # @return [Fixnum, nil]
-        def save(object, *params)
+        def saveX(object, *params)
           return nil if object.nil?
           # check if the object has been modified or not
           id_for(object) { |id| update(object, id, *params) } ||
@@ -101,7 +101,7 @@ module Lims::Core
 
         # deletes an object and returns its id or nil if failure
         # @return [Fixnum, nil]
-        def delete(object, *params)
+        def deleteX(object, *params)
           return nil if object.nil?
           id_for(object) do |id|
             # We need to delet the children before the parent
@@ -117,7 +117,7 @@ module Lims::Core
         # @param [Resource, Id] source the source of the association.
         # @param [Resource, Id] target the target of the association.
         # @param [Hash] params specific to the Store.
-        def save_as_association(source, target, *params)
+        def save_as_associationX(source, target, *params)
           save_raw_association(@session.id_for!(source), @session.id_for!(target), *params)
         end
 
@@ -131,7 +131,7 @@ module Lims::Core
         # @param [id] source_id 
         # @param [Resource] target will be saved.
         # @param [Hash] params specific to the Store.
-        def save_as_aggregation(source_id, target, *params)
+        def save_as_aggregationX(source_id, target, *params)
           save_raw_association(source_id, @session.save(target), *params)
         end
 
@@ -140,19 +140,19 @@ module Lims::Core
         # @param [Hash] raw_attributes attributes to build the object
         # @return [Resource] the model object.
         # @raise error if object doesn't exists.
-        def load_single_model(id, raw_attributes=nil)
+        def load_single_modelX(id, raw_attributes=nil)
           raw_attributes ||= load_raw_attributes(id)
           model.new(filter_attributes_on_load(raw_attributes) || {}).tap do |m|
             load_children(id, m)
           end
         end
-        private :load_single_model
+        private :load_single_modelX
 
         # create or get an object if already in cache
         # The raw_attributes is there for convenience  to
         # create the object with parameters is they have already been loaded
         # (bulk load for example).
-        def get_or_create_single_model(id, raw_attributes=nil)
+        def get_or_create_single_modelX(id, raw_attributes=nil)
           object_for(id) || load_single_model(id, raw_attributes).tap do |m|
             map_id_object(id, m)
             if @session.dirty_attribute_strategy
@@ -162,7 +162,7 @@ module Lims::Core
             @session.on_object_load(m)
           end
         end
-        protected :get_or_create_single_model
+        protected :get_or_create_single_modelX
 
         # create or get a list of objects.
         # Only load the ones which aren't in cache
@@ -170,17 +170,17 @@ module Lims::Core
         # @param [Array<Hash>] list of raw_attributes (@see get_or_create_single_model)
         # @return [Array<Resource>]
         # @todo bulk load if needed
-        def get_or_create_multi_model(ids, raw_attributes_list=[])
+        def get_or_create_multi_modelX(ids, raw_attributes_list=[])
           ids.zip(raw_attributes_list).map { |i, r| get_or_create_single_model(i, r) }
         end
-        protected :get_or_create_multi_model
+        protected :get_or_create_multi_modelX
 
         # Create or get one or object matching the criteria
         # @param [Hash] criteria, map of (attributes, value) to match
         # @param [Boolean] single wether to check for uniquess or not
         # @return [Object,nil,Array<Object>] an Object or and Array depending of single.
         #
-        def find_by(criteria, single=false)
+        def find_byM(criteria, single=false)
           ids = ids_for(criteria)
 
           if single
@@ -191,7 +191,7 @@ module Lims::Core
             get_or_create_multi_model(ids)
           end
         end
-        protected :find_by
+        protected :find_byM
 
         # compute a list of ids matching the criteria
         # @param [Hash] criteria list of attribute/value pais
@@ -201,10 +201,10 @@ module Lims::Core
         end
 
 
-        def load_associated_elements()
+        def load_associated_elementsX()
         end
 
-        def load_aggregated_elements(id, &block)
+        def load_aggregated_elementsX(id, &block)
           load_raw_associations(id).each do |element_id|
           end
         end
@@ -232,7 +232,7 @@ module Lims::Core
         # @param [Fixnum] start (0 based)
         # @param [Fixnum] length
         # @return [Enumerable<Hash>]
-        def slice(start, length)
+        def sliceM(start, length)
           Enumerator.new do |yielder|
             for_each_in_slice(start, length) do |id, att|
               yielder << get_or_create_single_model(id, att)
@@ -250,7 +250,7 @@ module Lims::Core
         # load the object without any dependency
         # @param id identifier of the object
         # @return the loaded object
-        def load_raw_object(id)
+        def load_raw_objectX(id)
           raise NotImplementedError
         end
 
@@ -258,14 +258,14 @@ module Lims::Core
         # already in the database.
         # @param [Resource] object the object 
         # @return [Fixnum, nil] the Id if save successful
-        def save_new(object, *params)
+        def save_newM(object, *params)
           save_raw(object, *params).tap do |id|
             save_children(id, object)
           end
         end
 
         # @param object the object to save
-        def save_raw(object, *params)
+        def save_rawX(object, *params)
           raise NotImplementedError
         end
 
@@ -273,7 +273,7 @@ module Lims::Core
         # @param [Resource] object the object 
         # @param [Fixum] id id in the database
         # @return [Fixnum, nil] the Id if save successful.
-        def update(object, id, *params)
+        def updateX(object, id, *params)
           # Check if 
           # naive version , update everything.
           # Probably quicker than trying to guess what has changed
@@ -290,7 +290,7 @@ module Lims::Core
         # @param[Resource] object
         # @param[Fixum] id 
         # @return [Bool] true if the object is dirty (needs saving)
-        def dirty?(object, id, *params)
+        def dirtyM?(object, id, *params)
             attributes = filter_attributes_on_save(object.attributes, *params)
             # check if the object is dirty on note.
             # In fact, we only cares about the attributes
@@ -306,32 +306,32 @@ module Lims::Core
             end
         end
 
-        def delete_raw(object, id)
+        def delete_rawX(object, id)
           raise NotImplementedError
         end
 
         # save children of a newly created object.
         # @param [Fixum] id id in the database
         # @param [Resource] object the object 
-        def save_children(id, object)
+        def save_childrenX(id, object)
 
         end
 
         # save children of an existing object.
         # @param [Fixum] id id in the database
         # @param [Resource] object the object 
-        def update_children(id, object)
+        def update_childrenX(id, object)
           delete_children(id, object)
           save_children(id, object)
         end
 
-        def delete_children(id, object)
+        def delete_childrenX(id, object)
         end
 
         # Loads children from the database and set the to model object.
         # @param id primary key of the model object in the database.
         # @param m  instance of model to load
-        def load_children(id, m)
+        def load_childrenX(id, m)
         end
 
         # Transform  store fields to object attributes
