@@ -6,6 +6,7 @@ require 'digest/md5'
 
 require 'lims-core/persistence/filter'
 require 'lims-core/persistence/identity_map'
+require 'lims-core/persistence/state_list'
 
 module Lims::Core
   module  Persistence
@@ -37,8 +38,7 @@ module Lims::Core
       # param [Store] store the underlying store.
       def initialize(store, *params)
         @store = store
-        @objects = Set.new
-        @to_delete = Set.new
+        @object_states = StateList.new
         @in_session = false
         @saved = Set.new
         @persistor_map = {}
@@ -74,7 +74,7 @@ module Lims::Core
       # @param [Persistable] object the object to persist.
       # @return  the session, to allow for chaining
       def << (object)
-        @objects << object
+        @object_states << state_for(object)
         self
       end
 
@@ -118,6 +118,14 @@ module Lims::Core
         end
       end
 
+      # @todo
+      def state_for(object)
+        return persistor_for(object).state_for(object)
+      end
+      private :state_for
+
+
+
       # Returns the id of an object and save it if necessary
       # @param [Resource, Id] object or id.
       # @return [Id]
@@ -131,7 +139,8 @@ module Lims::Core
       # @param [Resource] object
       # @return [Boolean]
       def managed?(object)
-        @objects.include?(object)
+        state = state_for(object)
+        @object_states.include?(state)
       end
 
       # Mark an object as to be deleted.
@@ -139,9 +148,10 @@ module Lims::Core
       # For most object you don't need to load it to delete it
       # but some needs (to delete the appropriate children).
       # The real delete is made by calling the {#delete_in_real} method.
-      def deleteM(object)
+      def delete(object)
         raise UnmanagedObjectError, "can't delete #{object.inspect}" unless managed?(object)
-        @to_delete << object
+        state = state_for(object)
+        state.mark_for_deletion
       end
 
       # Pack if needed an uuid to its store representation
@@ -178,18 +188,12 @@ module Lims::Core
 
       private
       # save all objects which needs to be
-      def save_allM()
+      def save_all()
         @store.transaction do
           @save_in_progress = true # allows saving
-          @objects.each do |object|
-            if @to_delete.include?(object)
-              delete_in_real(object)
-            else
-              save(object)
-            end
+          @object_states.save
           end
-          @save_in_progress = false
-        end
+        @save_in_progress = false
       end
 
       # Call to

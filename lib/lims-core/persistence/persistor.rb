@@ -33,8 +33,21 @@ module Lims::Core
     # Each instance can get an identity map, and or parameter
     # specific to a session/thread.
     class Persistor
-      include IdentityMap
 
+      # Raised if there is any duplicate in the identity maps
+      class DuplicateError < RuntimeError 
+        def inialize(persistor, value)
+          super("${value} already exists for persistor #{persistor.model}")
+        end
+      end
+
+      #Raised if the `id` is already associated to a different `object`
+      class DuplicateIdError <DuplicateError
+      end
+
+      #Raised if the `object` is already associated to a different `id`
+      class DuplicateObjectError < DuplicateError
+      end
       # Performs an autoregistration if needed.
       # Autoregistration can be skipped by defined NO_AUTO_REGISTRATION
       # on the model class.
@@ -64,7 +77,8 @@ module Lims::Core
 
         def initialize (session, *args, &block)
           @session = session
-          @id_to_dirty_key = {}
+          @id_to_state = {}
+          @object_to_state = Hash.new { |h,k| h[k] = ResourceState.new(k, self) }
           super(*args, &block)
         end
 
@@ -88,6 +102,24 @@ module Lims::Core
           when Fixnum then get_or_create_single_model(id)
           when Hash then find_by(filter_attributes_on_save(id), :single => true)
           end
+        end
+
+        # @todo
+        def id_for(object)
+          state_for(object).andtap { |state| state.id }
+        end
+
+
+        # @todo
+        def state_for(object)
+          @object_to_state[object]
+
+        end
+
+        def bind_state_to_id(state)
+          raise RuntimeError, 'Invalid state' if state.persistor != self
+          raise DuplicateIdError, self, id if @id_to_state.include?(id)
+          @id_to_state[state.id] = state.id
         end
 
         # save an object and return is id or nil if failure
@@ -239,6 +271,15 @@ module Lims::Core
             end
           end
         end
+
+        def bulk_insert(states, *params)
+          states.map { |state| insert(state) }
+        end
+
+        def insert(state)
+          save_raw(state.resource)
+        end
+
 
         protected
         # The primary key 
