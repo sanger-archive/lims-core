@@ -124,7 +124,7 @@ module Lims::Core
         def bind_state_to_id(state)
           raise RuntimeError, 'Invalid state' if state.persistor != self
           raise DuplicateIdError, "#{self.class.name}:#{state.id}" if @id_to_state.include?(state.id)
-          @id_to_state[state.id] = state.id
+          @id_to_state[state.id] = state
         end
 
         # @todo

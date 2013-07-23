@@ -148,6 +148,9 @@ module Lims::Core
 
         # @todo
         def bulk_insert_multi(states, *params)
+          # get last id
+          last = dataset.max(primary_key) || 0
+          states.inject(last) { |l, s| s.id = l+1 }
           attributes = states.map { |state| filter_attributes_on_save(state.resource.attributes.merge(primary_key => state.id), *params) }
           dataset.multi_insert(attributes)
         end
