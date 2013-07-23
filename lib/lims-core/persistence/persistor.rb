@@ -99,14 +99,19 @@ module Lims::Core
         # @return [Object,nil] nil if  object not found.
         def [](id)
           case id
-          when Fixnum then get_or_create_single_model(id)
+          when Fixnum then retrieve(id)
           when Hash then find_by(filter_attributes_on_save(id), :single => true)
+          when Array, Enumerable then bulk_retrieve(id)
           end
         end
 
         # @todo
         def id_for(object)
           state_for(object).andtap { |state| state.id }
+        end
+        
+        def object_for(id)
+          @id_to_state[id].andtap(&:resource)
         end
 
 
@@ -118,8 +123,14 @@ module Lims::Core
 
         def bind_state_to_id(state)
           raise RuntimeError, 'Invalid state' if state.persistor != self
-          raise DuplicateIdError, self, id if @id_to_state.include?(state.id)
+          raise DuplicateIdError, "#{self.class.name}:#{state.id}" if @id_to_state.include?(state.id)
           @id_to_state[state.id] = state.id
+        end
+
+        # @todo
+        def new_state_for_attribute(id, attributes)
+          resource = model.new(filter_attributes_on_load(attributes))
+          ResourceState.new(resource, self, id)
         end
 
         # save an object and return is id or nil if failure
@@ -284,10 +295,32 @@ module Lims::Core
 
         # @todo doc
         def insert(state, *params)
+          #bulk_insert and insert can be both implemented from each other.
+          #raise a NotImplementedError is none of them have been implemented
+          raise NotImplementedError if @__simple_insert
           @__simple_insert = true
-          bulk_insert([state], *params)
-          raise NotImplementedError
+          bulk_insert([state], *params).tap do
+            @__simple_insert = false
+          end
         end
+
+        def bulk_retrieve(ids, *params)
+          # we need to separate object which need to be loaded
+          # from the one which are already in cache
+          to_load = ids.reject { |id| id == nil || @id_to_state.include?(id) }
+          bulk_load_raw_attributes(to_load, *params).each do |att|
+            id = att.delete(primary_key)
+            new_state_for_attribute(id, att).resource
+          end
+
+          ids.map { |id| object_for(id) }
+        end
+
+        def retrieve(id, *params)
+          objects = bulk_retrieve([id], *params)
+          objects.size == 1 ? object.first : nil
+        end
+
 
 
         protected

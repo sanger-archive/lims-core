@@ -86,6 +86,10 @@ module Lims::Core
           :id
         end
 
+        def bulk_load_raw_attributes(ids, *params)
+          dataset[primary_key => ids ]
+        end
+
         def load_raw_attributes(id, raw_attributes=nil)
           dataset[primary_key => id ]
         end
@@ -116,7 +120,7 @@ module Lims::Core
           # or cached it by attributes
           # @todo benchmark against normal insert
           attributes = filter_attributes_on_save(state.resource.attributes, *params)
-          dataset.insert(attributes)
+          dataset.insert(attributes).tap { |id| state.id = id }
         end
 
         def bulk_insert(states, *params)

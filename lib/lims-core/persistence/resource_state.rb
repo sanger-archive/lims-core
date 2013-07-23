@@ -19,7 +19,7 @@ module Lims::Core
       def initialize(resource, persistor, id=nil)
         @resource=resource
         @persistor=persistor
-        @id=id
+        self.id=id if id
         @to_delete = false
       end
 
