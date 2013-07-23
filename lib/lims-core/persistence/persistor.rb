@@ -207,6 +207,12 @@ module Lims::Core
         end
         protected :get_or_create_single_modelX
 
+        def dirty_key_for(resource)
+            if @session.dirty_attribute_strategy
+              @session.dirty_key_for(filter_attributes_on_save(resource.attributes))
+            end
+        end
+
         # create or get a list of objects.
         # Only load the ones which aren't in cache
         # @param [Array<Id>] ids list of ids to get

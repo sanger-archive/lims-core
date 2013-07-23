@@ -21,6 +21,15 @@ module Lims::Core
         @persistor=persistor
         self.id=id if id
         @to_delete = false
+        update_dirty_key
+      end
+
+      def dirty_key
+        @persistor.dirty_key_for(resource)
+      end
+
+      def update_dirty_key
+        @last_dirty_key = @persistor.dirty_key_for(resource)
       end
 
       def new?
@@ -28,7 +37,7 @@ module Lims::Core
       end
 
       def dirty?
-        true
+        dirty_key == @last_dirty_key
       end
 
       def id=(new_id)
@@ -51,12 +60,9 @@ module Lims::Core
         end
       end
 
-      def dirty?
-        true
-      end
-
       def inserted(new_id=nil)
         self.id = new_id
+        update_dirty_key
       end
     end
   end
