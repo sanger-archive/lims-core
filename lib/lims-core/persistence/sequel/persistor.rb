@@ -109,16 +109,43 @@ module Lims::Core
         # attributes excluding any associations.
         # @param [Resource] object the object 
         # @return [Fixnum, nil] the Id if save successful
-        def save_raw(object, *params)
+        def insert(state, *params)
           # use prepared statement for everything
           # We only need it at the moment as a workaround for saving the UUID
           # So we might in the future either move it to a UuidResourcePersistor
           # or cached it by attributes
           # @todo benchmark against normal insert
-          attributes = filter_attributes_on_save(object.attributes, *params)
+          attributes = filter_attributes_on_save(state.resource.attributes, *params)
+          dataset.insert(attributes)
+        end
+
+        def bulk_insert(states, *params)
+          super(states, *params)
+          #bulk_insert_multi(states, *params)
+          #bulk_insert_prepared(states, *params)
+        end
+        public :bulk_insert
+
+        def bulk_insert_prepared(states, *params)
+          # use prepared statement for everything
+          # We only need it at the moment as a workaround for saving the UUID
+          # So we might in the future either move it to a UuidResourcePersistor
+          # or cached it by attributes
+          # @todo benchmark against normal insert
+            attributes = filter_attributes_on_save(states.first.resource.attributes, *params)
           statement_name = :"#{table_name}__save_raw"
           dataset.prepare(:insert, statement_name, attributes.keys.mash { |k| [k, :"$#{k}"] })
-          @session.database.call(statement_name, attributes)
+
+          states.each do |state|
+            attributes = filter_attributes_on_save(state.resource.attributes, *params)
+            @session.database.call(statement_name, attributes)
+          end
+        end
+
+        # @todo
+        def bulk_insert_multi(states, *params)
+          attributes = states.map { |state| filter_attributes_on_save(state.resource.attributes.merge(primary_key => state.id), *params) }
+          dataset.multi_insert(attributes)
         end
 
         # Upate a raw object, i.e. the object attributes
@@ -141,8 +168,16 @@ module Lims::Core
             dataset.filter(primary_key => id).delete
           end
         end
+
+        # returns the next available id (last one if more than one are
+          # required.
+          # The current implementation just use the last insert id.
+          # But need to be changed to something more robust.
+          def get_next_id(n=1)
+            (dataset.max(primary_key) || 0)+n
+          end
+        end
       end
     end
   end
-end
-require 'lims-core/persistence/sequel/filters'
+  require 'lims-core/persistence/sequel/filters'

@@ -55,6 +55,9 @@ module Lims::Core
         true
       end
 
+      def inserted(new_id=nil)
+        self.id = new_id
+      end
     end
   end
 end

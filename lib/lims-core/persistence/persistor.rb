@@ -118,7 +118,7 @@ module Lims::Core
 
         def bind_state_to_id(state)
           raise RuntimeError, 'Invalid state' if state.persistor != self
-          raise DuplicateIdError, self, id if @id_to_state.include?(id)
+          raise DuplicateIdError, self, id if @id_to_state.include?(state.id)
           @id_to_state[state.id] = state.id
         end
 
@@ -272,12 +272,21 @@ module Lims::Core
           end
         end
 
-        def bulk_insert(states, *params)
-          states.map { |state| insert(state) }
+        # Get the next id available id
+        # If more than one id are requested, this function will return the last one.
+        def get_next_id(number=1)
         end
 
-        def insert(state)
-          save_raw(state.resource)
+        # @todo doc
+        def bulk_insert(states, *params)
+          states.map { |state| insert(state, *params) }
+        end
+
+        # @todo doc
+        def insert(state, *params)
+          @__simple_insert = true
+          bulk_insert([state], *params)
+          raise NotImplementedError
         end
 
 
@@ -303,11 +312,6 @@ module Lims::Core
           save_raw(object, *params).tap do |id|
             save_children(id, object)
           end
-        end
-
-        # @param object the object to save
-        def save_rawX(object, *params)
-          raise NotImplementedError
         end
 
         # Save a object already in the database
