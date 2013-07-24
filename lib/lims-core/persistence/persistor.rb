@@ -289,26 +289,26 @@ module Lims::Core
           end
         end
 
-        # Get the next id available id
-        # If more than one id are requested, this function will return the last one.
-        def get_next_id(number=1)
-        end
-
         # @todo doc
         def bulk_insert(states, *params)
           states.map { |state| insert(state, *params) }
         end
 
         # @todo doc
-        def insert(state, *params)
-          #bulk_insert and insert can be both implemented from each other.
+        %w(insert update delete retrieve).each do |method|
+          class_eval %Q{
+        def #{method}(state, *params)
+          #bulk_#{method} and #{method} can be both implemented from each other.
           #raise a NotImplementedError is none of them have been implemented
-          raise NotImplementedError if @__simple_insert
-          @__simple_insert = true
-          bulk_insert([state], *params).tap do
-            @__simple_insert = false
+          raise NotImplementedError if @__simple_#{method}
+          @__simple_#{method} = true
+          bulk_#{method}([state], *params).andtap do |results|
+            @__simple_#{method} = false
+            results.first
           end
         end
+      }
+      end
 
         def bulk_retrieve(ids, *params)
           # we need to separate object which need to be loaded
@@ -322,11 +322,21 @@ module Lims::Core
           ids.map { |id| object_for(id) }
         end
 
-        def retrieve(id, *params)
-          objects = bulk_retrieve([id], *params)
-          objects.size == 1 ? object.first : nil
+        def bulk_update(states, *params)
+          attributes = states.map do |state|
+            filter_attributes_on_save(state.resource.attributes).merge(primary_key => state.id)
+          end
+          bulk_update_raw_attributes(attributes, *params)
+          states.each do |state|
+            state.updated
+          end
         end
 
+        def parents_for(resource)
+        end
+
+        def children_for(resource)
+        end
 
 
         protected

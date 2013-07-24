@@ -155,6 +155,10 @@ module Lims::Core
           dataset.multi_insert(attributes)
         end
 
+        def bulk_update_raw_attributes(attributes, *params)
+          attributes.each { |att| dataset.update(att) }
+        end
+
         # Upate a raw object, i.e. the object attributes
         # excluding any associations.
         # @param [Resource] object the object 

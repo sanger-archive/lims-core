@@ -20,8 +20,8 @@ module Lims::Core
       def save
         # split by status
         group_by(&:save_action).tap do |groups|
-          persistor.bulk_insert(groups[:insert])
-          # persistor.bulk_update(groups[:update])
+          groups[:insert].andtap { |group| persistor.bulk_insert(group) }
+          groups[:update].andtap { |group| persistor.bulk_update(group) }
           # persistor.bulk_delete(groups[:delete]) to do later
         end
       end
