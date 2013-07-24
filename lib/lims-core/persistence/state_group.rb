@@ -22,7 +22,7 @@ module Lims::Core
         all_parents = StateList.new
         each do |state|
           state.parents!.andtap do |parents|
-            all_parents += parents 
+            all_parents.concat(parents)
           end
         end
         all_parents.save
@@ -38,7 +38,7 @@ module Lims::Core
         each do |state|
           state.body_saved!
           state.children!.andtap do |children|
-            all_children += children 
+            all_children.concat(children)
           end
         end
         all_children.save

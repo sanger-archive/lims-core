@@ -71,7 +71,7 @@ module Lims::Core
         @parents_saved = true
       end
       def parents
-        @parents_saved && @persistor.parents_for(resource)
+        !@parents_saved && @persistor.parents_for(resource)
       end
       def parents!
         parents.tap { parents_saved! }
@@ -80,7 +80,7 @@ module Lims::Core
         @children_saved = true
       end
       def children
-        @children_saved && @persistor.children_for(resource)
+        !@children_saved && @persistor.children_for(resource)
       end
       def children!
         children.tap { children_saved! }

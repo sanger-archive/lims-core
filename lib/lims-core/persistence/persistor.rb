@@ -2,7 +2,6 @@
 
 require 'lims-core/persistence/identity_map'
 
-
 module Lims::Core
   module Persistence
     # @abstract Base class for all the persistors, needs to implements a `self.model`
@@ -118,8 +117,8 @@ module Lims::Core
         # @todo
         def state_for(object)
           @object_to_state[object]
-
         end
+        
 
         def bind_state_to_id(state)
           raise RuntimeError, 'Invalid state' if state.persistor != self
@@ -333,10 +332,20 @@ module Lims::Core
         end
 
         def parents_for(resource)
+          @session.states_for(parents(resource))
         end
 
         def children_for(resource)
+          @session.states_for(children(resource))
         end
+
+        def parents(resource)
+        end
+
+        def children(resource)
+        end
+
+        
 
 
         protected

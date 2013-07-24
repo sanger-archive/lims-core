@@ -124,6 +124,10 @@ module Lims::Core
       end
       private :state_for
 
+      def states_for(objects)
+        objects && objects.map { |o| state_for(o) }
+      end
+
 
 
       # Returns the id of an object and save it if necessary
