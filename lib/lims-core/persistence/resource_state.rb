@@ -22,6 +22,8 @@ module Lims::Core
         self.id=id if id
         @to_delete = false
         update_dirty_key
+        reset
+
       end
 
       def dirty_key
@@ -37,7 +39,7 @@ module Lims::Core
       end
 
       def dirty?
-        dirty_key == @last_dirty_key
+       @body_saved == false && dirty_key != @last_dirty_key
       end
 
       def id=(new_id)
@@ -64,7 +66,35 @@ module Lims::Core
         self.id = new_id
         update_dirty_key
       end
+
+      def parents_saved!
+        @parents_saved = true
+      end
+      def parents
+        @parents_saved && @persistor.parents_for(resource)
+      end
+      def parents!
+        parents.tap { parents_saved! }
+      end
+      def children_saved!
+        @children_saved = true
+      end
+      def children
+        @children_saved && @persistor.children_for(resource)
+      end
+      def children!
+        children.tap { children_saved! }
+      end
+      def body_saved!
+        @body_saved = true
+      end
+
+        def reset
+          @parents_saved = nil
+          @children_saved = nil
+          @body_saved= nil
+        end
+      end
     end
   end
-end
 

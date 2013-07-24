@@ -191,6 +191,7 @@ module Lims::Core
       def save_all()
         @store.transaction do
           @save_in_progress = true # allows saving
+          @object_states.reset_status
           @object_states.save
           end
         @save_in_progress = false

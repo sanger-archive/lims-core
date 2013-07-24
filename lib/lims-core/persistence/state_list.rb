@@ -30,6 +30,12 @@ module Lims::Core
           group.save
         end
       end
+
+      def reset_status
+        each { |state|
+          state.reset }
+      end
+
     end
   end
 end

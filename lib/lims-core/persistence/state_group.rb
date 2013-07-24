@@ -18,12 +18,30 @@ module Lims::Core
       end
 
       def save
+        # @todo method for that.
+        all_parents = StateList.new
+        each do |state|
+          state.parents!.andtap do |parents|
+            all_parents += parents 
+          end
+        end
+        all_parents.save
+
         # split by status
         group_by(&:save_action).tap do |groups|
           groups[:insert].andtap { |group| persistor.bulk_insert(group) }
           groups[:update].andtap { |group| persistor.bulk_update(group) }
           # persistor.bulk_delete(groups[:delete]) to do later
         end
+
+        all_children = StateList.new
+        each do |state|
+          state.body_saved!
+          state.children!.andtap do |children|
+            all_children += children 
+          end
+        end
+        all_children.save
       end
     end
   end
