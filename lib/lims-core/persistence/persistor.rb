@@ -340,6 +340,7 @@ module Lims::Core
         end
 
         def parents(resource)
+          resource.attributes.values.select  { |v| v.is_a? Resource }
         end
 
         def children(resource)

@@ -180,6 +180,17 @@ module Lims::Core
           end
         end
 
+        def filter_attributes_on_save(attributes)
+          attributes.mash do |k, v|
+            if v.is_a?(Resource)
+              id = @session.id_for(v)
+              ["#{k}_id", id ]
+            else
+              [k, v]
+            end
+          end
+        end
+
         # returns the next available id (last one if more than one are
           # required.
           # The current implementation just use the last insert id.
