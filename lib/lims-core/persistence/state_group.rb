@@ -43,6 +43,22 @@ module Lims::Core
         end
         all_children.save
       end
+
+      def load(*params)
+        to_load = select(&:to_load?)
+        all_parents = StateList.new
+        attributes_list = []
+        persistor.bulk_load(to_load, *params) do |att|
+            all_parents.concat(persistor.parents_for_attributes(att))
+            attributes_list << att
+          end
+        all_parents.load(*params)
+        attributes_list.map do |att|
+          persistor.new_from_attributes(att)
+        end
+        persistor.load_children(self, *params)
+        self
+      end
     end
   end
 end

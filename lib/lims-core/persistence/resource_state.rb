@@ -31,22 +31,39 @@ module Lims::Core
       end
 
       def update_dirty_key
-        @last_dirty_key = @persistor.dirty_key_for(resource)
+        @last_dirty_key = resource ?  @persistor.dirty_key_for(resource) : nil
       end
 
       def new?
         @id == nil
       end
 
+      def to_load?
+        @id != nil && @resource == nil
+      end
+
+
       def dirty?
        @body_saved == false && dirty_key != @last_dirty_key
       end
 
       def id=(new_id)
+        return  if new_id == id
         raise RuntimeError, "modifing existing id not allowed. #{self}"   if @id
         @id = new_id
         # link the new id in th id_to_state map
         @persistor.bind_state_to_id(self)
+        id
+      end
+
+      def resource=(new_resource)
+        return if new_resource == resource
+        raise RuntimeError, "modifing existing resource not allowed. #{self}"   if @resource
+        @resource = new_resource
+        # link the new resource in th resource_to_state map
+        @persistor.bind_state_to_resource(self)
+        update_dirty_key
+        resource
       end
 
       def mark_for_deletion

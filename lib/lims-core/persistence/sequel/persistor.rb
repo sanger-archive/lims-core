@@ -86,26 +86,17 @@ module Lims::Core
           :id
         end
 
-        def bulk_load_raw_attributes(ids, *params, &block)
-          dataset.filter(primary_key => ids).all(&block)
+        def bulk_load(ids, *params, &block)
+          dataset.filter(primary_key => ids.map(&:id)).all(&block)
         end
+        public :bulk_load
 
-        def load_raw_attributes(id, raw_attributes=nil)
+        def load_raw_attributesX(id, raw_attributes=nil)
           dataset[primary_key => id ]
         end
 
         def ids_for(criteria)
-          # Use prepared statement
-          # @todo cache prepared statement or move in UuidResourcePersistor
-          # OLD dataset.select(primary_key)[criteria] || []
-          #
-          ds=dataset.select(primary_key).filter(criteria.keys.mash { |k| [k, :"$#{k}"] })
-          statement_name = :"#{table_name}__ids_for"
-          ds.prepare(:select, statement_name)
-
-          # for some reason, the prepared statement return an array of Hashes insteead
-          # of an array of ids, as data.select(primary_key) will do
-          (@session.database.call(statement_name, criteria) || []).map { |h| h[primary_key] }
+          dataset.select(primary_key).filter(criteria).map { |h| h[primary_key] }
 
         end
 
@@ -150,7 +141,8 @@ module Lims::Core
         def bulk_insert_multi(states, *params)
           # get last id
           last = dataset.max(primary_key) || 0
-          states.inject(last) { |l, s| s.id = l+1 }
+          states.inject(last) { |l, s|
+            s.id = l+1 }
           attributes = states.map { |state| filter_attributes_on_save(state.resource.attributes.merge(primary_key => state.id), *params) }
           dataset.multi_insert(attributes)
         end

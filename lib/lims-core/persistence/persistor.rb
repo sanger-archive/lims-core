@@ -76,7 +76,7 @@ module Lims::Core
 
         def initialize (session, *args, &block)
           @session = session
-          @id_to_state = {}
+          @id_to_state = Hash.new { |h,k| h[k] = ResourceState.new(nil, self, k) }
           @object_to_state = Hash.new { |h,k| h[k] = ResourceState.new(k, self) }
           super(*args, &block)
         end
@@ -118,6 +118,9 @@ module Lims::Core
         def state_for(object)
           @object_to_state[object]
         end
+        def state_for_id(id)
+            @id_to_state[id]
+        end
         
 
         def bind_state_to_id(state)
@@ -126,10 +129,19 @@ module Lims::Core
           @id_to_state[state.id] = state
         end
 
+        def bind_state_to_resource(state)
+          raise RuntimeError, 'Invalobject state' if state.persistor != self
+          raise DuplicateIdError, "#{self.class.name}:#{state.resource}" if @object_to_state.include?(state.resource)
+          @object_to_state[state.resource] = state
+        end
+
         # @todo
-        def new_state_for_attribute(id, attributes)
-          resource = model.new(filter_attributes_on_load(attributes))
-          ResourceState.new(resource, self, id)
+        def new_object(id, attributes)
+          id = attributes.delete(primary_key)
+          model.new(filter_attributes_on_load(attributes)).tap do |resource|
+            state = state_for_id(id)
+            state.resource = resource
+          end
         end
 
         # save an object and return is id or nil if failure
@@ -228,7 +240,7 @@ module Lims::Core
         # @param [Boolean] single wether to check for uniquess or not
         # @return [Object,nil,Array<Object>] an Object or and Array depending of single.
         #
-        def find_byM(criteria, single=false)
+        def find_by(criteria, single=false)
           ids = ids_for(criteria)
 
           if single
@@ -236,10 +248,10 @@ module Lims::Core
             return nil if ids.size < 1
             get_or_create_single_model(ids.first)
           else
-            get_or_create_multi_model(ids)
+            self[ids]
           end
         end
-        protected :find_byM
+        protected :find_by
 
         # compute a list of ids matching the criteria
         # @param [Hash] criteria list of attribute/value pais
@@ -308,15 +320,33 @@ module Lims::Core
         end
       }
       end
+      def retrieve(id, *params)
+        object_for(id).tap { |o| return o }
+        objects = bulk_retrieve([id], *params)
+        return objects.first if objects && objects.size == 1
 
+      end
         def bulk_retrieve(ids, *params)
+
+          # create a list of states and load them
+          states = StateGroup.new(self, ids.map do |id|
+            @id_to_state[id]
+          end)
+
+          states.load
+          return states.map { |state| state.resource }
+
           # we need to separate object which need to be loaded
           # from the one which are already in cache
           to_load = ids.reject { |id| id == nil || @id_to_state.include?(id) }
-          bulk_load_raw_attributes(to_load, *params) do |att|
+          loaded_states = bulk_load_raw_attributes(to_load, *params) do |att|
             id = att.delete(primary_key)
             new_state_for_attribute(id, att).resource
           end
+
+          bulk_retrieve_children(new_states, *params)
+          #bulk_retrieve_parent(new_states, *params)
+
 
           ids.map { |id| object_for(id) }
         end
@@ -447,6 +477,22 @@ module Lims::Core
         def filter_attributes_on_load(attributes)
           attributes
         end
+        def parents_for_attributes(attributes)
+          []
+        end
+        public :parents_for_attributes
+        def load_children(states, *params)
+          []
+        end
+        public :load_children
+
+        def new_from_attributes(attributes)
+          id = attributes.delete(primary_key)
+          model.new(filter_attributes_on_load(attributes)).tap do |resource|
+            state_for_id(id).resource = resource
+          end
+        end
+        public :new_from_attributes
 
         # Transform object attributes to store fields
         # This can be used to change the name of an attribute (its key)
@@ -456,7 +502,7 @@ module Lims::Core
         def filter_attributes_on_save(attributes)
           attributes
         end
-          
+
         def attribute_for(key)
           key
         end
@@ -464,4 +510,4 @@ module Lims::Core
       end
     end
   end
-require 'lims-core/persistence/session'
+  require 'lims-core/persistence/session'
