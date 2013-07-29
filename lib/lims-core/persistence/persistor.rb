@@ -313,7 +313,7 @@ module Lims::Core
           # we need to separate object which need to be loaded
           # from the one which are already in cache
           to_load = ids.reject { |id| id == nil || @id_to_state.include?(id) }
-          bulk_load_raw_attributes(to_load, *params).each do |att|
+          bulk_load_raw_attributes(to_load, *params) do |att|
             id = att.delete(primary_key)
             new_state_for_attribute(id, att).resource
           end
@@ -455,6 +455,10 @@ module Lims::Core
         # @return [Hash]
         def filter_attributes_on_save(attributes)
           attributes
+        end
+          
+        def attribute_for(key)
+          key
         end
 
       end

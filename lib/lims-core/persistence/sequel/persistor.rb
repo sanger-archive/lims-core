@@ -86,8 +86,8 @@ module Lims::Core
           :id
         end
 
-        def bulk_load_raw_attributes(ids, *params)
-          dataset[primary_key => ids ]
+        def bulk_load_raw_attributes(ids, *params, &block)
+          dataset.filter(primary_key => ids).all(&block)
         end
 
         def load_raw_attributes(id, raw_attributes=nil)
@@ -124,8 +124,8 @@ module Lims::Core
         end
 
         def bulk_insert(states, *params)
-          super(states, *params)
-          #bulk_insert_multi(states, *params)
+          #super(states, *params)
+          bulk_insert_multi(states, *params)
           #bulk_insert_prepared(states, *params)
         end
         public :bulk_insert
@@ -182,9 +182,9 @@ module Lims::Core
 
         def filter_attributes_on_save(attributes)
           attributes.mash do |k, v|
-            if v.is_a?(Resource)
-              id = @session.id_for(v)
-              ["#{k}_id", id ]
+            key = attribute_for(k)
+            if key && key != k
+              [key, @session.id_for(v) ]
             else
               [k, v]
             end
