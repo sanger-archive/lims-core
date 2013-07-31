@@ -10,6 +10,10 @@ module Lims::Core
       class UuidResourcePersistor < Persistence::Persistor
         Model = UuidResource
 
+        def parents_for_attributes(attributes)
+          [@session.persistor_for(attributes[:model_class]).state_for_id(attributes[:key])]
+        end
+
         def filter_attributes_on_save(attributes)
           attributes.mash do |k,v|
             case k

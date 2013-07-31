@@ -246,7 +246,7 @@ module Lims::Core
           if single
             raise RuntimeError, "More than one object match the criteria" if ids.size > 1
             return nil if ids.size < 1
-            get_or_create_single_model(ids.first)
+            self[ids].first
           else
             self[ids]
           end
@@ -321,7 +321,7 @@ module Lims::Core
       }
       end
       def retrieve(id, *params)
-        object_for(id).tap { |o| return o }
+        object_for(id).andtap { |o| return o }
         objects = bulk_retrieve([id], *params)
         return objects.first if objects && objects.size == 1
 
@@ -500,8 +500,16 @@ module Lims::Core
         # @param [Hash] attributes
         # @return [Hash]
         def filter_attributes_on_save(attributes)
-          attributes
+          attributes.mash do |k, v|
+            key = attribute_for(k)
+            if key && key != k
+              [key, @session.id_for(v) ]
+            else
+              [k, v]
+            end
+          end
         end
+
 
         def attribute_for(key)
           key
