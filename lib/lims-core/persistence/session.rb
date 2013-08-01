@@ -74,8 +74,11 @@ module Lims::Core
       # @param [Persistable] object the object to persist.
       # @return  the session, to allow for chaining
       def << (object)
-        @object_states << state_for(object)
+        manage_state(state_for(object))
         self
+      end
+      def manage_state(state)
+        @object_states << state
       end
 
       # save the object in real.
@@ -104,8 +107,8 @@ module Lims::Core
       # Called by Persistor to inform the session
       # about the loading of an object.
       # MUST be called by persistors creating Resources.
-      def on_object_load(object)
-        self << object
+      def on_object_load(state)
+        manage_state(state)
       end
 
       # Returns the id of an object if exists.
@@ -153,6 +156,7 @@ module Lims::Core
       # but some needs (to delete the appropriate children).
       # The real delete is made by calling the {#delete_in_real} method.
       def delete(object)
+        debugger unless managed?(object)
         raise UnmanagedObjectError, "can't delete #{object.inspect}" unless managed?(object)
         state = state_for(object)
         state.mark_for_deletion

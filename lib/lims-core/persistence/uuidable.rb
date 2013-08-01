@@ -63,7 +63,8 @@ module Lims::Core
       # Finds the uuid of an object if it exists
       def uuid_for(object)
         # We need to check if the object is managed and have alreday an id
-        raise RuntimeError, "Unmanaged object" unless managed?(object)
+        debugger unless managed?(object)
+        raise RuntimeError, "Unmanaged object, #{object.inspect}" unless managed?(object)
         id_for(object) && uuid_resource_for(object).andtap { |r|  r.uuid }
       end
 
