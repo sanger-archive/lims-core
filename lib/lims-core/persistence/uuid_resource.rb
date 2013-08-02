@@ -3,6 +3,7 @@ require 'common'
 require 'uuid'
 
 require 'lims-core/resource'
+require 'lims-core/persistence/resource_state'
 
 module Lims::Core
     module Persistence
@@ -11,10 +12,13 @@ module Lims::Core
       # and the model is the real class of the object (or at least something allowing to find it)
       class UuidResource
         include Resource
-        attribute :key, Fixnum, :writer => :private, :initializable => true
+        attribute :state, ResourceState, :writer => :private, :initializable => true
         attribute :model_class, Class, :writer => :private, :initializable => true
         attribute :uuid, String, :writer => :private, :initializable => true
 
+        def initialize(*args)
+          super(*args)
+        end
         class InvalidUuidError < RuntimeError
         end
 
@@ -25,10 +29,10 @@ module Lims::Core
         SplitRegexp = /#{Form.map { |n| "([0-9a-f]{#{n}})"}.join('')}/
 
 
-          def key
-            # Hack to get the id after the object being save
-            @key.is_a?(Proc) ? @key.call : @key
-          end
+        def key
+          @state.andtap { |state|  state.id }
+        end
+
         def self.valid?(uuid)
           !!(uuid =~ ValidationRegexp)
         end

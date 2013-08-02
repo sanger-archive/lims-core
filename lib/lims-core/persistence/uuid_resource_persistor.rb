@@ -10,8 +10,12 @@ module Lims::Core
       class UuidResourcePersistor < Persistence::Persistor
         Model = UuidResource
 
-        def parents_for_attributes(attributes)
+        def parents_for_attributesX(attributes)
           [@session.persistor_for(attributes[:model_class]).state_for_id(attributes[:key])]
+        end
+
+        def parents_for(resource)
+          resource.state ? [resource.state] : []
         end
 
         def filter_attributes_on_save(attributes)
@@ -19,6 +23,8 @@ module Lims::Core
             case k
             when :model_class then   [ k, @session.model_name_for(v) ]
             when :uuid then [ k, @session.pack_uuid(v) ]
+            when :state
+              [:key, v && v.id]
             else [k, v]
             end
           end
@@ -29,6 +35,7 @@ module Lims::Core
             case k
             when :model_class then [ k, @session.class_for(v) ]
             when :uuid then [ k, @session.unpack_uuid(v) ]
+            when :key then [:state, @session.persistor_for(attributes[:model_class]).state_for_id(attributes[:key])]
             else [k, v]
             end
           end

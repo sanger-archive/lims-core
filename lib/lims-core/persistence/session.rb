@@ -156,7 +156,6 @@ module Lims::Core
       # but some needs (to delete the appropriate children).
       # The real delete is made by calling the {#delete_in_real} method.
       def delete(object)
-        debugger unless managed?(object)
         raise UnmanagedObjectError, "can't delete #{object.inspect}" unless managed?(object)
         state = state_for(object)
         state.mark_for_deletion

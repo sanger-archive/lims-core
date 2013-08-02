@@ -21,6 +21,7 @@ module Lims::Core
         # @todo method for that.
         all_parents = StateList.new
         each do |state|
+          next unless state.resource
           state.parents!.andtap do |parents|
             all_parents.concat(parents)
           end
@@ -36,6 +37,7 @@ module Lims::Core
 
         all_children = StateList.new
         each do |state|
+          next unless state.resource
           state.body_saved!
           state.children!.andtap do |children|
             all_children.concat(children)
