@@ -220,7 +220,7 @@ module Lims::Core
         protected :get_or_create_single_modelX
 
         def dirty_key_for(resource)
-            if @session.dirty_attribute_strategy
+            if resource && @session.dirty_attribute_strategy
               @session.dirty_key_for(filter_attributes_on_save(resource.attributes))
             end
         end

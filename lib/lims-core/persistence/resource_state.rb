@@ -44,7 +44,7 @@ module Lims::Core
 
 
       def dirty?
-       @body_saved == false && dirty_key != @last_dirty_key
+       !@body_saved && dirty_key != @last_dirty_key
       end
 
       def id=(new_id)
@@ -81,6 +81,10 @@ module Lims::Core
 
       def inserted(new_id=nil)
         self.id = new_id
+        update_dirty_key
+      end
+
+      def updated
         update_dirty_key
       end
 
