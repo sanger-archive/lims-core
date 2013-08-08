@@ -75,8 +75,7 @@ module Lims::Core
         def for_each_in_slice(start, length)
           return if length == 0
           dataset.order(primary_key).limit(length, start).each do |h|
-            key = h.delete(primary_key)
-            yield(key, h)
+            yield(h)
           end
         end
 

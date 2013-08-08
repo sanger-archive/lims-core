@@ -293,12 +293,12 @@ module Lims::Core
         # @param [Fixnum] start (0 based)
         # @param [Fixnum] length
         # @return [Enumerable<Hash>]
-        def sliceM(start, length)
-          Enumerator.new do |yielder|
-            for_each_in_slice(start, length) do |id, att|
-              yielder << get_or_create_single_model(id, att)
+        def slice(start, length)
+          to_load = StateGroup.new(self, [])
+            for_each_in_slice(start, length) do |att|
+              to_load << new_from_attributes(att)
             end
-          end
+          to_load.load.map(&:resource)
         end
 
         # @todo doc
@@ -489,9 +489,8 @@ module Lims::Core
 
         def new_from_attributes(attributes)
           id = attributes.delete(primary_key)
-          model.new(filter_attributes_on_load(attributes)).tap do |resource|
-            state_for_id(id).resource = resource
-          end
+          resource = model.new(filter_attributes_on_load(attributes))
+          state_for_id(id).tap { |state| state.resource = resource }
         end
         public :new_from_attributes
 
