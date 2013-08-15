@@ -328,7 +328,6 @@ module Lims::Core
 
       end
         def bulk_retrieve(ids, *params)
-
           # create a list of states and load them
           states = StateGroup.new(self, ids.map do |id|
             @id_to_state[id]
@@ -489,7 +488,7 @@ module Lims::Core
 
         def new_from_attributes(attributes)
           id = attributes.delete(primary_key)
-          resource = model.new(filter_attributes_on_load(attributes))
+          resource = block_given? ? yield(attributes) :   model.new(filter_attributes_on_load(attributes))
           state_for_id(id).tap { |state| state.resource = resource }
         end
         public :new_from_attributes
