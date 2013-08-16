@@ -26,6 +26,14 @@ module Lims::Core
 
       end
 
+      def id
+        @id
+      end
+
+      def resource
+        @resource
+      end
+
       def dirty_key
         @persistor.dirty_key_for(resource)
       end
@@ -48,7 +56,7 @@ module Lims::Core
       end
 
       def id=(new_id)
-        return  if new_id == id
+        return  if new_id == @id
         raise RuntimeError, "modifing existing id not allowed. #{self}"   if @id
         @id = new_id
         # link the new id in th id_to_state map
@@ -57,7 +65,7 @@ module Lims::Core
       end
 
       def resource=(new_resource)
-        return if new_resource == resource
+        return if new_resource.equal? resource
         raise RuntimeError, "modifing existing resource not allowed. #{self}"   if @resource
         @resource = new_resource
         # link the new resource in th resource_to_state map

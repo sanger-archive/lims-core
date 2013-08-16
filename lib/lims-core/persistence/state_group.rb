@@ -23,7 +23,7 @@ module Lims::Core
         each do |state|
           next unless state.resource
           state.parents!.andtap do |parents|
-            all_parents.concat(parents)
+            all_parents.merge(parents)
           end
         end
         all_parents.save
@@ -40,7 +40,7 @@ module Lims::Core
           next unless state.resource
           state.body_saved!
           state.children!.andtap do |children|
-            all_children.concat(children)
+            all_children.merge(children)
           end
         end
         all_children.save
@@ -51,7 +51,7 @@ module Lims::Core
         all_parents = StateList.new
         attributes_list = []
         persistor.bulk_load(to_load, *params) do |att|
-            all_parents.concat(persistor.parents_for_attributes(att))
+            all_parents.merge(persistor.parents_for_attributes(att))
             attributes_list << att
           end
         all_parents.load(*params)

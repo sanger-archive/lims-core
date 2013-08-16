@@ -35,7 +35,7 @@ module Lims::Core
 
       # Raised if there is any duplicate in the identity maps
       class DuplicateError < RuntimeError 
-        def inialize(persistor, value)
+        def initialize(persistor, value)
           super("${value} already exists for persistor #{persistor.model}")
         end
       end
@@ -334,7 +334,7 @@ module Lims::Core
           end)
 
           states.load
-          return states.map { |state| state.resource }
+          return StateList.new(states.map { |state| state.resource })
 
           # we need to separate object which need to be loaded
           # from the one which are already in cache
