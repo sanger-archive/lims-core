@@ -36,7 +36,7 @@ module Lims::Core
       # Raised if there is any duplicate in the identity maps
       class DuplicateError < RuntimeError 
         def initialize(persistor, value)
-          super("${value} already exists for persistor #{persistor.model}")
+          super("#{value.inspect} already exists for persistor #{persistor.model}")
         end
       end
 
@@ -132,7 +132,7 @@ module Lims::Core
 
         def bind_state_to_resource(state)
           raise RuntimeError, 'Invalobject state' if state.persistor != self
-          raise DuplicateIdError, "#{self.class.name}:#{state.resource}" if @object_to_state.include?(state.resource)
+          raise DuplicateIdError.new(self, state.resource) if @object_to_state.include?(state.resource)
           @object_to_state[state.resource] = state
         end
 
