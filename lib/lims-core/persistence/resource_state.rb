@@ -26,12 +26,21 @@ module Lims::Core
 
       end
 
+      def to_delete
+        @to_delete || persistor.delete_resource?(resource)
+      end
+
+
       def id
         @id
       end
 
       def resource
         @resource
+      end
+
+      def persistor
+        @persistor
       end
 
       def dirty_key

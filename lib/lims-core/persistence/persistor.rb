@@ -377,6 +377,12 @@ module Lims::Core
         end
 
         
+        # Decides if a resource needs to be deleted 
+        # or not. Usefull for relation which doesn't exist anymore
+        def delete_resource?(resource)
+          false
+        end
+
 
 
         protected

@@ -147,7 +147,12 @@ module Lims::Core
         end
 
         def bulk_update_raw_attributes(attributes, *params)
-          attributes.each { |att| dataset.update(att) }
+          return dataset.on_duplicate_key_update.multi_insert(attributes) if dataset.respond_to? :on_duplicate_key_update
+          attributes.each { |att| dataset.filter(primary_key => att.delete(primary_key)).update(att) }
+        end
+
+        def bulk_delete_raw(ids, *params)
+          dataset.filter(primary_key => ids).delete
         end
 
         # Upate a raw object, i.e. the object attributes
@@ -155,7 +160,7 @@ module Lims::Core
         # @param [Resource] object the object 
         # @param [Fixnum] id the Id of the object
         # @return [Fixnum, nil] the id 
-        def update_raw(object, id, *params)
+        def update_rawX(object, id, *params)
           id.tap do
             attributes = filter_attributes_on_save(object.attributes, *params)
             return true if attributes == {}
