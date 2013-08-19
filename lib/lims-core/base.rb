@@ -32,7 +32,7 @@ module Lims::Core
     # regardless they are the same ruby object or not.
     # @param other
     # @return [Boolean]
-    def eql?(other)
+    def ==(other)
       self.attributes == (other.respond(:attributes) || {} )
     end
 
