@@ -77,6 +77,7 @@ module Lims::Core
         manage_state(state_for(object))
         self
       end
+
       def manage_state(state)
         @object_states << state
       end
@@ -104,12 +105,6 @@ module Lims::Core
         end
       end
 
-      # Called by Persistor to inform the session
-      # about the loading of an object.
-      # MUST be called by persistors creating Resources.
-      def on_object_load(state)
-        manage_state(state)
-      end
 
       # Returns the id of an object if exists.
       # @param [Resource, Id] object or id.

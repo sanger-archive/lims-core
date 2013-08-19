@@ -74,7 +74,7 @@ module Lims::Core
       end
 
       def resource=(new_resource)
-        return if new_resource.equal? resource
+        return if new_resource ==  resource
         raise RuntimeError, "modifing existing resource not allowed. #{self}"   if @resource
         @resource = new_resource
         # link the new resource in th resource_to_state map
@@ -90,6 +90,7 @@ module Lims::Core
       # @todo use state machine ?
       def save_action
         case
+        when @body_saved then nil
         when to_delete && !new? then :delete
         when new? then :insert
         when dirty? then :update
@@ -118,6 +119,7 @@ module Lims::Core
         @children_saved = true
       end
       def children
+        return [] if to_delete
         !@children_saved && @persistor.children_for(resource)
       end
       def children!

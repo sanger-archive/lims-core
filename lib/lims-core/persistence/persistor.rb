@@ -126,8 +126,15 @@ module Lims::Core
         def bind_state_to_id(state)
           raise RuntimeError, 'Invalid state' if state.persistor != self
           raise DuplicateIdError.new(self, state.id)if @id_to_state.include?(state.id)
-          @session.on_object_load(state)
+          on_object_load(state)
           @id_to_state[state.id] = state
+        end
+
+      # Called by Persistor to inform the session
+      # about the loading of an object.
+      # MUST be called by persistors creating Resources.
+        def on_object_load(state)
+          @session.manage_state(state)
         end
 
         def bind_state_to_resource(state)
@@ -233,7 +240,8 @@ module Lims::Core
           to_delete << state if  invalid_resource?(object)
         end
 
-        bulk_delete(to_delete)
+        to_delete.destroy
+
       end
 
         # create or get a list of objects.
@@ -318,6 +326,7 @@ module Lims::Core
         end
 
         def bulk_delete(states, *params)
+          debugger unless states.empty?
           # remove object from cache and delete theme
           states.each do |state|
             state.id.andtap { |id| @id_to_state.delete(id) }
@@ -381,19 +390,25 @@ module Lims::Core
           end
         end
 
-        def parents_for(resource)
-          @session.states_for(parents(resource))
-        end
-
-        def children_for(resource)
-          @session.states_for(children(resource))
+        # children_for
+        %w(parents children deletable_children).each do |m|
+          define_method "#{m}_for" do |resource|
+            @session.states_for(public_send(m, resource))
+          end
         end
 
         def parents(resource)
           resource.attributes.values.select  { |v| v.is_a? Resource }
         end
 
+        # @todo
         def children(resource)
+          []
+        end
+
+        # @todo
+        def deletable_children(resource)
+          []
         end
 
         

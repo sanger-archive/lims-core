@@ -69,8 +69,8 @@ module Lims::Core
       def ==(other)
         if other.is_a?(self.class) || self.is_a?(other.class)
           super(other)
-        else
-          true
+        else 
+          !other.nil?
         end && self.to_a == other.to_a
       end
 

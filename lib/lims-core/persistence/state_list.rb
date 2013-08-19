@@ -32,6 +32,12 @@ module Lims::Core
         end
       end
 
+      def destroy
+        groups.each do |group|
+          group.destroy
+        end
+      end
+
       # @todo return object according to initial order ?
       def load
         groups.each do |group|

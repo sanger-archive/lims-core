@@ -21,7 +21,7 @@ module Lims::Core
         # @todo method for that.
         all_parents = StateList.new
         each do |state|
-          next unless state.resource
+          next if state.resource == nil or state.to_delete
           state.parents!.andtap do |parents|
             all_parents.merge(parents)
           end
@@ -35,7 +35,7 @@ module Lims::Core
         group_by(&:save_action).tap do |groups|
           groups[:insert].andtap { |group| persistor.bulk_insert(group) }
           groups[:update].andtap { |group| persistor.bulk_update(group) }
-          groups[:delete].andtap { |group| persistor.bulk_delete(group) }
+          groups[:delete].andtap { |group|  StateGroup.new(persistor, group).destroy }
         end
 
         all_children = StateList.new
@@ -49,14 +49,34 @@ module Lims::Core
         all_children.save
       end
 
+      # @todo doc
+      # destroy because delete exists already for a Set
+      def destroy
+         # mark each item for deletion
+         # so the parents are not saved later.
+         # children needs to be deleted NOW to avoid
+         # foreign key constraint error.
+          each_with_object(StateList.new) do |state, list|
+            state.mark_for_deletion
+            list.merge(persistor.deletable_children_for(state.resource))
+          end.destroy
+
+          #
+
+        
+        persistor.bulk_delete(self)
+        each { |state| state.body_saved! }
+
+      end
+
       def load(*params)
         to_load = select(&:to_load?)
         all_parents = StateList.new
         attributes_list = []
         persistor.bulk_load(to_load, *params) do |att|
-            all_parents.merge(persistor.parents_for_attributes(att))
-            attributes_list << att
-          end
+          all_parents.merge(persistor.parents_for_attributes(att))
+          attributes_list << att
+        end
         all_parents.load(*params)
         attributes_list.map do |att|
           persistor.new_from_attributes(att)
