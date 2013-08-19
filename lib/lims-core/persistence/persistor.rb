@@ -125,7 +125,7 @@ module Lims::Core
 
         def bind_state_to_id(state)
           raise RuntimeError, 'Invalid state' if state.persistor != self
-          raise DuplicateIdError, "#{self.class.name}:#{state.id}" if @id_to_state.include?(state.id)
+          raise DuplicateIdError.new(self, state.id)if @id_to_state.include?(state.id)
           @session.on_object_load(state)
           @id_to_state[state.id] = state
         end
@@ -225,6 +225,17 @@ module Lims::Core
             end
         end
 
+      # Delete all invalid object loaded by a persistor.
+      # Typically invalid object are associatio which doesn't exist anymore
+      def purge_invalid_object
+        to_delete = StateGroup.new(self, [])
+        @object_to_state.each do |object, state|
+          to_delete << state if  invalid_resource?(object)
+        end
+
+        bulk_delete(to_delete)
+      end
+
         # create or get a list of objects.
         # Only load the ones which aren't in cache
         # @param [Array<Id>] ids list of ids to get
@@ -306,6 +317,15 @@ module Lims::Core
           states.map { |state| insert(state, *params) }
         end
 
+        def bulk_delete(states, *params)
+          # remove object from cache and delete theme
+          states.each do |state|
+            state.id.andtap { |id| @id_to_state.delete(id) }
+            state.resource.andtap { |object| @object_to_state.delete(object) }
+          end
+          bulk_delete_raw(states.map(&:id).compact, *params)
+        end
+
         # @todo doc
         %w(insert update delete retrieve).each do |method|
           class_eval %Q{
@@ -380,6 +400,13 @@ module Lims::Core
         # Decides if a resource needs to be deleted 
         # or not. Usefull for relation which doesn't exist anymore
         def delete_resource?(resource)
+          false
+        end
+
+        # if a resource is invalid and need to be deleted.
+        # For example an association proxy corresponding
+        # to an old relation.
+        def invalid_resource?(resource)
           false
         end
 

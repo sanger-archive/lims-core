@@ -26,13 +26,16 @@ module Lims::Core
             all_parents.merge(parents)
           end
         end
+
         all_parents.save
+
+        persistor.purge_invalid_object
 
         # split by status
         group_by(&:save_action).tap do |groups|
           groups[:insert].andtap { |group| persistor.bulk_insert(group) }
           groups[:update].andtap { |group| persistor.bulk_update(group) }
-          # persistor.bulk_delete(groups[:delete]) to do later
+          groups[:delete].andtap { |group| persistor.bulk_delete(group) }
         end
 
         all_children = StateList.new
