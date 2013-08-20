@@ -326,7 +326,6 @@ module Lims::Core
         end
 
         def bulk_delete(states, *params)
-          debugger unless states.empty?
           # remove object from cache and delete theme
           states.each do |state|
             state.id.andtap { |id| @id_to_state.delete(id) }

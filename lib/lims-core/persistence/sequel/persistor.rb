@@ -31,7 +31,7 @@ module Lims::Core
         end
 
         def initialize(session_or_persistor, dataset=nil, *args, &block )
-          id_to_object, object_to_id = [nil, nil]
+          id_to_state, object_to_state = [nil, nil]
           case session_or_persistor
           when Sequel::Persistor
             # We link the session and the identity map variables,
@@ -39,10 +39,10 @@ module Lims::Core
             # through the origial persistor.
             # Hack to get those private variables.
             session, identity_map_parameters  =  session_or_persistor.instance_eval do
-              [@session, [@id_to_object, @object_to_id]]
+              [@session, [@id_to_state, @object_to_state]]
             end
             super(session, *args, &block)
-            @id_to_object , @object_to_id = identity_map_parameters
+            @id_to_state , @object_to_state = identity_map_parameters
           else Session
             super(session_or_persistor, *args, &block)
           end
