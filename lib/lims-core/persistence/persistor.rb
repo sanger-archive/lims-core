@@ -547,6 +547,10 @@ module Lims::Core
         # @return [Hash]
         def filter_attributes_on_save(attributes)
           attributes.mash do |k, v|
+            if block_given?
+              result = yield(k,v)
+              next result if result
+            end
             key = attribute_for(k)
             if key && key != k
               [key, @session.id_for(v) ]

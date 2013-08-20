@@ -381,3 +381,12 @@ module Lims::Core
 end
 
 require 'lims-core/persistence/uuid_resource_persistor'
+      # @todo doc
+      def serialize(object)
+        object
+      end
+
+      def unserialize(object)
+        object
+      end
+
