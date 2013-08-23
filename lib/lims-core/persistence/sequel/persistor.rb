@@ -85,17 +85,21 @@ module Lims::Core
           :id
         end
 
+        def qualified_key
+          @qualified_key ||= ::Sequel.qualify(self.class.table_name, primary_key)
+        end
+
         def bulk_load(ids, *params, &block)
-          dataset.filter(primary_key => ids.map(&:id)).all(&block)
+          dataset.filter(qualified_key => ids.map(&:id)).all(&block)
         end
         public :bulk_load
 
         def load_raw_attributesX(id, raw_attributes=nil)
-          dataset[primary_key => id ]
+          dataset[qualified_key => id ]
         end
 
         def ids_for(criteria)
-          dataset.select(primary_key).filter(criteria).map { |h| h[primary_key] }
+          dataset.select(qualified_key).filter(criteria).map { |h| h[primary_key] }
 
         end
 
