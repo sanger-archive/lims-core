@@ -27,7 +27,7 @@ module Lims::Core
       end
 
       def to_delete
-        @to_delete || persistor.delete_resource?(resource)
+        @to_delete
       end
 
 
@@ -74,7 +74,11 @@ module Lims::Core
       end
 
       def resource=(new_resource)
-        return if new_resource ==  resource
+        # Hack
+        # for some emtpy resources , resource == nil returns true
+        # but nil == resource returns false
+        # which is why we test both.
+        return if resource == new_resource && new_resource == resource
         raise RuntimeError, "modifing existing resource not allowed. #{self}"   if @resource
         @resource = new_resource
         # link the new resource in th resource_to_state map

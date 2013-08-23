@@ -390,3 +390,13 @@ require 'lims-core/persistence/uuid_resource_persistor'
         object
       end
 
+        return block[self] if @in_session
+      # @todo doc
+      def serialize(object)
+        object
+      end
+
+      def unserialize(object)
+        object
+      end
+

@@ -334,6 +334,10 @@ module Lims::Core
           bulk_delete_raw(states.map(&:id).compact, *params)
         end
 
+        def bulk_delete_raw(states, *params)
+          raise NotImplementedError
+        end
+
         # @todo doc
         %w(insert update delete retrieve).each do |method|
           class_eval %Q{
@@ -408,13 +412,6 @@ module Lims::Core
         # @todo
         def deletable_children(resource)
           []
-        end
-
-        
-        # Decides if a resource needs to be deleted 
-        # or not. Usefull for relation which doesn't exist anymore
-        def delete_resource?(resource)
-          false
         end
 
         # if a resource is invalid and need to be deleted.
@@ -522,8 +519,14 @@ module Lims::Core
         # @param [Hash] attributes
         # @return [Hash]
         def filter_attributes_on_load(attributes)
-          attributes
+          if block_given?
+            attributes.mash do |k,v|
+              yield(k,v) || [k,v]
+            end
+          else attributes
+          end
         end
+
         def parents_for_attributes(attributes)
           []
         end
@@ -564,7 +567,6 @@ module Lims::Core
         def attribute_for(key)
           key
         end
-
       end
     end
   end
