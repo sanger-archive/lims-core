@@ -15,7 +15,7 @@ module Lims::Core
         end
 
         def parents_for(resource)
-          resource.state ? [resource.state] : []
+          resource.state && resource.state.resource ? [resource.state] : []
         end
 
         def filter_attributes_on_save(attributes)
