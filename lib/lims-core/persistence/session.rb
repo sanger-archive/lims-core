@@ -53,6 +53,7 @@ module Lims::Core
       # @yieldparam [Session] session the created session.
       # @return the value of the block
       def with_session(*params, &block)
+        return block[self] if @in_session
         begin
           @in_session = true
           to_return = block[self]
@@ -179,11 +180,21 @@ module Lims::Core
         self.class.unpack_uuid(uuid)
       end
 
+      # @todo doc
+      def serialize(object)
+        object
+      end
+
+      def unserialize(object)
+        object
+      end
+
       def dirty_key_for(object) 
+        return object.hash
         case @dirty_attribute_strategy
-        when Store::DIRTY_ATTRIBUTE_STRATEGY_DEEP_COPY then Marshal.dump(object)
-        when Store::DIRTY_ATTRIBUTE_STRATEGY_SHA1 then Digest::SHA1.hexdigest(Marshal.dump(object))
-        when Store::DIRTY_ATTRIBUTE_STRATEGY_MD5 then Digest::MD5.hexdigest(Marshal.dump(object))
+        when Store::DIRTY_ATTRIBUTE_STRATEGY_DEEP_COPY then Oj.dump(object)
+        when Store::DIRTY_ATTRIBUTE_STRATEGY_SHA1 then Digest::SHA1.hexdigest(object.to_json)
+        when Store::DIRTY_ATTRIBUTE_STRATEGY_MD5 then Digest::MD5.hexdigest(Oj.dump(object))
         when Store::DIRTY_ATTRIBUTE_STRATEGY_QUICK_HASH then object.hash
         end
       end
@@ -331,7 +342,7 @@ module Lims::Core
         end
         # not found, we need to create it
         # First we look for the base persistor to inherit from
-        #debugger unless superclass.respond_to? :persistor_class_for
+        debugger unless superclass.respond_to? :persistor_class_for
         raise "Can't find base persistor for #{model.inspect}"  unless superclass.respond_to? :persistor_class_for
          
         parent_persistor_class = superclass.persistor_class_for(model)
@@ -381,22 +392,3 @@ module Lims::Core
 end
 
 require 'lims-core/persistence/uuid_resource_persistor'
-      # @todo doc
-      def serialize(object)
-        object
-      end
-
-      def unserialize(object)
-        object
-      end
-
-        return block[self] if @in_session
-      # @todo doc
-      def serialize(object)
-        object
-      end
-
-      def unserialize(object)
-        object
-      end
-
