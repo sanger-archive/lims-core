@@ -26,6 +26,15 @@ module Lims::Core
         super(*args, options - initial_options, &block).tap {
         }
       end
+
+      # Like attributes but allow class to define a version
+      # without side effet.
+      # For example attribute on a UuidResource will generate an uuid.
+      # This is the method called by dirty_key_for
+      def attributes_for_dirty
+        attributes
+      end
+
     end
     # Compare 2 resources.
     # They are == if they have the same values (attributes),

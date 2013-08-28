@@ -228,7 +228,7 @@ module Lims::Core
 
         def dirty_key_for(resource)
             if resource && @session.dirty_attribute_strategy
-              @session.dirty_key_for(filter_attributes_on_save(resource.attributes))
+              @session.dirty_key_for(filter_attributes_on_save(resource.attributes_for_dirty))
             end
         end
 

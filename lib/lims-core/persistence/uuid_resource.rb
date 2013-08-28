@@ -19,6 +19,23 @@ module Lims::Core
         def initialize(*args)
           super(*args)
         end
+
+        # for speed
+        def attributes
+          {state: state,
+            model_class: model_class,
+            uuid: uuid
+          }
+        end
+
+        def attributes_for_dirty
+          {state: state,
+            model_class: model_class,
+          }.tap do |att|
+            att[:uuid] = @uuid if @uuid
+          end
+        end
+        
         class InvalidUuidError < RuntimeError
         end
 
