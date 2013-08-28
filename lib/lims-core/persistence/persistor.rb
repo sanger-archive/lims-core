@@ -326,10 +326,11 @@ module Lims::Core
         end
 
         def bulk_delete(states, *params)
-          # remove object from cache and delete theme
+          # delete theme but leave them in cache
+          # in case they need to be displayed.
           states.each do |state|
             state.id.andtap { |id| @id_to_state.delete(id) }
-            state.resource.andtap { |object| @object_to_state.delete(object) }
+            state.resource #.andtap { |object| @object_to_state.delete(object) }
           end
           bulk_delete_raw(states.map(&:id).compact, *params)
         end
