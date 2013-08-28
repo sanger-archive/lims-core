@@ -146,7 +146,7 @@ module Lims::Core
           last = dataset.max(primary_key) || 0
           states.inject(last) { |l, s|
             s.id = l+1 }
-          attributes = states.map { |state| filter_attributes_on_save(state.resource.attributes.merge(primary_key => state.id), *params) }
+          attributes = states.map { |state| filter_attributes_on_save(state.resource.attributes, *params).merge(primary_key => state.id) }
           dataset.multi_insert(attributes)
         end
 

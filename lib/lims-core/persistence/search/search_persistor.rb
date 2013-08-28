@@ -31,7 +31,14 @@ module Lims::Core
       # already taken by the main Search class.
       class SearchPersistor < Persistence::Persistor
         Model = Persistence::Search
+        # Override default one, because filter are serialized
+        # and even though they are a Resource they are not counted as parents
+        def parents(resource)
+          []
+        end
       end
+
+
     end
   end
 end
