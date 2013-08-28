@@ -142,10 +142,8 @@ module Lims::Core
 
         # @todo
         def bulk_insert_multi(states, *params)
-          # get last id
-          last = dataset.max(primary_key) || 0
-          states.inject(last) { |l, s|
-            s.id = l+1 }
+          free_ids = get_next_available_ids(states.size)
+          states.inject(0) { |i,s| s.id = free_ids[i]; i+1 }
           attributes = states.map { |state| filter_attributes_on_save(state.resource.attributes.merge(primary_key => state.id), *params) }
           dataset.multi_insert(attributes)
         end
@@ -180,15 +178,27 @@ module Lims::Core
           end
         end
 
-        # returns the next available id (last one if more than one are
-          # required.
-          # The current implementation just use the last insert id.
-          # But need to be changed to something more robust.
-          def get_next_id(n=1)
-            (dataset.max(primary_key) || 0)+n
+        # @param [Integer] quantity
+        # @return [Array<Integer>]
+        # The for_update method sends a query to the database telling it to lock the row of the table so 
+        # that other connections cannot modify that row. The lock is released when the transaction
+        # completes. If another connection attempts to modify the locked row, it blocks until the 
+        # connection that locked the row completes the transaction.
+        def get_next_available_ids(quantity = 1)
+          primary_keys_t = dataset[:primary_keys] 
+          primary_keys_t.db.transaction do
+            current_key_row = primary_keys_t.for_update.first(:table_name => table_name.to_s) 
+            raise ArgumentError, "No record found for the table '#{table_name.to_s}' in primary_keys table." unless current_key_row
+            current_key = current_key_row[:current_key]
+
+            new_current_key = current_key + quantity
+            primary_keys_t.where(:table_name => table_name.to_s).update(:current_key => new_current_key)
+
+            (current_key+1..new_current_key).to_a
           end
         end
       end
     end
   end
-  require 'lims-core/persistence/sequel/filters'
+end
+require 'lims-core/persistence/sequel/filters'
