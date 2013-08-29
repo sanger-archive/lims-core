@@ -57,14 +57,16 @@ module Lims::Core
          # children needs to be deleted NOW to avoid
          # foreign key constraint error.
           each_with_object(StateList.new) do |state, list|
+            # don't delete children if they've been deleted already
+            next if state.children_saved?
             state.mark_for_deletion
             list.merge(persistor.deletable_children_for(state.resource))
+            state.children_saved!
           end.destroy
 
           #
-
         
-        persistor.bulk_delete(self)
+        persistor.bulk_delete(self.select { |s| !s.body_saved? })
         each { |state| state.body_saved! }
 
       end

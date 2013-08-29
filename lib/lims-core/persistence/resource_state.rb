@@ -16,6 +16,14 @@ module Lims::Core
       attribute :persistor, Persistor, :writer => :private, :required => true
       attribute :to_delete, Object, :writer => :private
 
+      def children_saved?
+        @children_saved
+      end
+
+      def body_saved?
+        @body_saved
+      end
+
       def initialize(resource, persistor, id=nil)
         @resource=resource
         @persistor=persistor
