@@ -52,6 +52,7 @@ module Lims::Core
       # @todo doc
       # destroy because delete exists already for a Set
       def destroy
+        return self if size == 0
          # mark each item for deletion
          # so the parents are not saved later.
          # children needs to be deleted NOW to avoid

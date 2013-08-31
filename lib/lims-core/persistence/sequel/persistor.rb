@@ -94,10 +94,6 @@ module Lims::Core
         end
         public :bulk_load
 
-        def load_raw_attributesX(id, raw_attributes=nil)
-          dataset[qualified_key => id ]
-        end
-
         def ids_for(criteria)
           dataset.select(qualified_key).filter(criteria).map { |h| h[primary_key] }
 
@@ -157,21 +153,6 @@ module Lims::Core
 
         def bulk_delete_raw(ids, *params)
           dataset.filter(primary_key => ids).delete
-        end
-
-        # Upate a raw object, i.e. the object attributes
-        # excluding any associations.
-        # @param [Resource] object the object 
-        # @param [Fixnum] id the Id of the object
-        # @return [Fixnum, nil] the id 
-        def update_rawX(object, id, *params)
-          id.tap do
-            attributes = filter_attributes_on_save(object.attributes, *params)
-            return true if attributes == {}
-            statement_name = :"#{table_name}__update_raw"
-            dataset.filter(primary_key => id).prepare(:update, statement_name, attributes.keys.mash { |k| [k, :"$#{k}"] })
-            @session.database.call(statement_name, attributes)
-          end
         end
 
         def delete_raw(objec, id, *params)
