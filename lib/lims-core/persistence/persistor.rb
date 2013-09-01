@@ -31,6 +31,21 @@ module Lims::Core
     # If a base peristor for exists for a class but there is no
     # Each instance can get an identity map, and or parameter
     # specific to a session/thread.
+    # * Methods relative to store  are
+    # - insert : a new object to the store
+    # - delete : remove an object fromt the store
+    # - update : modify an existing object from the store.
+    # - retrieve : get an object from the store.
+    # - bulk_<method> vs <method> refers to method acting on a list of states 
+    # instead of an individual object. Althoug only one version needs to be implemted
+    # , the bulk version is prefered for performance reason.
+    # - raw_<method_ refers when exists to the physical action done to the store
+    # without any side effect on the Session or Persistor. They should not normally be called.
+    # * Methods relative to parents/children
+    # - parents : resources needed to be saved BEFORE the resource itself.
+    # - children : resources needed to be save AFTER the resource itself.
+    # - deletable_children : resources which needs to be deleted BEFORE the resource itself.
+    # - deletable_parent : resources which needs to be deleted AFTER the resource itself.
     class Persistor
 
       # Raised if there is any duplicate in the identity maps
@@ -104,25 +119,40 @@ module Lims::Core
           end
         end
 
-        # @todo
+        # Get the id from an object from the cache.
+        # @param [Resource] object object to find the id for.
+        # @return [Id, Nil]
         def id_for(object)
           state_for(object).andtap { |state| state.id }
         end
         
+        # Get the object from a given id.
+        # @param [Fixnum] id
+        # @return [Resourec, Nil]
         def object_for(id)
           @id_to_state[id].andtap(&:resource)
         end
 
 
-        # @todo
+        # Returns the state proxy of an object.
+        # Creates it if needed.
+        # @param [Resource] object
+        # @return [ResourceState]
         def state_for(object)
           @object_to_state[object]
         end
+
+        # Returns the state proxy of an object fromt its id (in cache).
+        # Creates the state if needed.
+        # @param [Id] object
+        # @return [ResourceState]
         def state_for_id(id)
             @id_to_state[id]
         end
-        
 
+        # Updates the cache so id_to_state
+        # reflects state.id
+        # @param [ResourceState]
         def bind_state_to_id(state)
           raise RuntimeError, 'Invalid state' if state.persistor != self
           raise DuplicateIdError.new(self, state.id)if @id_to_state.include?(state.id)
@@ -130,20 +160,25 @@ module Lims::Core
           @id_to_state[state.id] = state
         end
 
-      # Called by Persistor to inform the session
-      # about the loading of an object.
-      # MUST be called by persistors creating Resources.
+        # Called by Persistor to inform the session
+        # about the loading of an object.
+        # MUST be called by persistors creating Resources.
+        # @param [ResourceState]
         def on_object_load(state)
           @session.manage_state(state)
         end
 
+        # Update the cache 
         def bind_state_to_resource(state)
           raise RuntimeError, 'Invalobject state' if state.persistor != self
           raise DuplicateIdError.new(self, state.resource) if @object_to_state.include?(state.resource)
           @object_to_state[state.resource] = state
         end
 
-        # @todo
+        # Creates a new object from a Hash and associate it to its id
+        # @param [Id] id id of the new object
+        # @param [Hash] attributes of the new object.
+        # @return [Resource]
         def new_object(id, attributes)
           id = attributes.delete(primary_key)
           model.new(filter_attributes_on_load(attributes)).tap do |resource|
@@ -152,6 +187,11 @@ module Lims::Core
           end
         end
 
+        # Computes "dirty_key" of an object.
+        # The dirty key is used to decide if an object
+        # has been modified or not.
+        # @param [ Resource]
+        # @return [Object]
         def dirty_key_for(resource)
             if resource && @session.dirty_attribute_strategy
               @session.dirty_key_for(filter_attributes_on_save(resource.attributes_for_dirty))
@@ -159,7 +199,7 @@ module Lims::Core
         end
 
       # Delete all invalid object loaded by a persistor.
-      # Typically invalid object are associatio which doesn't exist anymore
+      # Typically invalid object are association which doesn't exist anymore
       def purge_invalid_object
         to_delete = StateGroup.new(self, [])
         @object_to_state.each do |object, state|
@@ -167,19 +207,7 @@ module Lims::Core
         end
 
         to_delete.destroy
-
       end
-
-        # create or get a list of objects.
-        # Only load the ones which aren't in cache
-        # @param [Array<Id>] ids list of ids to get
-        # @param [Array<Hash>] list of raw_attributes (@see get_or_create_single_model)
-        # @return [Array<Resource>]
-        # @todo bulk load if needed
-        def get_or_create_multi_modelX(ids, raw_attributes_list=[])
-          ids.zip(raw_attributes_list).map { |i, r| get_or_create_single_model(i, r) }
-        end
-        protected :get_or_create_multi_modelX
 
         # Create or get one or object matching the criteria
         # @param [Hash] criteria, map of (attributes, value) to match
@@ -204,15 +232,6 @@ module Lims::Core
         # @return [Array<Id>] 
         def ids_for(criteria)
           raise NotImplementedError
-        end
-
-
-        def load_associated_elementsX()
-        end
-
-        def load_aggregated_elementsX(id, &block)
-          load_raw_associations(id).each do |element_id|
-          end
         end
 
         # @abstract
@@ -246,11 +265,17 @@ module Lims::Core
           to_load.load.map(&:resource)
         end
 
-        # @todo doc
+        # Inserts objects in the underlying store AND manages them.
+        # This method only care about the objects themselves not about
+        # theirs parents or children.
+        # The physical insert in the store must be  specified for each store.
         def bulk_insert(states, *params)
           states.map { |state| insert(state, *params) }
         end
 
+        # Remove object form the underlying store and Manages them.
+        # This method only care about the objects themselves not about
+        # theirs parents or children.
         def bulk_delete(states, *params)
           # delete theme but leave them in cache
           # in case they need to be displayed.
@@ -261,31 +286,41 @@ module Lims::Core
           bulk_delete_raw(states.map(&:id).compact, *params)
         end
 
+        # @abstract
+        # Physically remove objects from a store.
         def bulk_delete_raw(states, *params)
           raise NotImplementedError
         end
 
-        # @todo doc
-        %w(insert update delete retrieve).each do |method|
+        %w(insert update delete_raw).each do |method|
           class_eval %Q{
-        def #{method}(state, *params)
           #bulk_#{method} and #{method} can be both implemented from each other.
           #raise a NotImplementedError is none of them have been implemented
+        def #{method}(param, *params)
           raise NotImplementedError if @__simple_#{method}
           @__simple_#{method} = true
-          bulk_#{method}([state], *params).andtap do |results|
+          bulk_#{method}([param], *params).andtap do |results|
             @__simple_#{method} = false
             results.first
           end
         end
       }
       end
+
+      # Retrieves an object from it's id.
+      # Doesn't load it if it's been alreday loaded.
+      # @param [Id] id
+      # @return [Object, nil]
       def retrieve(id, *params)
         object_for(id).andtap { |o| return o }
         objects = bulk_retrieve([id], *params)
         return objects.first if objects && objects.size == 1
 
       end
+
+      # Retreives a list of objects .
+      # @param[Array<Id>] ids
+      # @return [Array<Object]
         def bulk_retrieve(ids, *params)
           # create a list of states and load them
           states = StateGroup.new(self, ids.map do |id|
@@ -310,6 +345,9 @@ module Lims::Core
           ids.map { |id| object_for(id) }
         end
 
+        # Updates the store and manages object.
+        # Doesn't care of children or parents.
+        # @param [Array<ResourceState] states
         def bulk_update(states, *params)
           attributes = states.map do |state|
             filter_attributes_on_save(state.resource.attributes).merge(primary_key => state.id)
@@ -320,24 +358,36 @@ module Lims::Core
           end
         end
 
-        # children_for
-        %w(parents children deletable_children).each do |m|
+        %w(parents children deletable_children deletable_parents).each do |m|
+          # @method #{m}_for
+          # @param [Resource]
+          # @return [Array<ResourceState>]
           define_method "#{m}_for" do |resource|
             @session.states_for(public_send(m, resource))
           end
         end
 
+        # List of parents of object, i.e. object which need to be saved BEFORE it.
+        # Default implementation get all Resource attributes.
+        # @param [Resource]  resource
+        # @return [Array<Resource>]
         def parents(resource)
           resource.attributes.values.select  { |v| v.is_a? Resource }
         end
 
-        # @todo
+        # List of children , i.e, object which need to be saved AFTER it.
+        # @param [Resource]  resource
+        # @return [Array<Resource>]
         def children(resource)
           []
         end
 
         # @todo
         def deletable_children(resource)
+          []
+        end
+
+        def deletable_parents(resource)
           []
         end
 

@@ -65,9 +65,14 @@ module Lims::Core
             state.children_saved!
           end.destroy
 
-          #
         
         persistor.bulk_delete(self.select { |s| !s.body_saved? })
+
+          each_with_object(StateList.new) do |state, list|
+            next if state.parents_saved?
+            list.merge(persistor.deletable_parents_for(state.resource))
+            state.parents_saved!
+          end.destroy
         each { |state| state.body_saved! }
 
       end

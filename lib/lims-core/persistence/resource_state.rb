@@ -130,6 +130,10 @@ module Lims::Core
       def children_saved!
         @children_saved = true
       end
+
+      def parents_saved?
+        @parents_saved
+      end
       def children
         return [] if to_delete
         !@children_saved && @persistor.children_for(resource)
