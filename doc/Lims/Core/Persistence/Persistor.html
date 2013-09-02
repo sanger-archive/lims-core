@@ -83,15 +83,11 @@
     
   
     
-      <dt class="r2">Includes:</dt>
-      <dd class="r2"><span class='object_link'><a href="IdentityMap.html" title="Lims::Core::Persistence::IdentityMap (module)">IdentityMap</a></span></dd>
-      
-    
   
   
   
-    <dt class="r1 last">Defined in:</dt>
-    <dd class="r1 last">lib/lims-core/persistence/persistor.rb</dd>
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/lims-core/persistence/persistor.rb</dd>
   
 </dl>
 <div class="clear"></div>
@@ -129,7 +125,29 @@ form the session. However, if NO_AUTO_REGISTRATION is not enabled
 persistors will register themselves. In that case, they will need to be
 defined in class to persist see <span class='object_link'><a href="#register_model-class_method" title="Lims::Core::Persistence::Persistor.register_model (method)">register_model</a></span>. If a base peristor for
 exists for a class but there is no Each instance can get an identity map,
-and or parameter specific to a session/thread.</p>
+and or parameter specific to a session/thread. Methods relative to store 
+are</p>
+<ul><li>
+<p>insert : a new object to the store</p>
+</li><li>
+<p>delete : remove an object fromt the store</p>
+</li><li>
+<p>update : modify an existing object from the store.</p>
+</li><li>
+<p>retrieve : get an object from the store.</p>
+</li><li>
+<p>bulk_&lt;method&gt; vs &lt;method&gt; refers to method acting on a list of
+states</p>
+</li></ul>
+
+<p>instead of an individual object. Althoug only one version needs to be
+implemted , the bulk version is prefered for performance reason.</p>
+<ul><li>
+<p>raw_&lt;method_ refers when exists to the physical action done to the store</p>
+</li></ul>
+
+<p>without any side effect on the Session or Persistor. They should not
+normally be called.</p>
 
 
   </div>
@@ -139,19 +157,22 @@ and or parameter specific to a session/thread.</p>
 
 </div><div id="subclasses">
   <h2>Direct Known Subclasses</h2>
-  <p class="children"><span class='object_link'><a href="../../../Array/ArrayLoggerPersistor.html" title="Array::ArrayLoggerPersistor (class)">Array::ArrayLoggerPersistor</a></span>, <span class='object_link'><a href="Search/SearchPersistor.html" title="Lims::Core::Persistence::Search::SearchPersistor (class)">Search::SearchPersistor</a></span>, <span class='object_link'><a href="UuidResource/UuidResourcePersistor.html" title="Lims::Core::Persistence::UuidResource::UuidResourcePersistor (class)">UuidResource::UuidResourcePersistor</a></span>, <span class='object_link'><a href="../../../SessionSpec/Model/ModelPersistor.html" title="SessionSpec::Model::ModelPersistor (class)">SessionSpec::Model::ModelPersistor</a></span></p>
+  <p class="children"><span class='object_link'><a href="../../../Array/ArrayLoggerPersistor.html" title="Array::ArrayLoggerPersistor (class)">Array::ArrayLoggerPersistor</a></span>, <span class='object_link'><a href="Search/SearchPersistor.html" title="Lims::Core::Persistence::Search::SearchPersistor (class)">Search::SearchPersistor</a></span>, <span class='object_link'><a href="Sequel/ForTest/Name/NamePersitor.html" title="Lims::Core::Persistence::Sequel::ForTest::Name::NamePersitor (class)">Sequel::ForTest::Name::NamePersitor</a></span>, <span class='object_link'><a href="UuidResource/UuidResourcePersistor.html" title="Lims::Core::Persistence::UuidResource::UuidResourcePersistor (class)">UuidResource::UuidResourcePersistor</a></span>, <span class='object_link'><a href="../../../SessionSpec/Model/ModelPersistor.html" title="SessionSpec::Model::ModelPersistor (class)">SessionSpec::Model::ModelPersistor</a></span></p>
 </div>
+<h2>Defined Under Namespace</h2>
+<p class="children">
+   
+    
+   
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Persistor/DuplicateError.html" title="Lims::Core::Persistence::Persistor::DuplicateError (class)">DuplicateError</a></span>, <span class='object_link'><a href="Persistor/DuplicateIdError.html" title="Lims::Core::Persistence::Persistor::DuplicateIdError (class)">DuplicateIdError</a></span>, <span class='object_link'><a href="Persistor/DuplicateObjectError.html" title="Lims::Core::Persistence::Persistor::DuplicateObjectError (class)">DuplicateObjectError</a></span>
+    
+  
+</p>
 
 
-  
-  
-  
-  
 
 
-  
-  
-  
 
   
     <h2>
@@ -242,6 +263,188 @@ and or parameter specific to a session/thread.</p>
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#bind_state_to_id-instance_method" title="#bind_state_to_id (instance method)">- (Object) <strong>bind_state_to_id</strong>(state) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Updates the cache so id_to_state reflects state.id.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bind_state_to_resource-instance_method" title="#bind_state_to_resource (instance method)">- (Object) <strong>bind_state_to_resource</strong>(state) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Update the cache.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bulk_delete-instance_method" title="#bulk_delete (instance method)">- (Object) <strong>bulk_delete</strong>(states, *params) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Remove object form the underlying store and Manages them.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bulk_delete_raw-instance_method" title="#bulk_delete_raw (instance method)">- (Object) <strong>bulk_delete_raw</strong>(states, *params) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="abstract note title">Abstract</span>
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Physically remove objects from a store.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bulk_insert-instance_method" title="#bulk_insert (instance method)">- (Object) <strong>bulk_insert</strong>(states, *params) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Inserts objects in the underlying store AND manages them.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bulk_retrieve-instance_method" title="#bulk_retrieve (instance method)">- (Array&lt;Object]) <strong>bulk_retrieve</strong>(ids, *params) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Retreives a list of objects .</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bulk_update-instance_method" title="#bulk_update (instance method)">- (Object) <strong>bulk_update</strong>(states, *params) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Updates the store and manages object.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#children-instance_method" title="#children (instance method)">- (Object) <strong>children</strong>(resource) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#count-instance_method" title="#count (instance method)">- (Fixnum) <strong>count</strong> </a>
     
 
@@ -265,7 +468,28 @@ and or parameter specific to a session/thread.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#delete-instance_method" title="#delete (instance method)">- (Fixnum<sup>?</sup>) <strong>delete</strong>(object, *params) </a>
+      <a href="#deletable_children-instance_method" title="#deletable_children (instance method)">- (Object) <strong>deletable_children</strong>(resource) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#dirty_key_for-instance_method" title="#dirty_key_for (instance method)">- (Object) <strong>dirty_key_for</strong>(resource) </a>
     
 
     
@@ -279,7 +503,7 @@ and or parameter specific to a session/thread.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>deletes an object and returns its id or nil if failure.</p>
+<p>Computes "dirty_key" of an object.</p>
 </div></span>
   
 </li>
@@ -303,6 +527,29 @@ and or parameter specific to a session/thread.</p>
   
     <span class="summary_desc"><div class='inline'>
 <p>Load a slice.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#id_for-instance_method" title="#id_for (instance method)">- (Id, Nil) <strong>id_for</strong>(object) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Get the id from an object from the cache.</p>
 </div></span>
   
 </li>
@@ -359,7 +606,7 @@ and or parameter specific to a session/thread.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#load_aggregated_elements-instance_method" title="#load_aggregated_elements (instance method)">- (Object) <strong>load_aggregated_elements</strong>(id, &amp;block) </a>
+      <a href="#invalid_resource%3F-instance_method" title="#invalid_resource? (instance method)">- (Boolean) <strong>invalid_resource?</strong>(resource) </a>
     
 
     
@@ -372,7 +619,9 @@ and or parameter specific to a session/thread.</p>
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>if a resource is invalid and need to be deleted.</p>
+</div></span>
   
 </li>
 
@@ -380,7 +629,7 @@ and or parameter specific to a session/thread.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#load_associated_elements-instance_method" title="#load_associated_elements (instance method)">- (Object) <strong>load_associated_elements</strong> </a>
+      <a href="#load_children-instance_method" title="#load_children (instance method)">- (Object) <strong>load_children</strong>(states, *params) </a>
     
 
     
@@ -394,29 +643,6 @@ and or parameter specific to a session/thread.</p>
 
   
     <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="private ">
-  <span class="summary_signature">
-    
-      <a href="#load_single_model-instance_method" title="#load_single_model (instance method)">- (Resource) <strong>load_single_model</strong>(id, raw_attributes = nil) </a>
-    
-
-    
-  </span>
-  
-  
-  <span class="note title private">private</span>
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>Load a model object (and its children) from its database id.</p>
-</div></span>
   
 </li>
 
@@ -447,7 +673,28 @@ and or parameter specific to a session/thread.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#save-instance_method" title="#save (instance method)">- (Fixnum<sup>?</sup>) <strong>save</strong>(object, *params) </a>
+      <a href="#new_from_attributes-instance_method" title="#new_from_attributes (instance method)">- (Object) <strong>new_from_attributes</strong>(attributes) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#new_object-instance_method" title="#new_object (instance method)">- (Resource) <strong>new_object</strong>(id, attributes) </a>
     
 
     
@@ -461,7 +708,7 @@ and or parameter specific to a session/thread.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>save an object and return is id or nil if failure.</p>
+<p>Creates a new object from a Hash and associate it to its id.</p>
 </div></span>
   
 </li>
@@ -470,7 +717,7 @@ and or parameter specific to a session/thread.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#save_as_aggregation-instance_method" title="#save_as_aggregation (instance method)">- (Object) <strong>save_as_aggregation</strong>(source_id, target, *params) </a>
+      <a href="#object_for-instance_method" title="#object_for (instance method)">- (Resourec, Nil) <strong>object_for</strong>(id) </a>
     
 
     
@@ -484,8 +731,7 @@ and or parameter specific to a session/thread.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>save an aggregation Aggregation doesn't have necessarily and id therefore
-we don't use the indentity map.</p>
+<p>Get the object from a given id.</p>
 </div></span>
   
 </li>
@@ -494,7 +740,7 @@ we don't use the indentity map.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#save_as_association-instance_method" title="#save_as_association (instance method)">- (Object) <strong>save_as_association</strong>(source, target, *params) </a>
+      <a href="#on_object_load-instance_method" title="#on_object_load (instance method)">- (Object) <strong>on_object_load</strong>(state) </a>
     
 
     
@@ -508,8 +754,95 @@ we don't use the indentity map.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>save an association Association doesn't have necessarily and id therefore
-we don't use the indentity map.</p>
+<p>Called by Persistor to inform the session about the loading of an object.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#parents-instance_method" title="#parents (instance method)">- (Object) <strong>parents</strong>(resource) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#parents_for_attributes-instance_method" title="#parents_for_attributes (instance method)">- (Object) <strong>parents_for_attributes</strong>(attributes) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#purge_invalid_object-instance_method" title="#purge_invalid_object (instance method)">- (Object) <strong>purge_invalid_object</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Delete all invalid object loaded by a persistor.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#retrieve-instance_method" title="#retrieve (instance method)">- (Object<sup>?</sup>) <strong>retrieve</strong>(id, *params) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Retrieves an object from it's id.</p>
 </div></span>
   
 </li>
@@ -538,19 +871,55 @@ we don't use the indentity map.</p>
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#state_for-instance_method" title="#state_for (instance method)">- (ResourceState) <strong>state_for</strong>(object) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the state proxy of an object.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#state_for_id-instance_method" title="#state_for_id (instance method)">- (ResourceState) <strong>state_for_id</strong>(id) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the state proxy of an object fromt its id (in cache).</p>
+</div></span>
+  
+</li>
+
+      
     </ul>
   
 
-
-  
-  
-  
-  
-  
-  
-  
-  <h3 class="inherited">Methods included from <span class='object_link'><a href="IdentityMap.html" title="Lims::Core::Persistence::IdentityMap (module)">IdentityMap</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="IdentityMap.html#id_for-instance_method" title="Lims::Core::Persistence::IdentityMap#id_for (method)">#id_for</a></span>, <span class='object_link'><a href="IdentityMap.html#map_id_object-instance_method" title="Lims::Core::Persistence::IdentityMap#map_id_object (method)">#map_id_object</a></span>, <span class='object_link'><a href="IdentityMap.html#object_for-instance_method" title="Lims::Core::Persistence::IdentityMap#object_for (method)">#object_for</a></span></p>
 <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
   
@@ -578,18 +947,20 @@ we don't use the indentity map.</p>
       <pre class="lines">
 
 
-65
-66
-67
-68
-69</pre>
+87
+88
+89
+90
+91
+92</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 65</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 87</span>
 
 <span class='kw'>def</span> <span class='id initialize'>initialize</span> <span class='lparen'>(</span><span class='id session'>session</span><span class='comma'>,</span> <span class='op'>*</span><span class='id args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id block'>block</span><span class='rparen'>)</span>
   <span class='ivar'>@session</span> <span class='op'>=</span> <span class='id session'>session</span>
-  <span class='ivar'>@id_to_dirty_key</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='ivar'>@id_to_state</span> <span class='op'>=</span> <span class='const'>Hash</span><span class='period'>.</span><span class='id new'>new</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id h'>h</span><span class='comma'>,</span><span class='id k'>k</span><span class='op'>|</span> <span class='id h'>h</span><span class='lbracket'>[</span><span class='id k'>k</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>ResourceState</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='kw'>self</span><span class='comma'>,</span> <span class='id k'>k</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='ivar'>@object_to_state</span> <span class='op'>=</span> <span class='const'>Hash</span><span class='period'>.</span><span class='id new'>new</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id h'>h</span><span class='comma'>,</span><span class='id k'>k</span><span class='op'>|</span> <span class='id h'>h</span><span class='lbracket'>[</span><span class='id k'>k</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>ResourceState</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='id k'>k</span><span class='comma'>,</span> <span class='kw'>self</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
   <span class='kw'>super</span><span class='lparen'>(</span><span class='op'>*</span><span class='id args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id block'>block</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -630,12 +1001,12 @@ Persistor::register_model.</p>
       <pre class="lines">
 
 
-42
-43
-44</pre>
+64
+65
+66</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 64</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id inherited'>inherited</span><span class='lparen'>(</span><span class='id subclass'>subclass</span><span class='rparen'>)</span>
   <span class='id register_model'>register_model</span><span class='lparen'>(</span><span class='id subclass'>subclass</span><span class='rparen'>)</span>
@@ -671,7 +1042,7 @@ SESSION_NAME is specified on the model : SESSION_NAME</p>
         <span class='name'>subclass</span>
       
       
-        <span class='type'>(<tt><span class='object_link'><a href="IdentityMap/Class.html" title="Lims::Core::Persistence::IdentityMap::Class (class)">Class</a></span></tt>)</span>
+        <span class='type'>(<tt>Class</tt>)</span>
       
       
       
@@ -686,22 +1057,22 @@ SESSION_NAME is specified on the model : SESSION_NAME</p>
       <pre class="lines">
 
 
-51
-52
-53
-54
-55
-56
-57
-58
-59
-60
-61
-62
-63</pre>
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 73</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id register_model'>register_model</span><span class='lparen'>(</span><span class='id subclass'>subclass</span><span class='rparen'>)</span>
 <span class='id model'>model</span> <span class='op'>=</span> <span class='id subclass'>subclass</span><span class='period'>.</span><span class='id parent_scope'>parent_scope</span>
@@ -800,21 +1171,512 @@ depending of the parameter. Note that loaded object are automatically
       <pre class="lines">
 
 
-86
-87
-88
-89
-90
-91</pre>
+109
+110
+111
+112
+113
+114
+115</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 86</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 109</span>
 
 <span class='kw'>def</span> <span class='op'>[]</span><span class='lparen'>(</span><span class='id id'>id</span><span class='rparen'>)</span>
   <span class='kw'>case</span> <span class='id id'>id</span>
-  <span class='kw'>when</span> <span class='const'>Fixnum</span> <span class='kw'>then</span> <span class='id get_or_create_single_model'>get_or_create_single_model</span><span class='lparen'>(</span><span class='id id'>id</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='const'>Fixnum</span> <span class='kw'>then</span> <span class='id retrieve'>retrieve</span><span class='lparen'>(</span><span class='id id'>id</span><span class='rparen'>)</span>
   <span class='kw'>when</span> <span class='const'>Hash</span> <span class='kw'>then</span> <span class='id find_by'>find_by</span><span class='lparen'>(</span><span class='id filter_attributes_on_save'>filter_attributes_on_save</span><span class='lparen'>(</span><span class='id id'>id</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='symbol'>:single</span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='const'>Array</span><span class='comma'>,</span> <span class='const'>Enumerable</span> <span class='kw'>then</span> <span class='id bulk_retrieve'>bulk_retrieve</span><span class='lparen'>(</span><span class='id id'>id</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="bind_state_to_id-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>bind_state_to_id</strong>(state) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>Updates the cache so id_to_state reflects state.id</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'></span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="ResourceState.html" title="Lims::Core::Persistence::ResourceState (class)">ResourceState</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<h3>Raises:</h3>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>RuntimeError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+151
+152
+153
+154
+155
+156</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 151</span>
+
+<span class='kw'>def</span> <span class='id bind_state_to_id'>bind_state_to_id</span><span class='lparen'>(</span><span class='id state'>state</span><span class='rparen'>)</span>
+  <span class='id raise'>raise</span> <span class='const'>RuntimeError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Invalid state</span><span class='tstring_end'>'</span></span> <span class='kw'>if</span> <span class='id state'>state</span><span class='period'>.</span><span class='id persistor'>persistor</span> <span class='op'>!=</span> <span class='kw'>self</span>
+  <span class='id raise'>raise</span> <span class='const'>DuplicateIdError</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id state'>state</span><span class='period'>.</span><span class='id id'>id</span><span class='rparen'>)</span><span class='kw'>if</span> <span class='ivar'>@id_to_state</span><span class='period'>.</span><span class='id include?'>include?</span><span class='lparen'>(</span><span class='id state'>state</span><span class='period'>.</span><span class='id id'>id</span><span class='rparen'>)</span>
+  <span class='id on_object_load'>on_object_load</span><span class='lparen'>(</span><span class='id state'>state</span><span class='rparen'>)</span>
+  <span class='ivar'>@id_to_state</span><span class='lbracket'>[</span><span class='id state'>state</span><span class='period'>.</span><span class='id id'>id</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id state'>state</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="bind_state_to_resource-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>bind_state_to_resource</strong>(state) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>Update the cache</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<h3>Raises:</h3>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>RuntimeError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+167
+168
+169
+170
+171</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 167</span>
+
+<span class='kw'>def</span> <span class='id bind_state_to_resource'>bind_state_to_resource</span><span class='lparen'>(</span><span class='id state'>state</span><span class='rparen'>)</span>
+  <span class='id raise'>raise</span> <span class='const'>RuntimeError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Invalobject state</span><span class='tstring_end'>'</span></span> <span class='kw'>if</span> <span class='id state'>state</span><span class='period'>.</span><span class='id persistor'>persistor</span> <span class='op'>!=</span> <span class='kw'>self</span>
+  <span class='id raise'>raise</span> <span class='const'>DuplicateIdError</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id state'>state</span><span class='period'>.</span><span class='id resource'>resource</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='ivar'>@object_to_state</span><span class='period'>.</span><span class='id include?'>include?</span><span class='lparen'>(</span><span class='id state'>state</span><span class='period'>.</span><span class='id resource'>resource</span><span class='rparen'>)</span>
+  <span class='ivar'>@object_to_state</span><span class='lbracket'>[</span><span class='id state'>state</span><span class='period'>.</span><span class='id resource'>resource</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id state'>state</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="bulk_delete-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>bulk_delete</strong>(states, *params) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>Remove object form the underlying store and Manages them. This method only
+care about the objects themselves not about theirs parents or children.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+274
+275
+276
+277
+278
+279
+280
+281
+282</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 274</span>
+
+<span class='kw'>def</span> <span class='id bulk_delete'>bulk_delete</span><span class='lparen'>(</span><span class='id states'>states</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
+  <span class='comment'># delete theme but leave them in cache
+</span>  <span class='comment'># in case they need to be displayed.
+</span>  <span class='id states'>states</span><span class='period'>.</span><span class='id each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id state'>state</span><span class='op'>|</span>
+    <span class='id state'>state</span><span class='period'>.</span><span class='id id'>id</span><span class='period'>.</span><span class='id andtap'>andtap</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id id'>id</span><span class='op'>|</span> <span class='ivar'>@id_to_state</span><span class='period'>.</span><span class='id delete'>delete</span><span class='lparen'>(</span><span class='id id'>id</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+    <span class='id state'>state</span><span class='period'>.</span><span class='id resource'>resource</span> <span class='comment'>#.andtap { |object| @object_to_state.delete(object) }
+</span>  <span class='kw'>end</span>
+  <span class='id bulk_delete_raw'>bulk_delete_raw</span><span class='lparen'>(</span><span class='id states'>states</span><span class='period'>.</span><span class='id map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id compact'>compact</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="bulk_delete_raw-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>bulk_delete_raw</strong>(states, *params) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <div class="note abstract">
+  <strong>This method is abstract.</strong> 
+  <div class='inline'></div>
+</div>
+
+<p>Physically remove objects from a store.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<h3>Raises:</h3>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>NotImplementedError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+286
+287
+288</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 286</span>
+
+<span class='kw'>def</span> <span class='id bulk_delete_raw'>bulk_delete_raw</span><span class='lparen'>(</span><span class='id states'>states</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
+  <span class='id raise'>raise</span> <span class='const'>NotImplementedError</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="bulk_insert-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>bulk_insert</strong>(states, *params) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>Inserts objects in the underlying store AND manages them. This method only
+care about the objects themselves not about theirs parents or children. The
+physical insert in the store must be  specified for each store.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+267
+268
+269</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 267</span>
+
+<span class='kw'>def</span> <span class='id bulk_insert'>bulk_insert</span><span class='lparen'>(</span><span class='id states'>states</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
+  <span class='id states'>states</span><span class='period'>.</span><span class='id map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id state'>state</span><span class='op'>|</span> <span class='id insert'>insert</span><span class='lparen'>(</span><span class='id state'>state</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="bulk_retrieve-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../../../Array.html" title="Array (class)">Array</a></span>&lt;<span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span>]</tt>) <strong>bulk_retrieve</strong>(ids, *params) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>Retreives a list of objects . @<a href="http://Array<Id>">param</a> ids</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../../../Array.html" title="Array (class)">Array</a></span>&lt;<span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span>]</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Array&lt;Object]</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 319</span>
+
+<span class='kw'>def</span> <span class='id bulk_retrieve'>bulk_retrieve</span><span class='lparen'>(</span><span class='id ids'>ids</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
+  <span class='comment'># create a list of states and load them
+</span>  <span class='id states'>states</span> <span class='op'>=</span> <span class='const'>StateGroup</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id ids'>ids</span><span class='period'>.</span><span class='id map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id id'>id</span><span class='op'>|</span>
+    <span class='ivar'>@id_to_state</span><span class='lbracket'>[</span><span class='id id'>id</span><span class='rbracket'>]</span>
+  <span class='kw'>end</span><span class='rparen'>)</span>
+
+  <span class='id states'>states</span><span class='period'>.</span><span class='id load'>load</span>
+  <span class='kw'>return</span> <span class='const'>StateList</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='id states'>states</span><span class='period'>.</span><span class='id map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id state'>state</span><span class='op'>|</span> <span class='id state'>state</span><span class='period'>.</span><span class='id resource'>resource</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+
+  <span class='comment'># we need to separate object which need to be loaded
+</span>  <span class='comment'># from the one which are already in cache
+</span>  <span class='id to_load'>to_load</span> <span class='op'>=</span> <span class='id ids'>ids</span><span class='period'>.</span><span class='id reject'>reject</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id id'>id</span><span class='op'>|</span> <span class='id id'>id</span> <span class='op'>==</span> <span class='kw'>nil</span> <span class='op'>||</span> <span class='ivar'>@id_to_state</span><span class='period'>.</span><span class='id include?'>include?</span><span class='lparen'>(</span><span class='id id'>id</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='id loaded_states'>loaded_states</span> <span class='op'>=</span> <span class='id bulk_load_raw_attributes'>bulk_load_raw_attributes</span><span class='lparen'>(</span><span class='id to_load'>to_load</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id att'>att</span><span class='op'>|</span>
+    <span class='id id'>id</span> <span class='op'>=</span> <span class='id att'>att</span><span class='period'>.</span><span class='id delete'>delete</span><span class='lparen'>(</span><span class='id primary_key'>primary_key</span><span class='rparen'>)</span>
+    <span class='id new_state_for_attribute'>new_state_for_attribute</span><span class='lparen'>(</span><span class='id id'>id</span><span class='comma'>,</span> <span class='id att'>att</span><span class='rparen'>)</span><span class='period'>.</span><span class='id resource'>resource</span>
+  <span class='kw'>end</span>
+
+  <span class='id bulk_retrieve_children'>bulk_retrieve_children</span><span class='lparen'>(</span><span class='id new_states'>new_states</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
+  <span class='comment'>#bulk_retrieve_parent(new_states, *params)
+</span>
+
+  <span class='id ids'>ids</span><span class='period'>.</span><span class='id map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id id'>id</span><span class='op'>|</span> <span class='id object_for'>object_for</span><span class='lparen'>(</span><span class='id id'>id</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="bulk_update-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>bulk_update</strong>(states, *params) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>Updates the store and manages object. Doesn't care of children or parents.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>Array&lt;ResourceState]</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../../../Array.html" title="Array (class)">Array</a></span>&lt;<span class='object_link'><a href="ResourceState.html" title="Lims::Core::Persistence::ResourceState (class)">ResourceState</a></span>] states</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>states</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+346
+347
+348
+349
+350
+351
+352
+353
+354</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 346</span>
+
+<span class='kw'>def</span> <span class='id bulk_update'>bulk_update</span><span class='lparen'>(</span><span class='id states'>states</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
+  <span class='id attributes'>attributes</span> <span class='op'>=</span> <span class='id states'>states</span><span class='period'>.</span><span class='id map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id state'>state</span><span class='op'>|</span>
+    <span class='id filter_attributes_on_save'>filter_attributes_on_save</span><span class='lparen'>(</span><span class='id state'>state</span><span class='period'>.</span><span class='id resource'>resource</span><span class='period'>.</span><span class='id attributes'>attributes</span><span class='rparen'>)</span><span class='period'>.</span><span class='id merge'>merge</span><span class='lparen'>(</span><span class='id primary_key'>primary_key</span> <span class='op'>=&gt;</span> <span class='id state'>state</span><span class='period'>.</span><span class='id id'>id</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+  <span class='id bulk_update_raw_attributes'>bulk_update_raw_attributes</span><span class='lparen'>(</span><span class='id attributes'>attributes</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
+  <span class='id states'>states</span><span class='period'>.</span><span class='id each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id state'>state</span><span class='op'>|</span>
+    <span class='id state'>state</span><span class='period'>.</span><span class='id updated'>updated</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="children-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>children</strong>(resource) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note todo">
+    <strong>TODO:</strong> 
+    <div class='inline'></div>
+  </div>
+
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+374
+375
+376</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 374</span>
+
+<span class='kw'>def</span> <span class='id children'>children</span><span class='lparen'>(</span><span class='id resource'>resource</span><span class='rparen'>)</span>
+  <span class='lbracket'>[</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -875,12 +1737,12 @@ depending of the parameter. Note that loaded object are automatically
       <pre class="lines">
 
 
-215
-216
-217</pre>
+235
+236
+237</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 215</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 235</span>
 
 <span class='kw'>def</span> <span class='id count'>count</span>
   <span class='id raise'>raise</span> <span class='const'>NotImplementedError</span>
@@ -891,29 +1753,88 @@ depending of the parameter. Note that loaded object are automatically
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="delete-instance_method">
+  <p class="signature " id="deletable_children-instance_method">
   
-    - (<tt>Fixnum</tt><sup>?</sup>) <strong>delete</strong>(object, *params) 
+    - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>deletable_children</strong>(resource) 
   
 
   
 </p><div class="docstring">
   <div class="discussion">
     
-<p>deletes an object and returns its id or nil if failure</p>
+  <div class="note todo">
+    <strong>TODO:</strong> 
+    <div class='inline'></div>
+  </div>
+
 
 
   </div>
 </div>
 <div class="tags">
   
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+379
+380
+381</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 379</span>
+
+<span class='kw'>def</span> <span class='id deletable_children'>deletable_children</span><span class='lparen'>(</span><span class='id resource'>resource</span><span class='rparen'>)</span>
+  <span class='lbracket'>[</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="dirty_key_for-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>dirty_key_for</strong>(resource) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>Computes "dirty_key" of an object. The dirty key is used to decide if an
+object has been modified or not.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'></span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Resource.html" title="Lims::Core::Resource (module)">Resource</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
 <h3>Returns:</h3>
 <ul class="return">
   
     <li>
       
       
-        <span class='type'>(<tt>Fixnum</tt>, <tt>nil</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>)</span>
       
       
       
@@ -927,27 +1848,19 @@ depending of the parameter. Note that loaded object are automatically
       <pre class="lines">
 
 
-104
-105
-106
-107
-108
-109
-110
-111
-112</pre>
+190
+191
+192
+193
+194</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 104</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 190</span>
 
-<span class='kw'>def</span> <span class='id delete'>delete</span><span class='lparen'>(</span><span class='id object'>object</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id object'>object</span><span class='period'>.</span><span class='id nil?'>nil?</span>
-  <span class='id id_for'>id_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id id'>id</span><span class='op'>|</span>
-    <span class='comment'># We need to delet the children before the parent
-</span>    <span class='comment'># to not break any constraints
-</span>    <span class='id delete_children'>delete_children</span><span class='lparen'>(</span><span class='id id'>id</span><span class='comma'>,</span> <span class='id object'>object</span><span class='rparen'>)</span>
-    <span class='id delete_raw'>delete_raw</span><span class='lparen'>(</span><span class='id object'>object</span><span class='comma'>,</span> <span class='id id'>id</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
+<span class='kw'>def</span> <span class='id dirty_key_for'>dirty_key_for</span><span class='lparen'>(</span><span class='id resource'>resource</span><span class='rparen'>)</span>
+    <span class='kw'>if</span> <span class='id resource'>resource</span> <span class='op'>&amp;&amp;</span> <span class='ivar'>@session</span><span class='period'>.</span><span class='id dirty_attribute_strategy'>dirty_attribute_strategy</span>
+      <span class='ivar'>@session</span><span class='period'>.</span><span class='id dirty_key_for'>dirty_key_for</span><span class='lparen'>(</span><span class='id filter_attributes_on_save'>filter_attributes_on_save</span><span class='lparen'>(</span><span class='id resource'>resource</span><span class='period'>.</span><span class='id attributes_for_dirty'>attributes_for_dirty</span><span class='rparen'>)</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1057,15 +1970,87 @@ depending of the parameter. Note that loaded object are automatically
       <pre class="lines">
 
 
-226
-227
-228</pre>
+246
+247
+248</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 226</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 246</span>
 
 <span class='kw'>def</span> <span class='id for_each_in_slice'>for_each_in_slice</span><span class='lparen'>(</span><span class='id start'>start</span><span class='comma'>,</span> <span class='id length'>length</span><span class='rparen'>)</span>
   <span class='id raise'>raise</span> <span class='const'>NotImplementedError</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="id_for-instance_method">
+  
+    - (<tt>Id</tt>, <tt>Nil</tt>) <strong>id_for</strong>(object) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>Get the id from an object from the cache.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>object</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Resource.html" title="Lims::Core::Resource (module)">Resource</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>object to find the id for.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Id</tt>, <tt>Nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+120
+121
+122</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 120</span>
+
+<span class='kw'>def</span> <span class='id id_for'>id_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
+  <span class='id state_for'>state_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span><span class='period'>.</span><span class='id andtap'>andtap</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id state'>state</span><span class='op'>|</span> <span class='id state'>state</span><span class='period'>.</span><span class='id id'>id</span> <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1142,12 +2127,12 @@ depending of the parameter. Note that loaded object are automatically
       <pre class="lines">
 
 
-199
-200
-201</pre>
+228
+229
+230</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 199</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 228</span>
 
 <span class='kw'>def</span> <span class='id ids_for'>ids_for</span><span class='lparen'>(</span><span class='id criteria'>criteria</span><span class='rparen'>)</span>
   <span class='id raise'>raise</span> <span class='const'>NotImplementedError</span>
@@ -1158,148 +2143,32 @@ depending of the parameter. Note that loaded object are automatically
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="load_aggregated_elements-instance_method">
+  <p class="signature " id="invalid_resource?-instance_method">
   
-    - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>load_aggregated_elements</strong>(id, &amp;block) 
-  
-
-  
-</p><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-207
-208
-209
-210</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 207</span>
-
-<span class='kw'>def</span> <span class='id load_aggregated_elements'>load_aggregated_elements</span><span class='lparen'>(</span><span class='id id'>id</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id block'>block</span><span class='rparen'>)</span>
-  <span class='id load_raw_associations'>load_raw_associations</span><span class='lparen'>(</span><span class='id id'>id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id element_id'>element_id</span><span class='op'>|</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <p class="signature " id="load_associated_elements-instance_method">
-  
-    - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>load_associated_elements</strong> 
-  
-
-  
-</p><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-204
-205</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 204</span>
-
-<span class='kw'>def</span> <span class='id load_associated_elements'>load_associated_elements</span><span class='lparen'>(</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <p class="signature " id="load_single_model-instance_method">
-  
-    - (<tt><span class='object_link'><a href="../Resource.html" title="Lims::Core::Resource (module)">Resource</a></span></tt>) <strong>load_single_model</strong>(id, raw_attributes = nil)  <span class="extras">(private)</span>
+    - (<tt>Boolean</tt>) <strong>invalid_resource?</strong>(resource) 
   
 
   
 </p><div class="docstring">
   <div class="discussion">
     
-<p>Load a model object (and its children) from its database id.</p>
+<p>if a resource is invalid and need to be deleted. For example an association
+proxy corresponding to an old relation.</p>
 
 
   </div>
 </div>
 <div class="tags">
-  <h3>Parameters:</h3>
-<ul class="param">
   
-    <li>
-      
-        <span class='name'>id</span>
-      
-      
-        <span class='type'>(<tt>Id</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>in the database</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>raw_attributes</span>
-      
-      
-        <span class='type'>(<tt>Hash</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>nil</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>attributes to build the object</p>
-</div>
-      
-    </li>
-  
-</ul>
-
 <h3>Returns:</h3>
 <ul class="return">
   
     <li>
       
       
-        <span class='type'>(<tt><span class='object_link'><a href="../Resource.html" title="Lims::Core::Resource (module)">Resource</a></span></tt>)</span>
+        <span class='type'>(<tt>Boolean</tt>)</span>
       
       
-      
-        &mdash;
-        <div class='inline'>
-<p>the model object.</p>
-</div>
-      
-    </li>
-  
-</ul>
-<h3>Raises:</h3>
-<ul class="raise">
-  
-    <li>
-      
-      
-        <span class='type'></span>
-      
-      
-      
-        
-        <div class='inline'>
-<p>error if object doesn't exists.</p>
-</div>
       
     </li>
   
@@ -1311,21 +2180,43 @@ depending of the parameter. Note that loaded object are automatically
       <pre class="lines">
 
 
-143
-144
-145
-146
-147
-148</pre>
+386
+387
+388</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 143</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 386</span>
 
-<span class='kw'>def</span> <span class='id load_single_model'>load_single_model</span><span class='lparen'>(</span><span class='id id'>id</span><span class='comma'>,</span> <span class='id raw_attributes'>raw_attributes</span><span class='op'>=</span><span class='kw'>nil</span><span class='rparen'>)</span>
-  <span class='id raw_attributes'>raw_attributes</span> <span class='op'>||=</span> <span class='id load_raw_attributes'>load_raw_attributes</span><span class='lparen'>(</span><span class='id id'>id</span><span class='rparen'>)</span>
-  <span class='id model'>model</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='id filter_attributes_on_load'>filter_attributes_on_load</span><span class='lparen'>(</span><span class='id raw_attributes'>raw_attributes</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span><span class='period'>.</span><span class='id tap'>tap</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id m'>m</span><span class='op'>|</span>
-    <span class='id load_children'>load_children</span><span class='lparen'>(</span><span class='id id'>id</span><span class='comma'>,</span> <span class='id m'>m</span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
+<span class='kw'>def</span> <span class='id invalid_resource?'>invalid_resource?</span><span class='lparen'>(</span><span class='id resource'>resource</span><span class='rparen'>)</span>
+  <span class='kw'>false</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="load_children-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>load_children</strong>(states, *params) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+500
+501
+502</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 500</span>
+
+<span class='kw'>def</span> <span class='id load_children'>load_children</span><span class='lparen'>(</span><span class='id states'>states</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
+  <span class='lbracket'>[</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1335,7 +2226,7 @@ depending of the parameter. Note that loaded object are automatically
       <div class="method_details ">
   <p class="signature " id="model-instance_method">
   
-    - (<tt><span class='object_link'><a href="IdentityMap/Class.html" title="Lims::Core::Persistence::IdentityMap::Class (class)">Class</a></span></tt>) <strong>model</strong> 
+    - (<tt>Class</tt>) <strong>model</strong> 
   
 
   
@@ -1355,7 +2246,7 @@ depending of the parameter. Note that loaded object are automatically
     <li>
       
       
-        <span class='type'>(<tt><span class='object_link'><a href="IdentityMap/Class.html" title="Lims::Core::Persistence::IdentityMap::Class (class)">Class</a></span></tt>)</span>
+        <span class='type'>(<tt>Class</tt>)</span>
       
       
       
@@ -1369,12 +2260,12 @@ depending of the parameter. Note that loaded object are automatically
       <pre class="lines">
 
 
-73
-74
-75</pre>
+96
+97
+98</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 73</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 96</span>
 
 <span class='kw'>def</span> <span class='id model'>model</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id class'>class</span><span class='op'>::</span><span class='const'>Model</span>
@@ -1385,130 +2276,103 @@ depending of the parameter. Note that loaded object are automatically
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="save-instance_method">
+  <p class="signature " id="new_from_attributes-instance_method">
   
-    - (<tt>Fixnum</tt><sup>?</sup>) <strong>save</strong>(object, *params) 
+    - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>new_from_attributes</strong>(attributes) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+505
+506
+507
+508
+509</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 505</span>
+
+<span class='kw'>def</span> <span class='id new_from_attributes'>new_from_attributes</span><span class='lparen'>(</span><span class='id attributes'>attributes</span><span class='rparen'>)</span>
+  <span class='id id'>id</span> <span class='op'>=</span> <span class='id attributes'>attributes</span><span class='period'>.</span><span class='id delete'>delete</span><span class='lparen'>(</span><span class='id primary_key'>primary_key</span><span class='rparen'>)</span>
+  <span class='id resource'>resource</span> <span class='op'>=</span> <span class='id block_given?'>block_given?</span> <span class='op'>?</span> <span class='kw'>yield</span><span class='lparen'>(</span><span class='id attributes'>attributes</span><span class='rparen'>)</span> <span class='op'>:</span>   <span class='id model'>model</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='id filter_attributes_on_load'>filter_attributes_on_load</span><span class='lparen'>(</span><span class='id attributes'>attributes</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='id state_for_id'>state_for_id</span><span class='lparen'>(</span><span class='id id'>id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id tap'>tap</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id state'>state</span><span class='op'>|</span> <span class='id state'>state</span><span class='period'>.</span><span class='id resource'>resource</span> <span class='op'>=</span> <span class='id resource'>resource</span> <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="new_object-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../Resource.html" title="Lims::Core::Resource (module)">Resource</a></span></tt>) <strong>new_object</strong>(id, attributes) 
   
 
   
 </p><div class="docstring">
   <div class="discussion">
     
-<p>save an object and return is id or nil if failure</p>
+<p>Creates a new object from a Hash and associate it to its id</p>
 
 
   </div>
 </div>
 <div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>id</span>
+      
+      
+        <span class='type'>(<tt>Id</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>id of the new object</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>attributes</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>of the new object.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
 <h3>Returns:</h3>
 <ul class="return">
   
     <li>
       
       
-        <span class='type'>(<tt>Fixnum</tt>, <tt>nil</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-95
-96
-97
-98
-99
-100</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 95</span>
-
-<span class='kw'>def</span> <span class='id save'>save</span><span class='lparen'>(</span><span class='id object'>object</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id object'>object</span><span class='period'>.</span><span class='id nil?'>nil?</span>
-  <span class='comment'># check if the object has been modified or not
-</span>  <span class='id id_for'>id_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id id'>id</span><span class='op'>|</span> <span class='id update'>update</span><span class='lparen'>(</span><span class='id object'>object</span><span class='comma'>,</span> <span class='id id'>id</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span> <span class='rbrace'>}</span> <span class='op'>||</span>
-  <span class='id map_id_object'>map_id_object</span><span class='lparen'>(</span><span class='id save_new'>save_new</span><span class='lparen'>(</span><span class='id object'>object</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span> <span class='comma'>,</span> <span class='id object'>object</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <p class="signature " id="save_as_aggregation-instance_method">
-  
-    - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>save_as_aggregation</strong>(source_id, target, *params) 
-  
-
-  
-</p><div class="docstring">
-  <div class="discussion">
-    
-<p>save an aggregation Aggregation doesn't have necessarily and id therefore
-we don't use the indentity map. Save objects if needed. Aggregation differs
-from association in the fact that the 'parent' is already saved and the
-children have to be saved.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <h3>Parameters:</h3>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>source_id</span>
-      
-      
-        <span class='type'>(<tt>id</tt>)</span>
-      
-      
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>target</span>
-      
-      
         <span class='type'>(<tt><span class='object_link'><a href="../Resource.html" title="Lims::Core::Resource (module)">Resource</a></span></tt>)</span>
       
       
       
-        &mdash;
-        <div class='inline'>
-<p>will be saved.</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>params</span>
-      
-      
-        <span class='type'>(<tt>Hash</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>specific to the Store.</p>
-</div>
-      
     </li>
   
 </ul>
-
 
 </div><table class="source_code">
   <tr>
@@ -1516,15 +2380,23 @@ children have to be saved.</p>
       <pre class="lines">
 
 
-134
-135
-136</pre>
+177
+178
+179
+180
+181
+182
+183</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 134</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 177</span>
 
-<span class='kw'>def</span> <span class='id save_as_aggregation'>save_as_aggregation</span><span class='lparen'>(</span><span class='id source_id'>source_id</span><span class='comma'>,</span> <span class='id target'>target</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
-  <span class='id save_raw_association'>save_raw_association</span><span class='lparen'>(</span><span class='id source_id'>source_id</span><span class='comma'>,</span> <span class='ivar'>@session</span><span class='period'>.</span><span class='id save'>save</span><span class='lparen'>(</span><span class='id target'>target</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id new_object'>new_object</span><span class='lparen'>(</span><span class='id id'>id</span><span class='comma'>,</span> <span class='id attributes'>attributes</span><span class='rparen'>)</span>
+  <span class='id id'>id</span> <span class='op'>=</span> <span class='id attributes'>attributes</span><span class='period'>.</span><span class='id delete'>delete</span><span class='lparen'>(</span><span class='id primary_key'>primary_key</span><span class='rparen'>)</span>
+  <span class='id model'>model</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='id filter_attributes_on_load'>filter_attributes_on_load</span><span class='lparen'>(</span><span class='id attributes'>attributes</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id tap'>tap</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id resource'>resource</span><span class='op'>|</span>
+    <span class='id state'>state</span> <span class='op'>=</span> <span class='id state_for_id'>state_for_id</span><span class='lparen'>(</span><span class='id id'>id</span><span class='rparen'>)</span>
+    <span class='id state'>state</span><span class='period'>.</span><span class='id resource'>resource</span> <span class='op'>=</span> <span class='id resource'>resource</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1532,17 +2404,16 @@ children have to be saved.</p>
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="save_as_association-instance_method">
+  <p class="signature " id="object_for-instance_method">
   
-    - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>save_as_association</strong>(source, target, *params) 
+    - (<tt>Resourec</tt>, <tt>Nil</tt>) <strong>object_for</strong>(id) 
   
 
   
 </p><div class="docstring">
   <div class="discussion">
     
-<p>save an association Association doesn't have necessarily and id therefore
-we don't use the indentity map. Save objects if needed.</p>
+<p>Get the object from a given id.</p>
 
 
   </div>
@@ -1553,49 +2424,80 @@ we don't use the indentity map. Save objects if needed.</p>
   
     <li>
       
-        <span class='name'>source</span>
+        <span class='name'>id</span>
       
       
-        <span class='type'>(<tt><span class='object_link'><a href="../Resource.html" title="Lims::Core::Resource (module)">Resource</a></span></tt>, <tt>Id</tt>)</span>
+        <span class='type'>(<tt>Fixnum</tt>)</span>
       
       
-      
-        &mdash;
-        <div class='inline'>
-<p>the source of the association.</p>
-</div>
       
     </li>
   
-    <li>
-      
-        <span class='name'>target</span>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="../Resource.html" title="Lims::Core::Resource (module)">Resource</a></span></tt>, <tt>Id</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>the target of the association.</p>
-</div>
-      
-    </li>
+</ul>
+
+<h3>Returns:</h3>
+<ul class="return">
   
     <li>
       
-        <span class='name'>params</span>
       
-      
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Resourec</tt>, <tt>Nil</tt>)</span>
       
       
       
-        &mdash;
-        <div class='inline'>
-<p>specific to the Store.</p>
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+127
+128
+129</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 127</span>
+
+<span class='kw'>def</span> <span class='id object_for'>object_for</span><span class='lparen'>(</span><span class='id id'>id</span><span class='rparen'>)</span>
+  <span class='ivar'>@id_to_state</span><span class='lbracket'>[</span><span class='id id'>id</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id andtap'>andtap</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:resource</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
 </div>
+    
+      <div class="method_details ">
+  <p class="signature " id="on_object_load-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>on_object_load</strong>(state) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>Called by Persistor to inform the session about the loading of an object.
+MUST be called by persistors creating Resources.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'></span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="ResourceState.html" title="Lims::Core::Persistence::ResourceState (class)">ResourceState</a></span></tt>)</span>
+      
+      
       
     </li>
   
@@ -1608,15 +2510,195 @@ we don't use the indentity map. Save objects if needed.</p>
       <pre class="lines">
 
 
-120
-121
-122</pre>
+162
+163
+164</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 120</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 162</span>
 
-<span class='kw'>def</span> <span class='id save_as_association'>save_as_association</span><span class='lparen'>(</span><span class='id source'>source</span><span class='comma'>,</span> <span class='id target'>target</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
-  <span class='id save_raw_association'>save_raw_association</span><span class='lparen'>(</span><span class='ivar'>@session</span><span class='period'>.</span><span class='id id_for!'>id_for!</span><span class='lparen'>(</span><span class='id source'>source</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='ivar'>@session</span><span class='period'>.</span><span class='id id_for!'>id_for!</span><span class='lparen'>(</span><span class='id target'>target</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id on_object_load'>on_object_load</span><span class='lparen'>(</span><span class='id state'>state</span><span class='rparen'>)</span>
+  <span class='ivar'>@session</span><span class='period'>.</span><span class='id manage_state'>manage_state</span><span class='lparen'>(</span><span class='id state'>state</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="parents-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>parents</strong>(resource) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+369
+370
+371</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 369</span>
+
+<span class='kw'>def</span> <span class='id parents'>parents</span><span class='lparen'>(</span><span class='id resource'>resource</span><span class='rparen'>)</span>
+  <span class='id resource'>resource</span><span class='period'>.</span><span class='id attributes'>attributes</span><span class='period'>.</span><span class='id values'>values</span><span class='period'>.</span><span class='id select'>select</span>  <span class='lbrace'>{</span> <span class='op'>|</span><span class='id v'>v</span><span class='op'>|</span> <span class='id v'>v</span><span class='period'>.</span><span class='id is_a?'>is_a?</span> <span class='const'>Resource</span> <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="parents_for_attributes-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>parents_for_attributes</strong>(attributes) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+496
+497
+498</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 496</span>
+
+<span class='kw'>def</span> <span class='id parents_for_attributes'>parents_for_attributes</span><span class='lparen'>(</span><span class='id attributes'>attributes</span><span class='rparen'>)</span>
+  <span class='lbracket'>[</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="purge_invalid_object-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>purge_invalid_object</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>Delete all invalid object loaded by a persistor. Typically invalid object
+are association which doesn't exist anymore</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+198
+199
+200
+201
+202
+203
+204
+205</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 198</span>
+
+<span class='kw'>def</span> <span class='id purge_invalid_object'>purge_invalid_object</span>
+  <span class='id to_delete'>to_delete</span> <span class='op'>=</span> <span class='const'>StateGroup</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='ivar'>@object_to_state</span><span class='period'>.</span><span class='id each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id object'>object</span><span class='comma'>,</span> <span class='id state'>state</span><span class='op'>|</span>
+    <span class='id to_delete'>to_delete</span> <span class='op'>&lt;&lt;</span> <span class='id state'>state</span> <span class='kw'>if</span>  <span class='id invalid_resource?'>invalid_resource?</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='id to_delete'>to_delete</span><span class='period'>.</span><span class='id destroy'>destroy</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="retrieve-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt><sup>?</sup>) <strong>retrieve</strong>(id, *params) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>Retrieves an object from it's id. Doesn't load it if it's been alreday
+loaded.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>id</span>
+      
+      
+        <span class='type'>(<tt>Id</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+309
+310
+311
+312
+313
+314</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 309</span>
+
+<span class='kw'>def</span> <span class='id retrieve'>retrieve</span><span class='lparen'>(</span><span class='id id'>id</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
+  <span class='id object_for'>object_for</span><span class='lparen'>(</span><span class='id id'>id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id andtap'>andtap</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id o'>o</span><span class='op'>|</span> <span class='kw'>return</span> <span class='id o'>o</span> <span class='rbrace'>}</span>
+  <span class='id objects'>objects</span> <span class='op'>=</span> <span class='id bulk_retrieve'>bulk_retrieve</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='id id'>id</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='id objects'>objects</span><span class='period'>.</span><span class='id first'>first</span> <span class='kw'>if</span> <span class='id objects'>objects</span> <span class='op'>&amp;&amp;</span> <span class='id objects'>objects</span><span class='period'>.</span><span class='id size'>size</span> <span class='op'>==</span> <span class='int'>1</span>
+
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1692,23 +2774,158 @@ we don't use the indentity map. Save objects if needed.</p>
       <pre class="lines">
 
 
-235
-236
-237
-238
-239
-240
-241</pre>
+255
+256
+257
+258
+259
+260
+261</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 235</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 255</span>
 
 <span class='kw'>def</span> <span class='id slice'>slice</span><span class='lparen'>(</span><span class='id start'>start</span><span class='comma'>,</span> <span class='id length'>length</span><span class='rparen'>)</span>
-  <span class='const'>Enumerator</span><span class='period'>.</span><span class='id new'>new</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id yielder'>yielder</span><span class='op'>|</span>
-    <span class='id for_each_in_slice'>for_each_in_slice</span><span class='lparen'>(</span><span class='id start'>start</span><span class='comma'>,</span> <span class='id length'>length</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id id'>id</span><span class='comma'>,</span> <span class='id att'>att</span><span class='op'>|</span>
-      <span class='id yielder'>yielder</span> <span class='op'>&lt;&lt;</span> <span class='id get_or_create_single_model'>get_or_create_single_model</span><span class='lparen'>(</span><span class='id id'>id</span><span class='comma'>,</span> <span class='id att'>att</span><span class='rparen'>)</span>
+  <span class='id to_load'>to_load</span> <span class='op'>=</span> <span class='const'>StateGroup</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+    <span class='id for_each_in_slice'>for_each_in_slice</span><span class='lparen'>(</span><span class='id start'>start</span><span class='comma'>,</span> <span class='id length'>length</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id att'>att</span><span class='op'>|</span>
+      <span class='id to_load'>to_load</span> <span class='op'>&lt;&lt;</span> <span class='id new_from_attributes'>new_from_attributes</span><span class='lparen'>(</span><span class='id att'>att</span><span class='rparen'>)</span>
     <span class='kw'>end</span>
-  <span class='kw'>end</span>
+  <span class='id to_load'>to_load</span><span class='period'>.</span><span class='id load'>load</span><span class='period'>.</span><span class='id map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:resource</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="state_for-instance_method">
+  
+    - (<tt><span class='object_link'><a href="ResourceState.html" title="Lims::Core::Persistence::ResourceState (class)">ResourceState</a></span></tt>) <strong>state_for</strong>(object) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the state proxy of an object. Creates it if needed.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>object</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Resource.html" title="Lims::Core::Resource (module)">Resource</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="ResourceState.html" title="Lims::Core::Persistence::ResourceState (class)">ResourceState</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+136
+137
+138</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 136</span>
+
+<span class='kw'>def</span> <span class='id state_for'>state_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
+  <span class='ivar'>@object_to_state</span><span class='lbracket'>[</span><span class='id object'>object</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="state_for_id-instance_method">
+  
+    - (<tt><span class='object_link'><a href="ResourceState.html" title="Lims::Core::Persistence::ResourceState (class)">ResourceState</a></span></tt>) <strong>state_for_id</strong>(id) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the state proxy of an object fromt its id (in cache). Creates the
+state if needed.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>object</span>
+      
+      
+        <span class='type'>(<tt>Id</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="ResourceState.html" title="Lims::Core::Persistence::ResourceState (class)">ResourceState</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+144
+145
+146</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 144</span>
+
+<span class='kw'>def</span> <span class='id state_for_id'>state_for_id</span><span class='lparen'>(</span><span class='id id'>id</span><span class='rparen'>)</span>
+    <span class='ivar'>@id_to_state</span><span class='lbracket'>[</span><span class='id id'>id</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
