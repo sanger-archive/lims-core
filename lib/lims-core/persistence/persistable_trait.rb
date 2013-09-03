@@ -112,6 +112,7 @@ module Lims::Core
             end
           end
           EOC
+          self
         end
 
 

@@ -544,6 +544,26 @@ module Lims::Core
         def attribute_for(key)
           key
         end
+
+        def self.association_class(association, &block) 
+          snake = association.snakecase
+          association_class = class_eval  <<-EOC
+          class #{association}
+            include  Lims::Core::Resource
+          end
+
+          def #{snake}
+            @session.#{snake}_persistor
+          end
+          #{association}
+          EOC
+          association_class.class_eval(&block)
+          association_class.class_eval do
+            does "lims/core/persistence/persist_association", self
+          end
+          association_class
+
+        end
       end
     end
   end
