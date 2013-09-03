@@ -395,7 +395,7 @@ module Lims::Core
         # For example an association proxy corresponding
         # to an old relation.
         def invalid_resource?(resource)
-          false
+          resource.respond_to?(:invalid?) && resource.invalid?
         end
 
 
