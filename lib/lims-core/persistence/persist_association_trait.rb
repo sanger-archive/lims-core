@@ -56,7 +56,13 @@ module Lims::Core
         class #{name.split('::').last}Persistor
           def new_from_attributes(attributes)
             args = [#{
-              parents.map { |a| "@session.#{a.name}[attributes.delete(:#{a.name}_id)]" }.join(', ') 
+              attributes.map do |a|
+                if parents.include?(a)
+                  "@session.#{a.name}[attributes.delete(:#{a.name}_id)]" 
+                else
+                  "attributes.delete(:#{a.name})" 
+                end
+              end.join(', ') 
             }]
           
             super(attributes) do 

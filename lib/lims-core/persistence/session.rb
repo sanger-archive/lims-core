@@ -108,7 +108,6 @@ module Lims::Core
       def state_for(object)
         return persistor_for(object).state_for(object)
       end
-      private :state_for
 
       def states_for(objects)
         objects && objects.map { |o| state_for(o) }
