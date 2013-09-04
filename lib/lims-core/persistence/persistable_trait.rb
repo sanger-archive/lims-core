@@ -22,6 +22,7 @@ module Lims::Core
         model_name = model.name.split('::').last
         parents = []
         session_names = {}
+        skip_parents_for_attributes = {}
 
         args[:parents].andtap do |_parents|
           # preprocess parents to get a list
@@ -30,6 +31,7 @@ module Lims::Core
             if parent.is_a? Hash
               name = parent[:name].to_s
               session_names[name] =  parent[:session_name] || name
+              skip_parents_for_attributes[name] = parent[:skip_parents_for_attributes] 
             else
               name = parent.to_s
               session_names[name] =  name
@@ -58,7 +60,10 @@ module Lims::Core
           def filter_attributes_on_load(attributes)
             attributes.mash do |k, v|
               case k
-                #{ parents.map { |p| "when :#{p}_id then [:#{p}, @session.#{session_names[p]}[v]]"}.join(';') }
+                #{ parents.map do |p|
+                    "when :#{p}_id then [:#{p}, (@session_#{p} ||= @session.#{session_names[p]})[v]]"
+                  end.join(';') 
+                }
               else [k,v]
               end
             end
@@ -72,7 +77,9 @@ module Lims::Core
 
           def parents_for_attributes(attributes)
             [
-              #{ parents.map { |p| "@session.#{session_names[p]}.state_for_id(attributes[:#{p}])" }.join(',') }
+              #{ parents.reject{|p| skip_parents_for_attributes[p] }.map do |p|
+                  "(@session_#{p} ||= @session.#{session_names[p]}).state_for_id(attributes[:#{p}_id])" 
+                  end.join(',') }
             ]
           end
           EOC

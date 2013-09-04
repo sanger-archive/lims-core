@@ -1,5 +1,5 @@
 require 'lims-core/persistence/persistor'
-require 'lims-core/persistence/persistable'
+require 'lims-core/persistence/persistable_trait'
 require 'modularity'
 
 module Lims::Core
@@ -24,7 +24,15 @@ module Lims::Core
                 "@#{att.name}=args.shift"
               end.join(';')
             }
-            1
+        end
+
+        # inline attributes method
+        def attributes
+          {
+          #{
+            attributes.map { |a| "#{a.name}: @#{a.name}" }.join(',')
+            }
+          }
         end
 
         def keys
@@ -45,7 +53,9 @@ module Lims::Core
 
         does 'lims/core/persistence/persistable', :parents => [
           #{
-            parents.map { |a| ":#{a.name}" }.join(', ')
+            parents.map do |a|
+              a.options.merge(:name => a.name).inspect
+            end.join(', ')
             }
         ], :children => [
           #{
@@ -55,18 +65,26 @@ module Lims::Core
 
         class #{name.split('::').last}Persistor
           def new_from_attributes(attributes)
-            args = [#{
+            #{
               attributes.map do |a|
                 if parents.include?(a)
-                  "@session.#{a.name}[attributes.delete(:#{a.name}_id)]" 
+                  "@session_#{a.name} ||= @session.#{a.name}" 
+                end
+              end.join('; ') 
+            }
+          
+            super(attributes) do 
+              model.new(
+#{
+              attributes.map do |a|
+                if parents.include?(a)
+                  "@session_#{a.name}[attributes.delete(:#{a.name}_id)]" 
                 else
                   "attributes.delete(:#{a.name})" 
                 end
               end.join(', ') 
-            }]
-          
-            super(attributes) do 
-              model.new(*args).tap { |m| m.on_load}
+            }
+            ).tap { |m| m.on_load}
             end
           end
         end
