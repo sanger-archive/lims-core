@@ -21,14 +21,6 @@ module Lims::Core
           object
         end
 
-        # Overriden the default save new to add indentation
-        # around children
-        def save_newX(object, *params)
-          save_raw(object, *params).tap do |id|
-            @session.with_indent("- ") { save_children(id, object) }
-          end
-        end
-
         def save_as_aggregation(source_id, target, *params)
           @session.with_indent("#{params} - ") do
             super(source_id, target)

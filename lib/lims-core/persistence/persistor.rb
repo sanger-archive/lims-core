@@ -407,88 +407,6 @@ module Lims::Core
           :id
         end
 
-        # load the object without any dependency
-        # @param id identifier of the object
-        # @return the loaded object
-        def load_raw_objectX(id)
-          raise NotImplementedError
-        end
-
-        # Called to save a new object, i.e. which is not
-        # already in the database.
-        # @param [Resource] object the object 
-        # @return [Fixnum, nil] the Id if save successful
-        def save_newM(object, *params)
-          save_raw(object, *params).tap do |id|
-            save_children(id, object)
-          end
-        end
-
-        # Save a object already in the database
-        # @param [Resource] object the object 
-        # @param [Fixum] id id in the database
-        # @return [Fixnum, nil] the Id if save successful.
-        def updateX(object, id, *params)
-          # Check if 
-          # naive version , update everything.
-          # Probably quicker than trying to guess what has changed
-          id.tap do
-            if dirty?(object, id)
-              update_raw(object, id, *params)
-            end  
-            update_children(id, object)
-          end
-        end
-
-        # Check if an item is dirty and update
-        # its dirty key
-        # @param[Resource] object
-        # @param[Fixum] id 
-        # @return [Bool] true if the object is dirty (needs saving)
-        def dirtyM?(object, id, *params)
-            attributes = filter_attributes_on_save(object.attributes, *params)
-            # check if the object is dirty on note.
-            # In fact, we only cares about the attributes
-            # because a dirty attribute which is not saved doesn't really matter
-            if @session.dirty_attribute_strategy
-              old_dirty_key = @id_to_dirty_key[id]
-              new_dirty_key = @session.dirty_key_for(attributes)
-
-              @id_to_dirty_key[id] = new_dirty_key
-              !(old_dirty_key && old_dirty_key == new_dirty_key)
-            else
-              true
-            end
-        end
-
-        def delete_rawX(object, id)
-          raise NotImplementedError
-        end
-
-        # save children of a newly created object.
-        # @param [Fixum] id id in the database
-        # @param [Resource] object the object 
-        def save_childrenX(id, object)
-
-        end
-
-        # save children of an existing object.
-        # @param [Fixum] id id in the database
-        # @param [Resource] object the object 
-        def update_childrenX(id, object)
-          delete_children(id, object)
-          save_children(id, object)
-        end
-
-        def delete_childrenX(id, object)
-        end
-
-        # Loads children from the database and set the to model object.
-        # @param id primary key of the model object in the database.
-        # @param m  instance of model to load
-        def load_childrenX(id, m)
-        end
-
         # Transform  store fields to object attributes
         # This can be used to change the name of an attribute (its key)
         # or its value or both (example resource to resource_id)
@@ -507,6 +425,7 @@ module Lims::Core
         def parents_for_attributes(attributes)
           []
         end
+
         public :parents_for_attributes
         def load_children(states, *params)
           []
