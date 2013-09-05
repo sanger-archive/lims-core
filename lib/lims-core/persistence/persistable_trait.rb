@@ -99,7 +99,7 @@ module Lims::Core
           def load_children(states)
               #{
                 children.map do |child|
-                  "#{child}.find_by(:#{model_name}_id => states.map(&:id))"
+                  "#{child}.find_by(:#{model_name.snakecase}_id => states.map(&:id))"
                 end.join(';')
               }
               1
