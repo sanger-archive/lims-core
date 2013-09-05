@@ -75,6 +75,14 @@ module Lims::Core
             }[key]
           end
 
+          def parents(resource)
+            [
+              #{ parents.map do |p|
+                  "resource.#{p}"
+                  end.join(',') }
+            ].compact
+          end
+
           def parents_for_attributes(attributes)
             [
               #{ parents.reject{|p| skip_parents_for_attributes[p] }.map do |p|
