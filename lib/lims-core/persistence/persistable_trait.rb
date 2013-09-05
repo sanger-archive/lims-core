@@ -21,6 +21,7 @@ module Lims::Core
         self::Model=model
         model_name = model.name.split('::').last
         parents = []
+        deletable_parents = []
         session_names = {}
         skip_parents_for_attributes = {}
 
@@ -32,6 +33,7 @@ module Lims::Core
               name = parent[:name].to_s
               session_names[name] =  parent[:session_name] || name
               skip_parents_for_attributes[name] = parent[:skip_parents_for_attributes] 
+              deletable_parents << name if parent[:deletable]
             else
               name = parent.to_s
               session_names[name] =  name
@@ -127,10 +129,21 @@ module Lims::Core
             end
           end
           EOC
-          self
         end
-
-
+        unless deletable_parents.empty? 
+          class_eval <<-EOC
+          def deletable_parents(resource)
+            [].tap do |list|
+              #{
+                deletable_parents.map do |parent|
+                  "resource.#{parent}.andtap { |p| list << p }"
+                end.join(';')
+              }
+            end
+          end
+          EOC
+        end
+        self
       end
     end
   end
