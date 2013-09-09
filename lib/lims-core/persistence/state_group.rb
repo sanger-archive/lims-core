@@ -33,9 +33,9 @@ module Lims::Core
 
         # split by status
         group_by(&:save_action).tap do |groups|
-          groups[:insert].andtap { |group| persistor.bulk_insert(group) }
-          groups[:update].andtap { |group| persistor.bulk_update(group) }
           groups[:delete].andtap { |group|  StateGroup.new(persistor, group).destroy }
+          groups[:update].andtap { |group| persistor.bulk_update(group) }
+          groups[:insert].andtap { |group| persistor.bulk_insert(group) }
         end
 
         all_children = StateList.new
