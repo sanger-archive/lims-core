@@ -38,7 +38,7 @@ module Lims::Core
         def keys
           [#{
               attributes.reject { |a| a.options[:exclude_from_key] }.map do |a|
-                "@#{a.name}.object_id"
+                a.options[:primitive].ancestors.include?(Resource) ? "@#{a.name}.object_id" : "@#{a.name}"
               end.join(', ')
             }]
         end
