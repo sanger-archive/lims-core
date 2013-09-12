@@ -8,22 +8,29 @@ require 'lims-core/persistence/session'
 
 module SessionSpec
 class Model
-  attr_accessor :value
-  def initialize(value)
-    @value = value
-  end
+  include Lims::Core::Resource
+  attribute :value, String
 
-  def attributes
+  def initialize(args)
+    case args
+    when String then @value = args
+    else
+      super(args)
+    end
+  end
+  def attributesX
     {:nesting => {:value => @value} }
   end
 
   class ModelPersistor < Lims::Core::Persistence::Persistor
+    Model = SessionSpec::Model
     @@objects ={}
     def self.register(key, value)
       @@objects[key] =  value
     end
-    def load_single_model(id, *args)
-      @@objects[id]
+
+    def bulk_load(states, *params, &block)
+      states.map { |state| block.call(@@objects[state.id].attributes.merge(id:state.id)) }
     end
 
     def self.clear()
@@ -38,20 +45,32 @@ shared_examples "doesn't save 'clean' objects" do
     store.with_session do |session|
       loaded = session.model[1]
       loaded.should == a # test the test works !
-      Model::ModelPersistor.any_instance.should_not_receive(:update_raw).with(a, anything())
-      Model::ModelPersistor.any_instance.should_not_receive(:save_raw).with(a)
-      Model::ModelPersistor.any_instance.should_receive(:save_raw).with(b)
-      session << a << b
+        Model::ModelPersistor.any_instance.should_not_receive(:insert) do |state|
+          state.resource.should == a
+        end
+        Model::ModelPersistor.any_instance.should_receive(:insert) do |state|
+          state.resource.should == b
+        end
+      session << loaded << b
     end
   end
   it "updates 'dirty' objects" do
     store.with_session do |session|
       loaded = session.model[1]
       loaded.value = "new value"
-      Model::ModelPersistor.any_instance.should_not_receive(:save_raw).with(a)
-      Model::ModelPersistor.any_instance.should_receive(:update_raw).with(a, 1)
-      Model::ModelPersistor.any_instance.should_receive(:save_raw).with(b) { 2 }
-      session << a << b
+        Model::ModelPersistor.any_instance.should_not_receive(:insert) do |state|
+          state.resource.should == a
+        end
+              Model::ModelPersistor.any_instance.should_receive(:bulk_update) do |states|
+                states.size == 1
+                states.first.resource.should == loaded
+                1
+              end
+        Model::ModelPersistor.any_instance.should_receive(:insert) do |state|
+          state.resource.should == b
+          2
+        end
+      session << loaded << b
     end
   end
 end
@@ -66,9 +85,13 @@ module Lims::Core::Persistence
       let(:c) { Model.new("C") }
 
       it "save the 2 if no problem" do
+        Model::ModelPersistor.any_instance.should_receive(:insert) do |state|
+          state.resource.should == a
+        end
+        Model::ModelPersistor.any_instance.should_receive(:insert) do |state|
+          state.resource.should == b
+        end
         store.with_session do |session|
-          session.should_receive(:save).with(a)
-          session.should_receive(:save).with(b)
           session << a << b
         end
       end
@@ -90,10 +113,18 @@ module Lims::Core::Persistence
               session.dirty_attribute_strategy = nil
               loaded = session.model[1];
               loaded.should == a # test the test works !
-              Model::ModelPersistor.any_instance.should_not_receive(:save_raw).with(a) { 1 }
-              Model::ModelPersistor.any_instance.should_receive(:update_raw).with(a, 1) { 1 }
-              Model::ModelPersistor.any_instance.should_receive(:save_raw).with(b) { 2 }
-              session << a  << b
+              Model::ModelPersistor.any_instance.should_not_receive(:bulk_update) do |states|
+                states.size == 1
+                states.first.resource.should == a
+                1
+              end
+              Model::ModelPersistor.any_instance.should_receive(:bulk_insert) do |states|
+                debugger
+                states.map(&:resource).should include b
+                states.map(&:resource).should_not include a
+                2 
+              end
+              session << loaded  << b
             end
           end
         end

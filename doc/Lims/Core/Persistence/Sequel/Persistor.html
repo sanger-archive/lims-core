@@ -156,6 +156,48 @@ behavior.</p>
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#bulk_insert-instance_method" title="#bulk_insert (instance method)">- (Object) <strong>bulk_insert</strong>(states, *params) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bulk_load-instance_method" title="#bulk_load (instance method)">- (Object) <strong>bulk_load</strong>(ids, *params, &amp;block) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#count-instance_method" title="#count (instance method)">- (Fixnum) <strong>count</strong> </a>
     
 
@@ -323,7 +365,67 @@ behavior.</p>
     
     
       <div class="method_details first">
-  <p class="signature first" id="count-instance_method">
+  <p class="signature first" id="bulk_insert-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>bulk_insert</strong>(states, *params) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+116
+117
+118
+119
+120</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/persistor.rb', line 116</span>
+
+<span class='kw'>def</span> <span class='id bulk_insert'>bulk_insert</span><span class='lparen'>(</span><span class='id states'>states</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
+  <span class='comment'>#super(states, *params)
+</span>  <span class='id bulk_insert_multi'>bulk_insert_multi</span><span class='lparen'>(</span><span class='id states'>states</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
+  <span class='comment'>#bulk_insert_prepared(states, *params)
+</span><span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="bulk_load-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>bulk_load</strong>(ids, *params, &amp;block) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+92
+93
+94</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/persistor.rb', line 92</span>
+
+<span class='kw'>def</span> <span class='id bulk_load'>bulk_load</span><span class='lparen'>(</span><span class='id ids'>ids</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id block'>block</span><span class='rparen'>)</span>
+  <span class='id dataset'>dataset</span><span class='period'>.</span><span class='id filter'>filter</span><span class='lparen'>(</span><span class='id qualified_key'>qualified_key</span> <span class='op'>=&gt;</span> <span class='id ids'>ids</span><span class='period'>.</span><span class='id map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:id</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id all'>all</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id block'>block</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="count-instance_method">
   
     - (<tt>Fixnum</tt>) <strong>count</strong> 
   
@@ -474,7 +576,7 @@ behavior.</p>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/persistor.rb', line 33</span>
 
 <span class='kw'>def</span> <span class='id initialize'>initialize</span><span class='lparen'>(</span><span class='id session_or_persistor'>session_or_persistor</span><span class='comma'>,</span> <span class='id dataset'>dataset</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='op'>*</span><span class='id args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id block'>block</span> <span class='rparen'>)</span>
-  <span class='id id_to_object'>id_to_object</span><span class='comma'>,</span> <span class='id object_to_id'>object_to_id</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='rbracket'>]</span>
+  <span class='id id_to_state'>id_to_state</span><span class='comma'>,</span> <span class='id object_to_state'>object_to_state</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='rbracket'>]</span>
   <span class='kw'>case</span> <span class='id session_or_persistor'>session_or_persistor</span>
   <span class='kw'>when</span> <span class='const'>Sequel</span><span class='op'>::</span><span class='const'>Persistor</span>
     <span class='comment'># We link the session and the identity map variables,
@@ -482,10 +584,10 @@ behavior.</p>
 </span>    <span class='comment'># through the origial persistor.
 </span>    <span class='comment'># Hack to get those private variables.
 </span>    <span class='id session'>session</span><span class='comma'>,</span> <span class='id identity_map_parameters'>identity_map_parameters</span>  <span class='op'>=</span>  <span class='id session_or_persistor'>session_or_persistor</span><span class='period'>.</span><span class='id instance_eval'>instance_eval</span> <span class='kw'>do</span>
-      <span class='lbracket'>[</span><span class='ivar'>@session</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='ivar'>@id_to_object</span><span class='comma'>,</span> <span class='ivar'>@object_to_id</span><span class='rbracket'>]</span><span class='rbracket'>]</span>
+      <span class='lbracket'>[</span><span class='ivar'>@session</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='ivar'>@id_to_state</span><span class='comma'>,</span> <span class='ivar'>@object_to_state</span><span class='rbracket'>]</span><span class='rbracket'>]</span>
     <span class='kw'>end</span>
     <span class='kw'>super</span><span class='lparen'>(</span><span class='id session'>session</span><span class='comma'>,</span> <span class='op'>*</span><span class='id args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id block'>block</span><span class='rparen'>)</span>
-    <span class='ivar'>@id_to_object</span> <span class='comma'>,</span> <span class='ivar'>@object_to_id</span> <span class='op'>=</span> <span class='id identity_map_parameters'>identity_map_parameters</span>
+    <span class='ivar'>@id_to_state</span> <span class='comma'>,</span> <span class='ivar'>@object_to_state</span> <span class='op'>=</span> <span class='id identity_map_parameters'>identity_map_parameters</span>
   <span class='kw'>else</span> <span class='const'>Session</span>
     <span class='kw'>super</span><span class='lparen'>(</span><span class='id session_or_persistor'>session_or_persistor</span><span class='comma'>,</span> <span class='op'>*</span><span class='id args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id block'>block</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
