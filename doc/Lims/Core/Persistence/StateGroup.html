@@ -455,7 +455,12 @@
 70
 71
 72
-73</pre>
+73
+74
+75
+76
+77
+78</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/state_group.rb', line 54</span>
@@ -474,9 +479,14 @@
       <span class='id state'>state</span><span class='period'>.</span><span class='id children_saved!'>children_saved!</span>
     <span class='kw'>end</span><span class='period'>.</span><span class='id destroy'>destroy</span>
 
-    <span class='comment'>#
-</span>  
+  
   <span class='id persistor'>persistor</span><span class='period'>.</span><span class='id bulk_delete'>bulk_delete</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id select'>select</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id s'>s</span><span class='op'>|</span> <span class='op'>!</span><span class='id s'>s</span><span class='period'>.</span><span class='id body_saved?'>body_saved?</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+
+    <span class='id each_with_object'>each_with_object</span><span class='lparen'>(</span><span class='const'>StateList</span><span class='period'>.</span><span class='id new'>new</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id state'>state</span><span class='comma'>,</span> <span class='id list'>list</span><span class='op'>|</span>
+      <span class='kw'>next</span> <span class='kw'>if</span> <span class='id state'>state</span><span class='period'>.</span><span class='id parents_saved?'>parents_saved?</span>
+      <span class='id list'>list</span><span class='period'>.</span><span class='id merge'>merge</span><span class='lparen'>(</span><span class='id persistor'>persistor</span><span class='period'>.</span><span class='id deletable_parents_for'>deletable_parents_for</span><span class='lparen'>(</span><span class='id state'>state</span><span class='period'>.</span><span class='id resource'>resource</span><span class='rparen'>)</span><span class='rparen'>)</span>
+      <span class='id state'>state</span><span class='period'>.</span><span class='id parents_saved!'>parents_saved!</span>
+    <span class='kw'>end</span><span class='period'>.</span><span class='id destroy'>destroy</span>
   <span class='id each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id state'>state</span><span class='op'>|</span> <span class='id state'>state</span><span class='period'>.</span><span class='id body_saved!'>body_saved!</span> <span class='rbrace'>}</span>
 
 <span class='kw'>end</span></pre>
@@ -526,11 +536,6 @@
       <pre class="lines">
 
 
-75
-76
-77
-78
-79
 80
 81
 82
@@ -540,10 +545,15 @@
 86
 87
 88
-89</pre>
+89
+90
+91
+92
+93
+94</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/state_group.rb', line 75</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/state_group.rb', line 80</span>
 
 <span class='kw'>def</span> <span class='id load'>load</span><span class='lparen'>(</span><span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
   <span class='id to_load'>to_load</span> <span class='op'>=</span> <span class='id select'>select</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:to_load?</span><span class='rparen'>)</span>
@@ -657,9 +667,9 @@
 
   <span class='comment'># split by status
 </span>  <span class='id group_by'>group_by</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:save_action</span><span class='rparen'>)</span><span class='period'>.</span><span class='id tap'>tap</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id groups'>groups</span><span class='op'>|</span>
-    <span class='id groups'>groups</span><span class='lbracket'>[</span><span class='symbol'>:insert</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id andtap'>andtap</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id group'>group</span><span class='op'>|</span> <span class='id persistor'>persistor</span><span class='period'>.</span><span class='id bulk_insert'>bulk_insert</span><span class='lparen'>(</span><span class='id group'>group</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
-    <span class='id groups'>groups</span><span class='lbracket'>[</span><span class='symbol'>:update</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id andtap'>andtap</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id group'>group</span><span class='op'>|</span> <span class='id persistor'>persistor</span><span class='period'>.</span><span class='id bulk_update'>bulk_update</span><span class='lparen'>(</span><span class='id group'>group</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
     <span class='id groups'>groups</span><span class='lbracket'>[</span><span class='symbol'>:delete</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id andtap'>andtap</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id group'>group</span><span class='op'>|</span>  <span class='const'>StateGroup</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='id persistor'>persistor</span><span class='comma'>,</span> <span class='id group'>group</span><span class='rparen'>)</span><span class='period'>.</span><span class='id destroy'>destroy</span> <span class='rbrace'>}</span>
+    <span class='id groups'>groups</span><span class='lbracket'>[</span><span class='symbol'>:update</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id andtap'>andtap</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id group'>group</span><span class='op'>|</span> <span class='id persistor'>persistor</span><span class='period'>.</span><span class='id bulk_update'>bulk_update</span><span class='lparen'>(</span><span class='id group'>group</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+    <span class='id groups'>groups</span><span class='lbracket'>[</span><span class='symbol'>:insert</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id andtap'>andtap</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id group'>group</span><span class='op'>|</span> <span class='id persistor'>persistor</span><span class='period'>.</span><span class='id bulk_insert'>bulk_insert</span><span class='lparen'>(</span><span class='id group'>group</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
   <span class='kw'>end</span>
 
   <span class='id all_children'>all_children</span> <span class='op'>=</span> <span class='const'>StateList</span><span class='period'>.</span><span class='id new'>new</span>

@@ -125,9 +125,10 @@ form the session. However, if NO_AUTO_REGISTRATION is not enabled
 persistors will register themselves. In that case, they will need to be
 defined in class to persist see <span class='object_link'><a href="#register_model-class_method" title="Lims::Core::Persistence::Persistor.register_model (method)">register_model</a></span>. If a base peristor for
 exists for a class but there is no Each instance can get an identity map,
-and or parameter specific to a session/thread. Methods relative to store 
-are</p>
+and or parameter specific to a session/thread.</p>
 <ul><li>
+<p>Methods relative to store  are</p>
+</li><li>
 <p>insert : a new object to the store</p>
 </li><li>
 <p>delete : remove an object fromt the store</p>
@@ -148,6 +149,19 @@ implemted , the bulk version is prefered for performance reason.</p>
 
 <p>without any side effect on the Session or Persistor. They should not
 normally be called.</p>
+<ul><li>
+<p>Methods relative to parents/children</p>
+</li><li>
+<p>parents : resources needed to be saved BEFORE the resource itself.</p>
+</li><li>
+<p>children : resources needed to be save AFTER the resource itself.</p>
+</li><li>
+<p>deletable_children : resources which needs to be deleted BEFORE the
+resource itself.</p>
+</li><li>
+<p>deletable_parent : resources which needs to be deleted AFTER the resource
+itself.</p>
+</li></ul>
 
 
   </div>
@@ -424,7 +438,7 @@ normally be called.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#children-instance_method" title="#children (instance method)">- (Object) <strong>children</strong>(resource) </a>
+      <a href="#children-instance_method" title="#children (instance method)">- (Array&lt;Resource&gt;) <strong>children</strong>(resource) </a>
     
 
     
@@ -437,7 +451,9 @@ normally be called.</p>
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>List of children , i.e, object which need to be saved AFTER it.</p>
+</div></span>
   
 </li>
 
@@ -469,6 +485,27 @@ normally be called.</p>
   <span class="summary_signature">
     
       <a href="#deletable_children-instance_method" title="#deletable_children (instance method)">- (Object) <strong>deletable_children</strong>(resource) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#deletable_parents-instance_method" title="#deletable_parents (instance method)">- (Object) <strong>deletable_parents</strong>(resource) </a>
     
 
     
@@ -763,7 +800,7 @@ normally be called.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#parents-instance_method" title="#parents (instance method)">- (Object) <strong>parents</strong>(resource) </a>
+      <a href="#parents-instance_method" title="#parents (instance method)">- (Array&lt;Resource&gt;) <strong>parents</strong>(resource) </a>
     
 
     
@@ -776,7 +813,9 @@ normally be called.</p>
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>List of parents of object, i.e.</p>
+</div></span>
   
 </li>
 
@@ -947,15 +986,15 @@ normally be called.</p>
       <pre class="lines">
 
 
-87
-88
-89
-90
-91
-92</pre>
+92
+93
+94
+95
+96
+97</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 87</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 92</span>
 
 <span class='kw'>def</span> <span class='id initialize'>initialize</span> <span class='lparen'>(</span><span class='id session'>session</span><span class='comma'>,</span> <span class='op'>*</span><span class='id args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id block'>block</span><span class='rparen'>)</span>
   <span class='ivar'>@session</span> <span class='op'>=</span> <span class='id session'>session</span>
@@ -1001,12 +1040,12 @@ Persistor::register_model.</p>
       <pre class="lines">
 
 
-64
-65
-66</pre>
+69
+70
+71</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 69</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id inherited'>inherited</span><span class='lparen'>(</span><span class='id subclass'>subclass</span><span class='rparen'>)</span>
   <span class='id register_model'>register_model</span><span class='lparen'>(</span><span class='id subclass'>subclass</span><span class='rparen'>)</span>
@@ -1057,11 +1096,6 @@ SESSION_NAME is specified on the model : SESSION_NAME</p>
       <pre class="lines">
 
 
-73
-74
-75
-76
-77
 78
 79
 80
@@ -1069,10 +1103,15 @@ SESSION_NAME is specified on the model : SESSION_NAME</p>
 82
 83
 84
-85</pre>
+85
+86
+87
+88
+89
+90</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 73</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 78</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id register_model'>register_model</span><span class='lparen'>(</span><span class='id subclass'>subclass</span><span class='rparen'>)</span>
 <span class='id model'>model</span> <span class='op'>=</span> <span class='id subclass'>subclass</span><span class='period'>.</span><span class='id parent_scope'>parent_scope</span>
@@ -1171,16 +1210,16 @@ depending of the parameter. Note that loaded object are automatically
       <pre class="lines">
 
 
-109
-110
-111
-112
-113
 114
-115</pre>
+115
+116
+117
+118
+119
+120</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 109</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 114</span>
 
 <span class='kw'>def</span> <span class='op'>[]</span><span class='lparen'>(</span><span class='id id'>id</span><span class='rparen'>)</span>
   <span class='kw'>case</span> <span class='id id'>id</span>
@@ -1246,15 +1285,15 @@ depending of the parameter. Note that loaded object are automatically
       <pre class="lines">
 
 
-151
-152
-153
-154
-155
-156</pre>
+156
+157
+158
+159
+160
+161</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 151</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 156</span>
 
 <span class='kw'>def</span> <span class='id bind_state_to_id'>bind_state_to_id</span><span class='lparen'>(</span><span class='id state'>state</span><span class='rparen'>)</span>
   <span class='id raise'>raise</span> <span class='const'>RuntimeError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Invalid state</span><span class='tstring_end'>'</span></span> <span class='kw'>if</span> <span class='id state'>state</span><span class='period'>.</span><span class='id persistor'>persistor</span> <span class='op'>!=</span> <span class='kw'>self</span>
@@ -1304,14 +1343,14 @@ depending of the parameter. Note that loaded object are automatically
       <pre class="lines">
 
 
-167
-168
-169
-170
-171</pre>
+172
+173
+174
+175
+176</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 167</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 172</span>
 
 <span class='kw'>def</span> <span class='id bind_state_to_resource'>bind_state_to_resource</span><span class='lparen'>(</span><span class='id state'>state</span><span class='rparen'>)</span>
   <span class='id raise'>raise</span> <span class='const'>RuntimeError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Invalobject state</span><span class='tstring_end'>'</span></span> <span class='kw'>if</span> <span class='id state'>state</span><span class='period'>.</span><span class='id persistor'>persistor</span> <span class='op'>!=</span> <span class='kw'>self</span>
@@ -1348,18 +1387,18 @@ care about the objects themselves not about theirs parents or children.</p>
       <pre class="lines">
 
 
-274
-275
-276
-277
-278
 279
 280
 281
-282</pre>
+282
+283
+284
+285
+286
+287</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 274</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 279</span>
 
 <span class='kw'>def</span> <span class='id bulk_delete'>bulk_delete</span><span class='lparen'>(</span><span class='id states'>states</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
   <span class='comment'># delete theme but leave them in cache
@@ -1416,12 +1455,12 @@ care about the objects themselves not about theirs parents or children.</p>
       <pre class="lines">
 
 
-286
-287
-288</pre>
+291
+292
+293</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 286</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 291</span>
 
 <span class='kw'>def</span> <span class='id bulk_delete_raw'>bulk_delete_raw</span><span class='lparen'>(</span><span class='id states'>states</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
   <span class='id raise'>raise</span> <span class='const'>NotImplementedError</span>
@@ -1457,12 +1496,12 @@ physical insert in the store must be  specified for each store.</p>
       <pre class="lines">
 
 
-267
-268
-269</pre>
+272
+273
+274</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 267</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 272</span>
 
 <span class='kw'>def</span> <span class='id bulk_insert'>bulk_insert</span><span class='lparen'>(</span><span class='id states'>states</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
   <span class='id states'>states</span><span class='period'>.</span><span class='id map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id state'>state</span><span class='op'>|</span> <span class='id insert'>insert</span><span class='lparen'>(</span><span class='id state'>state</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
@@ -1514,11 +1553,6 @@ physical insert in the store must be  specified for each store.</p>
       <pre class="lines">
 
 
-319
-320
-321
-322
-323
 324
 325
 326
@@ -1536,10 +1570,15 @@ physical insert in the store must be  specified for each store.</p>
 338
 339
 340
-341</pre>
+341
+342
+343
+344
+345
+346</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 319</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 324</span>
 
 <span class='kw'>def</span> <span class='id bulk_retrieve'>bulk_retrieve</span><span class='lparen'>(</span><span class='id ids'>ids</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
   <span class='comment'># create a list of states and load them
@@ -1613,18 +1652,18 @@ physical insert in the store must be  specified for each store.</p>
       <pre class="lines">
 
 
-346
-347
-348
-349
-350
 351
 352
 353
-354</pre>
+354
+355
+356
+357
+358
+359</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 346</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 351</span>
 
 <span class='kw'>def</span> <span class='id bulk_update'>bulk_update</span><span class='lparen'>(</span><span class='id states'>states</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
   <span class='id attributes'>attributes</span> <span class='op'>=</span> <span class='id states'>states</span><span class='period'>.</span><span class='id map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id state'>state</span><span class='op'>|</span>
@@ -1643,24 +1682,48 @@ physical insert in the store must be  specified for each store.</p>
       <div class="method_details ">
   <p class="signature " id="children-instance_method">
   
-    - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>children</strong>(resource) 
+    - (<tt><span class='object_link'><a href="../../../Array.html" title="Array (class)">Array</a></span>&lt;<span class='object_link'><a href="../Resource.html" title="Lims::Core::Resource (module)">Resource</a></span>&gt;</tt>) <strong>children</strong>(resource) 
   
 
   
 </p><div class="docstring">
   <div class="discussion">
     
-  <div class="note todo">
-    <strong>TODO:</strong> 
-    <div class='inline'></div>
-  </div>
-
+<p>List of children , i.e, object which need to be saved AFTER it.</p>
 
 
   </div>
 </div>
 <div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>resource</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Resource.html" title="Lims::Core::Resource (module)">Resource</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../../../Array.html" title="Array (class)">Array</a></span>&lt;<span class='object_link'><a href="../Resource.html" title="Lims::Core::Resource (module)">Resource</a></span>&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -1668,12 +1731,12 @@ physical insert in the store must be  specified for each store.</p>
       <pre class="lines">
 
 
-374
-375
-376</pre>
+381
+382
+383</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 374</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 381</span>
 
 <span class='kw'>def</span> <span class='id children'>children</span><span class='lparen'>(</span><span class='id resource'>resource</span><span class='rparen'>)</span>
   <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -1737,12 +1800,12 @@ physical insert in the store must be  specified for each store.</p>
       <pre class="lines">
 
 
-235
-236
-237</pre>
+240
+241
+242</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 235</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 240</span>
 
 <span class='kw'>def</span> <span class='id count'>count</span>
   <span class='id raise'>raise</span> <span class='const'>NotImplementedError</span>
@@ -1780,14 +1843,42 @@ physical insert in the store must be  specified for each store.</p>
       <pre class="lines">
 
 
-379
-380
-381</pre>
+386
+387
+388</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 379</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 386</span>
 
 <span class='kw'>def</span> <span class='id deletable_children'>deletable_children</span><span class='lparen'>(</span><span class='id resource'>resource</span><span class='rparen'>)</span>
+  <span class='lbracket'>[</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="deletable_parents-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>deletable_parents</strong>(resource) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+390
+391
+392</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 390</span>
+
+<span class='kw'>def</span> <span class='id deletable_parents'>deletable_parents</span><span class='lparen'>(</span><span class='id resource'>resource</span><span class='rparen'>)</span>
   <span class='lbracket'>[</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1848,14 +1939,14 @@ object has been modified or not.</p>
       <pre class="lines">
 
 
-190
-191
-192
-193
-194</pre>
+195
+196
+197
+198
+199</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 190</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 195</span>
 
 <span class='kw'>def</span> <span class='id dirty_key_for'>dirty_key_for</span><span class='lparen'>(</span><span class='id resource'>resource</span><span class='rparen'>)</span>
     <span class='kw'>if</span> <span class='id resource'>resource</span> <span class='op'>&amp;&amp;</span> <span class='ivar'>@session</span><span class='period'>.</span><span class='id dirty_attribute_strategy'>dirty_attribute_strategy</span>
@@ -1970,12 +2061,12 @@ object has been modified or not.</p>
       <pre class="lines">
 
 
-246
-247
-248</pre>
+251
+252
+253</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 246</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 251</span>
 
 <span class='kw'>def</span> <span class='id for_each_in_slice'>for_each_in_slice</span><span class='lparen'>(</span><span class='id start'>start</span><span class='comma'>,</span> <span class='id length'>length</span><span class='rparen'>)</span>
   <span class='id raise'>raise</span> <span class='const'>NotImplementedError</span>
@@ -2042,12 +2133,12 @@ object has been modified or not.</p>
       <pre class="lines">
 
 
-120
-121
-122</pre>
+125
+126
+127</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 120</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 125</span>
 
 <span class='kw'>def</span> <span class='id id_for'>id_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
   <span class='id state_for'>state_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span><span class='period'>.</span><span class='id andtap'>andtap</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id state'>state</span><span class='op'>|</span> <span class='id state'>state</span><span class='period'>.</span><span class='id id'>id</span> <span class='rbrace'>}</span>
@@ -2127,12 +2218,12 @@ object has been modified or not.</p>
       <pre class="lines">
 
 
-228
-229
-230</pre>
+233
+234
+235</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 228</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 233</span>
 
 <span class='kw'>def</span> <span class='id ids_for'>ids_for</span><span class='lparen'>(</span><span class='id criteria'>criteria</span><span class='rparen'>)</span>
   <span class='id raise'>raise</span> <span class='const'>NotImplementedError</span>
@@ -2180,15 +2271,15 @@ proxy corresponding to an old relation.</p>
       <pre class="lines">
 
 
-386
-387
-388</pre>
+397
+398
+399</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 386</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 397</span>
 
 <span class='kw'>def</span> <span class='id invalid_resource?'>invalid_resource?</span><span class='lparen'>(</span><span class='id resource'>resource</span><span class='rparen'>)</span>
-  <span class='kw'>false</span>
+  <span class='id resource'>resource</span><span class='period'>.</span><span class='id respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:invalid?</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id resource'>resource</span><span class='period'>.</span><span class='id invalid?'>invalid?</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2208,12 +2299,12 @@ proxy corresponding to an old relation.</p>
       <pre class="lines">
 
 
-500
-501
-502</pre>
+430
+431
+432</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 500</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 430</span>
 
 <span class='kw'>def</span> <span class='id load_children'>load_children</span><span class='lparen'>(</span><span class='id states'>states</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
   <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -2260,12 +2351,12 @@ proxy corresponding to an old relation.</p>
       <pre class="lines">
 
 
-96
-97
-98</pre>
+101
+102
+103</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 96</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 101</span>
 
 <span class='kw'>def</span> <span class='id model'>model</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id class'>class</span><span class='op'>::</span><span class='const'>Model</span>
@@ -2288,14 +2379,14 @@ proxy corresponding to an old relation.</p>
       <pre class="lines">
 
 
-505
-506
-507
-508
-509</pre>
+435
+436
+437
+438
+439</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 505</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 435</span>
 
 <span class='kw'>def</span> <span class='id new_from_attributes'>new_from_attributes</span><span class='lparen'>(</span><span class='id attributes'>attributes</span><span class='rparen'>)</span>
   <span class='id id'>id</span> <span class='op'>=</span> <span class='id attributes'>attributes</span><span class='period'>.</span><span class='id delete'>delete</span><span class='lparen'>(</span><span class='id primary_key'>primary_key</span><span class='rparen'>)</span>
@@ -2380,16 +2471,16 @@ proxy corresponding to an old relation.</p>
       <pre class="lines">
 
 
-177
-178
-179
-180
-181
 182
-183</pre>
+183
+184
+185
+186
+187
+188</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 177</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 182</span>
 
 <span class='kw'>def</span> <span class='id new_object'>new_object</span><span class='lparen'>(</span><span class='id id'>id</span><span class='comma'>,</span> <span class='id attributes'>attributes</span><span class='rparen'>)</span>
   <span class='id id'>id</span> <span class='op'>=</span> <span class='id attributes'>attributes</span><span class='period'>.</span><span class='id delete'>delete</span><span class='lparen'>(</span><span class='id primary_key'>primary_key</span><span class='rparen'>)</span>
@@ -2455,12 +2546,12 @@ proxy corresponding to an old relation.</p>
       <pre class="lines">
 
 
-127
-128
-129</pre>
+132
+133
+134</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 127</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 132</span>
 
 <span class='kw'>def</span> <span class='id object_for'>object_for</span><span class='lparen'>(</span><span class='id id'>id</span><span class='rparen'>)</span>
   <span class='ivar'>@id_to_state</span><span class='lbracket'>[</span><span class='id id'>id</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id andtap'>andtap</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:resource</span><span class='rparen'>)</span>
@@ -2510,12 +2601,12 @@ MUST be called by persistors creating Resources.</p>
       <pre class="lines">
 
 
-162
-163
-164</pre>
+167
+168
+169</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 162</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 167</span>
 
 <span class='kw'>def</span> <span class='id on_object_load'>on_object_load</span><span class='lparen'>(</span><span class='id state'>state</span><span class='rparen'>)</span>
   <span class='ivar'>@session</span><span class='period'>.</span><span class='id manage_state'>manage_state</span><span class='lparen'>(</span><span class='id state'>state</span><span class='rparen'>)</span>
@@ -2528,22 +2619,62 @@ MUST be called by persistors creating Resources.</p>
       <div class="method_details ">
   <p class="signature " id="parents-instance_method">
   
-    - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>parents</strong>(resource) 
+    - (<tt><span class='object_link'><a href="../../../Array.html" title="Array (class)">Array</a></span>&lt;<span class='object_link'><a href="../Resource.html" title="Lims::Core::Resource (module)">Resource</a></span>&gt;</tt>) <strong>parents</strong>(resource) 
   
 
   
-</p><table class="source_code">
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>List of parents of object, i.e. object which need to be saved BEFORE it.
+Default implementation get all Resource attributes.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>resource</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Resource.html" title="Lims::Core::Resource (module)">Resource</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../../../Array.html" title="Array (class)">Array</a></span>&lt;<span class='object_link'><a href="../Resource.html" title="Lims::Core::Resource (module)">Resource</a></span>&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-369
-370
-371</pre>
+374
+375
+376</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 369</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 374</span>
 
 <span class='kw'>def</span> <span class='id parents'>parents</span><span class='lparen'>(</span><span class='id resource'>resource</span><span class='rparen'>)</span>
   <span class='id resource'>resource</span><span class='period'>.</span><span class='id attributes'>attributes</span><span class='period'>.</span><span class='id values'>values</span><span class='period'>.</span><span class='id select'>select</span>  <span class='lbrace'>{</span> <span class='op'>|</span><span class='id v'>v</span><span class='op'>|</span> <span class='id v'>v</span><span class='period'>.</span><span class='id is_a?'>is_a?</span> <span class='const'>Resource</span> <span class='rbrace'>}</span>
@@ -2566,12 +2697,12 @@ MUST be called by persistors creating Resources.</p>
       <pre class="lines">
 
 
-496
-497
-498</pre>
+425
+426
+427</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 496</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 425</span>
 
 <span class='kw'>def</span> <span class='id parents_for_attributes'>parents_for_attributes</span><span class='lparen'>(</span><span class='id attributes'>attributes</span><span class='rparen'>)</span>
   <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -2606,17 +2737,17 @@ are association which doesn't exist anymore</p>
       <pre class="lines">
 
 
-198
-199
-200
-201
-202
 203
 204
-205</pre>
+205
+206
+207
+208
+209
+210</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 198</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 203</span>
 
 <span class='kw'>def</span> <span class='id purge_invalid_object'>purge_invalid_object</span>
   <span class='id to_delete'>to_delete</span> <span class='op'>=</span> <span class='const'>StateGroup</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -2684,15 +2815,15 @@ loaded.</p>
       <pre class="lines">
 
 
-309
-310
-311
-312
-313
-314</pre>
+314
+315
+316
+317
+318
+319</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 309</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 314</span>
 
 <span class='kw'>def</span> <span class='id retrieve'>retrieve</span><span class='lparen'>(</span><span class='id id'>id</span><span class='comma'>,</span> <span class='op'>*</span><span class='id params'>params</span><span class='rparen'>)</span>
   <span class='id object_for'>object_for</span><span class='lparen'>(</span><span class='id id'>id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id andtap'>andtap</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id o'>o</span><span class='op'>|</span> <span class='kw'>return</span> <span class='id o'>o</span> <span class='rbrace'>}</span>
@@ -2774,16 +2905,16 @@ loaded.</p>
       <pre class="lines">
 
 
-255
-256
-257
-258
-259
 260
-261</pre>
+261
+262
+263
+264
+265
+266</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 255</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 260</span>
 
 <span class='kw'>def</span> <span class='id slice'>slice</span><span class='lparen'>(</span><span class='id start'>start</span><span class='comma'>,</span> <span class='id length'>length</span><span class='rparen'>)</span>
   <span class='id to_load'>to_load</span> <span class='op'>=</span> <span class='const'>StateGroup</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -2849,12 +2980,12 @@ loaded.</p>
       <pre class="lines">
 
 
-136
-137
-138</pre>
+141
+142
+143</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 136</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 141</span>
 
 <span class='kw'>def</span> <span class='id state_for'>state_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
   <span class='ivar'>@object_to_state</span><span class='lbracket'>[</span><span class='id object'>object</span><span class='rbracket'>]</span>
@@ -2917,12 +3048,12 @@ state if needed.</p>
       <pre class="lines">
 
 
-144
-145
-146</pre>
+149
+150
+151</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 144</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/persistor.rb', line 149</span>
 
 <span class='kw'>def</span> <span class='id state_for_id'>state_for_id</span><span class='lparen'>(</span><span class='id id'>id</span><span class='rparen'>)</span>
     <span class='ivar'>@id_to_state</span><span class='lbracket'>[</span><span class='id id'>id</span><span class='rbracket'>]</span>

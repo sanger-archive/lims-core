@@ -488,6 +488,27 @@ state etc ...</p>
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#parents_saved%3F-instance_method" title="#parents_saved? (instance method)">- (Boolean) <strong>parents_saved?</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#persistor-instance_method" title="#persistor (instance method)">- (Object) <strong>persistor</strong> </a>
     
 
@@ -752,12 +773,12 @@ state etc ...</p>
       <pre class="lines">
 
 
-140
-141
-142</pre>
+144
+145
+146</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/resource_state.rb', line 140</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/resource_state.rb', line 144</span>
 
 <span class='kw'>def</span> <span class='id body_saved!'>body_saved!</span>
   <span class='ivar'>@body_saved</span> <span class='op'>=</span> <span class='kw'>true</span>
@@ -830,13 +851,13 @@ state etc ...</p>
       <pre class="lines">
 
 
-133
-134
-135
-136</pre>
+137
+138
+139
+140</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/resource_state.rb', line 133</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/resource_state.rb', line 137</span>
 
 <span class='kw'>def</span> <span class='id children'>children</span>
   <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id to_delete'>to_delete</span>
@@ -860,12 +881,12 @@ state etc ...</p>
       <pre class="lines">
 
 
-137
-138
-139</pre>
+141
+142
+143</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/resource_state.rb', line 137</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/resource_state.rb', line 141</span>
 
 <span class='kw'>def</span> <span class='id children!'>children!</span>
   <span class='id children'>children</span><span class='period'>.</span><span class='id tap'>tap</span> <span class='lbrace'>{</span> <span class='id children_saved!'>children_saved!</span> <span class='rbrace'>}</span>
@@ -1312,6 +1333,56 @@ state etc ...</p>
 </div>
     
       <div class="method_details ">
+  <p class="signature " id="parents_saved?-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>parents_saved?</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+134
+135
+136</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/resource_state.rb', line 134</span>
+
+<span class='kw'>def</span> <span class='id parents_saved?'>parents_saved?</span>
+  <span class='ivar'>@parents_saved</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <p class="signature " id="persistor-instance_method">
   
     - (<tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>persistor</strong> 
@@ -1352,14 +1423,14 @@ state etc ...</p>
       <pre class="lines">
 
 
-144
-145
-146
-147
-148</pre>
+148
+149
+150
+151
+152</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/resource_state.rb', line 144</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/resource_state.rb', line 148</span>
 
 <span class='kw'>def</span> <span class='id reset'>reset</span>
   <span class='ivar'>@parents_saved</span> <span class='op'>=</span> <span class='kw'>nil</span>
