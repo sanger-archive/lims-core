@@ -3,6 +3,9 @@
 require 'common'
 require 'forwardable'
 require 'digest/md5'
+require 'Oj'
+require 'json'
+
 
 require 'lims-core/persistence/filter'
 require 'lims-core/persistence/identity_map'
@@ -175,11 +178,10 @@ module Lims::Core
         object
       end
 
-      def dirty_key_for(object) 
-        return object.hash
+      def dirty_key_for(object)
         case @dirty_attribute_strategy
-        when Store::DIRTY_ATTRIBUTE_STRATEGY_DEEP_COPY then Oj.dump(object)
-        when Store::DIRTY_ATTRIBUTE_STRATEGY_SHA1 then Digest::SHA1.hexdigest(object.to_json)
+        when Store::DIRTY_ATTRIBUTE_STRATEGY_DEEP_COPY then object
+        when Store::DIRTY_ATTRIBUTE_STRATEGY_SHA1 then Digest::SHA1.hexdigest(Oj.dump(object))
         when Store::DIRTY_ATTRIBUTE_STRATEGY_MD5 then Digest::MD5.hexdigest(Oj.dump(object))
         when Store::DIRTY_ATTRIBUTE_STRATEGY_QUICK_HASH then object.hash
         end

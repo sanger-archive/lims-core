@@ -113,17 +113,15 @@ module Lims::Core::Persistence
               session.dirty_attribute_strategy = nil
               loaded = session.model[1];
               loaded.should == a # test the test works !
-              Model::ModelPersistor.any_instance.should_not_receive(:insert) do |state|
-                state.resource.should == a
-                1 
-              end
               Model::ModelPersistor.any_instance.should_not_receive(:bulk_update) do |states|
                 states.size == 1
                 states.first.resource.should == a
                 1
               end
-              Model::ModelPersistor.any_instance.should_receive(:insert) do |state|
-                state.resource.should == b
+              Model::ModelPersistor.any_instance.should_receive(:bulk_insert) do |states|
+                debugger
+                states.map(&:resource).should include b
+                states.map(&:resource).should_not include a
                 2 
               end
               session << loaded  << b
