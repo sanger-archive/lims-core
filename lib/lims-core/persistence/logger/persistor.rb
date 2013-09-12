@@ -21,25 +21,6 @@ module Lims::Core
           object
         end
 
-        # Overriden the default save new to add indentation
-        # around children
-        def save_new(object, *params)
-          save_raw(object, *params).tap do |id|
-            @session.with_indent("- ") { save_children(id, object) }
-          end
-        end
-
-        # Upate a raw object, i.e. the object attributes
-        # excluding any associations.
-        # @param [Resource] object the object 
-        # @param [Fixnum] id the Id of the object
-        # @return [Fixnum, nil] the id 
-        def update_raw(object, id, *params)
-          id.tap do
-            save_raw(object, *params)
-          end
-        end
-
         def save_as_aggregation(source_id, target, *params)
           @session.with_indent("#{params} - ") do
             super(source_id, target)

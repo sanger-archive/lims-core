@@ -4,6 +4,7 @@ require 'sequel'
 require 'lims-core/persistence'
 require 'lims-core/persistence/uuidable'
 require 'lims-core/persistence/session'
+require 'oj'
 
 module Lims::Core
   module Persistence
@@ -28,6 +29,14 @@ module Lims::Core
         def self.unpack_uuid(puuid)
           #UuidResource::unpack(puuid)
           UuidResource::expand(puuid)
+        end
+
+        def serialize(object)
+          Oj.dump(object)
+        end
+
+        def unserialize(object)
+          Oj.load(object)
         end
       end
     end

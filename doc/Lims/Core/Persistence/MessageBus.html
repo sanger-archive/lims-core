@@ -368,6 +368,19 @@ parameters.</p>
   
 </ul>
 
+<h3>Raises:</h3>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="MessageBus/InvalidSettingsError.html" title="Lims::Core::Persistence::MessageBus::InvalidSettingsError (class)">InvalidSettingsError</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -375,21 +388,25 @@ parameters.</p>
       <pre class="lines">
 
 
-32
-33
 34
 35
 36
 37
-38</pre>
+38
+39
+40
+41
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/message_bus.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/message_bus.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id initialize'>initialize</span><span class='lparen'>(</span><span class='id settings'>settings</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id raise'>raise</span> <span class='const'>InvalidSettingsError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MessageBug settings are empty</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id settings'>settings</span> <span class='op'>==</span> <span class='kw'>nil</span>
   <span class='ivar'>@heart_beat</span> <span class='op'>=</span> <span class='id settings'>settings</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>heart_beat</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
   <span class='ivar'>@connection_uri</span> <span class='op'>=</span> <span class='id settings'>settings</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>url</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
   <span class='ivar'>@exchange_name</span> <span class='op'>=</span> <span class='id settings'>settings</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>exchange_name</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+  <span class='ivar'>@exchange_type</span> <span class='op'>=</span> <span class='id settings'>settings</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>exchange_type</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>topic</span><span class='tstring_end'>&quot;</span></span>
   <span class='ivar'>@durable</span> <span class='op'>=</span> <span class='id settings'>settings</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>durable</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
   <span class='ivar'>@prefetch_number</span> <span class='op'>=</span> <span class='id settings'>settings</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>prefetch_number</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
@@ -429,12 +446,12 @@ parameters.</p>
       <pre class="lines">
 
 
-69
-70
-71</pre>
+73
+74
+75</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/message_bus.rb', line 69</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/message_bus.rb', line 73</span>
 
 <span class='kw'>def</span> <span class='id close'>close</span>
   <span class='ivar'>@connection</span><span class='period'>.</span><span class='id close'>close</span>
@@ -469,10 +486,6 @@ a channel and setup a new exchange.</p>
       <pre class="lines">
 
 
-51
-52
-53
-54
 55
 56
 57
@@ -484,10 +497,14 @@ a channel and setup a new exchange.</p>
 63
 64
 65
-66</pre>
+66
+67
+68
+69
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/message_bus.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/message_bus.rb', line 55</span>
 
 <span class='kw'>def</span> <span class='id connect'>connect</span>
   <span class='kw'>begin</span>
@@ -535,14 +552,14 @@ rollback the actions.</p>
       <pre class="lines">
 
 
-42
-43
-44
-45
-46</pre>
+46
+47
+48
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/message_bus.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/message_bus.rb', line 46</span>
 
 <span class='kw'>def</span> <span class='id connection_failure_handler'>connection_failure_handler</span>
   <span class='const'>Proc</span><span class='period'>.</span><span class='id new'>new</span> <span class='kw'>do</span>
@@ -628,15 +645,15 @@ passed in the options.</p>
       <pre class="lines">
 
 
-108
-109
-110
-111
 112
-113</pre>
+113
+114
+115
+116
+117</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/message_bus.rb', line 108</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/message_bus.rb', line 112</span>
 
 <span class='kw'>def</span> <span class='id publish'>publish</span><span class='lparen'>(</span><span class='id message'>message</span><span class='comma'>,</span> <span class='id options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id raise'>raise</span> <span class='const'>ConnectionError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>exchange is not reachable</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='ivar'>@exchange</span><span class='period'>.</span><span class='id instance_of?'>instance_of?</span><span class='lparen'>(</span><span class='const'>Bunny</span><span class='op'>::</span><span class='const'>Exchange</span><span class='rparen'>)</span>
@@ -706,15 +723,15 @@ exchange as durable (survive a server restart)</p>
       <pre class="lines">
 
 
-79
-80
-81</pre>
+83
+84
+85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/message_bus.rb', line 79</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/message_bus.rb', line 83</span>
 
 <span class='kw'>def</span> <span class='id set_exchange'>set_exchange</span><span class='lparen'>(</span><span class='id exchange_name'>exchange_name</span><span class='comma'>,</span> <span class='id options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='ivar'>@exchange</span> <span class='op'>=</span> <span class='ivar'>@channel</span><span class='period'>.</span><span class='id topic'>topic</span><span class='lparen'>(</span><span class='id exchange_name'>exchange_name</span><span class='comma'>,</span> <span class='id options'>options</span><span class='rparen'>)</span>
+  <span class='ivar'>@exchange</span> <span class='op'>=</span> <span class='const'>Bunny</span><span class='op'>::</span><span class='const'>Exchange</span><span class='period'>.</span><span class='id new'>new</span><span class='lparen'>(</span><span class='ivar'>@channel</span><span class='comma'>,</span> <span class='id exchange_type'>exchange_type</span><span class='period'>.</span><span class='id to_sym'>to_sym</span><span class='comma'>,</span> <span class='id exchange_name'>exchange_name</span> <span class='comma'>,</span> <span class='id options'>options</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -771,12 +788,12 @@ restart, if the queue and the exchange are durable.</p>
       <pre class="lines">
 
 
-100
-101
-102</pre>
+104
+105
+106</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/message_bus.rb', line 100</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/message_bus.rb', line 104</span>
 
 <span class='kw'>def</span> <span class='id set_message_persistence'>set_message_persistence</span><span class='lparen'>(</span><span class='id persistent'>persistent</span><span class='rparen'>)</span>
   <span class='ivar'>@message_persistence</span> <span class='op'>=</span> <span class='id persistent'>persistent</span> 
@@ -830,12 +847,12 @@ restart, if the queue and the exchange are durable.</p>
       <pre class="lines">
 
 
-86
-87
-88</pre>
+90
+91
+92</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/message_bus.rb', line 86</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/message_bus.rb', line 90</span>
 
 <span class='kw'>def</span> <span class='id set_prefetch_number'>set_prefetch_number</span><span class='lparen'>(</span><span class='id number'>number</span><span class='rparen'>)</span>
   <span class='ivar'>@channel</span><span class='period'>.</span><span class='id prefetch'>prefetch</span><span class='lparen'>(</span><span class='id number'>number</span><span class='rparen'>)</span>
