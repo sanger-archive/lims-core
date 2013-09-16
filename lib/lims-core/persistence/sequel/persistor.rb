@@ -4,7 +4,6 @@ require 'lims-core/persistence/identity_map'
 require 'active_support/inflector'
 require 'lims-core/persistence/sequel/filters'
 
-
 module Lims::Core
   module Persistence
     module Sequel
@@ -166,11 +165,11 @@ module Lims::Core
         # completes. If another connection attempts to modify the locked row, it blocks until the 
         # connection that locked the row completes the transaction.
         def get_next_available_ids(quantity = 1)
-          primary_keys_t = dataset[:primary_keys] 
+          primary_keys_t = dataset.from(:primary_keys) 
           primary_keys_t.db.transaction do
             current_key_row = primary_keys_t.for_update.first(:table_name => table_name.to_s) 
             primary_keys_t.insert(:table_name => table_name.to_s, :current_key => 0) unless current_key_row
-            current_key = current_key_row[:current_key]
+            current_key = current_key_row ? current_key_row[:current_key] : 0
 
             new_current_key = current_key + quantity
             primary_keys_t.where(:table_name => table_name.to_s).update(:current_key => new_current_key)
