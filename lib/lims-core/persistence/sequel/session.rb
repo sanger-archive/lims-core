@@ -38,6 +38,24 @@ module Lims::Core
         def unserialize(object)
           Oj.load(object)
         end
+
+        def lock(dataset, &block)
+            db = dataset.db
+          return lock_for_update(dataset, &block) if db.adapter_scheme =~ /sqlite/i
+            db.fetch("LOCK TABLES #{dataset.first_source} WRITE").first
+            block.call(dataset).tap  do
+              db.fetch("UNLOCK TABLES").first
+            end
+        end
+
+        # this method is to be used when the SQL store
+        # doesn't support LOCK, which is the case for SQLITE
+        # It can be used to redefine lock if needed.
+        def lock_for_update(dataset, &block)
+          dataset.db.transaction do
+            block.call(dataset.for_update)
+          end
+        end
       end
     end
   end

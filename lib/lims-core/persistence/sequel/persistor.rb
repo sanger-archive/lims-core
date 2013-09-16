@@ -158,26 +158,31 @@ module Lims::Core
           end
         end
 
+        # Return a sequence of free ids, ready to be inserted.
+        # The last used id corresponding to each table is store in a special table.
+        # We need to lock the table to avoid to thread or process to 'use' the same ids.
         # @param [Integer] quantity
         # @return [Array<Integer>]
-        # The for_update method sends a query to the database telling it to lock the row of the table so 
-        # that other connections cannot modify that row. The lock is released when the transaction
-        # completes. If another connection attempts to modify the locked row, it blocks until the 
-        # connection that locked the row completes the transaction.
         def get_next_available_ids(quantity = 1)
-          primary_keys_t = dataset.from(:primary_keys) 
-          primary_keys_t.db.transaction do
-            current_key_row = primary_keys_t.for_update.first(:table_name => table_name.to_s) 
-            primary_keys_t.insert(:table_name => table_name.to_s, :current_key => 0) unless current_key_row
-            current_key = current_key_row ? current_key_row[:current_key] : 0
+          @session.lock(dataset.from(:primary_keys)) do |primary_keys|
+          debugger
+            current_key_row = primary_keys.first(:table_name => table_name.to_s) 
+            if current_key_row
+              current_key = current_key_row[:current_key]
+            else
+              # We need to lock the current dataset otherwise MySQL raise on error
+              # because we are already in a LOCK block.
+              current_key = @session.lock(dataset) { |d| d.max(primary_key) } || 0
+              primary_keys.insert(:table_name => table_name.to_s, :current_key => current_key)
+            end
 
             new_current_key = current_key + quantity
-            primary_keys_t.where(:table_name => table_name.to_s).update(:current_key => new_current_key)
+            primary_keys.where(:table_name => table_name.to_s).update(:current_key => new_current_key)
 
             (current_key+1..new_current_key).to_a
           end
         end
-        private :get_next_available_ids
+        public :get_next_available_ids
       end
     end
   end

@@ -21,7 +21,14 @@ module Lims::Core::Persistence
     describe Session, :session => true, :persistence => true, :persistence => true, :sequel => true do
       context "with sqlite underlying" do
         let(:db) { ::Sequel.sqlite('') }
-        let(:store) { Store.new(db) }
+        let(:store) { Store.new(db).tap do 
+            db.create_table :primary_keys do
+              primary_key :id
+              String :table_name
+              Integer :current_key
+            end
+          end
+        }
 
         context "#transaction" do
           let(:a) { ForTest::Name.new(:name => "A") }
@@ -35,7 +42,7 @@ module Lims::Core::Persistence
             end
 
             c.stub(:attributes) do
-                raise RuntimeError, "Can't save '#{inspect}'"
+              raise RuntimeError, "Can't save '#{inspect}'"
             end
           end
 
