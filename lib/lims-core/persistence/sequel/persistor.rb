@@ -169,7 +169,7 @@ module Lims::Core
           primary_keys_t = dataset[:primary_keys] 
           primary_keys_t.db.transaction do
             current_key_row = primary_keys_t.for_update.first(:table_name => table_name.to_s) 
-            raise ArgumentError, "No record found for the table '#{table_name.to_s}' in primary_keys table." unless current_key_row
+            primary_keys_t.insert(:table_name => table_name.to_s, :current_key => 0) unless current_key_row
             current_key = current_key_row[:current_key]
 
             new_current_key = current_key + quantity
@@ -178,6 +178,7 @@ module Lims::Core
             (current_key+1..new_current_key).to_a
           end
         end
+        private :get_next_available_ids
       end
     end
   end
