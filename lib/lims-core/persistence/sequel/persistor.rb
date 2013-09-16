@@ -165,7 +165,6 @@ module Lims::Core
         # @return [Array<Integer>]
         def get_next_available_ids(quantity = 1)
           @session.lock(dataset.from(:primary_keys)) do |primary_keys|
-          debugger
             current_key_row = primary_keys.first(:table_name => table_name.to_s) 
             if current_key_row
               current_key = current_key_row[:current_key]
