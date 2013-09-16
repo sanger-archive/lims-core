@@ -3,7 +3,7 @@
 require 'common'
 require 'forwardable'
 require 'digest/md5'
-require 'Oj'
+require 'oj'
 require 'json'
 
 
