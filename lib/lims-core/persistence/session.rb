@@ -3,6 +3,9 @@
 require 'common'
 require 'forwardable'
 require 'digest/md5'
+require 'oj'
+require 'json'
+
 
 require 'lims-core/persistence/filter'
 require 'lims-core/persistence/identity_map'
@@ -83,19 +86,6 @@ module Lims::Core
         @object_states << state
       end
 
-      # save the object in real.
-      # To mark an object as 'to save' use the `<<` method
-      # Note we can't make this method private because, the persistor
-      # need it to save their children. To solve this, we raise an exception if it's inside a sess
-      # @return [Boolean]
-      def saveX(object, *options)
-        raise RuntimeError, "Can't save object inside a session. Please considere the << method." unless @save_in_progress
-        return id_for(object) if @saved.include?(object)
-        @saved << object
-
-        persistor_for(object).save(object, *options)
-      end
-
       def method_missing(name, *args, &block)
         begin
           persistor_for(name)
@@ -121,7 +111,6 @@ module Lims::Core
       def state_for(object)
         return persistor_for(object).state_for(object)
       end
-      private :state_for
 
       def states_for(objects)
         objects && objects.map { |o| state_for(o) }
@@ -189,11 +178,10 @@ module Lims::Core
         object
       end
 
-      def dirty_key_for(object) 
-        return object.hash
+      def dirty_key_for(object)
         case @dirty_attribute_strategy
-        when Store::DIRTY_ATTRIBUTE_STRATEGY_DEEP_COPY then Oj.dump(object)
-        when Store::DIRTY_ATTRIBUTE_STRATEGY_SHA1 then Digest::SHA1.hexdigest(object.to_json)
+        when Store::DIRTY_ATTRIBUTE_STRATEGY_DEEP_COPY then object
+        when Store::DIRTY_ATTRIBUTE_STRATEGY_SHA1 then Digest::SHA1.hexdigest(Oj.dump(object))
         when Store::DIRTY_ATTRIBUTE_STRATEGY_MD5 then Digest::MD5.hexdigest(Oj.dump(object))
         when Store::DIRTY_ATTRIBUTE_STRATEGY_QUICK_HASH then object.hash
         end
@@ -208,15 +196,6 @@ module Lims::Core
           @object_states.save
           end
         @save_in_progress = false
-      end
-
-      # Call to
-      def delete_in_realX(object, *options)
-        raise RuntimeError, "Can't delete an object inside a session. Please considere the 'delete' method instead." unless @save_in_progress
-        return id_for(object) if @saved.include?(object)
-        @saved << object
-
-        persistor_for(object).delete(object, *options)
       end
 
       # Create a new persistor sharing the same internal parameters

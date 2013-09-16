@@ -33,9 +33,9 @@ module Lims::Core
 
         # split by status
         group_by(&:save_action).tap do |groups|
-          groups[:insert].andtap { |group| persistor.bulk_insert(group) }
-          groups[:update].andtap { |group| persistor.bulk_update(group) }
           groups[:delete].andtap { |group|  StateGroup.new(persistor, group).destroy }
+          groups[:update].andtap { |group| persistor.bulk_update(group) }
+          groups[:insert].andtap { |group| persistor.bulk_insert(group) }
         end
 
         all_children = StateList.new
@@ -52,19 +52,27 @@ module Lims::Core
       # @todo doc
       # destroy because delete exists already for a Set
       def destroy
+        return self if size == 0
          # mark each item for deletion
          # so the parents are not saved later.
          # children needs to be deleted NOW to avoid
          # foreign key constraint error.
           each_with_object(StateList.new) do |state, list|
+            # don't delete children if they've been deleted already
+            next if state.children_saved?
             state.mark_for_deletion
             list.merge(persistor.deletable_children_for(state.resource))
+            state.children_saved!
           end.destroy
 
-          #
-
         
-        persistor.bulk_delete(self)
+        persistor.bulk_delete(self.select { |s| !s.body_saved? })
+
+          each_with_object(StateList.new) do |state, list|
+            next if state.parents_saved?
+            list.merge(persistor.deletable_parents_for(state.resource))
+            state.parents_saved!
+          end.destroy
         each { |state| state.body_saved! }
 
       end

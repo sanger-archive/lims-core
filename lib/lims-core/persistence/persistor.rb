@@ -31,6 +31,21 @@ module Lims::Core
     # If a base peristor for exists for a class but there is no
     # Each instance can get an identity map, and or parameter
     # specific to a session/thread.
+    # * Methods relative to store  are
+    # - insert : a new object to the store
+    # - delete : remove an object fromt the store
+    # - update : modify an existing object from the store.
+    # - retrieve : get an object from the store.
+    # - bulk_<method> vs <method> refers to method acting on a list of states 
+    # instead of an individual object. Althoug only one version needs to be implemted
+    # , the bulk version is prefered for performance reason.
+    # - raw_<method_ refers when exists to the physical action done to the store
+    # without any side effect on the Session or Persistor. They should not normally be called.
+    # * Methods relative to parents/children
+    # - parents : resources needed to be saved BEFORE the resource itself.
+    # - children : resources needed to be save AFTER the resource itself.
+    # - deletable_children : resources which needs to be deleted BEFORE the resource itself.
+    # - deletable_parent : resources which needs to be deleted AFTER the resource itself.
     class Persistor
 
       # Raised if there is any duplicate in the identity maps
@@ -104,25 +119,40 @@ module Lims::Core
           end
         end
 
-        # @todo
+        # Get the id from an object from the cache.
+        # @param [Resource] object object to find the id for.
+        # @return [Id, Nil]
         def id_for(object)
           state_for(object).andtap { |state| state.id }
         end
         
+        # Get the object from a given id.
+        # @param [Fixnum] id
+        # @return [Resourec, Nil]
         def object_for(id)
           @id_to_state[id].andtap(&:resource)
         end
 
 
-        # @todo
+        # Returns the state proxy of an object.
+        # Creates it if needed.
+        # @param [Resource] object
+        # @return [ResourceState]
         def state_for(object)
           @object_to_state[object]
         end
+
+        # Returns the state proxy of an object fromt its id (in cache).
+        # Creates the state if needed.
+        # @param [Id] object
+        # @return [ResourceState]
         def state_for_id(id)
             @id_to_state[id]
         end
-        
 
+        # Updates the cache so id_to_state
+        # reflects state.id
+        # @param [ResourceState]
         def bind_state_to_id(state)
           raise RuntimeError, 'Invalid state' if state.persistor != self
           raise DuplicateIdError.new(self, state.id)if @id_to_state.include?(state.id)
@@ -130,20 +160,25 @@ module Lims::Core
           @id_to_state[state.id] = state
         end
 
-      # Called by Persistor to inform the session
-      # about the loading of an object.
-      # MUST be called by persistors creating Resources.
+        # Called by Persistor to inform the session
+        # about the loading of an object.
+        # MUST be called by persistors creating Resources.
+        # @param [ResourceState]
         def on_object_load(state)
           @session.manage_state(state)
         end
 
+        # Update the cache 
         def bind_state_to_resource(state)
           raise RuntimeError, 'Invalobject state' if state.persistor != self
           raise DuplicateIdError.new(self, state.resource) if @object_to_state.include?(state.resource)
           @object_to_state[state.resource] = state
         end
 
-        # @todo
+        # Creates a new object from a Hash and associate it to its id
+        # @param [Id] id id of the new object
+        # @param [Hash] attributes of the new object.
+        # @return [Resource]
         def new_object(id, attributes)
           id = attributes.delete(primary_key)
           model.new(filter_attributes_on_load(attributes)).tap do |resource|
@@ -152,88 +187,19 @@ module Lims::Core
           end
         end
 
-        # save an object and return is id or nil if failure
-        # @return [Fixnum, nil]
-        def saveX(object, *params)
-          return nil if object.nil?
-          # check if the object has been modified or not
-          id_for(object) { |id| update(object, id, *params) } ||
-          map_id_object(save_new(object, *params) , object)
-        end
-
-        # deletes an object and returns its id or nil if failure
-        # @return [Fixnum, nil]
-        def deleteX(object, *params)
-          return nil if object.nil?
-          id_for(object) do |id|
-            # We need to delet the children before the parent
-            # to not break any constraints
-            delete_children(id, object)
-            delete_raw(object, id, *params)
-          end
-        end
-        # save an association
-        # Association doesn't have necessarily and id
-        # therefore we don't use the indentity map.
-        # Save objects if needed.
-        # @param [Resource, Id] source the source of the association.
-        # @param [Resource, Id] target the target of the association.
-        # @param [Hash] params specific to the Store.
-        def save_as_associationX(source, target, *params)
-          save_raw_association(@session.id_for!(source), @session.id_for!(target), *params)
-        end
-
-
-        # save an aggregation
-        # Aggregation doesn't have necessarily and id
-        # therefore we don't use the indentity map.
-        # Save objects if needed.
-        # Aggregation differs from association in the fact that the 'parent' is already saved
-        # and the children have to be saved.
-        # @param [id] source_id 
-        # @param [Resource] target will be saved.
-        # @param [Hash] params specific to the Store.
-        def save_as_aggregationX(source_id, target, *params)
-          save_raw_association(source_id, @session.save(target), *params)
-        end
-
-        # Load a model object (and its children) from its database id.
-        # @param [Id] id in the database
-        # @param [Hash] raw_attributes attributes to build the object
-        # @return [Resource] the model object.
-        # @raise error if object doesn't exists.
-        def load_single_modelX(id, raw_attributes=nil)
-          raw_attributes ||= load_raw_attributes(id)
-          model.new(filter_attributes_on_load(raw_attributes) || {}).tap do |m|
-            load_children(id, m)
-          end
-        end
-        private :load_single_modelX
-
-        # create or get an object if already in cache
-        # The raw_attributes is there for convenience  to
-        # create the object with parameters is they have already been loaded
-        # (bulk load for example).
-        def get_or_create_single_modelX(id, raw_attributes=nil)
-          object_for(id) || load_single_model(id, raw_attributes).tap do |m|
-            map_id_object(id, m)
-            if @session.dirty_attribute_strategy
-              dirty_key = @session.dirty_key_for(filter_attributes_on_save(m.attributes))
-              @id_to_dirty_key[id]= dirty_key
-            end
-            @session.on_object_load(m)
-          end
-        end
-        protected :get_or_create_single_modelX
-
+        # Computes "dirty_key" of an object.
+        # The dirty key is used to decide if an object
+        # has been modified or not.
+        # @param [ Resource]
+        # @return [Object]
         def dirty_key_for(resource)
             if resource && @session.dirty_attribute_strategy
-              @session.dirty_key_for(filter_attributes_on_save(resource.attributes))
+              @session.dirty_key_for(filter_attributes_on_save(resource.attributes_for_dirty))
             end
         end
 
       # Delete all invalid object loaded by a persistor.
-      # Typically invalid object are associatio which doesn't exist anymore
+      # Typically invalid object are association which doesn't exist anymore
       def purge_invalid_object
         to_delete = StateGroup.new(self, [])
         @object_to_state.each do |object, state|
@@ -241,19 +207,7 @@ module Lims::Core
         end
 
         to_delete.destroy
-
       end
-
-        # create or get a list of objects.
-        # Only load the ones which aren't in cache
-        # @param [Array<Id>] ids list of ids to get
-        # @param [Array<Hash>] list of raw_attributes (@see get_or_create_single_model)
-        # @return [Array<Resource>]
-        # @todo bulk load if needed
-        def get_or_create_multi_modelX(ids, raw_attributes_list=[])
-          ids.zip(raw_attributes_list).map { |i, r| get_or_create_single_model(i, r) }
-        end
-        protected :get_or_create_multi_modelX
 
         # Create or get one or object matching the criteria
         # @param [Hash] criteria, map of (attributes, value) to match
@@ -278,15 +232,6 @@ module Lims::Core
         # @return [Array<Id>] 
         def ids_for(criteria)
           raise NotImplementedError
-        end
-
-
-        def load_associated_elementsX()
-        end
-
-        def load_aggregated_elementsX(id, &block)
-          load_raw_associations(id).each do |element_id|
-          end
         end
 
         # @abstract
@@ -320,45 +265,62 @@ module Lims::Core
           to_load.load.map(&:resource)
         end
 
-        # @todo doc
+        # Inserts objects in the underlying store AND manages them.
+        # This method only care about the objects themselves not about
+        # theirs parents or children.
+        # The physical insert in the store must be  specified for each store.
         def bulk_insert(states, *params)
           states.map { |state| insert(state, *params) }
         end
 
+        # Remove object form the underlying store and Manages them.
+        # This method only care about the objects themselves not about
+        # theirs parents or children.
         def bulk_delete(states, *params)
-          # remove object from cache and delete theme
+          # delete theme but leave them in cache
+          # in case they need to be displayed.
           states.each do |state|
             state.id.andtap { |id| @id_to_state.delete(id) }
-            state.resource.andtap { |object| @object_to_state.delete(object) }
+            state.resource #.andtap { |object| @object_to_state.delete(object) }
           end
           bulk_delete_raw(states.map(&:id).compact, *params)
         end
 
+        # @abstract
+        # Physically remove objects from a store.
         def bulk_delete_raw(states, *params)
           raise NotImplementedError
         end
 
-        # @todo doc
-        %w(insert update delete retrieve).each do |method|
+        %w(insert update delete_raw).each do |method|
           class_eval %Q{
-        def #{method}(state, *params)
           #bulk_#{method} and #{method} can be both implemented from each other.
           #raise a NotImplementedError is none of them have been implemented
+        def #{method}(param, *params)
           raise NotImplementedError if @__simple_#{method}
           @__simple_#{method} = true
-          bulk_#{method}([state], *params).andtap do |results|
+          bulk_#{method}([param], *params).andtap do |results|
             @__simple_#{method} = false
             results.first
           end
         end
       }
       end
+
+      # Retrieves an object from it's id.
+      # Doesn't load it if it's been alreday loaded.
+      # @param [Id] id
+      # @return [Object, nil]
       def retrieve(id, *params)
         object_for(id).andtap { |o| return o }
         objects = bulk_retrieve([id], *params)
         return objects.first if objects && objects.size == 1
 
       end
+
+      # Retreives a list of objects .
+      # @param[Array<Id>] ids
+      # @return [Array<Object]
         def bulk_retrieve(ids, *params)
           # create a list of states and load them
           states = StateGroup.new(self, ids.map do |id|
@@ -383,6 +345,9 @@ module Lims::Core
           ids.map { |id| object_for(id) }
         end
 
+        # Updates the store and manages object.
+        # Doesn't care of children or parents.
+        # @param [Array<ResourceState] states
         def bulk_update(states, *params)
           attributes = states.map do |state|
             filter_attributes_on_save(state.resource.attributes).merge(primary_key => state.id)
@@ -393,18 +358,26 @@ module Lims::Core
           end
         end
 
-        # children_for
-        %w(parents children deletable_children).each do |m|
+        %w(parents children deletable_children deletable_parents).each do |m|
+          # @method #{m}_for
+          # @param [Resource]
+          # @return [Array<ResourceState>]
           define_method "#{m}_for" do |resource|
             @session.states_for(public_send(m, resource))
           end
         end
 
+        # List of parents of object, i.e. object which need to be saved BEFORE it.
+        # Default implementation get all Resource attributes.
+        # @param [Resource]  resource
+        # @return [Array<Resource>]
         def parents(resource)
           resource.attributes.values.select  { |v| v.is_a? Resource }
         end
 
-        # @todo
+        # List of children , i.e, object which need to be saved AFTER it.
+        # @param [Resource]  resource
+        # @return [Array<Resource>]
         def children(resource)
           []
         end
@@ -414,11 +387,15 @@ module Lims::Core
           []
         end
 
+        def deletable_parents(resource)
+          []
+        end
+
         # if a resource is invalid and need to be deleted.
         # For example an association proxy corresponding
         # to an old relation.
         def invalid_resource?(resource)
-          false
+          resource.respond_to?(:invalid?) && resource.invalid?
         end
 
 
@@ -428,88 +405,6 @@ module Lims::Core
         # @return [Symbol]
         def primary_key()
           :id
-        end
-
-        # load the object without any dependency
-        # @param id identifier of the object
-        # @return the loaded object
-        def load_raw_objectX(id)
-          raise NotImplementedError
-        end
-
-        # Called to save a new object, i.e. which is not
-        # already in the database.
-        # @param [Resource] object the object 
-        # @return [Fixnum, nil] the Id if save successful
-        def save_newM(object, *params)
-          save_raw(object, *params).tap do |id|
-            save_children(id, object)
-          end
-        end
-
-        # Save a object already in the database
-        # @param [Resource] object the object 
-        # @param [Fixum] id id in the database
-        # @return [Fixnum, nil] the Id if save successful.
-        def updateX(object, id, *params)
-          # Check if 
-          # naive version , update everything.
-          # Probably quicker than trying to guess what has changed
-          id.tap do
-            if dirty?(object, id)
-              update_raw(object, id, *params)
-            end  
-            update_children(id, object)
-          end
-        end
-
-        # Check if an item is dirty and update
-        # its dirty key
-        # @param[Resource] object
-        # @param[Fixum] id 
-        # @return [Bool] true if the object is dirty (needs saving)
-        def dirtyM?(object, id, *params)
-            attributes = filter_attributes_on_save(object.attributes, *params)
-            # check if the object is dirty on note.
-            # In fact, we only cares about the attributes
-            # because a dirty attribute which is not saved doesn't really matter
-            if @session.dirty_attribute_strategy
-              old_dirty_key = @id_to_dirty_key[id]
-              new_dirty_key = @session.dirty_key_for(attributes)
-
-              @id_to_dirty_key[id] = new_dirty_key
-              !(old_dirty_key && old_dirty_key == new_dirty_key)
-            else
-              true
-            end
-        end
-
-        def delete_rawX(object, id)
-          raise NotImplementedError
-        end
-
-        # save children of a newly created object.
-        # @param [Fixum] id id in the database
-        # @param [Resource] object the object 
-        def save_childrenX(id, object)
-
-        end
-
-        # save children of an existing object.
-        # @param [Fixum] id id in the database
-        # @param [Resource] object the object 
-        def update_childrenX(id, object)
-          delete_children(id, object)
-          save_children(id, object)
-        end
-
-        def delete_childrenX(id, object)
-        end
-
-        # Loads children from the database and set the to model object.
-        # @param id primary key of the model object in the database.
-        # @param m  instance of model to load
-        def load_childrenX(id, m)
         end
 
         # Transform  store fields to object attributes
@@ -530,6 +425,7 @@ module Lims::Core
         def parents_for_attributes(attributes)
           []
         end
+
         public :parents_for_attributes
         def load_children(states, *params)
           []
@@ -566,6 +462,26 @@ module Lims::Core
 
         def attribute_for(key)
           key
+        end
+
+        def self.association_class(association, &block) 
+          snake = association.snakecase
+          association_class = class_eval  <<-EOC
+          class #{association}
+            include  Lims::Core::Resource
+          end
+
+          def #{snake}
+            @session.#{snake}_persistor
+          end
+          #{association}
+          EOC
+          association_class.class_eval(&block)
+          association_class.class_eval do
+            does "lims/core/persistence/persist_association", self
+          end
+          association_class
+
         end
       end
     end

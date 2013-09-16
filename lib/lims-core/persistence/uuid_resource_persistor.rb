@@ -10,10 +10,6 @@ module Lims::Core
       class UuidResourcePersistor < Persistence::Persistor
         Model = UuidResource
 
-        def parents_for_attributesX(attributes)
-          [@session.persistor_for(attributes[:model_class]).state_for_id(attributes[:key])]
-        end
-
         def parents_for(resource)
           resource.state && resource.state.resource ? [resource.state] : []
         end
