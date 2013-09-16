@@ -119,7 +119,6 @@ module Lims::Core::Persistence
                 1
               end
               Model::ModelPersistor.any_instance.should_receive(:bulk_insert) do |states|
-                debugger
                 states.map(&:resource).should include b
                 states.map(&:resource).should_not include a
                 2 
