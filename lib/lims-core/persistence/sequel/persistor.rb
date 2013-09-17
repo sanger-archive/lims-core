@@ -4,7 +4,6 @@ require 'lims-core/persistence/identity_map'
 require 'active_support/inflector'
 require 'lims-core/persistence/sequel/filters'
 
-
 module Lims::Core
   module Persistence
     module Sequel
@@ -138,10 +137,8 @@ module Lims::Core
 
         # @todo
         def bulk_insert_multi(states, *params)
-          # get last id
-          last = dataset.max(primary_key) || 0
-          states.inject(last) { |l, s|
-            s.id = l+1 }
+          free_ids = get_next_available_ids(states.size)
+          states.inject(0) { |i,s| s.id = free_ids[i]; i+1 }
           attributes = states.map { |state| filter_attributes_on_save(state.resource.attributes, *params).merge(primary_key => state.id) }
           dataset.multi_insert(attributes)
         end
@@ -161,15 +158,32 @@ module Lims::Core
           end
         end
 
-        # returns the next available id (last one if more than one are
-          # required.
-          # The current implementation just use the last insert id.
-          # But need to be changed to something more robust.
-          def get_next_id(n=1)
-            (dataset.max(primary_key) || 0)+n
+        # Return a sequence of free ids, ready to be inserted.
+        # The last used id corresponding to each table is store in a special table.
+        # We need to lock the table to avoid to thread or process to 'use' the same ids.
+        # @param [Integer] quantity
+        # @return [Array<Integer>]
+        def get_next_available_ids(quantity = 1)
+          @session.lock(dataset.from(:primary_keys)) do |primary_keys|
+            current_key_row = primary_keys.first(:table_name => table_name.to_s) 
+            if current_key_row
+              current_key = current_key_row[:current_key]
+            else
+              # We need to lock the current dataset otherwise MySQL raise on error
+              # because we are already in a LOCK block.
+              current_key = @session.lock(dataset) { |d| d.max(primary_key) } || 0
+              primary_keys.insert(:table_name => table_name.to_s, :current_key => current_key)
+            end
+
+            new_current_key = current_key + quantity
+            primary_keys.where(:table_name => table_name.to_s).update(:current_key => new_current_key)
+
+            (current_key+1..new_current_key).to_a
           end
         end
+        public :get_next_available_ids
       end
     end
   end
-  require 'lims-core/persistence/sequel/filters'
+end
+require 'lims-core/persistence/sequel/filters'
