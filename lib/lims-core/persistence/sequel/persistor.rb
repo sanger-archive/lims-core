@@ -164,24 +164,35 @@ module Lims::Core
         # @param [Integer] quantity
         # @return [Array<Integer>]
         def get_next_available_ids(quantity = 1)
-          @session.lock(dataset.from(:primary_keys)) do |primary_keys|
+          @session.lock(dataset.from(:primary_keys), true) do |primary_keys|
             current_key_row = primary_keys.first(:table_name => table_name.to_s) 
             if current_key_row
               current_key = current_key_row[:current_key]
             else
-              # We need to lock the current dataset otherwise MySQL raise on error
-              # because we are already in a LOCK block.
-              current_key = @session.lock(dataset) { |d| d.max(primary_key) } || 0
-              primary_keys.insert(:table_name => table_name.to_s, :current_key => current_key)
+              # We lock again primary keys and the dataset, because doing a new MySQL lock
+              # unlock the previous locked tables.
+              # Also we need to check again at this point if the primary_keys table has not
+              # been updated by another request. In fact, doing the lock below unlock first
+              # primary_keys table, and then lock it again with dataset table. If during this laps
+              # of time (between unlock and lock), another request try to initialize primary_keys table, 
+              # we could have duplicate rows.
+              current_key = @session.lock([primary_keys, dataset]) do |primary_keys_dataset, resource_dataset|
+                primary_key_row = primary_keys_dataset.first(:table_name => table_name.to_s)
+                if primary_key_row
+                  primary_key_row[:current_key]
+                else
+                  last_id = resource_dataset.max(primary_key) || 0
+                  primary_keys_dataset.insert(:table_name => table_name.to_s, :current_key => last_id)
+                  last_id
+                end
+              end
             end
 
             new_current_key = current_key + quantity
             primary_keys.where(:table_name => table_name.to_s).update(:current_key => new_current_key)
-
             (current_key+1..new_current_key).to_a
           end
         end
-        public :get_next_available_ids
       end
     end
   end
