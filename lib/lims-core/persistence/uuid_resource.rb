@@ -10,6 +10,7 @@ module Lims::Core
       # Bind a uuid (as a String) to a Resource (a key and a model)
       # The key is a FixNum to find the corresponding resource in the store
       # and the model is the real class of the object (or at least something allowing to find it)
+      # the `state` attribute is the {ResourceState} corresponding to linked {Resource}.
       class UuidResource
         include Resource
         attribute :state, ResourceState, :writer => :private, :initializable => true
@@ -18,6 +19,14 @@ module Lims::Core
 
         def initialize(*args)
           super(*args)
+        end
+
+        # Link the resouce state to the UuidResource itself
+        def state=(state_)
+          @state = state_
+          if state_
+            state_.uuid_resource = self
+          end
         end
 
         # for speed
