@@ -12,6 +12,7 @@ module Lims::Core
     class ResourceState
       include Virtus
       attribute :id, Object
+      attribute :uuid_resource, Object
       attribute :resource, Object, :writer => :private, :required => true
       attribute :persistor, Persistor, :writer => :private, :required => true
       attribute :to_delete, Object, :writer => :private
