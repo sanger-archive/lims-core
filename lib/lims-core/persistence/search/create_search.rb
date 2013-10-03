@@ -22,7 +22,7 @@ module Lims::Core
           keys.delete("comparison") if criteria.keys.size > 1
           if keys.size == 1
             keys.first.andtap do |model|
-              filter_class_name = "#{model.capitalize}Filter"
+              filter_class_name = "#{model.capitalize.gsub(/_[^_]*/) { |b| b[1..b.size].capitalize }}Filter"
               if Persistence::const_defined? filter_class_name
                 filter = Persistence::const_get(filter_class_name).new(:criteria => criteria)
               end
