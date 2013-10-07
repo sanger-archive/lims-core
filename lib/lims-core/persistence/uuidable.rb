@@ -55,7 +55,7 @@ module Lims::Core
       end
 
       def uuid_resource_for(object)
-        state, object = object.is_a?(ResourceState) ? [state, state.resource] : [state_for(object), object]
+        state, object = object.is_a?(ResourceState) ? [object, object.resource] : [state_for(object), object]
         self.uuid_resource[:key => state.id, :model_class => model_name_for(object.class)]
       end
 
