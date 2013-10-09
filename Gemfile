@@ -4,6 +4,8 @@ source "http://rubygems.org"
 # Specify your gem's dependencies in lims-core.gemspec
 gemspec
 
+gem 'oj', :platforms => :mri
+
 group :debugging do
   gem 'debugger'
   gem 'debugger-completion'
