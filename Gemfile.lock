@@ -140,6 +140,7 @@ DEPENDENCIES
   guard-bundler
   guard-rspec
   guard-yard
+  jrjackson
   lims-core!
   oj
   rake
