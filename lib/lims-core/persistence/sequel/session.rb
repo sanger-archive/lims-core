@@ -4,7 +4,6 @@ require 'sequel'
 require 'lims-core/persistence'
 require 'lims-core/persistence/uuidable'
 require 'lims-core/persistence/session'
-require 'oj'
 
 module Lims::Core
   module Persistence
@@ -32,11 +31,11 @@ module Lims::Core
         end
 
         def serialize(object)
-          Oj.dump(object)
+          to_json(object)
         end
 
         def unserialize(object)
-          Oj.load(object)
+          to_json(object)
         end
 
         def lock(datasets, unlock=false, &block)
