@@ -5,6 +5,7 @@ source "http://rubygems.org"
 gemspec
 
 gem 'oj', :platforms => :mri
+gem 'jrjackson', :platforms => :jruby
 
 group :debugging do
   gem 'debugger'
