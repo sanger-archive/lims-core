@@ -8,7 +8,6 @@ PATH
       dm-validations
       facets (= 2.9.3)
       modularity
-      oj
       sequel
       state_machine
       uuid
@@ -141,7 +140,9 @@ DEPENDENCIES
   guard-bundler
   guard-rspec
   guard-yard
+  jrjackson
   lims-core!
+  oj
   rake
   rb-fsevent (~> 0.9.1)
   redcarpet
