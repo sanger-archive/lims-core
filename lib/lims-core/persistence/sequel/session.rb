@@ -1,10 +1,10 @@
 # vi: ts=2:sts=2:et:sw=2 spell:spelllang=en
 
 require 'sequel'
+require 'common'
 require 'lims-core/persistence'
 require 'lims-core/persistence/uuidable'
 require 'lims-core/persistence/session'
-require 'oj'
 
 module Lims::Core
   module Persistence
@@ -32,11 +32,11 @@ module Lims::Core
         end
 
         def serialize(object)
-          Oj.dump(object)
+          Lims::Core::Helpers::to_json(object)
         end
 
         def unserialize(object)
-          Oj.load(object)
+          Lims::Core::Helpers::load_json(object)
         end
 
         def lock(datasets, unlock=false, &block)
