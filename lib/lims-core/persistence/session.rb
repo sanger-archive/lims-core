@@ -7,6 +7,7 @@ require 'digest/md5'
 require 'lims-core/persistence/filter'
 require 'lims-core/persistence/identity_map'
 require 'lims-core/persistence/state_list'
+require 'lims-core/helpers'
 
 module Lims::Core
   module  Persistence

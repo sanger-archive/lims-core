@@ -5,6 +5,7 @@ require 'common'
 require 'lims-core/persistence'
 require 'lims-core/persistence/uuidable'
 require 'lims-core/persistence/session'
+require 'lims-core/helpers'
 
 module Lims::Core
   module Persistence
