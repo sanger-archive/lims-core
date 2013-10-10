@@ -20,29 +20,30 @@ module Lims::Core
     # Load the available gem for json
     if gem_available?('jrjackson')
       require 'jrjackson'
+      def self.to_json(object)
+        JrJackson::Json.dump(object)
+      end
+
+      def self.load_json(json)
+        JrJackson::Json.load(json)
+      end
     elsif gem_available?('oj')
       require 'oj'
+      def self.to_json(object)
+        Oj.dump(object, :mode => :compat)
+      end
+
+      def self.load_json(json)
+        Oj.load(json)
+      end
     else
       require 'json'
-    end
-
-    def self.load_json(json)
-      if gem_available?('jrjackson')
-        JrJackson::Json.load(json)
-      elsif gem_available?('oj')
-        Oj.load(json)
-      else
-        JSON.parse(json) 
-      end
-    end
-
-    def self.to_json(object)
-      if gem_available?('jrjackson')
-        JrJackson::Json.dump(object)
-      elsif gem_available?('oj')
-        Oj.dump(object, :mode => :compat)
-      else
+      def self.to_json(object)
         object.to_json
+      end
+
+      def self.load_json(json)
+        JSON.parse(json)
       end
     end
   end
