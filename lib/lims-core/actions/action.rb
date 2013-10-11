@@ -3,9 +3,11 @@ require 'common'
 require  'virtus'
 require 'facets/ostruct'
 
+require 'lims-core/persistence/store'
+
 module Lims::Core
   module Actions
-    # This mixin add the Action behavior to a class.
+    # This mixin add the Action behavior to a Class.
     # An action can be called and reverted (if possible) within a {Persistence::Session session}.
     # For this, the action must implements the {Action::AfterEval#_call_in_session _call_in_session} and {Action::AfterEval#_revert_in_session _revert_in_session}.
     # Those methods are private and take a session as a parameter.
@@ -17,7 +19,7 @@ module Lims::Core
         klass.class_eval do
           include Virtus
           include Aequitas
-          attribute :store, String, :required => true
+          attribute :store, Persistence::Store, :required => true
           attribute :user, String, :required => true
           attribute :application, String, :required => true
           attribute :result, Object
@@ -53,17 +55,21 @@ module Lims::Core
         # @yieldparam [Action] a self
         # @yieldparam [Session]  session the current session.
         def call(&after_save)
-          after_save ||= lambda { |a,s| a.result }
-          with_session do |s| 
-            self.result = _call_in_session(s)
-
-            _objects_to_save.each do |a| 
-              s << a 
-            end
-
-            lambda { after_save[self, s] }
+          with_session do |session| 
+            execute_and_store_result(session, &after_save)
           end.andtap { |block| block.call }
         end
+
+        def execute_and_store_result(session, &after_save)
+          after_save ||= lambda { |a,s| a.result }
+          self.result = _call_in_session(session)
+          _objects_to_save.each do |a| 
+            session << a 
+          end
+          lambda { after_save[self, session] }
+        end
+
+        protected :execute_and_store_result
 
         # Execute the opposite of the action if possible.
         # This a wrapper around _revert_in_session,
@@ -112,7 +118,6 @@ module Lims::Core
                 raise InvalidParameters.new(invalid_parameters)
               end
               @initializer = nil
-
             end
 
             # Note: there is a bug in Aequitas gem on the valid?
@@ -123,53 +128,53 @@ module Lims::Core
             # raised. We catch it here and raise an InvalidParameters error.
             is_valid = begin 
             valid?
-          rescue
-            raise InvalidParameters.new
-          end
+            rescue
+              raise InvalidParameters.new
+            end
 
-          if is_valid
-            block.call(session)
-          else
-            invalid_parameters = errors_to_hash
-            raise InvalidParameters.new(invalid_parameters)
+            if is_valid
+              block.call(session)
+            else
+              invalid_parameters = errors_to_hash
+              raise InvalidParameters.new(invalid_parameters)
+            end
           end
         end
-      end
 
-      def errors_to_hash()
-        {}.tap do |hash|
-          errors.keys.each do |key|
-            hash[key] = [].tap do |array|
-              # errors[key] returns an array of Aequitas::Violation
-              errors[key].each do |error|
-                array << error.message
+        def errors_to_hash()
+          {}.tap do |hash|
+            errors.keys.each do |key|
+              hash[key] = [].tap do |array|
+                # errors[key] returns an array of Aequitas::Violation
+                errors[key].each do |error|
+                  array << error.message
+                end
               end
             end
           end
         end
-      end
 
-      # This is the main method of an action,
-      # called to effectively perform an action.
-      def _call_in_session(session)
-        raise NotImplementedError
-      end
+        # This is the main method of an action,
+        # called to effectively perform an action.
+        def _call_in_session(session)
+          raise NotImplementedError
+        end
 
-      # how to revert the action,
-      # if possible.
-      def _revert_in_session(session)
-        raise UnrevertableAction(self)
-      end
+        # how to revert the action,
+        # if possible.
+        def _revert_in_session(session)
+          raise UnrevertableAction(self)
+        end
 
-      # List of objects to save (add to the session).
-      # By default get all attributes and the resulth.
-      # Override if need (to add a created resource for example).
-      # @return a list of object to save
-      def _objects_to_save
-        [result, *attributes.map { |a| a[1] }].select { |o| o.is_a?(Resource) }
+        # List of objects to save (add to the session).
+        # By default get all attributes and the resulth.
+        # Override if need (to add a created resource for example).
+        # @return a list of object to save
+        def _objects_to_save
+          [result, *attributes.map { |a| a[1] }].select { |o| o.is_a?(Resource) }
+        end
+        private :_call_in_session, :_revert_in_session, :_objects_to_save
       end
-      private :_call_in_session, :_revert_in_session, :_objects_to_save
     end
   end
-end
 end
