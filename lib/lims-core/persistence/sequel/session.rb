@@ -1,9 +1,11 @@
 # vi: ts=2:sts=2:et:sw=2 spell:spelllang=en
 
 require 'sequel'
+require 'common'
 require 'lims-core/persistence'
 require 'lims-core/persistence/uuidable'
 require 'lims-core/persistence/session'
+require 'lims-core/helpers'
 
 module Lims::Core
   module Persistence
@@ -28,6 +30,32 @@ module Lims::Core
         def self.unpack_uuid(puuid)
           #UuidResource::unpack(puuid)
           UuidResource::expand(puuid)
+        end
+
+        def serialize(object)
+          Lims::Core::Helpers::to_json(object)
+        end
+
+        def unserialize(object)
+          Lims::Core::Helpers::load_json(object)
+        end
+
+        def lock(datasets, unlock=false, &block)
+          datasets = [datasets] unless datasets.is_a?(Array)
+          db = datasets.first.db
+          return lock_for_update(datasets, &block) if db.adapter_scheme =~ /sqlite/i
+
+          db.run("LOCK TABLES #{datasets.map { |d| "#{d.first_source} WRITE"}.join(",")}")
+          block.call(*datasets).tap { db.run("UNLOCK TABLES") if unlock }
+        end
+
+        # this method is to be used when the SQL store
+        # doesn't support LOCK, which is the case for SQLITE
+        # It can be used to redefine lock if needed.
+        def lock_for_update(datasets, &block)
+          datasets.first.db.transaction do
+            block.call(*datasets.map(&:for_update))
+          end
         end
       end
     end

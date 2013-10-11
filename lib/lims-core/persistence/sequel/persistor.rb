@@ -4,7 +4,6 @@ require 'lims-core/persistence/identity_map'
 require 'active_support/inflector'
 require 'lims-core/persistence/sequel/filters'
 
-
 module Lims::Core
   module Persistence
     module Sequel
@@ -31,7 +30,7 @@ module Lims::Core
         end
 
         def initialize(session_or_persistor, dataset=nil, *args, &block )
-          id_to_object, object_to_id = [nil, nil]
+          id_to_state, object_to_state = [nil, nil]
           case session_or_persistor
           when Sequel::Persistor
             # We link the session and the identity map variables,
@@ -39,10 +38,10 @@ module Lims::Core
             # through the origial persistor.
             # Hack to get those private variables.
             session, identity_map_parameters  =  session_or_persistor.instance_eval do
-              [@session, [@id_to_object, @object_to_id]]
+              [@session, [@id_to_state, @object_to_state]]
             end
             super(session, *args, &block)
-            @id_to_object , @object_to_id = identity_map_parameters
+            @id_to_state , @object_to_state = identity_map_parameters
           else Session
             super(session_or_persistor, *args, &block)
           end
@@ -75,8 +74,7 @@ module Lims::Core
         def for_each_in_slice(start, length)
           return if length == 0
           dataset.order(primary_key).limit(length, start).each do |h|
-            key = h.delete(primary_key)
-            yield(key, h)
+            yield(h)
           end
         end
 
@@ -86,22 +84,17 @@ module Lims::Core
           :id
         end
 
-        def load_raw_attributes(id, raw_attributes=nil)
-          dataset[primary_key => id ]
+        def qualified_key
+          @qualified_key ||= ::Sequel.qualify(self.class.table_name, primary_key)
         end
 
-        def ids_for(criteria)
-          # Use prepared statement
-          # @todo cache prepared statement or move in UuidResourcePersistor
-          # OLD dataset.select(primary_key)[criteria] || []
-          #
-          ds=dataset.select(primary_key).filter(criteria.keys.mash { |k| [k, :"$#{k}"] })
-          statement_name = :"#{table_name}__ids_for"
-          ds.prepare(:select, statement_name)
+        def bulk_load(ids, *params, &block)
+          dataset.filter(qualified_key => ids.map(&:id)).all(&block)
+        end
+        public :bulk_load
 
-          # for some reason, the prepared statement return an array of Hashes insteead
-          # of an array of ids, as data.select(primary_key) will do
-          (@session.database.call(statement_name, criteria) || []).map { |h| h[primary_key] }
+        def ids_for(criteria)
+          dataset.select(qualified_key).filter(criteria).map { |h| h[primary_key] }
 
         end
 
@@ -109,36 +102,95 @@ module Lims::Core
         # attributes excluding any associations.
         # @param [Resource] object the object 
         # @return [Fixnum, nil] the Id if save successful
-        def save_raw(object, *params)
+        def insert(state, *params)
           # use prepared statement for everything
           # We only need it at the moment as a workaround for saving the UUID
           # So we might in the future either move it to a UuidResourcePersistor
           # or cached it by attributes
           # @todo benchmark against normal insert
-          attributes = filter_attributes_on_save(object.attributes, *params)
-          statement_name = :"#{table_name}__save_raw"
-          dataset.prepare(:insert, statement_name, attributes.keys.mash { |k| [k, :"$#{k}"] })
-          @session.database.call(statement_name, attributes)
+          attributes = filter_attributes_on_save(state.resource.attributes, *params)
+          dataset.insert(attributes).tap { |id| state.id = id }
         end
 
-        # Upate a raw object, i.e. the object attributes
-        # excluding any associations.
-        # @param [Resource] object the object 
-        # @param [Fixnum] id the Id of the object
-        # @return [Fixnum, nil] the id 
-        def update_raw(object, id, *params)
-          id.tap do
-            attributes = filter_attributes_on_save(object.attributes, *params)
-            return true if attributes == {}
-            statement_name = :"#{table_name}__update_raw"
-            dataset.filter(primary_key => id).prepare(:update, statement_name, attributes.keys.mash { |k| [k, :"$#{k}"] })
+        def bulk_insert(states, *params)
+          #super(states, *params)
+          bulk_insert_multi(states, *params)
+          #bulk_insert_prepared(states, *params)
+        end
+        public :bulk_insert
+
+        def bulk_insert_prepared(states, *params)
+          # use prepared statement for everything
+          # We only need it at the moment as a workaround for saving the UUID
+          # So we might in the future either move it to a UuidResourcePersistor
+          # or cached it by attributes
+          # @todo benchmark against normal insert
+            attributes = filter_attributes_on_save(states.first.resource.attributes, *params)
+          statement_name = :"#{table_name}__save_raw"
+          dataset.prepare(:insert, statement_name, attributes.keys.mash { |k| [k, :"$#{k}"] })
+
+          states.each do |state|
+            attributes = filter_attributes_on_save(state.resource.attributes, *params)
             @session.database.call(statement_name, attributes)
           end
+        end
+
+        # @todo
+        def bulk_insert_multi(states, *params)
+          free_ids = get_next_available_ids(states.size)
+          states.inject(0) { |i,s| s.id = free_ids[i]; i+1 }
+          attributes = states.map { |state| filter_attributes_on_save(state.resource.attributes, *params).merge(primary_key => state.id) }
+          dataset.multi_insert(attributes)
+        end
+
+        def bulk_update_raw_attributes(attributes, *params)
+          return dataset.on_duplicate_key_update.multi_insert(attributes) if dataset.respond_to? :on_duplicate_key_update
+          attributes.each { |att| dataset.filter(primary_key => att.delete(primary_key)).update(att) }
+        end
+
+        def bulk_delete_raw(ids, *params)
+          dataset.filter(primary_key => ids).delete
         end
 
         def delete_raw(objec, id, *params)
           id.tap do
             dataset.filter(primary_key => id).delete
+          end
+        end
+
+        # Return a sequence of free ids, ready to be inserted.
+        # The last used id corresponding to each table is store in a special table.
+        # We need to lock the table to avoid to thread or process to 'use' the same ids.
+        # @param [Integer] quantity
+        # @return [Array<Integer>]
+        def get_next_available_ids(quantity = 1)
+          @session.lock(dataset.from(:primary_keys), true) do |primary_keys|
+            current_key_row = primary_keys.first(:table_name => table_name.to_s) 
+            if current_key_row
+              current_key = current_key_row[:current_key]
+            else
+              # We lock again primary keys and the dataset, because doing a new MySQL lock
+              # unlock the previous locked tables.
+              # Also we need to check again at this point if the primary_keys table has not
+              # been updated by another request. In fact, doing the lock below unlock first
+              # primary_keys table, and then lock it again with dataset table. If during this laps
+              # of time (between unlock and lock), another request try to initialize primary_keys table, 
+              # we could have duplicate rows.
+              current_key = @session.lock([primary_keys, dataset]) do |primary_keys_dataset, resource_dataset|
+                primary_key_row = primary_keys_dataset.first(:table_name => table_name.to_s)
+                if primary_key_row
+                  primary_key_row[:current_key]
+                else
+                  last_id = resource_dataset.max(primary_key) || 0
+                  primary_keys_dataset.insert(:table_name => table_name.to_s, :current_key => last_id)
+                  last_id
+                end
+              end
+            end
+
+            new_current_key = current_key + quantity
+            primary_keys.where(:table_name => table_name.to_s).update(:current_key => new_current_key)
+            (current_key+1..new_current_key).to_a
           end
         end
       end

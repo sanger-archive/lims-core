@@ -16,5 +16,3 @@ class Object
     @__parent_scope ||= eval self.name.split('::').tap { |_| _.pop }.join('::')
   end
 end
-
-

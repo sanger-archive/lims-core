@@ -106,11 +106,17 @@
   
 
 </div>
+  <h2>Constant Summary</h2>
+  
+
 
   
   
   
   
+  <h3 class="inherited">Constants inherited from <span class='object_link'><a href="../Store.html" title="Lims::Core::Persistence::Store (class)">Lims::Core::Persistence::Store</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Store.html#DIRTY_ATTRIBUTE_STRATEGY_DEEP_COPY-constant" title="Lims::Core::Persistence::Store::DIRTY_ATTRIBUTE_STRATEGY_DEEP_COPY (constant)">DIRTY_ATTRIBUTE_STRATEGY_DEEP_COPY</a></span>, <span class='object_link'><a href="../Store.html#DIRTY_ATTRIBUTE_STRATEGY_MD5-constant" title="Lims::Core::Persistence::Store::DIRTY_ATTRIBUTE_STRATEGY_MD5 (constant)">DIRTY_ATTRIBUTE_STRATEGY_MD5</a></span>, <span class='object_link'><a href="../Store.html#DIRTY_ATTRIBUTE_STRATEGY_QUICK_HASH-constant" title="Lims::Core::Persistence::Store::DIRTY_ATTRIBUTE_STRATEGY_QUICK_HASH (constant)">DIRTY_ATTRIBUTE_STRATEGY_QUICK_HASH</a></span>, <span class='object_link'><a href="../Store.html#DIRTY_ATTRIBUTE_STRATEGY_SHA1-constant" title="Lims::Core::Persistence::Store::DIRTY_ATTRIBUTE_STRATEGY_SHA1 (constant)">DIRTY_ATTRIBUTE_STRATEGY_SHA1</a></span></p>
+
   <h2>Instance Attribute Summary <small>(<a href="#" class="summary_toggle">collapse</a>)</small></h2>
   <ul class="summary">
     
@@ -147,6 +153,11 @@
   
   
   
+  
+  
+  <h3 class="inherited">Attributes inherited from <span class='object_link'><a href="../Store.html" title="Lims::Core::Persistence::Store (class)">Lims::Core::Persistence::Store</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Store.html#dirty_attribute_strategy-instance_method" title="Lims::Core::Persistence::Store#dirty_attribute_strategy (method)">dirty_attribute_strategy</a></span></p>
+
 
   
     <h2>
@@ -279,19 +290,21 @@ of the database</p>
       <pre class="lines">
 
 
-18
 19
 20
 21
-22</pre>
+22
+23
+24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/store.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/store.rb', line 19</span>
 
 <span class='kw'>def</span> <span class='id initialize'>initialize</span><span class='lparen'>(</span><span class='id database'>database</span><span class='comma'>,</span> <span class='op'>*</span><span class='id args'>args</span><span class='rparen'>)</span>
   <span class='id raise'>raise</span> <span class='const'>RuntimeError</span> <span class='kw'>unless</span> <span class='id database'>database</span><span class='period'>.</span><span class='id is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Sequel</span><span class='op'>::</span><span class='const'>Database</span><span class='rparen'>)</span>
   <span class='ivar'>@database</span> <span class='op'>=</span> <span class='id database'>database</span>
   <span class='kw'>super</span><span class='lparen'>(</span><span class='op'>*</span><span class='id args'>args</span><span class='rparen'>)</span>
+  <span class='ivar'>@dirty_attribute_strategy</span> <span class='op'>=</span> <span class='const'>DIRTY_ATTRIBUTE_STRATEGY_SHA1</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -376,14 +389,14 @@ of the database</p>
       <pre class="lines">
 
 
-25
-26
 27
 28
-29</pre>
+29
+30
+31</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/store.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'lib/lims-core/persistence/sequel/store.rb', line 27</span>
 
 <span class='kw'>def</span> <span class='id transaction'>transaction</span>
   <span class='id database'>database</span><span class='period'>.</span><span class='id transaction'>transaction</span> <span class='kw'>do</span>
