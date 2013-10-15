@@ -43,7 +43,10 @@ module Lims::Core
         def lock(datasets, unlock=false, &block)
           datasets = [datasets] unless datasets.is_a?(Array)
           db = datasets.first.db
-          return lock_for_update(datasets, &block) if db.url =~ /sqlite/i
+          
+          # sqlite3 handles lock differently.
+          # @TODO create Session Subclass for each database type.
+          return lock_for_update(datasets, &block) if db.database_type == :sqlite
 
           db.run("LOCK TABLES #{datasets.map { |d| "#{d.first_source} WRITE"}.join(",")}")
           block.call(*datasets).tap { db.run("UNLOCK TABLES") if unlock }
