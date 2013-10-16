@@ -313,6 +313,9 @@ module Lims::Core
           klass = model.const_get(name)
           next unless klass.is_a? Module
           if  klass.ancestors.include?(session_persistor_class)
+            # quick hack  to fix JRuby test before refactoring this
+            # If we are not in a sequel session, we need to not pick the Seque persistor.
+            next if session_persistor_class.name !~ /sequel/i && klass.name =~ /sequel/i
             # found
             return klass
           end
