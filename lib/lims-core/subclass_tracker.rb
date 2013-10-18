@@ -6,24 +6,25 @@
 # then call ::subclasses.
 #
 
-require 'lims-core'
-module Lims::Core
-  module SubclassTracker
-    def self.extended(klass)
-      (class <<klass; self; end).send :attr_accessor, :subclasses
-      (class <<klass; self; end).send :define_method, :inherited do |subclass|
-        klass.subclasses << subclass
-        super(subclass)
-      end
-      (class <<klass; self; end).send :define_method, :included do |submodule|
-      klass.subclasses << submodule
-      (class <<submodule; self; end).send :define_method, :inherited do |subclass|
+module Lims
+  module Core
+    module SubclassTracker
+      def self.extended(klass)
+        (class <<klass; self; end).send :attr_accessor, :subclasses
+        (class <<klass; self; end).send :define_method, :inherited do |subclass|
           klass.subclasses << subclass
           super(subclass)
         end
-        super(submodule)
+        (class <<klass; self; end).send :define_method, :included do |submodule|
+        klass.subclasses << submodule
+        (class <<submodule; self; end).send :define_method, :inherited do |subclass|
+            klass.subclasses << subclass
+            super(subclass)
+          end
+          super(submodule)
+        end
+        klass.subclasses = []
       end
-      klass.subclasses = []
     end
   end
 end
