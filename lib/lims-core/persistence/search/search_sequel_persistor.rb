@@ -31,12 +31,6 @@ module Lims::Core
             :filter_parameters => Marshal.dump(filter.attributes)
           }
         end
-
-        def find_by_attributes(attributes)
-          search = self.dataset.filter(filter_attributes_on_save(attributes)).first
-          return nil unless search
-          self[search[:id]]
-        end
       end
     end
   end

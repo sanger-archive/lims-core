@@ -33,7 +33,7 @@ module Lims::Core
                                            :model => session.send(model).model, 
                                            :filter => filter)
           if search.valid?   
-            stored_search = session.search.find_by_attributes(search.attributes)
+            stored_search = session.search.find_first(search.attributes)
             if stored_search.nil?
               session << search
             else 

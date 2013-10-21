@@ -119,6 +119,14 @@ module Lims::Core
           end
         end
 
+        # Loads a model by a criteria represented by a Hash.
+        # @param [Hash] the criteria to use for querying the object from the DB
+        # @return [Object, nil] an object if the criteria matched an object
+        # in the DB, otherwise nil
+        def find_first(criteria)
+          find_by(filter_attributes_on_save(criteria)).first
+        end
+
         # Get the id from an object from the cache.
         # @param [Resource] object object to find the id for.
         # @return [Id, Nil]
