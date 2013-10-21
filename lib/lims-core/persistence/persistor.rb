@@ -111,20 +111,12 @@ module Lims::Core
         # Note that loaded object are automatically _added_ to the session.
         # @param [Fixnum, Hash] id the id in the database
         # @return [Object,nil] nil if  object not found.
-        def [](id)
+        def [](id, single=true)
           case id
           when Fixnum then retrieve(id)
-          when Hash then find_by(filter_attributes_on_save(id), :single => true)
+          when Hash then find_by(filter_attributes_on_save(id), single)
           when Array, Enumerable then bulk_retrieve(id)
           end
-        end
-
-        # Loads a model by a criteria represented by a Hash.
-        # @param [Hash] the criteria to use for querying the object from the DB
-        # @return [Object, nil] an object if the criteria matched an object
-        # in the DB, otherwise nil
-        def find_first(criteria)
-          find_by(filter_attributes_on_save(criteria)).first
         end
 
         # Get the id from an object from the cache.
