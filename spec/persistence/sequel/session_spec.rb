@@ -8,16 +8,17 @@ require 'lims-core/persistence/sequel/persistor'
 
 
 module Lims::Core::Persistence
-  module Sequel
-    module ForTest
-      class Name
-        include Lims::Core::Resource
-        attribute :name, String
-        class NamePersitor < Lims::Core::Persistence::Persistor
-          Model = Name
-        end
+  module ForTest
+    class Name
+      include Lims::Core::Resource
+      attribute :name, String
+      class NamePersitor < Lims::Core::Persistence::Persistor
+        Model = Name
       end
     end
+  end
+
+  module Sequel
     describe Session, :session => true, :persistence => true, :persistence => true, :sequel => true do
       context "with sqlite underlying" do
         let(:db) { ::Sequel.sqlite('') }
