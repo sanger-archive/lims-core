@@ -9,7 +9,6 @@ module Lims
     MINOR_DEV = %{
     --llh1
     --ke4
-    x
     --mb14
     }
 
@@ -17,6 +16,7 @@ module Lims
     --llh1
     x
     --ke4
+    x
     --mb14
     x
     x
