@@ -1,5 +1,5 @@
 module Lims
   module Core
-    VERSION = "3.0.0.rc1"
+    VERSION = "3.1.0.pre"
   end
 end
