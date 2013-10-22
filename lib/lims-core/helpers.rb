@@ -21,7 +21,7 @@ module Lims::Core
     elsif gem_available?('oj')
       require 'oj'
       def self.to_json(object)
-        Oj.dump(object, :mode => :compat)
+        Oj.dump(object, :mode => :compat, :time_format => :ruby)
       end
 
       def self.load_json(json)
