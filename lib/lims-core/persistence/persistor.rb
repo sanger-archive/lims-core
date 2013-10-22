@@ -110,11 +110,12 @@ module Lims::Core
         # depending of the parameter.
         # Note that loaded object are automatically _added_ to the session.
         # @param [Fixnum, Hash] id the id in the database
+        # @param [Boolean] single or list of object to return
         # @return [Object,nil] nil if  object not found.
-        def [](id)
+        def [](id, single=true)
           case id
           when Fixnum then retrieve(id)
-          when Hash then find_by(filter_attributes_on_save(id), :single => true)
+          when Hash then find_by(filter_attributes_on_save(id), single)
           when Array, Enumerable then bulk_retrieve(id)
           end
         end

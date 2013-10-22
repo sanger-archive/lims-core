@@ -14,6 +14,10 @@ module Lims::Core
     # The public equivalent (call/revert) will create a session (using the store) and call the corresponding methods.
 
     module Action
+      extend SubclassTracker
+    class << self
+      alias_method :tracker_included, :included
+    end
       UnrevertableAction = Class.new(StandardError)
       def self.included(klass)
         klass.class_eval do
@@ -25,6 +29,7 @@ module Lims::Core
           attribute :result, Object
           include AfterEval # hack so initialize would be called properly
         end
+        tracker_included(klass)
       end
 
       class InvalidParameters < RuntimeError
