@@ -18,6 +18,7 @@ module Lims
         attribute :durable, Boolean, :required => true, :writer => :private
         attribute :prefetch_number, Integer, :required => true, :writer => :private
         attribute :heart_beat, Integer, :required => false, :writer => :private
+        attribute :backend_application_id, String, :required => true, :writer => :private
 
         # Exception ConnectionError raised after a failed connection
         # to RabbitMQ server.
@@ -39,6 +40,7 @@ module Lims
           @exchange_type = settings["exchange_type"] || "topic"
           @durable = settings["durable"]
           @prefetch_number = settings["prefetch_number"]
+          @backend_application_id = settings["backend_application_id"]
         end
 
         # Executed after a connection loss
