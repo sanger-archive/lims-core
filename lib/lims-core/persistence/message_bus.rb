@@ -114,7 +114,8 @@ module Lims
         def publish(message, options = {})
           raise ConnectionError, "exchange is not reachable" unless @exchange.instance_of?(Bunny::Exchange)
           
-          options.merge!(:persistent => @message_persistence) unless @message_persistence.nil? 
+          options.merge!(:persistent => @message_persistence) unless @message_persistence.nil?
+          options.merge!(:app_id => @backend_application_id) if @backend_application_id
           @exchange.publish(message, options)
         end
       end
