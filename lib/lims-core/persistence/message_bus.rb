@@ -18,7 +18,7 @@ module Lims
         attribute :durable, Boolean, :required => true, :writer => :private
         attribute :prefetch_number, Integer, :required => true, :writer => :private
         attribute :heart_beat, Integer, :required => false, :writer => :private
-        attribute :backend_application_id, String, :required => true, :writer => :private
+        attribute :backend_application_id, String, :required => true
 
         # Exception ConnectionError raised after a failed connection
         # to RabbitMQ server.
@@ -41,6 +41,13 @@ module Lims
           @durable = settings["durable"]
           @prefetch_number = settings["prefetch_number"]
           @backend_application_id = settings["backend_application_id"]
+        end
+
+        # sets backend_app_id, but just once,
+        # otherwise raise am InvalidSettings error
+        def backend_application_id=(backend_application_id)
+          raise InvalidSettingsError, "Backend Application ID has been set already." if @backend_application_id
+          @backend_application_id = backend_application_id
         end
 
         # Executed after a connection loss
