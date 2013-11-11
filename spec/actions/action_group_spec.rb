@@ -21,8 +21,7 @@ module Lims::Core
           let!(:action2) { Action.new(action_parameters).tap do |action|
             end }
 
-          subject{ ActionGroup.new(action_parameters) do |action, session|
-              action.actions = [action1, action2]
+          subject{ ActionGroup.new(action_parameters.merge(:actions => [action1, action2])) do |action, session|
             end
           }
 
