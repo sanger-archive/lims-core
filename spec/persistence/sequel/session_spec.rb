@@ -21,7 +21,7 @@ module Lims::Core::Persistence
   module Sequel
     describe Session, :session => true, :persistence => true, :persistence => true, :sequel => true do
       context "with sqlite underlying" do
-        let(:db) { ::Sequel.sqlite('') }
+        include_context "sqlite db"
         let(:store) { Store.new(db).tap do 
             db.create_table :primary_keys do
               primary_key :id

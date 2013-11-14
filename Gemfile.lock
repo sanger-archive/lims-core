@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    lims-core (3.1.0.2.0)
+    lims-core (3.1.0.3.0)
       active_support
       aequitas
       bunny (= 0.9.0.pre10)
@@ -54,6 +54,7 @@ GEM
       dm-core (~> 1.2.0)
     facets (2.9.3)
     ffi (1.1.5)
+    ffi (1.1.5-java)
     gli (1.6.0)
     guard (1.4.0)
       listen (>= 0.4.2)
@@ -66,12 +67,16 @@ GEM
     guard-yard (2.0.0)
       guard (>= 1.1.0)
       yard (>= 0.7.0)
+    jdbc-mysql (5.1.27)
+    jdbc-sqlite3 (3.7.2.1)
+    jrjackson (0.2.3)
     json (1.7.3)
     listen (0.5.3)
     macaddr (1.6.1)
       systemu (~> 2.5.0)
     method_source (0.8.1)
     modularity (0.6.1)
+    mysql2 (0.3.13)
     nokogiri (1.5.4)
     oj (2.1.4)
     parslet (1.4.0)
@@ -94,7 +99,12 @@ GEM
     rspec-expectations (2.8.0)
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.8.0)
+    ruby-debug (0.10.4)
+      columnize (>= 0.1)
+      ruby-debug-base (~> 0.10.4.0)
+    ruby-debug-base (0.10.4-java)
     ruby-graphviz (1.0.8)
+    ruby-prof (0.13.0)
     sequel (4.3.0)
     showoff (0.7.0)
       bluecloth
@@ -127,6 +137,7 @@ GEM
       yard (~> 0.7.3)
 
 PLATFORMS
+  java
   ruby
 
 DEPENDENCIES
@@ -140,14 +151,19 @@ DEPENDENCIES
   guard-bundler
   guard-rspec
   guard-yard
+  jdbc-mysql
+  jdbc-sqlite3
   jrjackson
   lims-core!
+  mysql2
   oj
   rake
   rb-fsevent (~> 0.9.1)
   redcarpet
   rspec (~> 2)
+  ruby-debug
   ruby-graphviz
+  ruby-prof
   showoff
   sqlite3
   terminal-notifier-guard
