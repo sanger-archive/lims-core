@@ -58,8 +58,8 @@ module Lims::Core
         # @return the value return by the block
         # @yieldparam [Action] a self
         # @yieldparam [Session]  session the current session.
-        def call(&after_save)
-          with_session do |session| 
+        def call(session=nil, &after_save)
+          with_session(session) do |session| 
             execute_and_store_result(session, &after_save)
           end.andtap { |block| block.call }
         end
