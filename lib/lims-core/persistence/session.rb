@@ -48,6 +48,9 @@ module Lims::Core
         @dirty_attribute_strategy = @store.dirty_attribute_strategy
       end
 
+      def persistor_module_map
+        @persistor_module_map
+      end
 
       def_delegators :@store, :database
 
@@ -344,13 +347,13 @@ module Lims::Core
         end
         EOV
         model.class_eval class_declaration
-
       end
-
 
       # Get the persistor corresponding to the object class
       # @param [Resource, String, Symbol, Persistor] object
       # @return [Persistor, nil]
+      # The instance of the newly created persistor is extended
+      # with persistor modules if eligible.
       def persistor_for(object)
         if object.is_a?(Persistor)
           return filter(object)
@@ -370,9 +373,10 @@ module Lims::Core
       end
       public :persistor_for
 
-
       # @param [String] model
       # @return [Array<PersistorModule>]
+      # Return all the persistor modules which are eligible to extend 
+      # the <model> persistors.
       def persistor_modules_for(model)
         @persistor_module_map[model] ||= begin 
           Persistence::PersistorModule.constants.map do |module_symbol|
