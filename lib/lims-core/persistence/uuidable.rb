@@ -49,22 +49,23 @@ module Lims::Core
       end
 
       def new_uuid_resource_for(object)
-        object_id =  id_for(object)
-        key  = object_id ? object_id : lambda { self.id_for(object) }
-        UuidResource.new(:key => key, :model_class => object.class).tap do |r|
+        UuidResource.new(:state => state_for(object), :model_class => object.class).tap do |r|
           self << r
         end
       end
 
       def uuid_resource_for(object)
-        self.uuid_resource[:key => id_for(object), :model_class => model_name_for(object.class)]
+        state, object = object.is_a?(ResourceState) ? [object, object.resource] : [state_for(object), object]
+        self.uuid_resource[:key => state.id, :model_class => model_name_for(object.class)]
       end
 
       # Finds the uuid of an object if it exists
       def uuid_for(object)
         # We need to check if the object is managed and have alreday an id
-        raise RuntimeError, "Unmanaged object" unless managed?(object)
-        id_for(object) && uuid_resource_for(object).andtap { |r|  r.uuid }
+        raise RuntimeError, "Unmanaged object, #{object.inspect}" unless managed?(object)
+        state = state_for(object)
+        state.uuid_resource.andtap { |ur| return ur.uuid }
+        state.id && uuid_resource_for(state).andtap { |r|  r.uuid }
       end
 
 

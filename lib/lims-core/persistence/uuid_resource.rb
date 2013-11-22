@@ -3,18 +3,48 @@ require 'common'
 require 'uuid'
 
 require 'lims-core/resource'
+require 'lims-core/persistence/resource_state'
 
 module Lims::Core
     module Persistence
       # Bind a uuid (as a String) to a Resource (a key and a model)
       # The key is a FixNum to find the corresponding resource in the store
       # and the model is the real class of the object (or at least something allowing to find it)
+      # the `state` attribute is the {ResourceState} corresponding to linked {Resource}.
       class UuidResource
         include Resource
-        attribute :key, Fixnum, :writer => :private, :initializable => true
+        attribute :state, ResourceState, :writer => :private, :initializable => true
         attribute :model_class, Class, :writer => :private, :initializable => true
         attribute :uuid, String, :writer => :private, :initializable => true
 
+        def initialize(*args)
+          super(*args)
+        end
+
+        # Link the resouce state to the UuidResource itself
+        def state=(state_)
+          @state = state_
+          if state_
+            state_.uuid_resource = self
+          end
+        end
+
+        # for speed
+        def attributes
+          {state: state,
+            model_class: model_class,
+            uuid: uuid
+          }
+        end
+
+        def attributes_for_dirty
+          {state: state,
+            model_class: model_class,
+          }.tap do |att|
+            att[:uuid] = @uuid if @uuid
+          end
+        end
+        
         class InvalidUuidError < RuntimeError
         end
 
@@ -25,10 +55,10 @@ module Lims::Core
         SplitRegexp = /#{Form.map { |n| "([0-9a-f]{#{n}})"}.join('')}/
 
 
-          def key
-            # Hack to get the id after the object being save
-            @key.is_a?(Proc) ? @key.call : @key
-          end
+        def key
+          @state.andtap { |state|  state.id }
+        end
+
         def self.valid?(uuid)
           !!(uuid =~ ValidationRegexp)
         end
