@@ -143,6 +143,11 @@ module Lims::Core
           @object_to_state[object]
         end
 
+
+        def state_for?(object)
+          @object_to_state.include?(object)
+        end
+
         # Returns the state proxy of an object fromt its id (in cache).
         # Creates the state if needed.
         # @param [Id] object
