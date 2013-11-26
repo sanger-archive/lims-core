@@ -90,7 +90,6 @@ module Lims::Core
           persistor.new_from_attributes(att)
         end
         persistor.load_children(self, *params)
-        persistor.call_persistor_modules(self, *params)
         self
       end
     end
