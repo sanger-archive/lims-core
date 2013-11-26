@@ -17,7 +17,7 @@ module Lims::Core
         # in snake case.
         # @example: PersistorModule::DoSomethingToThePersistor -> do_something_to_the_persistor
         def call_persistor_modules(states, *params)
-          @session.persistor_module_map[Session.model_to_name(model)].map do |module_name|
+          Persistence::Persistor::persistor_module_map[Session.model_to_name(model)].map do |module_name|
             module_name.to_s.split("::").last.gsub(/(.)([A-Z])/, '\1_\2').downcase
           end.each do |method_name|
             self.send(method_name, states, *params) if self.respond_to?(method_name)
