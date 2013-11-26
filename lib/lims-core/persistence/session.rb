@@ -4,7 +4,6 @@ require 'common'
 require 'forwardable'
 require 'digest/md5'
 
-require 'lims-core/persistence/persistor_module'
 require 'lims-core/persistence/filter'
 require 'lims-core/persistence/identity_map'
 require 'lims-core/persistence/state_list'
@@ -44,12 +43,7 @@ module Lims::Core
         @in_session = false
         @saved = Set.new
         @persistor_map = {}
-        @persistor_module_map = {}
         @dirty_attribute_strategy = @store.dirty_attribute_strategy
-      end
-
-      def persistor_module_map
-        @persistor_module_map
       end
 
       def_delegators :@store, :database
@@ -363,29 +357,11 @@ module Lims::Core
         @persistor_map[model]  ||= begin
           persistor_class = self.class.persistor_class_for(model)
           raise NameError, "no persistor defined for #{object.class.name}" unless persistor_class &&  persistor_class.ancestors.include?(Persistor)
-          persistor_class.new(self).tap do |persistor_instance|
-            model_name = self.class.model_to_name(model)
-            persistor_modules_for(model_name).each do |persistor_module|
-              persistor_instance.extend(persistor_module)
-            end
-          end
+          persistor_class.new(self)
         end
       end
       public :persistor_for
 
-      # @param [String] model
-      # @return [Array<PersistorModule>]
-      # Return all the persistor modules which are eligible to extend 
-      # the <model> persistors.
-      def persistor_modules_for(model)
-        @persistor_module_map[model] ||= begin 
-          Persistence::PersistorModule.constants.map do |module_symbol|
-            Persistence::PersistorModule.const_get(module_symbol)
-          end.select do |persistor_module|
-            persistor_module::defined_for?(model)
-          end
-        end
-      end
     end
   end
 end
