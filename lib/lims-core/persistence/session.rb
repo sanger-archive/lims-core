@@ -64,6 +64,26 @@ module Lims::Core
           @in_session = false
         end
       end
+      # Subsession allow to create a session
+      # within a session sharing the same persistor
+      # but saving only the object managed by the subsession.
+      # The current implementation doesn't create new session
+      # but just push some session attributes.
+      # The problem about creating a new Session, we want them 
+      # to share ResourceState, but a state own a persistor which in
+      # turn own a session, so it's easier if the session is the same.
+      def with_subsession(*params, &block)
+        backup = [@object_states, @in_session, @saved]
+        @object_states = StateList.new
+        @in_session = false
+        @saved = Set.new
+
+        return_value = with_session(*params, &block)
+        
+        @object_states, @in_session, @saved = backup
+
+        return_value
+      end
 
 
       # Tell the session to be responsible of an object.
@@ -104,7 +124,9 @@ module Lims::Core
         end
       end
 
-      # @todo
+      # Get or creates the ResourceState corresponding to an object.
+      # @param [Resource] object
+      # @return [ResourceState]
       def state_for(object)
         return persistor_for(object).state_for(object)
       end
@@ -128,8 +150,7 @@ module Lims::Core
       # @param [Resource] object
       # @return [Boolean]
       def managed?(object)
-        state = state_for(object)
-        @object_states.include?(state)
+        persistor_for(object).state_for?(object)
       end
 
       # Mark an object as to be deleted.
