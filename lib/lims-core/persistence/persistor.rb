@@ -99,6 +99,8 @@ module Lims::Core
           super(*args, &block)
         end
 
+        # For each persistor modules found, we extend the current
+        # persistor with them.
         def setup_persistor_modules
           model_name = @session.class.model_to_name(model)
           persistor_modules_for(model_name).each do |persistor_module|
