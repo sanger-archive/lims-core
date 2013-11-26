@@ -46,6 +46,7 @@ module Lims::Core
         @dirty_attribute_strategy = @store.dirty_attribute_strategy
       end
 
+
       def_delegators :@store, :database
 
       # Execute a block and save every 'marked' object
@@ -362,13 +363,13 @@ module Lims::Core
         end
         EOV
         model.class_eval class_declaration
+
       end
+
 
       # Get the persistor corresponding to the object class
       # @param [Resource, String, Symbol, Persistor] object
       # @return [Persistor, nil]
-      # The instance of the newly created persistor is extended
-      # with persistor modules if eligible.
       def persistor_for(object)
         if object.is_a?(Persistor)
           return filter(object)
@@ -381,6 +382,8 @@ module Lims::Core
           persistor_class.new(self)
         end
       end
+
+
       public :persistor_for
 
     end
