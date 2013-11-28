@@ -19,7 +19,6 @@ module Lims::Core::Persistence
 
       it "extends the persistor with PersistorModule::Test on creation" do
         Persistor.any_instance.should_receive(:model)
-        session.class.should_receive(:model_to_name)
         persistor = described_class.new(session)
         persistor.is_a?(PersistorModule::DefinedForAllPersistors).should == true
         persistor.should respond_to(:method_defined_for_all_persistors)
@@ -43,7 +42,6 @@ module Lims::Core::Persistence
 
       it "does not extend the persistor with PersistorModule::Test on creation" do
         Persistor.any_instance.should_receive(:model)
-        session.class.should_receive(:model_to_name)
         persistor = described_class.new(session)
         persistor.is_a?(PersistorModule::UndefinedForAllPersistors).should == false
         persistor.should_not respond_to(:method_undefined_for_all_persistors)
