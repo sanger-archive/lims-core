@@ -102,13 +102,12 @@ module Lims::Core
         # For each persistor modules found, we extend the current
         # persistor with them.
         def setup_persistor_modules
-          model_name = @session.class.model_to_name(model)
-          persistor_modules_for(model_name).each do |persistor_module|
+          persistor_modules_for(model).each do |persistor_module|
             self.extend(persistor_module)
           end
         end
 
-        # @param [String] model
+        # @param [Constant] model
         # @return [Array<PersistorModule>]
         # Return all the persistor modules which are eligible to extend 
         # the <model> persistors.
