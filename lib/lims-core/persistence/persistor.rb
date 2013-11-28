@@ -1,5 +1,6 @@
 # vi: ts=2:sts=2:et:sw=2 spell:spelllang=en
 
+require 'lims-core/persistence/persistor_module'
 require 'lims-core/persistence/identity_map'
 
 module Lims::Core
@@ -93,7 +94,31 @@ module Lims::Core
           @session = session
           @id_to_state = Hash.new { |h,k| h[k] = ResourceState.new(nil, self, k) }
           @object_to_state = Hash.new { |h,k| h[k] = ResourceState.new(k, self) }
+          @@persistor_module_map ||= {}
+          setup_persistor_modules
           super(*args, &block)
+        end
+
+        # For each persistor modules found, we extend the current
+        # persistor with them.
+        def setup_persistor_modules
+          persistor_modules_for(model).each do |persistor_module|
+            self.extend(persistor_module)
+          end
+        end
+
+        # @param [Constant] model
+        # @return [Array<PersistorModule>]
+        # Return all the persistor modules which are eligible to extend 
+        # the <model> persistors.
+        def persistor_modules_for(model)
+          @@persistor_module_map[model] ||= begin 
+            Persistence::PersistorModule.constants.map do |module_symbol|
+              Persistence::PersistorModule.const_get(module_symbol)
+            end.select do |persistor_module|
+              persistor_module::defined_for?(self)
+            end
+          end
         end
 
         # Associate class (without persistence).
