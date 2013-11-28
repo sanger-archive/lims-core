@@ -1,6 +1,6 @@
 module Lims::Core
   module Persistence
-    module PersistenceModule
+    module PersistorModule
       # Persistor modules
     end
   end
