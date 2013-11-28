@@ -117,7 +117,7 @@ module Lims::Core
             Persistence::PersistorModule.constants.map do |module_symbol|
               Persistence::PersistorModule.const_get(module_symbol)
             end.select do |persistor_module|
-              persistor_module::defined_for?(model)
+              persistor_module::defined_for?(self)
             end
           end
         end
