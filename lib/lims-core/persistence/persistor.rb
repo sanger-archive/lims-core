@@ -108,10 +108,6 @@ module Lims::Core
           end
         end
 
-        def self.persistor_module_map
-          @@persistor_module_map
-        end
-
         # @param [String] model
         # @return [Array<PersistorModule>]
         # Return all the persistor modules which are eligible to extend 
