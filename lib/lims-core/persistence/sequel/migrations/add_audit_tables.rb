@@ -1,9 +1,13 @@
 module Lims::Core::Persistence::Sequel::Migrations
   module AddAuditTables
     def self.migration(exclude_tables={})
-      exclude_tables[:schema_info] = true
+      [:schema_info, :sessions, :primary_keys].each do |table|
+        exclude_tables[table] = true
+      end
       this = self
       Proc.new do
+        next unless defined?(DB)
+        table_names = []
         change do
           # Create session table
           create_table :sessions do
@@ -22,8 +26,9 @@ module Lims::Core::Persistence::Sequel::Migrations
           VALUES(#{session_id}, 'admin', 'initial migration');
           EOS
           DB.tables.each do |table_name|
-            table = DB[table_name]
             next if exclude_tables.include?(table_name)  
+            table_names << table_name
+            table = DB[table_name]
 
             # extend all tables with revision_id
             if DB[table].columns.include?(:revision)  == false
@@ -45,6 +50,7 @@ module Lims::Core::Persistence::Sequel::Migrations
             alter_table revision_table do
               add_primary_key :internal_id
               add_index [:id, :revision], :unique => true
+              add_index [:id, :session_id], :unique => true
               add_foreign_key [:session_id], :sessions, :key => :id
             end
 
@@ -57,7 +63,7 @@ module Lims::Core::Persistence::Sequel::Migrations
             CREATE TRIGGER #{trigger_name}  AFTER INSERT ON  #{table_name}
             FOR EACH ROW
             BEGIN
-            #{this.insert_into_revision(table, revision_table)}
+            #{this.insert_into_revision(table, revision_table, :insert)}
             EOT
 
             puts trigger_code
@@ -71,26 +77,60 @@ module Lims::Core::Persistence::Sequel::Migrations
             FOR EACH ROW
             BEGIN
             # Update the revision number
-            SET NEW.revision = NEW.revision+1;
+            SET NEW.revision = OLD.revision+1;
             # Update the revision table
-            #{this.insert_into_revision(table, revision_table)}
+            #{this.insert_into_revision(table, revision_table, :update)}
+            EOT
+
+            puts trigger_code
+            self << trigger_code
+
+            trigger_name = "maintain_#{table_name}_on_delete"
+            self  << "DROP TRIGGER IF EXISTS #{trigger_name};"
+            trigger_code = <<-EOT
+
+            CREATE TRIGGER #{trigger_name}  BEFORE DELETE ON  #{table_name}
+            FOR EACH ROW
+            BEGIN
+            #{this.insert_into_revision(table, revision_table, :delete)}
             EOT
 
             puts trigger_code
             self << trigger_code
           end
+
+          view_code = "CREATE VIEW revisions AS " + table_names.map do |table_name|
+            revision_table = "#{table_name}_revision"
+            %Q{ SELECT '#{table_name}' AS revision_table,
+            id,
+            action,
+            session_id
+            FROM #{revision_table}
+
+          }
+          end.join(' UNION ')
+
+          puts view_code
+          self << view_code
+
           raise "Failed so we can test it over and over"
         end
       end
     end
 
-    def self.insert_into_revision(table, revision_table)
+    def self.insert_into_revision(table, revision_table, type)
       %Q{ INSERT INTO #{revision_table}                                 
-            SET #{table.columns.map { |c| "`#{c}` = NEW.#{c}" }.join(', ')},
-            `action` = 'insert',
-            `session_id` = @session_id;
-            END;
-          }
+      SET #{
+        if type == :delete
+          'id = OLD.id, revision = OLD.revision+1'
+        else
+          table.columns.map { |c| "`#{c}` = NEW.#{c}" }.join(', ')
+        end
+      },
+      `action` = '#{type}',
+      `session_id` = @current_session_id;
+      END;
+      }
     end
   end
 end
