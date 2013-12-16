@@ -24,9 +24,24 @@ module Lims::Core
         end
 
         # Execute given block within a transaction
+        # and create a session object needed to update
+        # revisionned table.
         def transaction
           database.transaction do
-            super
+            if database.database_type == :sqlite
+              super
+            else
+
+              user = "user"
+              application = "application"
+              session_id = database[:sessions].insert({:user => user, :application => application})
+              database.run "SET @current_session_id = #{session_id}"
+
+                super
+              # mark it as finished
+              database[:sessions].where(:id => session_id).update(:end_time => DateTime.now)
+              database.run "SET @current_session_id = NULL"
+            end
           end
         end
       end
