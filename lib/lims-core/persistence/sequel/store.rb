@@ -24,6 +24,8 @@ module Lims::Core
         end
 
         # Execute given block within a transaction
+        # and create a session object needed to update
+        # revisionned table.
         def transaction
           database.transaction do
             super
