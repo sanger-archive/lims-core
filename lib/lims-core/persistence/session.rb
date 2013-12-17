@@ -44,6 +44,12 @@ module Lims::Core
         @saved = Set.new
         @persistor_map = {}
         @dirty_attribute_strategy = @store.dirty_attribute_strategy
+
+        
+        options = params.extract_options!
+        @user ||= options[:user]
+        @application_id ||= options[:application_id]
+        @parameters ||= options[:parameters]
       end
 
 

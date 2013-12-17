@@ -28,20 +28,7 @@ module Lims::Core
         # revisionned table.
         def transaction
           database.transaction do
-            if database.database_type == :sqlite
-              super
-            else
-
-              user = "user"
-              application = "application"
-              session_id = database[:sessions].insert({:user => user, :application => application})
-              database.run "SET @current_session_id = #{session_id}"
-
-                super
-              # mark it as finished
-              database[:sessions].where(:id => session_id).update(:end_time => DateTime.now)
-              database.run "SET @current_session_id = NULL"
-            end
+            super
           end
         end
       end

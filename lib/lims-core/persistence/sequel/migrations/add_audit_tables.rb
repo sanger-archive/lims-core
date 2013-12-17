@@ -13,16 +13,19 @@ module Lims::Core::Persistence::Sequel::Migrations
           create_table :sessions do
             primary_key :id
             String :user
-            String :application
+            String :application_id
+            String :parameters, :text => true
+            boolean :success
             timestamp :start_time
             DateTime :end_time
+
           end
 
           # Initial session id
           session_id = 1
           #create migration session
           self << <<-EOS
-          INSERT INTO sessions(id, user, application)
+          INSERT INTO sessions(id, user, application_id)
           VALUES(#{session_id}, 'admin', 'initial migration');
           EOS
           DB.tables.each do |table_name|
