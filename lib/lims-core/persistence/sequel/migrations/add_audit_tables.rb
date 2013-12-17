@@ -112,8 +112,6 @@ module Lims::Core::Persistence::Sequel::Migrations
 
           puts view_code
           self << view_code
-
-          raise "Failed so we can test it over and over"
         end
       end
     end
