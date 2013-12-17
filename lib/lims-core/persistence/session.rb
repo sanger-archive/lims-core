@@ -48,7 +48,7 @@ module Lims::Core
         
         options = params.extract_options!
         @user ||= options[:user]
-        @application_id ||= options[:application_id]
+        @backend_application_id ||= options[:backend_application_id]
         @parameters ||= options[:parameters]
       end
 

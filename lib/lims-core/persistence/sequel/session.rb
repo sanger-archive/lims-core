@@ -68,8 +68,8 @@ module Lims::Core
         # and create each time a new session with the same parameters.
         # @return [Hash]
         def session_object_parameters
-          {:user => @user || "user",
-            :application_id => @application_id,
+          {:user => @user ,
+            :backend_application_id => @backend_application_id,
             :parameters => serialize(@parameters) || nil 
           }
         end

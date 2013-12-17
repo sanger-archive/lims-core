@@ -13,7 +13,7 @@ module Lims::Core::Persistence::Sequel::Migrations
           create_table :sessions do
             primary_key :id
             String :user
-            String :application_id
+            String :backend_application_id
             String :parameters, :text => true
             boolean :success
             timestamp :start_time
@@ -25,8 +25,8 @@ module Lims::Core::Persistence::Sequel::Migrations
           session_id = 1
           #create migration session
           self << <<-EOS
-          INSERT INTO sessions(id, user, application_id)
-          VALUES(#{session_id}, 'admin', 'initial migration');
+          INSERT INTO sessions(id, user, backend_application_id)
+          VALUES(#{session_id}, 'admin', 'lims-core');
           EOS
           DB.tables.each do |table_name|
             next if exclude_tables.include?(table_name)  
