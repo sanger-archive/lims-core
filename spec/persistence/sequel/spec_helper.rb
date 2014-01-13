@@ -24,4 +24,38 @@ else
   end
 end
 
+# Model requirements
+require 'lims-core/persistence/sequel/store'
+require 'lims-core/persistence/sequel/session'
+require 'lims-core/persistence/sequel/persistor'
 
+# Dummy class
+module Lims::Core::Persistence
+  module ForTest
+    class Name
+      include Lims::Core::Resource
+      attribute :name, String
+      class NamePersitor < Lims::Core::Persistence::Persistor
+        Model = Name
+      end
+    end
+  end
+
+shared_context "with test store" do
+        let!(:store) { Sequel::Store.new(db).tap do 
+            db.create_table :primary_keys do
+              primary_key :id
+              String :table_name
+              Integer :current_key
+            end
+
+            db.create_table :names do
+              primary_key :id
+              String :name
+            end
+          end
+        }
+end
+
+
+end
