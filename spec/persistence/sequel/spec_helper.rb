@@ -1,4 +1,8 @@
 require 'persistence/spec_helper'
+require 'logger'
+require 'yaml'
+Loggers = []
+#Loggers << Logger.new($stdout)
 
 module Helper
 def save(object)
@@ -16,11 +20,11 @@ end
 if RUBY_PLATFORM == "java"
   require 'jdbc/sqlite3'
   shared_context "sqlite db" do |&block|
-    let(:db) { ::Sequel.connect('jdbc:sqlite::memory:') }
+    let(:db) { ::Sequel.connect('jdbc:sqlite::memory:', :loggers => Loggers) }
   end
 else
   shared_context "sqlite db" do
-    let!(:db) { ::Sequel.sqlite('') }
+    let!(:db) { ::Sequel.sqlite('', :loggers => Loggers) }
   end
 end
 

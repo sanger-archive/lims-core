@@ -18,7 +18,7 @@ module Lims::Core
       attribute :user, String
       attribute :backend_application_id, String
       attribute :parameters, Object
-      attribute :succes, Boolean
+      attribute :success, Boolean
       attribute :start_time, Time
       attribute :end_time, Time
     end

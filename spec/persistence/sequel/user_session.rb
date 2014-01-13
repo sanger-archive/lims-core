@@ -9,6 +9,8 @@ require 'lims-core/persistence/sequel/persistor'
 require 'lims-core/persistence/user_session'
 require 'lims-core/persistence/sequel/migrations/add_audit_tables'
 
+require 'lims-core/persistence/sequel/user_session_sequel_persistor'
+
 module Lims::Core
   module Persistence
     describe Lims::Core::Persistence::UserSession do
@@ -25,8 +27,8 @@ module Lims::Core
               let(:parameters) { '{}' }
               let(:success) { false }
               let(:parameters) { Lims::Core::Helpers::to_json({"key1" => "value1"}) }
-              let(:start_time) { "2013/01/01 - 12:34:56" }
-              let(:end_time) { "2013/01/01 - 13:00:00" }
+              let(:start_time) { Time.new "2013/01/01 - 12:34:56" }
+              let(:end_time) { Time.new "2013/01/01 - 13:00:00" }
           let!(:session_id) {
             db[:sessions].insert(:user => user,
               :backend_application_id => backend_application_id,
@@ -47,20 +49,30 @@ module Lims::Core
               user_session.parameters.should == parameters
               user_session.start_time.should == start_time
               user_session.end_time.should == end_time
-
-
             end
           end
 
           it "can't be saved" do
               expect {
-            store.with_session do |session|
-              session << UserSession.new
-              end
-            }.to change { db[:sessions].count }.by(0)
+                begin
+                  store.with_session do |session|
+                    session << UserSession.new
+                  end
+                rescue
+                end
+
+              }.to change { db[:sessions].count }.by(0)
+            end
+            it "can't be saved" do
+              expect {
+
+                store.with_session do |session|
+                  session << UserSession.new
+                end
+              }.to raise_error Persistence::Session::ReadonlyClassException
+            end
           end
         end
       end
     end
   end
-end

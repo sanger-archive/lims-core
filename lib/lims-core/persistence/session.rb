@@ -18,6 +18,12 @@ module Lims::Core
     # Session information (user, time) are also associated to the modifications of those objects.
     class Session
 
+      class ReadonlyClassException < RuntimeError
+        def initialize(klass)
+          super "Can't save instance of #{klass}. Class is readonly"
+        end
+      end
+
       # The dirty-attribute strategy decides
       # how object modification is detected
       # to avoid saved unmodified object.
