@@ -12,6 +12,10 @@ module Lims::Core
         def bulk_insert(*args, &block)
           raise Session::ReadonlyClassException(UserSession)
         end
+
+        def keep_primary_key?
+          true
+        end
       end
     end
   end

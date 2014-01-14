@@ -42,6 +42,7 @@ module Lims::Core
           it "can be loaded" do
             store.with_session do |session|
               user_session = session.user_session[session_id]
+              user_session.id.should == session_id
               user_session.user.should == user
               user_session.backend_application_id.should == backend_application_id
               user_session.parameters.should == parameters
