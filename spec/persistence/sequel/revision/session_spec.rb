@@ -35,6 +35,7 @@ module Lims::Core
                   {"session_id" => 1, "internal_id" => 1, "name" => "a", "revision" => 1, "action" => "insert" },
                   {"session_id" => 5, "internal_id" => 1, "name" => "b",  "revision" => 2, "action" => "update" },
                   {"session_id" => 10, "internal_id" => 1, "name" => nil, "revision" => 3, "action" => "delete" },
+                  {"session_id" => 5, "internal_id" => 2, "name" => "foo", "revision" => 1, "action" => "insert" },
 
                 ])
 
@@ -57,6 +58,14 @@ module Lims::Core
               for_session(4) { |session| session.name[1].name.should == "a" }
               for_session(6) { |session| session.name[1].name.should == "b" }
               for_session(20) { |session| session.name[1].should == nil }
+            end
+
+            it "can read in bulk" do
+              for_session(6) do |session|
+                names = session.name[[1, 2]] 
+                names.size.should == 2
+                names.map { |n| n.name}.sort.should == ["b", "foo"]
+              end
             end
           end
         end

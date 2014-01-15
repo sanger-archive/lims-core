@@ -10,6 +10,7 @@ module Lims::Core
       # To do so, it extends all the persistors to change
         # their table name and add a session_id constraints on the were clause
         class Session < Sequel::Session
+          attr_reader :session_id
           def initialize(store, session_id)
             @store = store
             @session_id = session_id
