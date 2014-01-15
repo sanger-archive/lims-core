@@ -43,23 +43,33 @@ module Lims::Core::Persistence
         Model = Name
       end
     end
+
+    # Other Dummy class with an association
+    class User
+      include Lims::Core::Resource
+      attribute :name, Name
+      class UserPersistor < Lims::Core::Persistence::Persistor
+        Model = User
+      end
+    end
   end
 
-shared_context "with test store" do
-        let!(:store) { Sequel::Store.new(db).tap do 
-            db.create_table :primary_keys do
-              primary_key :id
-              String :table_name
-              Integer :current_key
-            end
 
-            db.create_table :names do
-              primary_key :id
-              String :name
-            end
-          end
-        }
-end
+  shared_context "with test store" do
+    let!(:store) { Sequel::Store.new(db).tap do 
+        db.create_table :primary_keys do
+          primary_key :id
+          String :table_name
+          Integer :current_key
+        end
+
+        db.create_table :names do
+          primary_key :id
+          String :name
+        end
+      end
+    }
+  end
 
 
 end

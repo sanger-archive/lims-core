@@ -18,6 +18,47 @@ module Lims::Core
             subject.name.is_a?(Sequel::Persistor).should == true
             subject.name.is_a?(Sequel::Revision::Persistor).should == true
           end
+
+          context "with object history" do
+            before(:all) {
+              # Create history table
+              store.database.create_table :names_revision do
+                primary_key :id
+                String :name
+                Integer :revision
+                String :action
+                Integer :session_id
+                Integer :internal_id
+              end
+
+              store.database[:names_revision].multi_insert([
+                  {"session_id" => 1, "internal_id" => 1, "name" => "a", "revision" => 1, "action" => "insert" },
+                  {"session_id" => 5, "internal_id" => 1, "name" => "b",  "revision" => 2, "action" => "update" },
+                  {"session_id" => 10, "internal_id" => 1, "name" => nil, "revision" => 3, "action" => "delete" },
+
+                ])
+
+            }
+
+            def for_session(session_id)
+              described_class.new(store, session_id).with_session do |session|
+                yield session
+              end
+              
+            end
+
+            it "can read specific revision" do
+              for_session(1) { |session| session.name[1].name.should == "a" }
+              for_session(5) { |session| session.name[1].name.should == "b" }
+              for_session(10) { |session| session.name[1].should == nil }
+            end
+            
+            it "can read a greater revision" do
+              for_session(4) { |session| session.name[1].name.should == "a" }
+              for_session(6) { |session| session.name[1].name.should == "b" }
+              for_session(20) { |session| session.name[1].should == nil }
+            end
+          end
         end
       end
     end
