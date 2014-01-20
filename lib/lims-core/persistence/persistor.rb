@@ -91,9 +91,13 @@ module Lims::Core
 
         def initialize (session, *args, &block)
           @session = session
-          @id_to_state = Hash.new { |h,k| h[k] = ResourceState.new(nil, self, k) }
-          @object_to_state = Hash.new { |h,k| h[k] = ResourceState.new(k, self) }
+          @id_to_state = Hash.new { |h,k| h[k] = create_resource_state(nil, self, k) }
+          @object_to_state = Hash.new { |h,k| h[k] = create_resource_state(k, self) }
           super(*args, &block)
+        end
+
+        def create_resource_state(resource, persistor, id=nil)
+          ResourceState.new(resource, persistor, id)
         end
 
         # Associate class (without persistence).

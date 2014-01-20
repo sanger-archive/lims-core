@@ -57,14 +57,21 @@ module Lims::Core
             it "can read a greater revision" do
               for_session(4) { |session| session.name[1].name.should == "a" }
               for_session(6) { |session| session.name[1].name.should == "b" }
-              for_session(20) { |session| session.name[1].should == nil }
+              for_session(20) do |session| session.name[1].should == nil 
+                session.name.revision_for(1).action.should == "delete"
+              end
             end
 
             it "can read in bulk" do
               for_session(6) do |session|
                 names = session.name[[1, 2]] 
                 names.size.should == 2
-                names.map { |n| n.name}.sort.should == ["b", "foo"]
+                names.map { |n| n.name}.should == ["b", "foo"]
+              end
+              for_session(1) do |session|
+                names = session.name[[1, 2]] 
+                names.size.should == 2
+                names.map { |n| n && n.name }.should == ["a", nil] 
               end
             end
           end
