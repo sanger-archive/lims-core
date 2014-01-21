@@ -4,6 +4,7 @@ require 'yaml'
 Loggers = []
 #Loggers << Logger.new($stdout)
 
+
 module Helper
 def save(object)
   store.with_session do |session|
@@ -33,6 +34,8 @@ require 'lims-core/persistence/sequel/store'
 require 'lims-core/persistence/sequel/session'
 require 'lims-core/persistence/sequel/persistor'
 
+require 'lims-core/persistence/persistable_trait'
+
 # Dummy class
 module Lims::Core::Persistence
   module ForTest
@@ -48,9 +51,9 @@ module Lims::Core::Persistence
     class User
       include Lims::Core::Resource
       attribute :name, Name
-      class UserPersistor < Lims::Core::Persistence::Persistor
-        Model = User
-      end
+      attribute :email, String
+
+      does "lims/core/persistence/persistable", :parents => [:name]
     end
   end
 
