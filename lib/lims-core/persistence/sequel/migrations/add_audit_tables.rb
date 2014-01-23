@@ -106,7 +106,7 @@ module Lims::Core::Persistence::Sequel::Migrations
           end
 
           if additional_tables_to_update.size > 0
-            self << "DROP VIEW revisions"
+            self << "DROP VIEW IF EXISTS revisions"
           end
 
           revision_tables = DB.tables.map { |table| table unless table.match(/revision/) }.compact
