@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   s.add_dependency('facets', '2.9.3')
   s.add_dependency('virtus', '0.2.0')
   s.add_dependency('aequitas')
-  s.add_dependency('modularity')
+  s.add_dependency('modularity', '0.6.1')
   s.add_dependency('dm-validations')
   s.add_dependency('sequel')
   s.add_dependency('active_support')
