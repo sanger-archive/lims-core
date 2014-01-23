@@ -1,6 +1,6 @@
 module Lims::Core::Persistence::Sequel::Migrations
   module AddAuditTables
-    def self.migration(exclude_tables={})
+    def self.migration(exclude_tables={}, additional_tables_to_update=[])
       [:schema_info, :sessions, :primary_keys].each do |table|
         exclude_tables[table] = true
       end
@@ -9,26 +9,29 @@ module Lims::Core::Persistence::Sequel::Migrations
         next unless defined?(DB)
         table_names = []
         change do
-          # Create session table
-          create_table :sessions do
-            primary_key :id
-            String :user
-            String :backend_application_id
-            String :parameters, :text => true
-            boolean :success
-            timestamp :start_time
-            DateTime :end_time
-
+          if additional_tables_to_update.size == 0
+            # Create session table
+            create_table :sessions do
+              primary_key :id
+              String :user
+              String :backend_application_id
+              String :parameters, :text => true
+              boolean :success
+              timestamp :start_time
+              DateTime :end_time
+            end
           end
 
-          # Initial session id
-          session_id = 1
           #create migration session
           self << <<-EOS
-          INSERT INTO sessions(id, user, backend_application_id)
-          VALUES(#{session_id}, 'admin', 'lims-core');
+          INSERT INTO sessions(user, backend_application_id)
+          VALUES('admin', 'lims-core');
           EOS
-          DB.tables.each do |table_name|
+
+          session_id = DB[:sessions].order(:id).last[:id]
+
+          tables_to_update = additional_tables_to_update.size == 0 ? DB.tables : additional_tables_to_update
+          tables_to_update.each do |table_name|
             next if exclude_tables.include?(table_name)  
             table_names << table_name
             table = DB[table_name]
@@ -102,7 +105,14 @@ module Lims::Core::Persistence::Sequel::Migrations
             self << trigger_code
           end
 
-          view_code = "CREATE VIEW revisions AS " + table_names.map do |table_name|
+          if additional_tables_to_update.size > 0
+            self << "DROP VIEW revisions"
+          end
+
+          revision_tables = DB.tables.map { |table| table unless table.match(/revision/) }.compact
+          revision_tables -= exclude_tables.keys
+
+          view_code = "CREATE VIEW revisions AS " + revision_tables.map do |table_name|
             revision_table = "#{table_name}_revision"
             %Q{ SELECT '#{table_name}' AS revision_table,
             id,
