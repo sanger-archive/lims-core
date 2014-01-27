@@ -81,9 +81,9 @@ module Lims::Core
         # Nothing is created.
         def with_session(*params, &block)
           create_session = true
-          previous_session_id = nil
           success = false
 
+          # @todo Subclass Session for Sql adapter
           if database.database_type == :sqlite
             create_session = false
           else
@@ -93,7 +93,7 @@ module Lims::Core
 
           if create_session
             session_id = database[:sessions].insert(session_object_parameters)
-            database.run "SET @current_session_id = #{session_id}"
+            set_current_session_id(session_id)
           end
 
           begin
@@ -103,11 +103,32 @@ module Lims::Core
             if create_session
               # mark it as finished
               database[:sessions].where(:id => session_id).update(:end_time => DateTime.now, :success => success)
-              database.run "SET @current_session_id = NULL"
+              set_current_session(nil)
             end
           end
 
           return result
+        end
+
+        def get_current_session
+          return if database.database_type == :sqlite
+          database.fetch("SELECT @current_session_id AS id").first[:id]
+        end
+
+        def set_current_session(current_session_id=@current_session_id)
+          return if database.database_type == :sqlite
+          database.run "SET @current_session_id = #{current_session_id}"
+          @current_session_id = current_session_id
+        end
+
+        def transaction
+          super do
+            # Set the current_session_id again
+            # in case it's been overriden by another thread.
+            # Solves bug #64570338
+            set_current_session
+            yield
+          end
         end
       end
     end

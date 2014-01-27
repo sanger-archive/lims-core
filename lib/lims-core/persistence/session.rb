@@ -215,13 +215,21 @@ module Lims::Core
       private
       # save all objects which needs to be
       def save_all()
-        @store.transaction do
+        transaction do
           @save_in_progress = true # allows saving
           @object_states.reset_status
           @object_states.save
           end
         @save_in_progress = false
       end
+
+      # Execute the provided block within a transaction
+      # Here to be overriden if needed
+      def transaction
+        @store.transaction do
+         yield
+       end
+     end
 
       # Create a new persistor sharing the same internal parameters
       # but with the "context" (datasest) of the new one.
