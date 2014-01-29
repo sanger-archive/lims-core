@@ -38,19 +38,19 @@ module Lims::Core
               before(:all) {
                 # Create history table
                 store.database.create_table :names_revision do
-                  primary_key :id
+                  primary_key :internal_id
                   String :name
                   Integer :revision
                   String :action
                   Integer :session_id
-                  Integer :internal_id
+                  Integer :id
                 end
 
                 store.database[:names_revision].multi_insert([
-                    {"session_id" => 1, "internal_id" => 1, "name" => "a", "revision" => 1, "action" => "insert" },
-                    {"session_id" => 5, "internal_id" => 1, "name" => "b",  "revision" => 2, "action" => "update" },
-                    {"session_id" => 10, "internal_id" => 1, "name" => nil, "revision" => 3, "action" => "delete" },
-                    {"session_id" => 5, "internal_id" => 2, "name" => "foo", "revision" => 1, "action" => "insert" },
+                    {"session_id" => 1, "id" => 1, "name" => "a", "revision" => 1, "action" => "insert" },
+                    {"session_id" => 5, "id" => 1, "name" => "b",  "revision" => 2, "action" => "update" },
+                    {"session_id" => 10, "id" => 1, "name" => nil, "revision" => 3, "action" => "delete" },
+                    {"session_id" => 5, "id" => 2, "name" => "foo", "revision" => 1, "action" => "insert" },
 
                   ])
 
@@ -88,35 +88,35 @@ module Lims::Core
               before(:all) {
                 # Create history table
                 store.database.create_table :names_revision do
-                  primary_key :id
+                  primary_key :internal_id
                   String :name
                   Integer :revision
                   String :action
                   Integer :session_id
-                  Integer :internal_id
+                  Integer :id
                 end
 
                 store.database.create_table :users_revision do
-                  primary_key :id
+                  primary_key :internal_id
                   String :email
                   Integer :name_id
                   Integer :revision
                   String :action
                   Integer :session_id
-                  Integer :internal_id
+                  Integer :id
                 end
 
                 store.database[:names_revision].multi_insert([
-                    {"session_id" => 1, "internal_id" => 1, "name" => "jon", "revision" => 1, "action" => "insert" },
-                    {"session_id" => 2, "internal_id" => 1, "name" => "john", "revision" => 2, "action" => "update" },
-                    {"session_id" => 4, "internal_id" => 2, "name" => "John", "revision" => 1, "action" => "insert" },
+                    {"session_id" => 1, "id" => 1, "name" => "jon", "revision" => 1, "action" => "insert" },
+                    {"session_id" => 2, "id" => 1, "name" => "john", "revision" => 2, "action" => "update" },
+                    {"session_id" => 4, "id" => 2, "name" => "John", "revision" => 1, "action" => "insert" },
 
                   ])
 
                 store.database[:users_revision].multi_insert([
-                    { "session_id" => 1, "internal_id" => 1, "name_id" => 1, "email" => "john.smith@example.com", "revision" => 1, "action" => "insert" },
-                    { "session_id" => 3, "internal_id" => 1, "name_id" => 1, "email" => "john.smith@gmail.com", "revision" => 2, "action" => "update" },
-                    { "session_id" => 4, "internal_id" => 1, "name_id" => 2, "email" => "john.smith@gmail.com", "revision" => 3, "action" => "update" },
+                    { "session_id" => 1, "id" => 1, "name_id" => 1, "email" => "john.smith@example.com", "revision" => 1, "action" => "insert" },
+                    { "session_id" => 3, "id" => 1, "name_id" => 1, "email" => "john.smith@gmail.com", "revision" => 2, "action" => "update" },
+                    { "session_id" => 4, "id" => 1, "name_id" => 2, "email" => "john.smith@gmail.com", "revision" => 3, "action" => "update" },
                   ])
 
               }

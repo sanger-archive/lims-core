@@ -26,14 +26,14 @@ module Lims::Core
             end
 
             def find_ids_from_internal_ids(internal_ids)
-              dataset.select_group(:internal_id).
-                select_more{::Sequel.as(max(:session_id), :session_id)}.filter(:internal_id => internal_ids.map(&:id), :session_id => 1..session_id )
+              dataset.select_group(primary_key).
+                select_more{::Sequel.as(max(:session_id), :session_id)}.filter(primary_key => internal_ids.map(&:id), :session_id => 1..session_id )
             end
             
             def  bulk_load(ids, *params, &block)
               internal_ids_set = find_ids_from_internal_ids(ids)
               dataset.join(internal_ids_set,
-                :internal_id => :internal_id,
+                :id => :id,
                 :session_id => :session_id
               ).all(&block)
             end
@@ -42,7 +42,7 @@ module Lims::Core
               Persistence::Revision.new.tap do |revision|
                 revision.action = attributes.delete(:action)
                 revision.number = attributes.delete(:revision)
-                attributes[:id] = resource_id =  attributes.delete(:internal_id)
+                resource_id = attributes[:id]
                 revision.session_id = attributes.delete(:session_id)
 
                 revision.resource = super(attributes) if revision.action != 'delete'
