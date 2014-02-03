@@ -6,7 +6,8 @@ module Lims::Core
     # Implementes filter methods needed by persitors.
     module Sequel::Filters
 
-      COMPARISON_OPERATORS = ["<", "<=", "=", ">=", ">"]
+      LIKE_OPERATOR = 'LIKE'
+      COMPARISON_OPERATORS = ["<", "<=", "=", ">=", ">", LIKE_OPERATOR]
 
       # Implement a multicriteria filter for a Sequel::Persistor.
       # Value can be either a String, an Array  or a Hash.
@@ -33,10 +34,15 @@ module Lims::Core
         clause = ""
         criteria.each do |field, comparison_expression|
           comparison_expression.each do |operator, value|
+            if operator.upcase == LIKE_OPERATOR
+              operator = operator.upcase
+              value = "%#{value}%" if operator == LIKE_OPERATOR
+            end
+
             raise ArgumentError, "Not supported comparison operator has been given: '#{operator}'" unless COMPARISON_OPERATORS.include?(operator) 
 
             clause = clause + ') & (' unless clause == ""
-            clause = clause + field + operator + "'" + value.to_s + "'"
+            clause = clause + " #{field} " + operator + "'#{value}'"
           end
         end
 
