@@ -80,57 +80,47 @@ module Lims::Core
         # If the session can't be created due to the lack of parameters.
         # Nothing is created.
         def with_session(*params, &block)
-          create_session = true
-          success = false
-
-          # @todo Subclass Session for Sql adapter
-          if database.database_type == :sqlite
-            create_session = false
-          else
-            previous_session_id = database.fetch("SELECT @current_session_id AS id").first[:id]
-            create_session = false if previous_session_id
+          with_current_session do
+            super(*params, &block)
           end
+        end
 
-          if create_session
-            session_id = database[:sessions].insert(session_object_parameters)
-            set_current_session(session_id)
+        def with_current_session(&block)
+          session_created = false
+          if @current_session_id == nil && database.database_type != :sqlite
+            @current_session_id = database[:sessions].insert(session_object_parameters)
+            session_created = true
           end
-
+          set_current_session_id
           begin
-            result = super(*params, &block)
+            result = block.call
             success = true
           ensure
-            if create_session
+            if session_created
               # mark it as finished
-              database[:sessions].where(:id => session_id).update(:end_time => DateTime.now, :success => success)
-              set_current_session(nil)
+              database[:sessions].where(:id => @current_session_id).update(:end_time => DateTime.now, :success => success)
+              @current_session_id = nil
+              set_current_session_id
             end
           end
 
           return result
         end
 
-        def get_current_session
+        def set_current_session_id()
           return if database.database_type == :sqlite
-          database.fetch("SELECT @current_session_id AS id").first[:id]
-        end
+          database.run "SET @current_session_id = #{@current_session_id ? @current_session_id : "NULL"};"
+          end
 
-        def set_current_session(current_session_id=@current_session_id)
-          return if database.database_type == :sqlite
-          database.run "SET @current_session_id = #{current_session_id ? current_session_id : "NULL"};"
-          @current_session_id = current_session_id
-        end
-
-        def transaction
-          super do
-            # Set the current_session_id again
-            # in case it's been overriden by another thread.
-            # Solves bug #64570338
-            set_current_session
-            yield
+          def transaction(&block)
+            super do
+              # Set the current_session_id again
+              # in case it's been overriden by another thread.
+              # Solves bug #64570338
+              with_current_session(&block)
+            end
           end
         end
       end
     end
   end
-end
