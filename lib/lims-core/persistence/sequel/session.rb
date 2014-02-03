@@ -93,7 +93,7 @@ module Lims::Core
 
           if create_session
             session_id = database[:sessions].insert(session_object_parameters)
-            set_current_session_id(session_id)
+            set_current_session(session_id)
           end
 
           begin
@@ -117,7 +117,7 @@ module Lims::Core
 
         def set_current_session(current_session_id=@current_session_id)
           return if database.database_type == :sqlite
-          database.run "SET @current_session_id = #{current_session_id}"
+          database.run "SET @current_session_id = #{current_session_id ? current_session_id : "NULL"};"
           @current_session_id = current_session_id
         end
 
