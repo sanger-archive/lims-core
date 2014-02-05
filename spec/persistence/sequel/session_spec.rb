@@ -8,44 +8,22 @@ require 'lims-core/persistence/sequel/persistor'
 
 
 module Lims::Core::Persistence
-  module ForTest
-    class Name
-      include Lims::Core::Resource
-      attribute :name, String
-      class NamePersitor < Lims::Core::Persistence::Persistor
-        Model = Name
-      end
-    end
-  end
-
   module Sequel
     describe Session, :session => true, :persistence => true, :persistence => true, :sequel => true do
       context "with sqlite underlying" do
         include_context "sqlite db"
-        let(:store) { Store.new(db).tap do 
-            db.create_table :primary_keys do
-              primary_key :id
-              String :table_name
-              Integer :current_key
-            end
-          end
-        }
+        include_context "with test store"
 
         context "#transaction" do
           let(:a) { ForTest::Name.new(:name => "A") }
           let(:b) { ForTest::Name.new(:name => "B") }
           let(:c) { ForTest::Name.new(:name => "C") }
 
-          before() do
-            db.create_table :names do
-              primary_key :id
-              String :name
-            end
-
+          before {
             c.stub(:attributes) do
               raise RuntimeError, "Can't save '#{inspect}'"
             end
-          end
+          }
 
           it "save the 2 if no problem" do
             expect { store.with_session do |s|
@@ -57,6 +35,9 @@ module Lims::Core::Persistence
             expect {
               begin
                 store.with_session do |s|
+
+                  module Lims::Core::Peristence
+                  end
                   s << a << c
                 end
               rescue

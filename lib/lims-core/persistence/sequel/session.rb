@@ -43,7 +43,7 @@ module Lims::Core
         def lock(datasets, unlock=false, &block)
           datasets = [datasets] unless datasets.is_a?(Array)
           db = datasets.first.db
-          
+
           # sqlite3 handles lock differently.
           # @TODO create Session Subclass for each database type.
           return lock_for_update(datasets, &block) if db.database_type == :sqlite
@@ -110,17 +110,17 @@ module Lims::Core
         def set_current_session_id()
           return if database.database_type == :sqlite
           database.run "SET @current_session_id = #{@current_session_id ? @current_session_id : "NULL"};"
-          end
+        end
 
-          def transaction(&block)
-            super do
-              # Set the current_session_id again
-              # in case it's been overriden by another thread.
-              # Solves bug #64570338
-              with_current_session(&block)
-            end
+        def transaction(&block)
+          super do
+            # Set the current_session_id again
+            # in case it's been overriden by another thread.
+            # Solves bug #64570338
+            with_current_session(&block)
           end
         end
       end
     end
   end
+end
