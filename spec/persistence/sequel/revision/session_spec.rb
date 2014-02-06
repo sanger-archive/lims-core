@@ -133,12 +133,13 @@ module Lims::Core
                   it "find the correct revision " do
                     store.with_session do |session|
                       resource_state = session.send(model).state_for_id(resource_id)
-                      session.user_session.send(:ids_for, resource_state).should ==  session_ids
+                      session.user_session.session_ids_for(resource_state).should ==  session_ids
                     end
                   end
                 end
                 it_finds_correct_revision :user, 1, [1, 2, 3, 4]
-                it_finds_correct_revision :name, 1, [1, 2, 4]
+                it_finds_correct_revision :name, 1, [1, 2]
+                it_finds_correct_revision :name, 2, [4]
               end
             end
           end

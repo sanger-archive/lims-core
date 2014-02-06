@@ -146,12 +146,18 @@ module Lims::Core
         @body_saved = true
       end
 
-        def reset
-          @parents_saved = nil
-          @children_saved = nil
-          @body_saved= nil
-        end
+      def reset
+        @parents_saved = nil
+        @children_saved = nil
+        @body_saved= nil
+      end
+
+      # Duplicate the ResourceState but link it to another session
+      def new_for_session(session)
+        new_persistor = session.persistor_for(persistor.model)
+        new_persistor.create_resource_state(resource, id)
       end
     end
   end
+end
 
