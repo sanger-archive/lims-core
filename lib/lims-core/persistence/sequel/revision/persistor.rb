@@ -21,8 +21,8 @@ module Lims::Core
               @session.session_id
             end
 
-            def create_resource_state(resource, persistor, id=nil)
-              ResourceState.new(resource, persistor, id)
+            def create_resource_state(resource, id=nil)
+              self.class::ResourceState.new(resource, self, id)
             end
 
             def find_ids_from_internal_ids(internal_ids)
