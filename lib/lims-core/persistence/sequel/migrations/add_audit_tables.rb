@@ -1,3 +1,6 @@
+require 'rubygems'
+require 'ruby-debug'
+
 module Lims::Core::Persistence::Sequel::Migrations
   module AddAuditTables
     def self.migration(exclude_tables={}, additional_tables_to_update=[])
@@ -129,17 +132,22 @@ module Lims::Core::Persistence::Sequel::Migrations
       end
     end
 
+#    SET #{
+#      if type == :delete
+#        'id = OLD.id, revision = OLD.revision+1'
+#      else
+#        table.columns.map { |c| "`#{c}` = NEW.#{c}" }.join(', ')
+#      end
+#    }
+    
     def self.insert_into_revision(table, revision_table, type)
-      %Q{ INSERT INTO #{revision_table}                                 
-      SET #{
-        if type == :delete
-          'id = OLD.id, revision = OLD.revision+1'
+      %Q{ INSERT INTO #{revision_table} 
+      #{if type == :delete
+          '(id, revision, action, session_id) VALUES (OLD.id, OLD.revision+1, #{type}, @current_session_id)'
         else
-          table.columns.map { |c| "`#{c}` = NEW.#{c}" }.join(', ')
+          '(' + table.columns.map { |c| "`#{c}`" }.join(', ') + ', `action`, `session_id`) VALUES(' + table.columns.map { |c| "NEW.#{c}" }.join(', ') + ", #{type}, @current_session_id)"
         end
-      },
-      `action` = '#{type}',
-      `session_id` = @current_session_id;
+      };
       END;
       }
     end
