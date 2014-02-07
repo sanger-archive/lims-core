@@ -19,18 +19,21 @@ module Lims::Core
         end
 
         def session_ids_for(objects)
-          objects = Array(objects)
+          case objects
+          when Resource, ResourceState
+            objects = [objects]
+          end
 
           collect_user_session_states(objects)
-
         end
+
 
         def collect_user_session_states(objects)
           finder_session = Sequel::SessionFinder::Session.new(@session.store)
           resource_states = StateList.new(objects.map do |object|
               case object
               when ResourceState then object.new_for_session(finder_session)
-              when Resoure then finder_session.state_for(object)
+              when Resource then @session.state_for(object).new_for_session(finder_session)
               end
             end
           )
