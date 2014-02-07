@@ -18,6 +18,12 @@ module Lims::Core
     # Session information (user, time) are also associated to the modifications of those objects.
     class Session
 
+      class ReadonlyClassException < RuntimeError
+        def initialize(klass)
+          super "Can't save instance of #{klass}. Class is readonly"
+        end
+      end
+
       # The dirty-attribute strategy decides
       # how object modification is detected
       # to avoid saved unmodified object.
@@ -25,6 +31,8 @@ module Lims::Core
       attr_accessor :dirty_attribute_strategy
       class UnmanagedObjectError < RuntimeError
       end
+
+      attr_reader :store
 
       # The map name <=> model class is shared between all type of session
       #
@@ -215,13 +223,21 @@ module Lims::Core
       private
       # save all objects which needs to be
       def save_all()
-        @store.transaction do
+        transaction do
           @save_in_progress = true # allows saving
           @object_states.reset_status
           @object_states.save
           end
         @save_in_progress = false
       end
+
+      # Execute the provided block within a transaction
+      # Here to be overriden if needed
+      def transaction
+        @store.transaction do
+         yield
+       end
+     end
 
       # Create a new persistor sharing the same internal parameters
       # but with the "context" (datasest) of the new one.
@@ -361,10 +377,12 @@ module Lims::Core
         raise  "no Persistor defined for #{model.name}" unless parent_persistor_class
         module_name = parent_scope.name.sub(/.*Persistence::/,'')
         model_name = model.name.split('::').pop
+        new_name = "#{model_name}#{module_name}Persistor"
+        new_name.gsub!('::', '')
         # the we create a new Persistor class including the Persistor mixin
         # corresponding to the session
         class_declaration = <<-EOV
-        class #{model_name}#{module_name}Persistor < #{parent_persistor_class.name}
+        class #{new_name} < #{parent_persistor_class.name}
           include #{parent_scope::Persistor}
         end
         EOV
