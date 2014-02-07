@@ -16,6 +16,14 @@ module Lims::Core
         def keep_primary_key?
           true
         end
+
+        def for_resources(resources)
+          self[session_ids_for(resources)]
+        end
+
+        def session_ids_for(*args, &block)
+          raise NotImplementedError
+        end
       end
     end
   end

@@ -32,6 +32,8 @@ module Lims::Core
       class UnmanagedObjectError < RuntimeError
       end
 
+      attr_reader :store
+
       # The map name <=> model class is shared between all type of session
       #
       def self.model_map()

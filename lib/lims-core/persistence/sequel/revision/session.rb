@@ -16,12 +16,6 @@ module Lims::Core
             @session_id = session_id
             super(store)
           end
-
-          def new_persistorX(*args, &block)
-            super(*args, &block).tap do |persistor|
-              persistor.extend(Sequel::RevisionPersistor)
-            end
-          end
         end
       end
     end

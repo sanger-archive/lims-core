@@ -91,13 +91,13 @@ module Lims::Core
 
         def initialize (session, *args, &block)
           @session = session
-          @id_to_state = Hash.new { |h,k| h[k] = create_resource_state(nil, self, k) }
-          @object_to_state = Hash.new { |h,k| h[k] = create_resource_state(k, self) }
+          @id_to_state = Hash.new { |h,k| h[k] = create_resource_state(nil, k) }
+          @object_to_state = Hash.new { |h,k| h[k] = create_resource_state(k) }
           super(*args, &block)
         end
 
-        def create_resource_state(resource, persistor, id=nil)
-          ResourceState.new(resource, persistor, id)
+        def create_resource_state(resource, id=nil)
+          ResourceState.new(resource, self, id)
         end
 
         # Associate class (without persistence).
@@ -185,18 +185,29 @@ module Lims::Core
           @object_to_state[state.resource] = state
         end
 
-        # Creates a new object from a Hash and associate it to its id
-        # @param [Id] id id of the new object
-        # @param [Hash] attributes of the new object.
-        # @return [Resource]
         def new_object(id, attributes)
-          id = attributes.delete(primary_key)
+          id = extract_primary_key(attributes)
           model.new(filter_attributes_on_load(attributes)).tap do |resource|
             state = state_for_id(id)
             state.resource = resource
           end
         end
 
+        def keep_primary_key?
+          false
+        end
+
+        # Extract and delete if needed the primary
+        # keep from a Hash.
+        # @param [Hash] attributes
+        # @return Object
+        def extract_primary_key(attributes)
+          if keep_primary_key?
+            attributes[primary_key]
+          else
+            attributes.delete(primary_key)
+          end
+        end
         # Computes "dirty_key" of an object.
         # The dirty key is used to decide if an object
         # has been modified or not.
@@ -344,7 +355,7 @@ module Lims::Core
           # from the one which are already in cache
           to_load = ids.reject { |id| id == nil || @id_to_state.include?(id) }
           loaded_states = bulk_load_raw_attributes(to_load, *params) do |att|
-            id = att.delete(primary_key)
+            id = extract_primary_key(att)
             new_state_for_attribute(id, att).resource
           end
 
@@ -442,8 +453,12 @@ module Lims::Core
         end
         public :load_children
 
+        # Creates a new object from a Hash and associate it to its id
+        # @param [Id] id id of the new object
+        # @param [Hash] attributes of the new object.
+        # @return [ResourceState]
         def new_from_attributes(attributes)
-          id = attributes.delete(primary_key)
+          id = extract_primary_key(attributes)
           resource = block_given? ? yield(attributes) :   model.new(filter_attributes_on_load(attributes))
           state_for_id(id).tap { |state| state.resource = resource }
         end
