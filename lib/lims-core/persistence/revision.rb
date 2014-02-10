@@ -17,6 +17,7 @@ module Lims::Core
       attribute :session_id, Object
 
       attribute :resource, Object
+      attribute :model, Object
 
     end
   end

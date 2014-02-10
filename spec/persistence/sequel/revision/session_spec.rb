@@ -17,11 +17,11 @@ shared_examples "retrieving direct revisions" do |session_id, expected_revisions
         # Normally we should load the session found in the sessions table
         # However we are not testing the load of UserSession so we just mock it.
         user_session =  Lims::Core::Persistence::UserSession.new(:id => session_id, :parent_session => session)
-        user_session.revisions
+        user_session.direct_revisions
       end
   }
     it "has the correct resources" do
-      subject.map { |state| %w(id action model).mash { |s| [s, state.send(s)]  } }.order.should == expected_resource_states.order
+      subject.map { |state| %w(id action model).mash { |s| [s, state.send(s)]  } }.sort.should == expected_revisions.sort
     end
   end
 end
@@ -159,6 +159,19 @@ module Lims::Core
                 end
 
                 context "retrieves direct resources" do
+                  before(:all) {
+                    view_code = "CREATE VIEW revisions AS " + %w(names users) .map do |table_name|
+                      revision_table = "#{table_name}_revision"
+                      %Q{ SELECT '#{table_name}' AS revision_table,
+                        id,
+                        action,
+                        session_id
+                        FROM #{revision_table}
+
+                      }
+                    end.join(' UNION ')
+                    store.database << view_code
+                  }
                   it_behaves_like "retrieving direct revisions", 1, [[:name, 1], [:user, 1]]
                   it_behaves_like "retrieving direct revisions", 2, [[:name, 1], [:user, 1]]
                   it_behaves_like "retrieving direct revisions", 3, [[:name, 1], [:user, 1]]

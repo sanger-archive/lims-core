@@ -27,9 +27,12 @@ module Lims::Core
       attribute :end_time, Time
       attribute :parent_session, Session, :writer => :private, :initializable => true
 
-      def session
-        return parent_session
-        raise NotImplementedError, "session method not implemented for #{self.class}"
+      def with_session
+        persistor.revision_session_for(self).with_session { |s| yield(s) }
+      end
+
+      def persistor
+        parent_session.user_session
       end
 
       # Returns a list of ResourceState corresponding to all the
@@ -42,8 +45,7 @@ module Lims::Core
       # even though it has been modified indirectly
       # @return [StateList]
       def collect_direct_states()
-        session.user_session.collect_direct_states
-        raise NotImplementedError, "collect_direct_states method not implemented for #{self.class}"
+        persistor.collect_direct_states(self)
       end
 
       # Returns a list of ResourceState corresponding to all
@@ -51,8 +53,17 @@ module Lims::Core
       # Example, if an aliquot of a plate has been modified by this session
       # The plate, and the aliquot will be returned.
       def collect_related_states()
-        session.user_session.collect_related_states
-        raise NotImplementedError, "collect_all_states method not implemented for #{self.class}"
+        persistor.collect_related_states(self)
+      end
+
+      # Load directly modified objects
+      def direct_revisions
+        with_session do |session|
+          debugger
+          resource_states = collect_direct_states.map_as_state_list { |s| s.new_for_session(session) }
+          resource_states.load
+          resource_states.map(&:revision)
+        end
       end
 
       def method_missing(*args, &block)

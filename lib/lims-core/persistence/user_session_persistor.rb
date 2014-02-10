@@ -4,6 +4,8 @@ require 'lims-core/persistence/persistable_trait'
 require 'lims-core/persistence/session'
 require 'lims-core/persistence/user_session'
 
+require 'lims-core/persistence/revision_persistor'
+
 module Lims::Core
   module Persistence
     class UserSession
@@ -25,6 +27,10 @@ module Lims::Core
           raise NotImplementedError
         end
 
+        def revision_session_for(user_session)
+          @session.class::parent_scope::Revision::Session.new(@session.store, user_session.id)
+        end
+
       # Returns a list of ResourceState corresponding to all the
       # resources directly modified by this session.
       # Resources depending on a modified resource
@@ -33,15 +39,18 @@ module Lims::Core
       # For example if an aliquot of a plate has been modified,
       # only this aliquot will be returned. The plate won't be returned
       # even though it has been modified indirectly
+      # @param [UserSession] user_session
       # @return [StateList]
-      def collect_direct_states()
+      def collect_direct_states(user_session)
         raise NotImplementedError, "collect_direct_states method not implemented for #{self.class}"
       end
       # Returns a list of ResourceState corresponding to all
       # resources directly or indirectly modified by this session.
       # Example, if an aliquot of a plate has been modified by this session
       # The plate, and the aliquot will be returned.
-      def collect_related_states()
+      # @param [UserSession] user_session
+      # @return [StateList]
+      def collect_related_states(user_session)
         raise NotImplementedError, "collect_all_states method not implemented for #{self.class}"
       end
       end
