@@ -73,6 +73,7 @@ module Lims::Core::Persistence::Sequel::Migrations
             FOR EACH ROW
             BEGIN
             #{this.insert_into_revision(table, revision_table, :insert)}
+            END
             EOT
 
             puts trigger_code
@@ -85,10 +86,12 @@ module Lims::Core::Persistence::Sequel::Migrations
             CREATE TRIGGER #{trigger_name}  BEFORE UPDATE ON  #{table_name}
             FOR EACH ROW
             BEGIN
-            # Update the revision number
-            SET NEW.revision = OLD.revision+1;
-            # Update the revision table
+            /* Update the revision number */
+            UPDATE #{table_name} SET revision = OLD.revision+1 where id = OLD.id;
+            /*SET NEW.revision = OLD.revision+1;*/
+            /* Update the revision table */
             #{this.insert_into_revision(table, revision_table, :update)}
+            END
             EOT
 
             puts trigger_code
@@ -102,6 +105,7 @@ module Lims::Core::Persistence::Sequel::Migrations
             FOR EACH ROW
             BEGIN
             #{this.insert_into_revision(table, revision_table, :delete)}
+            END
             EOT
 
             puts trigger_code
@@ -132,23 +136,20 @@ module Lims::Core::Persistence::Sequel::Migrations
       end
     end
 
-#    SET #{
-#      if type == :delete
-#        'id = OLD.id, revision = OLD.revision+1'
-#      else
-#        table.columns.map { |c| "`#{c}` = NEW.#{c}" }.join(', ')
-#      end
-#    }
-    
     def self.insert_into_revision(table, revision_table, type)
-      %Q{ INSERT INTO #{revision_table} 
-      #{if type == :delete
-          '(id, revision, action, session_id) VALUES (OLD.id, OLD.revision+1, #{type}, @current_session_id)'
-        else
-          '(' + table.columns.map { |c| "`#{c}`" }.join(', ') + ', `action`, `session_id`) VALUES(' + table.columns.map { |c| "NEW.#{c}" }.join(', ') + ", #{type}, @current_session_id)"
-        end
-      };
-      END;
+      fields, values = nil, nil
+
+      if type.to_s == "delete"
+        fields = [:id, :revision, :action, :session_id]
+        values = ["OLD.id", "OLD.revision+1", "'#{type}'", "@current_session_id"]
+      else
+        fields = table.columns.map { |c| "`#{c}`" } + ["action", "session_id"]
+        values = table.columns.map { |c| "NEW.#{c}" } + ["'#{type}'", "@current_session_id"]
+      end
+
+      %Q{
+      INSERT INTO #{revision_table} (#{fields.join(",")}) 
+      VALUES (#{values.join(",")}); 
       }
     end
   end
