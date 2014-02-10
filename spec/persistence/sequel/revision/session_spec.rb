@@ -13,10 +13,16 @@ end
 
 shared_examples "retrieving all modified resources" do |session_id, resource_states|
   context "for session # #{session_id}" do
-    subject { for_session(session_id) { |session| session.resource_states } }
-      it "has the correct resources", :now=>true do
-        subject.map { |state| [state.persistor.model, state.id] }.order.should == resource_states.order
+    subject { store.with_session do |session|
+        # Normally we should load the session found in the sessions table
+        # However we are not testing the load of UserSession so we just mock it.
+        user_session =  Lims::Core::Persistence::UserSession.new(:id => session_id, :parent_session => session)
+        user_session.collect_related_states
       end
+  }
+    it "has the correct resources", :now=>true do
+      subject.map { |state| [state.persistor.model, state.id] }.order.should == resource_states.order
+    end
   end
 end
 
@@ -135,7 +141,7 @@ module Lims::Core
                 it_behaves_like "retrieving user", 2, "john.smith@example.com", 'john'
                 it_behaves_like "retrieving user", 3, "john.smith@gmail.com", 'john'
                 it_behaves_like "retrieving user", 4, "john.smith@gmail.com", 'John'
-                                                                                     
+
                 it_behaves_like "retrieving all modified resources", 1, [[:name, 1], [:user, 1]]
                 it_behaves_like "retrieving all modified resources", 2, [[:name, 1], [:user, 1]]
                 it_behaves_like "retrieving all modified resources", 3, [[:name, 1], [:user, 1]]

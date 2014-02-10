@@ -25,9 +25,34 @@ module Lims::Core
       attribute :success, Boolean
       attribute :start_time, Time
       attribute :end_time, Time
+      attribute :parent_session, Session, :writer => :private, :initializable => true
 
       def session
+        return parent_session
         raise NotImplementedError, "session method not implemented for #{self.class}"
+      end
+
+      # Returns a list of ResourceState corresponding to all the
+      # resources directly modified by this session.
+      # Resources depending on a modified resource
+      # which haven't been modified themself won't be return.
+      # For this see @collect_related_states
+      # For example if an aliquot of a plate has been modified,
+      # only this aliquot will be returned. The plate won't be returned
+      # even though it has been modified indirectly
+      # @return [StateList]
+      def collect_direct_states()
+        session.user_session.collect_direct_states
+        raise NotImplementedError, "collect_direct_states method not implemented for #{self.class}"
+      end
+
+      # Returns a list of ResourceState corresponding to all
+      # resources directly or indirectly modified by this session.
+      # Example, if an aliquot of a plate has been modified by this session
+      # The plate, and the aliquot will be returned.
+      def collect_related_states()
+        session.user_session.collect_related_states
+        raise NotImplementedError, "collect_all_states method not implemented for #{self.class}"
       end
 
       def method_missing(*args, &block)
