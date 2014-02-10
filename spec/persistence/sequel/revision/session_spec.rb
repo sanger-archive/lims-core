@@ -3,12 +3,21 @@ require 'persistence/sequel/revision/spec_helper'
 require 'lims-core/persistence/user_session'
 require 'lims-core/persistence/sequel/user_session_sequel_persistor'
 
-shared_examples "user" do |session_id, email, name|
+shared_examples "retrieving user" do |session_id, email, name|
   context "for session # #{session_id}" do
     subject { for_session(session_id) { |session| session.user[1] } }
     it "has the correct email" do subject.email.should == email end
-  it "has the correct name" do subject.name.name.should == name end
+    it "has the correct name" do subject.name.name.should == name end
+  end
 end
+
+shared_examples "retrieving all modified resources" do |session_id, resource_states|
+  context "for session # #{session_id}" do
+    subject { for_session(session_id) { |session| session.resource_states } }
+      it "has the correct resources", :now=>true do
+        subject.map { |state| [state.persistor.model, state.id] }.order.should == resource_states.order
+      end
+  end
 end
 
 module Lims::Core
@@ -122,10 +131,15 @@ module Lims::Core
               }
               context "for a specific revision" do
                 let(:name) { subject.name.name }
-                it_behaves_like "user", 1, "john.smith@example.com", 'jon'
-                it_behaves_like "user", 2, "john.smith@example.com", 'john'
-                it_behaves_like "user", 3, "john.smith@gmail.com", 'john'
-                it_behaves_like "user", 4, "john.smith@gmail.com", 'John'
+                it_behaves_like "retrieving user", 1, "john.smith@example.com", 'jon'
+                it_behaves_like "retrieving user", 2, "john.smith@example.com", 'john'
+                it_behaves_like "retrieving user", 3, "john.smith@gmail.com", 'john'
+                it_behaves_like "retrieving user", 4, "john.smith@gmail.com", 'John'
+                                                                                     
+                it_behaves_like "retrieving all modified resources", 1, [[:name, 1], [:user, 1]]
+                it_behaves_like "retrieving all modified resources", 2, [[:name, 1], [:user, 1]]
+                it_behaves_like "retrieving all modified resources", 3, [[:name, 1], [:user, 1]]
+                it_behaves_like "retrieving all modified resources", 4, [[:name, 2], [:user, 1]]
               end
 
               context "for a specific resource" do        
