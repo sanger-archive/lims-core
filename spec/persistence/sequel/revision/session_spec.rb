@@ -11,7 +11,21 @@ shared_examples "retrieving user" do |session_id, email, name|
   end
 end
 
-shared_examples "retrieving all modified resources" do |session_id, resource_states|
+shared_examples "retrieving direct revisions" do |session_id, expected_revisions|
+  context "for session # #{session_id}" do
+    subject { store.with_session do |session|
+        # Normally we should load the session found in the sessions table
+        # However we are not testing the load of UserSession so we just mock it.
+        user_session =  Lims::Core::Persistence::UserSession.new(:id => session_id, :parent_session => session)
+        user_session.revisions
+      end
+  }
+    it "has the correct resources" do
+      subject.map { |state| %w(id action model).mash { |s| [s, state.send(s)]  } }.order.should == expected_resource_states.order
+    end
+  end
+end
+shared_examples "retrieving all modified resources" do |session_id, expected_resource_states|
   context "for session # #{session_id}" do
     subject { store.with_session do |session|
         # Normally we should load the session found in the sessions table
@@ -21,7 +35,7 @@ shared_examples "retrieving all modified resources" do |session_id, resource_sta
       end
   }
     it "has the correct resources", :now=>true do
-      subject.map { |state| [state.persistor.model, state.id] }.order.should == resource_states.order
+      subject.map { |state| [state.persistor.model, state.id] }.order.should == expected_resource_states.order
     end
   end
 end
@@ -137,15 +151,26 @@ module Lims::Core
               }
               context "for a specific revision" do
                 let(:name) { subject.name.name }
-                it_behaves_like "retrieving user", 1, "john.smith@example.com", 'jon'
-                it_behaves_like "retrieving user", 2, "john.smith@example.com", 'john'
-                it_behaves_like "retrieving user", 3, "john.smith@gmail.com", 'john'
-                it_behaves_like "retrieving user", 4, "john.smith@gmail.com", 'John'
+                context "retrieves resources" do
+                  it_behaves_like "retrieving user", 1, "john.smith@example.com", 'jon'
+                  it_behaves_like "retrieving user", 2, "john.smith@example.com", 'john'
+                  it_behaves_like "retrieving user", 3, "john.smith@gmail.com", 'john'
+                  it_behaves_like "retrieving user", 4, "john.smith@gmail.com", 'John'
+                end
 
-                it_behaves_like "retrieving all modified resources", 1, [[:name, 1], [:user, 1]]
-                it_behaves_like "retrieving all modified resources", 2, [[:name, 1], [:user, 1]]
-                it_behaves_like "retrieving all modified resources", 3, [[:name, 1], [:user, 1]]
-                it_behaves_like "retrieving all modified resources", 4, [[:name, 2], [:user, 1]]
+                context "retrieves direct resources" do
+                  it_behaves_like "retrieving direct revisions", 1, [[:name, 1], [:user, 1]]
+                  it_behaves_like "retrieving direct revisions", 2, [[:name, 1], [:user, 1]]
+                  it_behaves_like "retrieving direct revisions", 3, [[:name, 1], [:user, 1]]
+                  it_behaves_like "retrieving direct revisions", 4, [[:name, 2], [:user, 1]]
+                end
+
+                context "retrieves all resources" do
+                  it_behaves_like "retrieving all modified resources", 1, [[:name, 1], [:user, 1]]
+                  it_behaves_like "retrieving all modified resources", 2, [[:name, 1], [:user, 1]]
+                  it_behaves_like "retrieving all modified resources", 3, [[:name, 1], [:user, 1]]
+                  it_behaves_like "retrieving all modified resources", 4, [[:name, 2], [:user, 1]]
+                end
               end
 
               context "for a specific resource" do        
