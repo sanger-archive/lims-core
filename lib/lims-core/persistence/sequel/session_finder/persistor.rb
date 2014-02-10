@@ -5,18 +5,12 @@ module Lims::Core
     module Sequel
       module SessionFinder
         module Persistor
-          class ResourceStateX < Persistence::ResourceState
-          end
           def self.included(klass)
             klass.class_eval do
               include Sequel::Persistor
               def self.table_name
                 :"#{super}_revision"
               end
-            end
-
-            def create_resource_stateX(resource, id=nil)
-              self.class::ResourceState.new(resource, self, id)
             end
 
             def new_from_attributes(attributes)
