@@ -40,15 +40,16 @@ module Lims::Core
 
             def new_from_attributes(attributes)
               Persistence::Revision.new.tap do |revision|
+                revision.model = model
                 revision.action = attributes.delete(:action)
                 revision.number = attributes.delete(:revision)
-                resource_id = attributes[:id]
+                revision.id = attributes[:id]
                 revision.session_id = attributes.delete(:session_id)
 
                 revision.resource = super(attributes) if revision.action != 'delete'
                 
                 # associate the revision to the ResourceState
-                state =  @id_to_state[resource_id]
+                state =  @id_to_state[revision.id]
                 state.revision = revision
               end
             end

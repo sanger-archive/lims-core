@@ -59,7 +59,6 @@ module Lims::Core
       # Load directly modified objects
       def direct_revisions
         with_session do |session|
-          debugger
           resource_states = collect_direct_states.map_as_state_list { |s| s.new_for_session(session) }
           resource_states.load
           resource_states.map(&:revision)

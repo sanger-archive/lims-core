@@ -21,7 +21,8 @@ shared_examples "retrieving direct revisions" do |session_id, expected_revisions
       end
   }
     it "has the correct resources" do
-      subject.map { |state| %w(id action model).mash { |s| [s, state.send(s)]  } }.sort.should == expected_revisions.sort
+      got = subject.map { |state| %w(id action model).mash { |s| [s.to_sym, state.send(s)]  } }
+      got.should == expected_revisions
     end
   end
 end
@@ -34,8 +35,10 @@ shared_examples "retrieving all modified resources" do |session_id, expected_res
         user_session.collect_related_states
       end
   }
-    it "has the correct resources", :now=>true do
-      subject.map { |state| [state.persistor.model, state.id] }.order.should == expected_resource_states.order
+    it "has the correct resources" do
+      got = subject.map { |state| [Lims::Core::Persistence::Sequel::Session::model_to_name(state.persistor.model).to_sym, state.id] }
+      debugger
+      got.sort.should == expected_resource_states.sort
     end
   end
 end
@@ -147,6 +150,17 @@ module Lims::Core
                     { "session_id" => 3, "id" => 1, "name_id" => 1, "email" => "john.smith@gmail.com", "revision" => 2, "action" => "update" },
                     { "session_id" => 4, "id" => 1, "name_id" => 2, "email" => "john.smith@gmail.com", "revision" => 3, "action" => "update" },
                   ])
+                    view_code = "CREATE VIEW revisions AS " + %w(names users) .map do |table_name|
+                      revision_table = "#{table_name}_revision"
+                      %Q{ SELECT '#{table_name}' AS revision_table,
+                        id,
+                        action,
+                        session_id
+                        FROM #{revision_table}
+
+                      }
+                    end.join(' UNION ')
+                    store.database << view_code
 
               }
               context "for a specific revision" do
@@ -160,22 +174,11 @@ module Lims::Core
 
                 context "retrieves direct resources" do
                   before(:all) {
-                    view_code = "CREATE VIEW revisions AS " + %w(names users) .map do |table_name|
-                      revision_table = "#{table_name}_revision"
-                      %Q{ SELECT '#{table_name}' AS revision_table,
-                        id,
-                        action,
-                        session_id
-                        FROM #{revision_table}
-
-                      }
-                    end.join(' UNION ')
-                    store.database << view_code
                   }
-                  it_behaves_like "retrieving direct revisions", 1, [[:name, 1], [:user, 1]]
-                  it_behaves_like "retrieving direct revisions", 2, [[:name, 1], [:user, 1]]
-                  it_behaves_like "retrieving direct revisions", 3, [[:name, 1], [:user, 1]]
-                  it_behaves_like "retrieving direct revisions", 4, [[:name, 2], [:user, 1]]
+                  it_behaves_like "retrieving direct revisions", 1, [{:id => 1, :action=> "insert", :model => ForTest::Name}, {:id =>1, :action=> "insert", :model => ForTest::User}]
+                  it_behaves_like "retrieving direct revisions", 2, [{:id => 1, :action=> "update", :model => ForTest::Name}]
+                  it_behaves_like "retrieving direct revisions", 3, [{:id =>1, :action=> "update", :model => ForTest::User}]
+                  it_behaves_like "retrieving direct revisions", 4, [{:id => 2, :action=> "insert", :model => ForTest::Name}, {:id =>1, :action=> "update", :model => ForTest::User}]
                 end
 
                 context "retrieves all resources" do
