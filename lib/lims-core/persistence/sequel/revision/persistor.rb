@@ -12,10 +12,13 @@ module Lims::Core
           def self.included(klass)
             klass.class_eval do
               include Sequel::Persistor
+              include InstanceMethods
               def self.table_name
                 :"#{super}_revision"
               end
             end
+          end
+          module InstanceMethods
 
             def session_id
               @session.session_id
@@ -27,9 +30,9 @@ module Lims::Core
 
             def find_ids_from_internal_ids(internal_ids)
               dataset.select_group(primary_key).
-                select_more{::Sequel.as(max(:session_id), :session_id)}.filter(primary_key => internal_ids.map(&:id), :session_id => 1..session_id )
+              select_more{::Sequel.as(max(:session_id), :session_id)}.filter(primary_key => internal_ids.map(&:id), :session_id => 1..session_id )
             end
-            
+
             def  bulk_load(ids, *params, &block)
               internal_ids_set = find_ids_from_internal_ids(ids)
               dataset.join(internal_ids_set,
@@ -47,7 +50,7 @@ module Lims::Core
                 revision.session_id = attributes.delete(:session_id)
 
                 revision.resource = super(attributes) if revision.action != 'delete'
-                
+
                 # associate the revision to the ResourceState
                 state =  @id_to_state[revision.id]
                 state.revision = revision
