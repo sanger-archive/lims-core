@@ -70,11 +70,9 @@ module Lims::Core
       # delegated to check the content of the resource.
       # We replace it then by the constraint 'allow_nil=>false' here.
       def attribute(name, type, parameters={})
-        if type.ancestors.include?(Lims::Core::Resource)
-          if parameters[:required]
-            required = parameters.delete(:required)
-            parameters[:allow_nil] = false 
-          end
+        if type.ancestors.include?(Lims::Core::Resource) && parameters[:required]
+          required = parameters.delete(:required)
+          parameters[:allow_nil] = false 
         end
         super(name, type, parameters)
       end
