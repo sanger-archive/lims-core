@@ -81,7 +81,7 @@ module Lims::Core
 
             resource_states.load
 
-            finder_session.instance_eval { @object_states }
+            finder_session.object_states
         end
 
         def revisions_for(user_session)

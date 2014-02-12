@@ -10,6 +10,9 @@ module Lims::Core
         # which have been modified indirectly by a given session.
         # Therefore, it should only be used once per 'request'.,w
         class Session < Sequel::Revision::Session
+          def object_states
+            @object_states
+          end
         end
       end
     end

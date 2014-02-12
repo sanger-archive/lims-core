@@ -27,10 +27,6 @@ module Lims::Core
             end
           end
         end
-
-        def revision_for(id)
-          state_for_id(id).revision
-        end
       end
     end
   end
