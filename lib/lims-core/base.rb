@@ -45,6 +45,14 @@ module Lims::Core
       self.attributes == (other.respond(:attributes) || {} )
     end
 
+    # @return [Bool]
+    # Aequitas uses the method empty? to validate the constraint
+    # 'required=>true'. We then do not delegate the empty? method
+    # to @content, but use a new method, empty_resource? which achieve
+    # the same goal.
+    def empty_resource?
+      @content.empty?
+    end
 
     module ClassMethod
       def is_array_of(child_klass, options = {},  &initializer)
@@ -55,26 +63,9 @@ module Lims::Core
         class_eval do
           include Enumerable
           include IsArrayOf
-          def_delegators :@content, :each, :size , :each_with_index, :map, :zip, :clear, :empty?, :to_s \
+          def_delegators :@content, :each, :size , :each_with_index, :map, :zip, :clear, :to_s \
             , :include?, :to_a, :first, :last
-
         end
-      end
-
-      # @param [Symbol] name
-      # @param [Class] type
-      # @param [Hash] parameters
-      # Fix for Aequitas 'required=>true' validation for core resources. 
-      # Aequitas ends up calling empty? to validate this constraint,
-      # which is not correct for core resource as the empty? method is 
-      # delegated to check the content of the resource.
-      # We replace it then by the constraint 'allow_nil=>false' here.
-      def attribute(name, type, parameters={})
-        if type.ancestors.include?(Lims::Core::Resource) && parameters[:required]
-          required = parameters.delete(:required)
-          parameters[:allow_nil] = false 
-        end
-        super(name, type, parameters)
       end
     end
 
