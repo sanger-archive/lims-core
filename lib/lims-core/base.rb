@@ -61,6 +61,23 @@ module Lims::Core
         end
       end
 
+      # @param [Symbol] name
+      # @param [Class] type
+      # @param [Hash] parameters
+      # Fix for Aequitas 'required=>true' validation for core resources. 
+      # Aequitas ends up calling empty? to validate this constraint,
+      # which is not correct for core resource as the empty? method is 
+      # delegated to check the content of the resource.
+      # We replace it then by the constraint 'allow_nil=>false' here.
+      def attribute(name, type, parameters={})
+        if type.ancestors.include?(Lims::Core::Resource)
+          if parameters[:required]
+            required = parameters.delete(:required)
+            parameters[:allow_nil] = false 
+          end
+        end
+        super(name, type, parameters)
+      end
     end
 
 
