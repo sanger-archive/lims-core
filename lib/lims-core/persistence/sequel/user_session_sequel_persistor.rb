@@ -65,29 +65,26 @@ module Lims::Core
           # Normal persistor behavior can be overidden
           # by defining a specific persistor.
 
-          debugger
           seeds = collect_direct_states(user_session)
-          user_session.with_session do |finder_session|
-          resource_states = StateList.new(seeds.map do |object|
-              case object
-              when ResourceState then object.new_for_session(finder_session)
-              when Resource then @session.state_for(object).new_for_session(finder_session)
+          finder_session = Sequel::RevisionFinder::Session.new(@session.store, user_session.id)
+
+            resource_states = StateList.new(seeds.map do |object|
+                case object
+                when ResourceState then object.new_for_session(finder_session)
+                when Resource then @session.state_for(object).new_for_session(finder_session)
+                end
               end
-            end
-          )
+            )
 
-          # Reload all the seeds withint the new RevisionFinder::Session.
-          # This should load all related resources.
-         
-          resource_states.load
-          debugger
+            # Reload all the seeds withint the new RevisionFinder::Session.
+            # This should load all related resources.
 
-          finder_session.instance_eval { @object_states }
-        end
+            resource_states.load
+
+            finder_session.instance_eval { @object_states }
         end
 
         def revisions_for(user_session)
-          debugger
           @session.revision[{:session_id => user_session.id}, false]
         end
       end

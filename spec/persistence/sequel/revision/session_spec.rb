@@ -37,7 +37,6 @@ shared_examples "retrieving all modified resources" do |session_id, expected_res
   }
     it "has the correct resources" do
       got = subject.map { |state| [Lims::Core::Persistence::Sequel::Session::model_to_name(state.persistor.model).to_sym, state.id] }
-      debugger
       got.sort.should == expected_resource_states.sort
     end
   end

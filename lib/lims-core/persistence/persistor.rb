@@ -44,6 +44,8 @@ module Lims::Core
     # * Methods relative to parents/children
     # - parents : resources needed to be saved BEFORE the resource itself.
     # - children : resources needed to be save AFTER the resource itself.
+    # - dependencies : children or parents which when modified, trigger the modification of 
+    # the resource itself.
     # - deletable_children : resources which needs to be deleted BEFORE the resource itself.
     # - deletable_parent : resources which needs to be deleted AFTER the resource itself.
     class Persistor
@@ -452,6 +454,17 @@ module Lims::Core
           []
         end
         public :load_children
+
+        alias :original_parents_for_attributes parents_for_attributes
+        # Dependencies are object 
+        def dependencies_for_attributes(attributes)
+          original_parents_for_attributes(attributes)
+        end
+
+        alias :original_load_children :load_children
+        def load_dependencies(states, *params)
+          original_load_children(states, *params)
+        end
 
         # Creates a new object from a Hash and associate it to its id
         # @param [Id] id id of the new object
