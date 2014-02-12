@@ -24,6 +24,15 @@ module Lims::Core
         end
       end
 
+      module ReadOnly
+        def save_all
+        end
+
+        def read_only?
+          true
+        end
+      end
+
       # The dirty-attribute strategy decides
       # how object modification is detected
       # to avoid saved unmodified object.
@@ -52,6 +61,7 @@ module Lims::Core
         @saved = Set.new
         @persistor_map = {}
         @dirty_attribute_strategy = @store.dirty_attribute_strategy
+        @read_only = false
 
         
         options = params.extract_options!
@@ -220,9 +230,14 @@ module Lims::Core
         end
       end
 
+      def read_only?
+        @read_only
+      end
+
       private
       # save all objects which needs to be
       def save_all()
+        return if read_only?
         transaction do
           @save_in_progress = true # allows saving
           @object_states.reset_status

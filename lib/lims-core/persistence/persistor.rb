@@ -64,6 +64,23 @@ module Lims::Core
       #Raised if the `object` is already associated to a different `id`
       class DuplicateObjectError < DuplicateError
       end
+
+      class ReadOnlyClassException < RuntimeError
+        def initialize(klass)
+          super "Can't save instance of #{klass}. Class is readonly"
+        end
+      end
+
+      module ReadOnly
+        def bulk_insert(*args, &block)
+          raise ReadOnlyClassException(model)
+        end
+
+        def insert(*args, &block)
+          raise ReadOnlyClassException(model)
+        end
+      end
+
       # Performs an autoregistration if needed.
       # Autoregistration can be skipped by defined NO_AUTO_REGISTRATION
       # on the model class.
