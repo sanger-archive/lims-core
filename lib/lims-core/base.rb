@@ -45,6 +45,14 @@ module Lims::Core
       self.attributes == (other.respond(:attributes) || {} )
     end
 
+    # @return [Bool]
+    # Aequitas uses the method empty? to validate the constraint
+    # 'required=>true'. We then do not delegate the empty? method
+    # to @content, but use a new method, empty_resource? which achieve
+    # the same goal.
+    def empty_resource?
+      @content.empty?
+    end
 
     module ClassMethod
       def is_array_of(child_klass, options = {},  &initializer)
@@ -55,12 +63,10 @@ module Lims::Core
         class_eval do
           include Enumerable
           include IsArrayOf
-          def_delegators :@content, :each, :size , :each_with_index, :map, :zip, :clear, :empty?, :to_s \
+          def_delegators :@content, :each, :size , :each_with_index, :map, :zip, :clear, :to_s \
             , :include?, :to_a, :first, :last
-
         end
       end
-
     end
 
 
