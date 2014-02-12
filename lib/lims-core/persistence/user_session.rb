@@ -58,11 +58,22 @@ module Lims::Core
 
       # Load directly modified objects
       def direct_revisions
+        revisions_for(collect_direct_states)
+      end
+
+      # Retrieve the Revisions corresponding to a set of Resource
+      # or ResourceState . If Resource are used instead of ResourceState,
+      # external session MUST be provided.
+      def revisions_for(objects, external_session=nil)
         with_session do |session|
-          resource_states = collect_direct_states.map_as_state_list { |s| s.new_for_session(session) }
-          resource_states.load
-          resource_states.map(&:revision)
+          session.load_from_external_states(objects, external_session) do |_, resource_states|
+            resource_states.map(&:revision)
+          end
         end
+      end
+
+      def related_revisions
+        revisions_for(collect_related_states)
       end
 
       def method_missing(*args, &block)

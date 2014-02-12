@@ -18,12 +18,6 @@ module Lims::Core
     # Session information (user, time) are also associated to the modifications of those objects.
     class Session
 
-      class ReadonlyClassException < RuntimeError
-        def initialize(klass)
-          super "Can't save instance of #{klass}. Class is readonly"
-        end
-      end
-
       module ReadOnly
         def save_all
         end
@@ -233,6 +227,44 @@ module Lims::Core
       def read_only?
         @read_only
       end
+
+        # Load a set of resources corresponding to the state
+        # coming from another session or Resource.
+        # If resources are provided instead of resource state, 
+        # and external session must be provided.
+        # Note: that the object are reloaded within the context
+        # of the current session and the ResourceState objects are 
+        # recreated.
+        # Also this methods is not created a subsession
+        # @param [Array<ResourceState, Resurce>] states
+        # @param [Session] external_session
+        # @return [Array<ResourceState>]
+        def load_from_external_states(objects, external_session=nil, &block)
+          with_subsession do
+            resource_states = StateList.new(objects.map do |object|
+                case object
+                when ResourceState then object.new_for_session(self)
+                when Resource then external_session.state_for(object).new_for_session(self)
+                end
+              end
+            )
+
+            resource_states.load
+
+            if block
+              case block.arity
+              when 0
+                block.call
+              when 1
+                block.call(self)
+              when 2
+                block.call(self, resource_states)
+              end
+            else
+              resource_states
+            end
+          end
+        end
 
       private
       # save all objects which needs to be

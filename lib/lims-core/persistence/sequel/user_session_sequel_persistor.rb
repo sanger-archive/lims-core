@@ -33,18 +33,10 @@ module Lims::Core
         def collect_user_session_states(objects)
           #
 
-          finder_session = Sequel::SessionFinder::Session.new(@session.store)
-          resource_states = StateList.new(objects.map do |object|
-              case object
-              when ResourceState then object.new_for_session(finder_session)
-              when Resource then @session.state_for(object).new_for_session(finder_session)
-              end
-            end
-          )
-
-          resource_states.load
-
-          finder_session.session_ids.to_a.sort
+          Sequel::SessionFinder::Session.new(@session.store).with_session do |finder_session|
+            finder_session.load_from_external_states(objects, @session)
+            finder_session.session_ids.to_a.sort
+        end
 
         end
 
@@ -66,22 +58,9 @@ module Lims::Core
           # by defining a specific persistor.
 
           seeds = collect_direct_states(user_session)
-          finder_session = Sequel::RevisionFinder::Session.new(@session.store, user_session.id)
-
-            resource_states = StateList.new(seeds.map do |object|
-                case object
-                when ResourceState then object.new_for_session(finder_session)
-                when Resource then @session.state_for(object).new_for_session(finder_session)
-                end
-              end
-            )
-
-            # Reload all the seeds withint the new RevisionFinder::Session.
-            # This should load all related resources.
-
-            resource_states.load
-
+          Sequel::RevisionFinder::Session.new(@session.store, user_session.id).load_from_external_states(seeds, @session) do |finder_session|
             finder_session.object_states
+          end
         end
 
         def revisions_for(user_session)
