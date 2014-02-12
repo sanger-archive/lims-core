@@ -7,15 +7,13 @@ module Lims::Core
       module Revision
         module Persistor
           class ResourceState < Persistence::ResourceState
-                  attribute :revision, Persistence::Revision
+            attribute :revision, Persistence::Revision
           end
           def self.included(klass)
             klass.class_eval do
               include Sequel::Persistor
+              include Persistence::Revision::UseRevisionTables
               include InstanceMethods
-              def self.table_name
-                :"#{super}_revision"
-              end
             end
           end
           module InstanceMethods

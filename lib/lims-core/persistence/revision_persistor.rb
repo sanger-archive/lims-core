@@ -14,6 +14,17 @@ module Lims::Core
           true
         end
       end
+
+      module UseRevisionTables
+
+        def self.included(klass)
+          klass.instance_eval do
+            def table_name
+              :"#{super}_revision"
+            end
+          end
+        end
+      end
     end
   end
 end
