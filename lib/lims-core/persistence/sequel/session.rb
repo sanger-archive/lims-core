@@ -87,7 +87,7 @@ module Lims::Core
 
         def with_current_session(&block)
           session_created = false
-          if @current_session_id == nil && database.database_type != :sqlite
+          if @current_session_id == nil && database.table_exists?(:sessions)
             @current_session_id = database[:sessions].insert(session_object_parameters)
             session_created = true
           end
