@@ -95,11 +95,17 @@ module Lims::Core::Persistence::Sequel::Migrations
     def self.create_trigger_on_update(sequel, migration_scope, table_name, revision_table_name)
       trigger_name = "maintain_#{table_name}_on_update"
       migration_scope.drop_trigger(sequel, trigger_name)
+
+      increment_revision_sql = case DB.database_type
+                               when :sqlite then "UPDATE #{table_name} SET revision = OLD.revision+1 where id=OLD.id;"
+                               else "SET NEW.revision = OLD.revision+1;"
+                               end
+
       sequel << %Q{
         CREATE TRIGGER #{trigger_name} BEFORE UPDATE ON #{table_name}
         FOR EACH ROW
         BEGIN
-          SET NEW.revision = OLD.revision+1;
+          #{increment_revision_sql}
           #{migration_scope.insert_into_revision(table_name, revision_table_name, :update)}
         END;
       }
@@ -120,13 +126,23 @@ module Lims::Core::Persistence::Sequel::Migrations
     def self.insert_into_revision(table_name, revision_table_name, type)
       fields, values = nil, nil
       table = DB[table_name]
+      current_session_id = case DB.database_type
+                           when :sqlite then "(SELECT id from sessions order by id desc limit 1)" 
+                           else "@current_session_id"
+                           end
 
       if type.to_s == "delete"
         fields = [:id, :revision, :action, :session_id]
-        values = ["OLD.id", "OLD.revision+1", "'#{type}'", "@current_session_id"]
+        values = ["OLD.id", "OLD.revision+1", "'#{type}'", current_session_id]
       else
         fields = table.columns.map { |c| "`#{c}`" } + ["action", "session_id"]
-        values = table.columns.map { |c| "NEW.#{c}" } + ["'#{type}'", "@current_session_id"]
+        if DB.database_type == :sqlite && type.to_s == "update"
+          # With sqlite, we need to increment the revision on update
+          values = table.columns.map { |c| (c == :revision) ? "NEW.#{c}+1" : "NEW.#{c}" }          
+        else
+          values = table.columns.map { |c| "NEW.#{c}" }
+        end
+        values += ["'#{type}'", current_session_id]
       end
 
       %Q{
