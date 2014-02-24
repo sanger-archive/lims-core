@@ -47,7 +47,7 @@ module Lims::Core
                 revision.id = attributes[:id]
                 revision.session_id = attributes.delete(:session_id)
 
-                revision.resource = super(attributes) if revision.action != 'delete'
+                revision.state = super(attributes) if revision.action != 'delete'
 
                 # associate the revision to the ResourceState
                 state =  @id_to_state[revision.id]
