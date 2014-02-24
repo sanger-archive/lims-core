@@ -40,11 +40,36 @@ module Lims::Core
 
         end
 
+        # Get the persistor corresponding to a table.
+        # @param [String] Tab
+        def self.persistor_for_table_name(table_name, session)
+          debugger
+          @table_name_to_persistor_class_map ||= build_table_name_to_persistor_map
+          session.persistor_for(@table_name_to_persistor_class_map[table_name]::Model)
+        end
+
+        # Build the association map 'table_name' to persistor class
+        # by iterating over all the persistors and inspecting their table name.
+        def self.build_table_name_to_persistor_map
+          map = {}
+          Lims::Core::Resource.subclasses.each do |subclass|
+            begin
+              persistor_class = Sequel::Session.persistor_class_for(subclass)
+              if persistor_class.respond_to? :table_name
+                map[persistor_class.table_name.to_s] = persistor_class
+              end
+            rescue
+            end
+          end
+          map
+        end
+
         def collect_direct_states(user_session)
           StateList.new(@session.revision.dataset.filter(:session_id => user_session.id).map do |row|
-            persistor = @session.persistor_for(row[:revision_table].singularize)
-            persistor.state_for_id(row[persistor.primary_key])
-          end)
+              persistor_name = row[:revision_table]
+              persistor = self.class.persistor_for_table_name(persistor_name, @session)
+              persistor.state_for_id(row[persistor.primary_key]) if persistor
+            end.compact)
         end
 
 
