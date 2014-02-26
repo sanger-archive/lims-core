@@ -35,6 +35,14 @@ module Lims::Core
         parent_session.user_session
       end
 
+      def attributes
+        {
+          :id => @id, :user => @user, :backend_application_id => @backend_application_id,
+          :parameters => @parameters, :success => @success, :start_time => @start_time,
+          :end_time => @end_time
+        }
+      end
+
       # Returns a list of ResourceState corresponding to all the
       # resources directly modified by this session.
       # Resources depending on a modified resource
