@@ -56,7 +56,7 @@ module Lims::Core::Persistence
       attribute :name, Name
       attribute :email, String
 
-      does "lims/core/persistence/persistable", :parents => [:name]
+      does "lims/core/persistence/persistable", :parents => [{:name => :name, :depends => true }]
     end
   end
 
