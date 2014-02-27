@@ -44,7 +44,6 @@ module Lims::Core
               parent.fetch(:depends,nil).tap do |v|
                 dependency = v unless v.nil?
               end
-              # debugger if dependency
               parent_dependencies << name if dependency
             else
               name = parent.to_s
@@ -105,8 +104,6 @@ module Lims::Core
             ]
           end
           def dependencies_for_attributes(attributes)
-            code = #{ parent_dependencies.inspect }
-            debugger
             [
               #{ parent_dependencies.map do |p|
                   "(@session_#{p} ||= @session.#{session_names[p]}).state_for_id(attributes[:#{p}_id])" 

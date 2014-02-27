@@ -487,7 +487,6 @@ module Lims::Core
           # find registered dependencies
           name = @session.class.model_to_name(self.class::Model)
           dependencies_for(name).each do |klass, key|
-            # debugger #if key == :location_id
             @session.persistor_for(klass::Model).find_by(key => states.map(&:id))
           end
         end
