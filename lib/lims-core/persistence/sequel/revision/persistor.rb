@@ -14,6 +14,7 @@ module Lims::Core
               include Sequel::Persistor
               include Persistence::Revision::UseRevisionTables
               include InstanceMethods
+              include Persistence::Revision::UseRevisionTables
             end
           end
           module InstanceMethods
@@ -39,6 +40,10 @@ module Lims::Core
               ).all(&block)
             end
 
+            def load_resource?(revision)
+              revision.action != 'delete'
+            end
+
             def new_from_attributes(attributes)
               Persistence::Revision.new.tap do |revision|
                 revision.model = model
@@ -47,7 +52,7 @@ module Lims::Core
                 revision.id = attributes[:id]
                 revision.session_id = attributes.delete(:session_id)
 
-                revision.state = super(attributes) if revision.action != 'delete'
+                revision.state = super(attributes) if load_resource?(revision)
 
                 # associate the revision to the ResourceState
                 state =  @id_to_state[revision.id]

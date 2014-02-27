@@ -24,19 +24,8 @@ module Lims::Core
               load_dependencies(states, *params)
             end
 
-            def new_from_attributes(attributes)
-              Persistence::Revision.new.tap do |revision|
-                revision.model = model
-                revision.action = attributes.delete(:action)
-                revision.number = attributes.delete(:revision)
-                revision.id = attributes[:id]
-                revision.session_id = attributes.delete(:session_id)
-
-                # associate the revision to the ResourceState
-                state =  @id_to_state[revision.id]
-                @session.manage_state(state)
-                state.revision = revision
-              end
+            def load_resource?(revision)
+              false
             end
           end
         end

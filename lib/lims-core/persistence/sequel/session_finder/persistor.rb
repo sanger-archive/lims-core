@@ -1,4 +1,5 @@
 require 'lims-core/persistence/sequel/persistor'
+require 'lims-core/persistence/revision_persistor'
 
 module Lims::Core
   module Persistence
@@ -8,9 +9,7 @@ module Lims::Core
           def self.included(klass)
             klass.class_eval do
               include Sequel::Persistor
-              def self.table_name
-                :"#{super}_revision"
-              end
+              include Persistence::Revision::UseRevisionTables
             end
           end
 
