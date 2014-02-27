@@ -78,7 +78,7 @@ module Lims::Core
       end
 
       def load(*params)
-        to_load = select(&:to_load?)
+        to_load = select(&:to_load!)
         all_parents = StateList.new
         attributes_list = []
         persistor.bulk_load(to_load, *params) do |att|

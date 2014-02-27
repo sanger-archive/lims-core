@@ -65,8 +65,17 @@ module Lims::Core
       end
 
       def to_load?
-        @id != nil && @resource == nil
+        (@id != nil && @resource == nil && !@loading)
       end
+
+      # To avoid loading the same object recursively
+      # if its parents are loading it.
+      def to_load!
+        to_load?.tap do
+          @loading = true
+        end
+      end
+
 
 
       def dirty?
@@ -88,7 +97,8 @@ module Lims::Core
         # but nil == resource returns false
         # which is why we test both.
         return if resource == new_resource && new_resource == resource
-        raise RuntimeError, "modifing existing resource not allowed. #{self}"   if @resource
+        debugger if @resource
+        #raise RuntimeError, "modifing existing resource not allowed. #{self}"   if @resource
         @resource = new_resource
         # link the new resource in th resource_to_state map
         @persistor.bind_state_to_resource(self)

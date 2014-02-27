@@ -387,21 +387,8 @@ module Lims::Core
           end)
 
           states.load
-          return StateList.new(states.map { |state| state.resource })
+          StateList.new(states.map { |state| state.resource })
 
-          # we need to separate object which need to be loaded
-          # from the one which are already in cache
-          to_load = ids.reject { |id| id == nil || @id_to_state.include?(id) }
-          loaded_states = bulk_load_raw_attributes(to_load, *params) do |att|
-            id = extract_primary_key(att)
-            new_state_for_attribute(id, att).resource
-          end
-
-          bulk_retrieve_children(new_states, *params)
-          #bulk_retrieve_parent(new_states, *params)
-
-
-          ids.map { |id| object_for(id) }
         end
 
         # Updates the store and manages object.
@@ -491,26 +478,18 @@ module Lims::Core
         end
         public :load_children
 
-        alias :original_parents_for_attributes parents_for_attributes
         # Dependencies are object 
         def dependencies_for_attributes(attributes)
-          original_parents_for_attributes(attributes)
+          []
         end
 
-        alias :original_load_children :load_children
         def load_dependencies(states, *params)
-          dependencies = original_load_children(states, *params)
-
           # find registered dependencies
           name = @session.class.model_to_name(self.class::Model)
           dependencies_for(name).each do |klass, key|
-            @session.persistor_for(klass::Model).find_by(key => states.map(&:id)).each do |states|
-
-            end
-
+            # debugger #if key == :location_id
+            @session.persistor_for(klass::Model).find_by(key => states.map(&:id))
           end
-          dependencies
-
         end
 
         # Creates a new object from a Hash and associate it to its id
