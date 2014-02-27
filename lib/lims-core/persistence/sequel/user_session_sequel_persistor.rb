@@ -43,7 +43,6 @@ module Lims::Core
         # Get the persistor corresponding to a table.
         # @param [String] Tab
         def self.persistor_for_table_name(table_name, session)
-          debugger
           @table_name_to_persistor_class_map ||= build_table_name_to_persistor_map
           session.persistor_for(@table_name_to_persistor_class_map[table_name]::Model)
         end

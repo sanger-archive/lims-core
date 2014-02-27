@@ -108,6 +108,25 @@ module Lims::Core
           Session::register_model(name, model)
         end
 
+        def self.dependency_map
+          @@dependency_map ||= Hash.new { |h, k| h[k] = [] }
+        end
+
+        # Registers the fact the current class
+        # depends from the given persistor.
+        # We use here the 'session_name' of the persistor
+        # because the Persistor class might not have been created
+        # at the time this method is being called.
+        # @param [String] name of the dependee
+        # @param [String] key of the dependee to load the dependency
+        def self.register_dependency(name, key)
+          dependency_map[name] << [self, key.to_sym]
+        end
+
+        def dependencies_for(persistor_name)
+          self.class.dependency_map[persistor_name]
+        end
+
         def initialize (session, *args, &block)
           @session = session
           @id_to_state = Hash.new { |h,k| h[k] = create_resource_state(nil, k) }
@@ -480,7 +499,18 @@ module Lims::Core
 
         alias :original_load_children :load_children
         def load_dependencies(states, *params)
-          original_load_children(states, *params)
+          dependencies = original_load_children(states, *params)
+
+          # find registered dependencies
+          name = @session.class.model_to_name(self.class::Model)
+          dependencies_for(name).each do |klass, key|
+            @session.persistor_for(klass::Model).find_by(key => states.map(&:id)).each do |states|
+
+            end
+
+          end
+          dependencies
+
         end
 
         # Creates a new object from a Hash and associate it to its id

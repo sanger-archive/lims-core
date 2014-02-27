@@ -94,7 +94,11 @@ module Lims::Core
             ]
           end
           EOC
+
+          # Add reverse dependencies to parents
+          parents.each { |parent| register_dependency(parent, "#{parent.snakecase}_id") }
         end
+
         unless children.empty? 
           class_eval <<-EOC
           def children(resource)
@@ -108,12 +112,12 @@ module Lims::Core
           end
 
           def load_children(states)
-              #{
-                children.map do |child|
-                  "#{child}.find_by(:#{model_name.snakecase}_id => states.map(&:id))"
-                end.join(';')
-              }
-              1
+            #{
+              children.map do |child|
+                "#{child}.find_by(:#{model_name.snakecase}_id => states.map(&:id))"
+              end.join(';')
+            }
+            1
           end
           EOC
         end
