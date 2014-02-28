@@ -131,19 +131,18 @@ module Lims::Core::Persistence::Sequel::Migrations
                            else "@current_session_id"
                            end
 
+      fields = table.columns.map { |c| "`#{c}`" } + ["action", "session_id"]
       if type.to_s == "delete"
-        fields = [:id, :revision, :action, :session_id]
-        values = ["OLD.id", "OLD.revision+1", "'#{type}'", current_session_id]
+        values = table.columns.map { |c| (c == :revision) ? "OLD.#{c}+1" : "OLD.#{c}" }          
       else
-        fields = table.columns.map { |c| "`#{c}`" } + ["action", "session_id"]
         if DB.database_type == :sqlite && type.to_s == "update"
           # With sqlite, we need to increment the revision on update
           values = table.columns.map { |c| (c == :revision) ? "NEW.#{c}+1" : "NEW.#{c}" }          
         else
           values = table.columns.map { |c| "NEW.#{c}" }
         end
-        values += ["'#{type}'", current_session_id]
       end
+      values += ["'#{type}'", current_session_id]
 
       %Q{
       INSERT INTO #{revision_table_name} (#{fields.join(",")}) 
