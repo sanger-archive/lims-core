@@ -82,9 +82,21 @@ module Lims::Core
           # by defining a specific persistor.
 
           seeds = collect_direct_states(user_session)
-          Sequel::RevisionFinder::Session.new(@session.store, user_session.id).load_from_external_states(seeds, @session) do |finder_session|
+          states = Sequel::RevisionFinder::Session.new(@session.store, user_session.id).load_from_external_states(seeds, @session) do |finder_session|
             finder_session.object_states
           end
+
+          # We also need to load seeds from the previous revision in case
+          # a dependency reference as changed to a new one.
+          # The revision table form user_session will link to the new dependency
+          # but the old dependency is also counted as 'related' and needs to be loaded
+          resources = Set.new(states.map(&:key))
+          Sequel::RevisionFinder::Session.new(@session.store, user_session.id-1).load_from_external_states(seeds, @session) do |finder_session|
+            finder_session.object_states.each do |s|
+              states << s unless resources.include?(s.key)
+            end
+          end
+          states
         end
 
         def revisions_for(user_session)

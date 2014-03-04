@@ -184,7 +184,7 @@ module Lims::Core
                   it_behaves_like "retrieving all modified resources", 1, [[:name, 1], [:user, 1]]
                   it_behaves_like "retrieving all modified resources", 2, [[:name, 1], [:user, 1]]
                   it_behaves_like "retrieving all modified resources", 3, [[:name, 1], [:user, 1]]
-                  it_behaves_like "retrieving all modified resources", 4, [[:name, 2], [:user, 1]]
+                  it_behaves_like "retrieving all modified resources", 4, [[:name, 1], [:name, 2], [:user, 1]]
                 end
               end
 

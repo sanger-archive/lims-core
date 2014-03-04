@@ -166,6 +166,10 @@ module Lims::Core
         new_persistor = session.persistor_for(persistor.model)
         new_persistor.create_resource_state(nil, id)
       end
+
+      def key
+        [persistor && persistor.model, id]
+      end
     end
   end
 end
