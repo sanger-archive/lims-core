@@ -25,9 +25,55 @@ module Lims::Core
       attribute :success, Boolean
       attribute :start_time, Time
       attribute :end_time, Time
+      attribute :parent_session, Session, :writer => :private, :initializable => true
 
-      def session
-        raise NotImplementedError, "session method not implemented for #{self.class}"
+      def with_session
+        persistor.revision_session_for(self).with_session { |s| yield(s) }
+      end
+
+      def persistor
+        parent_session.user_session
+      end
+
+      # Returns a list of ResourceState corresponding to all the
+      # resources directly modified by this session.
+      # Resources depending on a modified resource
+      # which haven't been modified themself won't be return.
+      # For this see @collect_related_states
+      # For example if an aliquot of a plate has been modified,
+      # only this aliquot will be returned. The plate won't be returned
+      # even though it has been modified indirectly
+      # @return [StateList]
+      def collect_direct_states()
+        persistor.collect_direct_states(self)
+      end
+
+      # Returns a list of ResourceState corresponding to all
+      # resources directly or indirectly modified by this session.
+      # Example, if an aliquot of a plate has been modified by this session
+      # The plate, and the aliquot will be returned.
+      def collect_related_states()
+        persistor.collect_related_states(self)
+      end
+
+      # Load directly modified objects
+      def direct_revisions
+        revisions_for(collect_direct_states)
+      end
+
+      # Retrieve the Revisions corresponding to a set of Resource
+      # or ResourceState . If Resource are used instead of ResourceState,
+      # external session MUST be provided.
+      def revisions_for(objects, external_session=nil)
+        with_session do |session|
+          session.load_from_external_states(objects, external_session) do |_, resource_states|
+            resource_states.map(&:revision)
+          end
+        end
+      end
+
+      def related_revisions
+        revisions_for(collect_related_states)
       end
 
       def method_missing(*args, &block)

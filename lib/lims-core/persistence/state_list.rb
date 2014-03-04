@@ -22,6 +22,10 @@ module Lims::Core
         end
       end
 
+      def map_as_state_list(&block)
+        new { map(&block) }
+      end
+
       def new(&block)
         self.class.new(block.call)
       end

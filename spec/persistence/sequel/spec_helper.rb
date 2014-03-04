@@ -44,6 +44,9 @@ module Lims::Core::Persistence
       attribute :name, String
       class NamePersitor < Lims::Core::Persistence::Persistor
         Model = Name
+        def load_dependencies(states, *params)
+          @session.user.find_by(:name_id => states.map { |state| state.id } )
+        end
       end
     end
 
@@ -53,7 +56,7 @@ module Lims::Core::Persistence
       attribute :name, Name
       attribute :email, String
 
-      does "lims/core/persistence/persistable", :parents => [:name]
+      does "lims/core/persistence/persistable", :parents => [{:name => :name, :depends => true }]
     end
   end
 
@@ -73,6 +76,4 @@ module Lims::Core::Persistence
       end
     }
   end
-
-
 end

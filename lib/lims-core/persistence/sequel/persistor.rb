@@ -94,7 +94,7 @@ module Lims::Core
         public :bulk_load
 
         def ids_for(criteria)
-          dataset.select(qualified_key).filter(criteria).map { |h| h[primary_key] }
+          dataset.select(qualified_key).distinct.filter(criteria).map { |h| h[primary_key] }
 
         end
 

@@ -3,6 +3,7 @@ require 'lims-core/persistence/sequel/persistor'
 
 require 'lims-core/persistence/sequel/revision/session'
 require 'lims-core/persistence/sequel/session_finder/session'
+require 'lims-core/persistence/sequel/revision_finder/session'
 
 
 module Lims::Core
@@ -27,25 +28,79 @@ module Lims::Core
           collect_user_session_states(objects)
         end
 
-
+        # Find all the resources modified directly or 
+        # indirecty by a session.
         def collect_user_session_states(objects)
-          finder_session = Sequel::SessionFinder::Session.new(@session.store)
-          resource_states = StateList.new(objects.map do |object|
-              case object
-              when ResourceState then object.new_for_session(finder_session)
-              when Resource then @session.state_for(object).new_for_session(finder_session)
-              end
-            end
-          )
+          #
 
-          resource_states.load
-
-          finder_session.session_ids.to_a.sort
+          Sequel::SessionFinder::Session.new(@session.store).with_session do |finder_session|
+            finder_session.load_from_external_states(objects, @session)
+            finder_session.session_ids.to_a.sort
+        end
 
         end
 
-        protected
-        def session_ids_for_resource_state(resource_state)
+        # Get the persistor corresponding to a table.
+        # @param [String] Tab
+        def self.persistor_for_table_name(table_name, session)
+          @table_name_to_persistor_class_map ||= build_table_name_to_persistor_map
+          session.persistor_for(@table_name_to_persistor_class_map[table_name]::Model)
+        end
+
+        # Build the association map 'table_name' to persistor class
+        # by iterating over all the persistors and inspecting their table name.
+        def self.build_table_name_to_persistor_map
+          map = {}
+          Lims::Core::Resource.subclasses.each do |subclass|
+            begin
+              persistor_class = Sequel::Session.persistor_class_for(subclass)
+              if persistor_class.respond_to? :table_name
+                map[persistor_class.table_name.to_s] = persistor_class
+              end
+            rescue
+            end
+          end
+          map
+        end
+
+        def collect_direct_states(user_session)
+          StateList.new(@session.revision.dataset.filter(:session_id => user_session.id).map do |row|
+              persistor_name = row[:revision_table]
+              persistor = self.class.persistor_for_table_name(persistor_name, @session)
+              persistor.state_for_id(row[persistor.primary_key]) if persistor
+            end.compact)
+        end
+
+
+
+        # Find all resources directly or indirectly modified
+        # by a user session.
+        def collect_related_states(user_session)
+          # We start by finding the directly modified resources as seed
+          # and follow their children and parents.
+          # Normal persistor behavior can be overidden
+          # by defining a specific persistor.
+
+          seeds = collect_direct_states(user_session)
+          states = Sequel::RevisionFinder::Session.new(@session.store, user_session.id).load_from_external_states(seeds, @session) do |finder_session|
+            finder_session.object_states
+          end
+
+          # We also need to load seeds from the previous revision in case
+          # a dependency reference as changed to a new one.
+          # The revision table form user_session will link to the new dependency
+          # but the old dependency is also counted as 'related' and needs to be loaded
+          resources = Set.new(states.map(&:key))
+          Sequel::RevisionFinder::Session.new(@session.store, user_session.id-1).load_from_external_states(seeds, @session) do |finder_session|
+            finder_session.object_states.each do |s|
+              states << s unless resources.include?(s.key)
+            end
+          end
+          states
+        end
+
+        def revisions_for(user_session)
+          @session.revision[{:session_id => user_session.id}, false]
         end
       end
     end

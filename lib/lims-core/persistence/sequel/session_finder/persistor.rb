@@ -1,40 +1,29 @@
 require 'lims-core/persistence/sequel/persistor'
+require 'lims-core/persistence/revision_persistor'
 
 module Lims::Core
   module Persistence
     module Sequel
       module SessionFinder
         module Persistor
-          class ResourceStateX < Persistence::ResourceState
-          end
           def self.included(klass)
             klass.class_eval do
               include Sequel::Persistor
-              def self.table_name
-                :"#{super}_revision"
-              end
-            end
-
-            def create_resource_stateX(resource, id=nil)
-              self.class::ResourceState.new(resource, self, id)
-            end
-
-            def new_from_attributes(attributes)
-              Persistence::Revision.new.tap do |revision|
-                resource_id = attributes[:id]
-                @session.session_ids << attributes.delete(:session_id)
-
-                # we don't need to create the resource
-                #revision.resource = super(attributes) if revision.action != 'delete'
-                
-                # create state so that children can be loaded from it.
-                @id_to_state[resource_id]
-              end
+              include Persistence::Revision::UseRevisionTables
             end
           end
 
-          def revision_for(id)
-            state_for_id(id).revision
+          def new_from_attributes(attributes)
+            Persistence::Revision.new.tap do |revision|
+              resource_id = attributes[:id]
+              @session.session_ids << attributes.delete(:session_id)
+
+              # we don't need to create the resource
+              #revision.resource = super(attributes) if revision.action != 'delete'
+
+              # create state so that children can be loaded from it.
+              @id_to_state[resource_id]
+            end
           end
         end
       end

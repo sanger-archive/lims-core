@@ -16,8 +16,12 @@ module Lims::Core
       attribute :action, String
       attribute :session_id, Object
 
-      attribute :resource, Object
+      attribute :state, ResourceState
+      attribute :model, Object
 
+      def resource
+        state.resource
+      end
     end
   end
 end

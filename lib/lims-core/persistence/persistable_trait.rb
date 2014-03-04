@@ -24,6 +24,7 @@ module Lims::Core
         deletable_parents = []
         session_names = {}
         skip_parents_for_attributes = {}
+        parent_dependencies = []
 
 
         args[:parents].andtap do |_parents|
@@ -35,6 +36,15 @@ module Lims::Core
               session_names[name] =  parent[:session_name] || name
               skip_parents_for_attributes[name] = parent[:skip_parents_for_attributes] 
               deletable_parents << name if parent[:deletable]
+              dependency = false
+              dependency = true if skip_parents_for_attributes[name]
+              # If the parent is deletable, e.g. An Aliquot parent of a Well
+              # This means the children depends on the parent, not the reverse
+              dependency = false if parent[:deletable]
+              parent.fetch(:depends,nil).tap do |v|
+                dependency = v unless v.nil?
+              end
+              parent_dependencies << name if dependency
             else
               name = parent.to_s
               session_names[name] =  name
@@ -93,8 +103,20 @@ module Lims::Core
                   end.join(',') }
             ]
           end
+          def dependencies_for_attributes(attributes)
+            [
+              #{ parent_dependencies.map do |p|
+                  "(@session_#{p} ||= @session.#{session_names[p]}).state_for_id(attributes[:#{p}_id])" 
+                  end.join(',') }
+            ]
+          end
           EOC
+
+          # Add reverse dependencies to parents
+          # @Todo opitmize if slow
+          parents.reject { |p| parent_dependencies.include?(p) }.each { |parent| register_dependency(parent, "#{parent.snakecase}_id") }
         end
+
         unless children.empty? 
           class_eval <<-EOC
           def children(resource)
@@ -108,12 +130,12 @@ module Lims::Core
           end
 
           def load_children(states)
-              #{
-                children.map do |child|
-                  "#{child}.find_by(:#{model_name.snakecase}_id => states.map(&:id))"
-                end.join(';')
-              }
-              1
+            #{
+              children.map do |child|
+                "#{child}.find_by(:#{model_name.snakecase}_id => states.map(&:id))"
+              end.join(';')
+            }
+            1
           end
           EOC
         end

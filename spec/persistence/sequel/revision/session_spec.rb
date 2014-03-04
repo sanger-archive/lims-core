@@ -3,12 +3,43 @@ require 'persistence/sequel/revision/spec_helper'
 require 'lims-core/persistence/user_session'
 require 'lims-core/persistence/sequel/user_session_sequel_persistor'
 
-shared_examples "user" do |session_id, email, name|
+shared_examples "retrieving user" do |session_id, email, name|
   context "for session # #{session_id}" do
     subject { for_session(session_id) { |session| session.user[1] } }
     it "has the correct email" do subject.email.should == email end
-  it "has the correct name" do subject.name.name.should == name end
+    it "has the correct name" do subject.name.name.should == name end
+  end
 end
+
+shared_examples "retrieving direct revisions" do |session_id, expected_revisions|
+  context "for session # #{session_id}" do
+    subject { store.with_session do |session|
+        # Normally we should load the session found in the sessions table
+        # However we are not testing the load of UserSession so we just mock it.
+        user_session =  Lims::Core::Persistence::UserSession.new(:id => session_id, :parent_session => session)
+        user_session.direct_revisions
+      end
+  }
+    it "has the correct resources" do
+      got = subject.map { |state| %w(id action model).mash { |s| [s.to_sym, state.send(s)]  } }
+      got.should == expected_revisions
+    end
+  end
+end
+shared_examples "retrieving all modified resources" do |session_id, expected_resource_states|
+  context "for session # #{session_id}" do
+    subject { store.with_session do |session|
+        # Normally we should load the session found in the sessions table
+        # However we are not testing the load of UserSession so we just mock it.
+        user_session =  Lims::Core::Persistence::UserSession.new(:id => session_id, :parent_session => session)
+        user_session.collect_related_states
+      end
+  }
+    it "has the correct resources" do
+      got = subject.map { |state| [Lims::Core::Persistence::Sequel::Session::model_to_name(state.persistor.model).to_sym, state.id] }
+      got.sort.should == expected_resource_states.sort
+    end
+  end
 end
 
 module Lims::Core
@@ -118,14 +149,43 @@ module Lims::Core
                     { "session_id" => 3, "id" => 1, "name_id" => 1, "email" => "john.smith@gmail.com", "revision" => 2, "action" => "update" },
                     { "session_id" => 4, "id" => 1, "name_id" => 2, "email" => "john.smith@gmail.com", "revision" => 3, "action" => "update" },
                   ])
+                    view_code = "CREATE VIEW revisions AS " + %w(names users) .map do |table_name|
+                      revision_table = "#{table_name}_revision"
+                      %Q{ SELECT '#{table_name}' AS revision_table,
+                        id,
+                        action,
+                        session_id
+                        FROM #{revision_table}
+
+                      }
+                    end.join(' UNION ')
+                    store.database << view_code
 
               }
               context "for a specific revision" do
                 let(:name) { subject.name.name }
-                it_behaves_like "user", 1, "john.smith@example.com", 'jon'
-                it_behaves_like "user", 2, "john.smith@example.com", 'john'
-                it_behaves_like "user", 3, "john.smith@gmail.com", 'john'
-                it_behaves_like "user", 4, "john.smith@gmail.com", 'John'
+                context "retrieves resources" do
+                  it_behaves_like "retrieving user", 1, "john.smith@example.com", 'jon'
+                  it_behaves_like "retrieving user", 2, "john.smith@example.com", 'john'
+                  it_behaves_like "retrieving user", 3, "john.smith@gmail.com", 'john'
+                  it_behaves_like "retrieving user", 4, "john.smith@gmail.com", 'John'
+                end
+
+                context "retrieves direct resources" do
+                  before(:all) {
+                  }
+                  it_behaves_like "retrieving direct revisions", 1, [{:id => 1, :action=> "insert", :model => ForTest::Name}, {:id =>1, :action=> "insert", :model => ForTest::User}]
+                  it_behaves_like "retrieving direct revisions", 2, [{:id => 1, :action=> "update", :model => ForTest::Name}]
+                  it_behaves_like "retrieving direct revisions", 3, [{:id =>1, :action=> "update", :model => ForTest::User}]
+                  it_behaves_like "retrieving direct revisions", 4, [{:id => 2, :action=> "insert", :model => ForTest::Name}, {:id =>1, :action=> "update", :model => ForTest::User}]
+                end
+
+                context "retrieves all resources" do
+                  it_behaves_like "retrieving all modified resources", 1, [[:name, 1], [:user, 1]]
+                  it_behaves_like "retrieving all modified resources", 2, [[:name, 1], [:user, 1]]
+                  it_behaves_like "retrieving all modified resources", 3, [[:name, 1], [:user, 1]]
+                  it_behaves_like "retrieving all modified resources", 4, [[:name, 1], [:name, 2], [:user, 1]]
+                end
               end
 
               context "for a specific resource" do        
