@@ -21,10 +21,9 @@ module Lims::Core
       UnrevertableAction = Class.new(StandardError)
       def self.included(klass)
         klass.class_eval do
-          include Virtus
-          include Aequitas
+          include Base
           attribute :store, Persistence::Store, :required => true
-          attribute :user, String, :required => true
+          attribute :user, Object, :required => true, :writer => :private, :initializable => true
           attribute :application, String, :required => true
           attribute :result, Object
           include AfterEval # hack so initialize would be called properly
@@ -59,8 +58,8 @@ module Lims::Core
         # @return the value return by the block
         # @yieldparam [Action] a self
         # @yieldparam [Session]  session the current session.
-        def call(&after_save)
-          with_session do |session| 
+        def call(session=nil, &after_save)
+          with_session(session) do |session| 
             execute_and_store_result(session, &after_save)
           end.andtap { |block| block.call }
         end
@@ -103,6 +102,7 @@ module Lims::Core
 
               attribute_errors = []
               params.each do |key, value|
+                next if %w(user application_id).include?(key.to_s)
                 begin
                   send("#{key}=", value)
                 rescue NoMethodError => e
