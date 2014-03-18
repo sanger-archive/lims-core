@@ -44,6 +44,12 @@ module Lims::Core
         @saved = Set.new
         @persistor_map = {}
         @dirty_attribute_strategy = @store.dirty_attribute_strategy
+
+        
+        options = params.extract_options!
+        @user ||= options[:user]
+        @backend_application_id ||= options[:backend_application_id]
+        @parameters ||= options[:parameters]
       end
 
 
@@ -64,6 +70,26 @@ module Lims::Core
         ensure
           @in_session = false
         end
+      end
+      # Subsession allow to create a session
+      # within a session sharing the same persistor
+      # but saving only the object managed by the subsession.
+      # The current implementation doesn't create new session
+      # but just push some session attributes.
+      # The problem about creating a new Session, we want them 
+      # to share ResourceState, but a state own a persistor which in
+      # turn own a session, so it's easier if the session is the same.
+      def with_subsession(*params, &block)
+        backup = [@object_states, @in_session, @saved]
+        @object_states = StateList.new
+        @in_session = false
+        @saved = Set.new
+
+        return_value = with_session(*params, &block)
+        
+        @object_states, @in_session, @saved = backup
+
+        return_value
       end
 
 
@@ -105,7 +131,9 @@ module Lims::Core
         end
       end
 
-      # @todo
+      # Get or creates the ResourceState corresponding to an object.
+      # @param [Resource] object
+      # @return [ResourceState]
       def state_for(object)
         return persistor_for(object).state_for(object)
       end
@@ -129,8 +157,7 @@ module Lims::Core
       # @param [Resource] object
       # @return [Boolean]
       def managed?(object)
-        state = state_for(object)
-        @object_states.include?(state)
+        persistor_for(object).state_for?(object)
       end
 
       # Mark an object as to be deleted.
@@ -188,13 +215,21 @@ module Lims::Core
       private
       # save all objects which needs to be
       def save_all()
-        @store.transaction do
+        transaction do
           @save_in_progress = true # allows saving
           @object_states.reset_status
           @object_states.save
           end
         @save_in_progress = false
       end
+
+      # Execute the provided block within a transaction
+      # Here to be overriden if needed
+      def transaction
+        @store.transaction do
+         yield
+       end
+     end
 
       # Create a new persistor sharing the same internal parameters
       # but with the "context" (datasest) of the new one.
