@@ -31,6 +31,16 @@ module Lims::Core
           @session.class::parent_scope::Revision::Session.new(@session.store, user_session.id)
         end
 
+        def filter_attributes_on_load(attributes, *params)
+          attributes.tap do |att|
+            att[:parent_session] = @session
+          end
+        end
+
+        def with_session(session_id)
+          model.new(:id => session_id, :parent_session => @session).with_session
+        end
+
         # Returns a list of ResourceState corresponding to all the
         # resources directly modified by this session.
         # Resources depending on a modified resource
