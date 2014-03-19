@@ -83,10 +83,6 @@ module Lims::Core
       def related_revisions
         revisions_for(collect_related_states)
       end
-
-      def method_missing(*args, &block)
-        session.public_send(*args, &block)
-      end
     end
   end
 end

@@ -163,6 +163,7 @@ module Lims::Core
 
       # Duplicate the ResourceState but link it to another session
       def new_for_session(session)
+        return self if session == self.persistor.instance_eval { @session }
         new_persistor = session.persistor_for(persistor.model)
         new_persistor.create_resource_state(nil, id)
       end

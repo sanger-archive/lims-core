@@ -27,6 +27,12 @@ module Lims::Core
               self.class::ResourceState.new(resource, self, id)
             end
 
+            def ids_for(criteria)
+              dataset.select(qualified_key).join(
+                dataset.select{::Sequel.as(max(:session_id), :session_id)}.filter(criteria), 
+                :session_id => :session_id).filter(criteria).map { |h| h[primary_key] }
+            end
+
             def find_ids_from_internal_ids(internal_ids)
               dataset.select_group(primary_key).
               select_more{::Sequel.as(max(:session_id), :session_id)}.filter(primary_key => internal_ids.map(&:id), :session_id => 1..session_id )

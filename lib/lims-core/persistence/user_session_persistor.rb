@@ -37,6 +37,10 @@ module Lims::Core
           end
         end
 
+        def with_session(session_id)
+          model.new(:id => session_id, :parent_session => @session).with_session
+        end
+
         # Returns a list of ResourceState corresponding to all the
         # resources directly modified by this session.
         # Resources depending on a modified resource
