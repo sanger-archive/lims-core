@@ -85,7 +85,11 @@ module Lims::Core
         end
 
         def qualified_key
-          @qualified_key ||= ::Sequel.qualify(self.class.table_name, primary_key)
+          @qualified_key ||= qualify(primary_key)
+        end
+
+        def qualify(column)
+          ::Sequel.qualify(self.class.table_name, column)
         end
 
         def bulk_load(ids, *params, &block)

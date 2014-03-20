@@ -28,10 +28,33 @@ module Lims::Core
             end
 
             def ids_for(criteria)
-              dataset.select(qualified_key).join(
-                dataset.select{::Sequel.as(max(:session_id), :session_id)}.filter(criteria), 
-                :session_id => :session_id).filter(criteria).map { |h| h[primary_key] }
+              # First we need to get all the ids of the objects which matched the criteria at some point
+              # in the past
+              matching_ids = dataset.select(qualified_key).filter(criteria).filter(:session_id => 1..session_id)
+
+              # We need to get the latest version of thoses object
+              #
+              ids_and_sessions = dataset.select_group(qualified_key).select_more{
+                ::Sequel.as(max(:session_id), :session_id)
+              }.join(matching_ids,
+                :id => :id,
+              ).filter(:session_id => 1..session_id)
+
+
+              # Load object id if the last state matches the criteria
+              d = dataset.select(qualified_key, :action, qualify(:session_id) ).join(ids_and_sessions, {
+                :id => :id,
+                :session_id => :session_id
+              }
+              ).filter(criteria)
+              # However we are not interested in deleted object except if they match the 
+              # current session. If they don't, they don't exist in the current database state.
+              # We do the filter in ruby, as it seems impossible to write it using Sequel.
+              # Problem encountered within a virtual block is either
+              # columnn are  non qualified or local variable seen as column.
+              d.map.select { |h| h[:session_id] == session_id || h[:action] != "delete"}.map { |h| h[primary_key] }
             end
+
 
             def find_ids_from_internal_ids(internal_ids)
               dataset.select_group(primary_key).
