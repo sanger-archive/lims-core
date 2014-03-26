@@ -13,7 +13,7 @@ module Lims::Core
         klass.class_eval do 
           include Action
           include AfterEval
-          attribute :actions, Array, :required => true, :writer => :private , :reader => :private
+          attribute :actions, Array, :required => true, :writer => :private , :reader => :private, :initializable => true
         end
 
       end

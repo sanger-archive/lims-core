@@ -60,6 +60,79 @@ module Lims::Core
             block.call(*datasets.map(&:for_update))
           end
         end
+
+        # Return the parameters needed for the creation
+        # of a session object. It use session attributes
+        # which have been set at contruction time.
+        # This allow the same session to be reopen multiple times
+        # and create each time a new session with the same parameters.
+        # @return [Hash]
+        def session_object_parameters
+          {:user => @user ,
+            :backend_application_id => @backend_application_id,
+            :parameters => serialize(@parameters) || nil 
+          }
+        end
+
+        # Override with_session to create a session object
+        # needed by the database to update revision.
+        # session object are create from the parameters
+        # If the session can't be created due to the lack of parameters.
+        # Nothing is created.
+        def with_session(*params, &block)
+          create_session = true
+          success = false
+
+          # @todo Subclass Session for Sql adapter
+          if database.database_type == :sqlite
+            create_session = false
+          else
+            previous_session_id = database.fetch("SELECT @current_session_id AS id").first[:id]
+            create_session = false if previous_session_id
+          end
+
+          # UAT Blood reception branch: do not create the session
+          create_session = false
+
+          if create_session
+            session_id = database[:sessions].insert(session_object_parameters)
+            set_current_session(session_id)
+          end
+
+          begin
+            result = super(*params, &block)
+            success = true
+          ensure
+            if create_session
+              # mark it as finished
+              database[:sessions].where(:id => session_id).update(:end_time => DateTime.now, :success => success)
+              set_current_session(nil)
+            end
+          end
+
+          return result
+        end
+
+        def get_current_session
+          return if database.database_type == :sqlite
+          database.fetch("SELECT @current_session_id AS id").first[:id]
+        end
+
+        def set_current_session(current_session_id=@current_session_id)
+          return if database.database_type == :sqlite
+          database.run "SET @current_session_id = #{current_session_id ? current_session_id : "NULL"};"
+          @current_session_id = current_session_id
+        end
+
+        def transaction
+          super do
+            # Set the current_session_id again
+            # in case it's been overriden by another thread.
+            # Solves bug #64570338
+            set_current_session
+            yield
+          end
+        end
       end
     end
   end

@@ -9,7 +9,7 @@ require 'aequitas/virtus_integration'
 
 class Object
   def andtap(&block)
-    self && (block ? block[self] : self)
+    self && (block ? block.call(self) : self)
   end
 
   def self.parent_scope()
