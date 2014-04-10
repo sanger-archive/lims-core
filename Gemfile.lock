@@ -1,8 +1,8 @@
 PATH
   remote: .
   specs:
-    lims-core (3.2.0.rc1)
-      active_support
+    lims-core (3.2.1)
+      activesupport
       aequitas
       bunny (= 0.9.0.pre10)
       dm-validations
@@ -17,10 +17,8 @@ GEM
   remote: http://rubygems.org/
   specs:
     ZenTest (4.9.3)
-    active_support (3.0.0)
-      activesupport (= 3.0.0)
     activesupport (3.0.0)
-    addressable (2.3.5)
+    addressable (2.3.6)
     aequitas (0.0.2)
     amq-protocol (1.9.2)
     autotest (4.4.6)
@@ -54,7 +52,6 @@ GEM
       dm-core (~> 1.2.0)
     facets (2.9.3)
     ffi (1.9.0)
-    ffi (1.9.0-java)
     formatador (0.2.4)
     gli (2.7.0)
     guard (1.8.2)
