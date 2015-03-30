@@ -4,7 +4,7 @@ module Lims
     # Each user need to add an x, in its appropriate section (this will
     # avoid collision)
     # and clear eventually the minor version of everybody .
-    # Please leave the marker of other developper
+    # Please leave the marker of other developer
     #
     MINOR_DEV = %{
     --llh1
@@ -17,6 +17,7 @@ module Lims
     --llh1
     x
     --ke4
+    x
     --mb14
     x
     x
