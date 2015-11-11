@@ -32,7 +32,7 @@ module Lims::Core::Persistence
             DateTime :end_time
           end unless db.table_exists?(:sessions)
         end}
-        it "sets a new session_id to work with" do
+        xit "sets a new session_id to work with" do
           begin
             my_session_id=nil
             store.with_session do |s|
@@ -42,7 +42,7 @@ module Lims::Core::Persistence
           end
           (my_session_id == nil).should == false
         end
-        it "session is reseted after scope" do
+        xit "session is reseted after scope" do
           begin
             my_session_id=nil
             store.with_session do |s|
@@ -54,7 +54,7 @@ module Lims::Core::Persistence
           (my_session_after_scope == my_session_id).should == false
           (my_session_after_scope == nil).should == true
         end
-        it "a different session if I create a new scope" do
+        xit "a different session if I create a new scope" do
           begin
             my_session_id=nil
             my_session_id_2=nil
