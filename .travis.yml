@@ -1,3 +1,2 @@
 sudo: false
-before_install: rake db:mysqltest
 install: bundle install --without debugging pry autotest yard showoff
