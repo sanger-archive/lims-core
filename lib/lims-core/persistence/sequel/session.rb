@@ -43,7 +43,7 @@ module Lims::Core
         def lock(datasets, unlock=false, &block)
           datasets = [datasets] unless datasets.is_a?(Array)
           db = datasets.first.db
-          
+
           # sqlite3 handles lock differently.
           # @TODO create Session Subclass for each database type.
           return lock_for_update(datasets, &block) if db.database_type == :sqlite
@@ -70,7 +70,7 @@ module Lims::Core
         def session_object_parameters
           {:user => @user ,
             :backend_application_id => @backend_application_id,
-            :parameters => serialize(@parameters) || nil 
+            :parameters => serialize(@parameters) || nil
           }
         end
 
@@ -90,9 +90,6 @@ module Lims::Core
             previous_session_id = database.fetch("SELECT @current_session_id AS id").first[:id]
             create_session = false if previous_session_id
           end
-
-          # UAT Blood reception branch: do not create the session
-          create_session = false
 
           if create_session
             session_id = database[:sessions].insert(session_object_parameters)

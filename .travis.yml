@@ -1,1 +1,2 @@
+sudo: false
 install: bundle install --without debugging pry autotest yard showoff
